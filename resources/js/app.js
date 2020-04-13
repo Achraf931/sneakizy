@@ -10,12 +10,10 @@ import Admin from './views/Admin'
 import UserBoard from './views/UserBoard'
 import Sneaker from './views/SingleSneaker'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faBars, faShoppingBasket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faTimes)
-library.add(faBars)
+library.add(faTimes, faBars, faShoppingBasket)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueRouter)

@@ -22,6 +22,7 @@ Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@register');
 Route::get('/sneakers', 'SneakerController@index');
 Route::get('/sneakers/{id}', 'SneakerController@show');
+Route::get('/basket', 'BasketController@show');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/users','UserController@index');

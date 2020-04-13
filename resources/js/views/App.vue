@@ -62,7 +62,7 @@
     }
 
     main {
-        padding: 0 0 50px 0;
+        padding: 0;
         width: 100%;
         max-width: 100vw;
     }

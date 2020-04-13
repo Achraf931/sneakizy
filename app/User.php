@@ -42,4 +42,8 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany(Order::class);
     }
+
+    public function basket(){
+        return $this->belongsTo(Basket::class);
+    }
 }

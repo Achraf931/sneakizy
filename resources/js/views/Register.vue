@@ -1,64 +1,21 @@
-
 <template>
-        <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Register</div>
-
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" v-model="lastname" required autofocus>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="firstname" class="col-md-4 col-form-label text-md-right">Firstname</label>
-
-                                <div class="col-md-6">
-                                    <input id="firstname" type="text" class="form-control" v-model="firstname" required autofocus>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" v-model="email" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" v-model="password" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" v-model="password_confirmation" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary" @click.prevent="handleSubmit">
-                                        Register
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="register">
+        <div class="leftBlack"></div>
+        <div class="rightBlock">
+            <form>
+                <h2>Register</h2>
+                <label for="name">Name</label>
+                <input id="name" type="text" v-model="lastname" required autofocus>
+                <label for="firstname">Firstname</label>
+                <input id="firstname" type="text" v-model="firstname" required autofocus>
+                <label for="email">E-Mail Address</label>
+                <input id="email" type="email" v-model="email" required>
+                <label for="password">Password</label>
+                <input id="password" type="password" v-model="password" required>
+                <label for="password-confirm">Confirm Password</label>
+                <input id="password-confirm" type="password" v-model="password_confirmation" required>
+                <button type="submit" @click.prevent="handleSubmit">Register</button>
+            </form>
         </div>
     </div>
 </template>
@@ -66,40 +23,39 @@
 <script>
     export default {
         name: 'register',
-        props : ['nextUrl'],
-        data(){
+        props: ['nextUrl'],
+        data() {
             return {
-                lastname : "",
-                firstname : "",
-                email : "",
-                password : "",
-                password_confirmation : ""
+                lastname: "",
+                firstname: "",
+                email: "",
+                password: "",
+                password_confirmation: ""
             }
         },
-        methods : {
+        methods: {
             handleSubmit(e) {
-                if (this.password === this.password_confirmation && this.password !== '')
-                {
+                if (this.password === this.password_confirmation && this.password !== '') {
                     axios.post('/api/register', {
                         lastname: this.lastname,
                         firstname: this.firstname,
                         email: this.email,
                         password: this.password,
-                        c_password : this.password_confirmation
-                      })
-                      .then(response => {
-                          let data = response.data
-                          localStorage.setItem('user', JSON.stringify(data.user))
-                          localStorage.setItem('jwt', data.token)
-                          if (localStorage.getItem('jwt') != null) {
-                              this.$emit('loggedIn')
-                              let nextUrl = this.$route.params.nextUrl
-                              this.$router.push((nextUrl != null ? nextUrl : '/'))
-                          }
-                      })
-                      .catch(error => {
-                        console.error(error);
-                      });
+                        c_password: this.password_confirmation
+                    })
+                        .then(response => {
+                            let data = response.data
+                            localStorage.setItem('user', JSON.stringify(data.user))
+                            localStorage.setItem('jwt', data.token)
+                            if (localStorage.getItem('jwt') != null) {
+                                this.$emit('loggedIn')
+                                let nextUrl = this.$route.params.nextUrl
+                                this.$router.push((nextUrl != null ? nextUrl : '/'))
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
                 } else {
                     this.password = ""
                     this.passwordConfirm = ""
@@ -109,3 +65,82 @@
         }
     }
 </script>
+<style lang="scss" scoped>
+    .register {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > div {
+            width: 50%;
+            height: 100%;
+        }
+
+        & > .leftBlack {
+            background: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/87210d28129331.5637016dd9d83.jpg') no-repeat;
+            background-size: 100% 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 80px;
+        }
+
+        & > .rightBlock {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            form {
+                max-width: 300px;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                background: #F7F7F7;
+                padding: 15px;
+                border-radius: 10px;
+
+                h2 {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+
+                label {
+                    font-weight: bold;
+                }
+
+                input {
+                    max-width: 300px;
+                    width: 100%;
+                    border: 1px solid lightgray;
+                    padding: 10px 15px;
+                    font-size: 16px;
+                    border-radius: 10px;
+                    margin-bottom: 10px;
+                }
+                button {
+                    margin-top: 10px;
+                    max-width: 300px;
+                    width: 100%;
+                    color: white;
+                    background: black;
+                    cursor: pointer;
+                    border: 1px solid black;
+                    padding: 10px 15px;
+                    font-weight: bold;
+                    font-size: 16px;
+                    border-radius: 10px;
+                    transition-duration: 400ms;
+                }
+                button:hover {
+                    transition-duration: 400ms;
+                    background: white;
+                    color: black;
+                }
+            }
+        }
+    }
+</style>

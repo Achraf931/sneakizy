@@ -1,10 +1,10 @@
 <template>
     <div class="sneaker">
-        <img :src="sneaker.image" :alt="sneaker.name">
+        <img :src="'/storage/img/' + sneaker.image" :alt="sneaker.name">
         <div>
+            <h3>{{sneaker.name}}</h3>
+            <h3>{{sneaker.color}}</h3>
             <small>{{Math.round(sneaker.price)}}€</small>
-            <h1>{{sneaker.brand.name}}</h1>
-            <h2>{{sneaker.name}}</h2>
             <router-link :to="{name: 'sneaker', params: {id: sneaker.id}}">Voir</router-link>
         </div>
     </div>
@@ -20,7 +20,7 @@
         width: 100%;
         background: white;
         border-radius: 10px;
-        box-shadow: 0 9px 30px #EBEBEB;
+        box-shadow: 0 9px 30px #ebebeb82;
         padding: 20px;
         display: flex;
         flex-direction: column;
@@ -30,6 +30,7 @@
             width: 100%;
             max-height: 200px;
             object-fit: cover;
+            border-radius: 10px;
         }
 
         &> div {
@@ -40,17 +41,21 @@
                 color: white;
                 background: black;
                 padding: 5px 10px;
-                border-radius: 5px
+                border-radius: 5px;
+                position: absolute;
+                bottom: 0;
+                right: 0;
             }
-            & > h2 {
+            & > h3:nth-child(1) {
+                font-weight: bold;
+            }
+            & > h3:nth-child(2) {
+                font-weight: normal;
                 margin-bottom: 10px;
             }
             & > small {
-                position: absolute;
-                top: 0;
-                right: 0;
                 font-weight: bold;
-                margin-top: 5px;
+                font-size: 16px;
             }
         }
     }

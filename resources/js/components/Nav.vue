@@ -12,6 +12,10 @@
                 <router-link :to="{ name: 'admin' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
                 <li v-if="isLoggedIn" @click="logout"> Logout</li>
             </template>
+            <li style="position: relative;">
+                <font-awesome-icon style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="shopping-basket"/>
+                <div style="width: 10px; height: 10px; position: absolute; top: -5px; right: -5px; background: red; border-radius: 100%;"></div>
+            </li>
         </ul>
 
         <ul v-else id="mobileMenu">
@@ -106,7 +110,7 @@
         }
     }
     nav {
-        z-index: 100;
+        z-index: 70;
         position: fixed;
         width: 100vw;
         background: white;

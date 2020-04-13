@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Basket extends Model
 {
-    public function user()
+    public function sneakers()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Sneaker::class);
     }
 }

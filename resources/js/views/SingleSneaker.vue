@@ -3,43 +3,41 @@
         <article>
             <div>
                 <div>
-                    <img id="imgPrincipal" @click="openImage(sneaker.image)" :src="sneaker.image" :alt="sneaker.name">
+                    <img id="imgPrincipal" @click="openImage(sneaker.image)" :src="'/storage/img/' + sneaker.image"
+                         :alt="sneaker.name">
                 </div>
                 <div>
                     <div v-for="image in sneaker.images" :key="image.id">
-                        <img @click="changeImage(image.image)" class="img" :src="image.image" :alt="image.id">
+                        <img @click="changeImage(image.image)" class="img" :src="'/storage/img/' + image.image"
+                             :alt="image.id">
                     </div>
                 </div>
             </div>
 
             <div>
                 <div id="containerNamePrice">
-                    <h1>{{sneaker.brand.name}}</h1>
+                    <h1>{{sneaker.brand}}</h1>
                     <h2 style="color: lightgray">{{sneaker.name}}</h2>
                     <small>{{sneaker.price}}€</small>
                 </div>
                 <h3>{{sneaker.description}}</h3>
-                <template v-if="sneaker.stock > 0">
-                    <div id="containerSize">
-                        <h4>Sélectionner la taille</h4>
-                        <div>
-                            <p @click="selected">34</p>
-                            <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">35</p>
-                            <p>36</p>
-                            <p>37</p>
-                            <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">38</p>
-                            <p>39</p>
-                            <p>40</p>
-                            <p>41</p>
-                            <p>42</p>
-                            <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">43</p>
-                        </div>
+                <div id="containerSize">
+                    <h4>Sélectionner la taille</h4>
+                    <div>
+                        <p @click="selected">34</p>
+                        <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">35</p>
+                        <p>36</p>
+                        <p>37</p>
+                        <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">38</p>
+                        <p>39</p>
+                        <p>40</p>
+                        <p>41</p>
+                        <p>42</p>
+                        <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">43</p>
                     </div>
-                    <button id="addBasket">Ajouter au panier</button>
-                    <h3 style="color: #28A744;">En stock</h3>
-                </template>
-
-                <h3 v-else style="color: #DC3445; display: flex; justify-content: center; align-items: center;"><font-awesome-icon icon="times" style="margin-right: 5px;"/> Indisponible</h3>
+                </div>
+                <button id="addBasket">Ajouter au panier</button>
+                <h3 style="color: #28A744;">En stock</h3>
             </div>
         </article>
         <transition name="fade">
@@ -86,9 +84,10 @@
         },
         methods: {
             openImage(img) {
+                console.log(img)
                 this.show = true
                 setTimeout(() => {
-                    document.getElementById('imgShow').src = img
+                    document.getElementById('imgShow').src = '/storage/img/' + img
                 }, 10)
             },
             changeImage(img) {
@@ -192,6 +191,7 @@
                 margin-top: 30px;
                 display: grid;
                 grid-gap: 29px;
+                max-width: 888px;
                 width: 100%;
                 justify-content: start;
                 grid-auto-flow: column;
@@ -268,6 +268,7 @@
                 }
 
             }
+
             #addBasket {
                 padding: 10px 15px;
                 border-radius: 10px;
@@ -301,11 +302,13 @@
             }
         }
     }
+
     @media all and (max-width: 900px) {
         article > div:last-child {
             width: 100%;
         }
     }
+
     @media all and (max-width: 616px) {
         article {
             padding: 0 15px;

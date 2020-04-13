@@ -22,9 +22,8 @@ class CreateSneakersTable extends Migration
             $table->string('color')->nullable();
             $table->date('release_date');
             $table->string('image');
-            $table->integer('stock')->default(100);
             $table->integer('is_published')->default(1);
-            $table->integer('brand_id');
+            $table->string('brand');
             $table->softDeletes();
         });
     }

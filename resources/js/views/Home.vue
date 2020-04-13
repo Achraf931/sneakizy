@@ -44,16 +44,13 @@
 </script>
 
 <style lang="scss" scoped>
-    main {
-        padding: 0 0 50px 0!important;
-    }
     section:first-child {
         background: #2c3e50;
         height: 100vh;
         width: 100%;
     }
     section:last-child {
-        padding-top: 50px;
+        padding: 50px 0;
     }
     .containerSneakers {
         display: grid;
