@@ -2,9 +2,12 @@
     <nav>
         <div @click="closeMenu" v-if="menu === true" class="bg"></div>
         <router-link style="color: #2c3e50!important;" :to="{name: 'home'}">Sneakizy</router-link>
-        <font-awesome-icon @click="openMenu" v-if="window.width <= 363" icon="bars"/>
-        <ul v-if="window.width > 363">
+        <font-awesome-icon @click="openMenu" v-if="window.width <= 837" icon="bars"/>
+        <ul v-if="window.width > 837">
             <router-link :to="{name: 'home'}">Home</router-link>
+            <router-link :to="{name: 'catalog'}">Catalogue</router-link>
+            <router-link :to="{name: 'news'}">News</router-link>
+            <router-link :to="{name: 'contact'}">Contact</router-link>
             <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
             <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
             <template v-if="isLoggedIn">
@@ -13,13 +16,19 @@
                 <li v-if="isLoggedIn" @click="logout"> Logout</li>
             </template>
             <li style="position: relative;">
-                <font-awesome-icon style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="shopping-basket"/>
-                <div style="width: 10px; height: 10px; position: absolute; top: -5px; right: -5px; background: red; border-radius: 100%;"></div>
+                <router-link style="margin-left: 0;" :to="{name: 'basket'}">
+                    <font-awesome-icon style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="shopping-basket"/>
+                    <span v-if="basketItemCount > 0">{{basketItemCount}}</span>
+                </router-link>
+                <div v-if="basketItemCount > 0" style="width: 10px; height: 10px; position: absolute; top: -5px; right: -5px; background: red; border-radius: 100%;"></div>
             </li>
         </ul>
 
         <ul v-else id="mobileMenu">
             <router-link @click="closeMenu" :to="{name: 'home'}">Home</router-link>
+            <router-link :to="{name: 'catalog'}">Catalogue</router-link>
+            <router-link :to="{name: 'news'}">News</router-link>
+            <router-link :to="{name: 'contact'}">Contact</router-link>
             <router-link @click="closeMenu" :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
             <router-link @click="closeMenu" :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
             <template v-if="isLoggedIn">
@@ -31,6 +40,7 @@
     </nav>
 </template>
 <script>
+    import {mapGetters} from 'vuex'
     export default {
         props: ['lastname', 'isLoggedIn', 'is_admin'],
         data() {
@@ -41,6 +51,11 @@
                 },
                 menu: false
             }
+        },
+        computed: {
+            ...mapGetters({
+                basketItemCount: 'basket/basketItemCount'
+            })
         },
         created() {
             window.addEventListener('resize', this.handleResize);
@@ -134,12 +149,11 @@
             }
         }
     }
-    @media all and (max-width: 616px) {
+
+    @media all and (max-width: 837px) {
         nav {
-            padding: 20px 35px;
+            padding: 20px 15px;
         }
-    }
-    @media all and (max-width: 363px) {
         ul:first-child {
             display: none!important;
         }

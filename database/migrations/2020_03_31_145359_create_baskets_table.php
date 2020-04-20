@@ -17,6 +17,7 @@ class CreateBasketsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('sneaker_id');
+            $table->integer('quantity');
             $table->string('size');
             $table->integer('user_id')->nullable();
             $table->string('token')->nullable();

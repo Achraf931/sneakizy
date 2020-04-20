@@ -18,6 +18,7 @@ class SneakersTableSeeder extends Seeder
             $sneaker->release_date = $object->release_date;
             $sneaker->image = $object->image;
             $sneaker->brand = $object->brand;
+            $sneaker->brand_id = $object->brand_id;
             $sneaker->save();
         }
     }

@@ -16,18 +16,20 @@ export default {
         getSneakers(state, sneakers) {
             state.sneakers = sneakers
         },
-        addSneaker(state, {sneakers}) {
-            state.sneakers.push(sneakers)
+        addSneaker(state, {sneaker}) {
+            state.sneakers.unshift(sneaker)
         },
         setSneaker(state, sneaker) {
             state.sneaker = sneaker
         }
     },
     actions: {
-        addSneaker({commit}, sneakers) {
-            axios.post(`/api/sneakers`, sneakers)
-                .then(sneakers => {
-                    commit('addSneaker', {sneakers})
+        addSneaker({commit}, sneaker) {
+            axios.post(`/api/sneakers`, sneaker)
+                .then(res => {
+                    {
+                        commit('addSneaker', res.data)
+                    }
                 })
                 .catch(err => console.error(err))
         },

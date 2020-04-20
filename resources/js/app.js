@@ -7,8 +7,12 @@ import Home from './views/Home'
 import Login from './views/Login'
 import Register from './views/Register'
 import Admin from './views/Admin'
+import Basket from './views/Basket'
 import UserBoard from './views/UserBoard'
 import Sneaker from './views/SingleSneaker'
+import Catalog from './views/Catalog'
+import News from './views/News'
+import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTimes, faBars, faShoppingBasket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -27,9 +31,24 @@ const router = new VueRouter({
             component: Home
         },
         {
+            path: '/catalog',
+            name: 'catalog',
+            component: Catalog
+        },
+        {
+            path: '/news',
+            name: 'news',
+            component: News
+        },
+        {
             path: '/sneakers/:id',
             name: 'sneaker',
             component: Sneaker
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: Contact
         },
         {
             path: '/login',
@@ -49,6 +68,14 @@ const router = new VueRouter({
                 requiresAuth: false,
                 is_user : true,
                 title: 'Register'
+            }
+        },
+        {
+            path: '/basket',
+            name: 'basket',
+            component: Basket,
+            meta: {
+                title: 'Panier'
             }
         },
         {

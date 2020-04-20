@@ -36,7 +36,7 @@
                         <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">43</p>
                     </div>
                 </div>
-                <button id="addBasket">Ajouter au panier</button>
+                <button id="addBasket" @click.prevent="addToBasket()">Ajouter au panier</button>
                 <h3 style="color: #28A744;">En stock</h3>
             </div>
         </article>
@@ -60,8 +60,9 @@
         name: 'sneaker',
         data() {
             return {
+                size: '39',
                 show: false,
-                size: ''
+                quantity: ''
             }
         },
         created() {
@@ -84,7 +85,6 @@
         },
         methods: {
             openImage(img) {
-                console.log(img)
                 this.show = true
                 setTimeout(() => {
                     document.getElementById('imgShow').src = '/storage/img/' + img
@@ -96,6 +96,13 @@
             selected(e) {
                 console.log(e)
                 e.classList = 'selected'
+            },
+            addToBasket() {
+                this.$store.dispatch('basket/AddSneakerToBasket', {
+                    sneaker: this.sneaker,
+                    quantity: 1,
+                    size: this.size
+                })
             }
         }
     }
@@ -117,7 +124,7 @@
     }
 
     #containerImgShow {
-        height: 80vh;
+        width: 85vw;
         position: absolute;
         left: 50%;
         top: 50%;
@@ -138,7 +145,7 @@
             }
 
             #imgShow {
-                height: 100%;
+                width: 100%;
                 border-radius: 10px;
             }
         }
@@ -279,6 +286,25 @@
                 font-size: 16px;
                 margin-top: 30px;
                 cursor: pointer;
+            }
+        }
+    }
+
+    @media all and (min-width: 1480px) {
+        #containerImgShow {
+            width: unset;
+            height: 85vh;
+
+            div {
+                position: relative;
+                width: 100%;
+                height: 100%;
+
+                #imgShow {
+                    width: unset;
+                    height: 100%;
+                    border-radius: 10px;
+                }
             }
         }
     }

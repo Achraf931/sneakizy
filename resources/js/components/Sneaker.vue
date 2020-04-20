@@ -11,7 +11,7 @@
 </template>
 <script>
     export default {
-        props: ['sneaker']
+        props: ['sneaker', 'brand']
     }
 </script>
 <style lang="scss" scoped>

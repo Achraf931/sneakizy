@@ -6,7 +6,7 @@
                 <div class="modal-body">
                     <slot name="body">
                         Name: <input type="text" v-model="sneaker.name">
-                        Stock: <input type="text" v-model="sneaker.stock">
+                        Marque: <input type="text" v-model="sneaker.brand">
                         Price: <input type="text" v-model="sneaker.price">
                         Release Date: <input type="date" v-model="sneaker.release_date">
                         <textarea v-model="sneaker.description" placeholder="description"></textarea>
@@ -31,11 +31,11 @@
             return {
                 sneaker: {
                     name: "",
-                    stock: "",
                     price: "",
                     description: "",
                     image: null,
                     is_published: 1,
+                    brand: "",
                     brand_id: 1
                 }
             }

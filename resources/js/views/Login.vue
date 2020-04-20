@@ -13,7 +13,7 @@
 
                 <input id="password" type="password" v-model="password" required>
 
-                <button type="submit" @click="handleSubmit">Login</button>
+                <button type="submit" @click.prevent="handleSubmit">Login</button>
             </form>
         </div>
     </div>
@@ -29,10 +29,8 @@
             }
         },
         methods: {
-            handleSubmit(e) {
-                e.preventDefault()
-
-                if (this.password.length > 0) {
+            handleSubmit() {
+                if (this.password !== '') {
                     axios.post('api/login', {
                         email: this.email,
                         password: this.password

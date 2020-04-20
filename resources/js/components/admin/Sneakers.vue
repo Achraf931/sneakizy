@@ -52,6 +52,7 @@
         },
         methods : {
             addSneaker(sneaker) {
+                console.log(sneaker)
                 this.addingSneaker = null
                 this.$store.dispatch('sneakers/addSneaker', sneaker).catch(err => {
                     console.log(err)

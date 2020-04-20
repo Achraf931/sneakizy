@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->integer('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->integer('is_admin')->default(false);
+            $table->boolean('is_admin')->default(false);
             $table->softDeletes();
         });
     }

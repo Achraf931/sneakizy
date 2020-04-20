@@ -10,7 +10,7 @@ class SneakerController extends Controller
 {
     public function index()
     {
-        return response()->json(Sneaker::all(), 200);
+        return response()->json(Sneaker::isPublished()->get(), 200);
     }
 
     public function store(SneakerRequest $request)
@@ -20,13 +20,13 @@ class SneakerController extends Controller
 
     public function show($id)
     {
-        return response()->json(Sneaker::where('id', $id)->with('images')->get()->first(), 200);
+        return response()->json(Sneaker::isPublished()->where('id', $id)->with('images')->get()->first(), 200);
     }
 
     public function update(SneakerRequest $request, Sneaker $sneaker)
     {
         $status = $sneaker->update(
-            $request->only(['name', 'description', 'release_date', 'price', 'image', 'stock', 'is_published', 'brand_id'])
+            $request->only(['name', 'description', 'release_date', 'price', 'image', 'brand', 'is_published'])
         );
 
         return response()->json([
