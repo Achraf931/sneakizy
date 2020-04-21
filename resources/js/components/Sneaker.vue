@@ -11,10 +11,7 @@
 </template>
 <script>
     export default {
-        props: ['sneaker', 'brand'],
-        mounted() {
-            console.log(this.brand)
-        }
+        props: ['sneaker', 'brand']
     }
 </script>
 <style lang="scss" scoped>
