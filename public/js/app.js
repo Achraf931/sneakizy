@@ -12050,7 +12050,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['sneaker', 'brand']
+  props: ['sneaker', 'brand'],
+  mounted: function mounted() {
+    console.log(this.brand);
+  }
 });
 
 /***/ }),
@@ -12162,7 +12165,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     newSneaker: function newSneaker() {
-      this.$emit('close', this.sneaker);
+      var formData = new FormData();
+      this.sneaker.image = document.getElementById('image').files[0];
+      formData.append("image", this.sneaker.image);
+      formData.append("name", this.sneaker.name);
+      formData.append("price", this.sneaker.price);
+      formData.append("description", this.sneaker.description);
+      formData.append("release_date", this.sneaker.release_date);
+      formData.append("is_published", this.sneaker.is_published);
+      formData.append("brand", this.sneaker.brand);
+      formData.append("brand_id", this.sneaker.brand_id);
+      this.$emit('close', formData);
     }
   }
 });
@@ -12308,7 +12321,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     addSneaker: function addSneaker(sneaker) {
-      console.log(sneaker);
       this.addingSneaker = null;
       this.$store.dispatch('sneakers/addSneaker', sneaker)["catch"](function (err) {
         console.log(err);
@@ -13069,7 +13081,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.sneaker.image = img;
     },
     selected: function selected(e) {
-      console.log(e);
       e.classList = 'selected';
     },
     addToBasket: function addToBasket() {
@@ -59295,10 +59306,7 @@ var render = function() {
         },
         [
           _c("img", {
-            attrs: {
-              src: "/storage/img/" + _vm.item.sneaker.image,
-              alt: _vm.item.sneaker.name
-            }
+            attrs: { src: _vm.item.sneaker.image, alt: _vm.item.sneaker.name }
           })
         ]
       ),
@@ -59621,9 +59629,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "sneaker" }, [
-    _c("img", {
-      attrs: { src: "/storage/img/" + _vm.sneaker.image, alt: _vm.sneaker.name }
-    }),
+    _c("img", { attrs: { src: _vm.sneaker.image, alt: _vm.sneaker.name } }),
     _vm._v(" "),
     _c(
       "div",
@@ -59848,24 +59854,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.sneaker.image,
-                    expression: "sneaker.image"
-                  }
-                ],
-                attrs: { type: "text" },
-                domProps: { value: _vm.sneaker.image },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.sneaker, "image", $event.target.value)
-                  }
-                }
+                attrs: { id: "image", name: "image", type: "file" }
               })
             ])
           ],
@@ -60512,10 +60501,7 @@ var render = function() {
               },
               [
                 _c("img", {
-                  attrs: {
-                    src: "/storage/img/" + brand.image,
-                    alt: brand.name
-                  },
+                  attrs: { src: brand.image, alt: brand.name },
                   on: {
                     click: function($event) {
                       _vm.brandName = brand.name
@@ -60614,9 +60600,7 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("img", {
-              attrs: { src: "/storage/img/" + sneaker.image, alt: sneaker.name }
-            })
+            _c("img", { attrs: { src: sneaker.image, alt: sneaker.name } })
           ])
         }),
         0
@@ -60934,7 +60918,7 @@ var render = function() {
             _c("img", {
               attrs: {
                 id: "imgPrincipal",
-                src: "/storage/img/" + _vm.sneaker.image,
+                src: _vm.sneaker.image,
                 alt: _vm.sneaker.name
               },
               on: {
@@ -60951,7 +60935,7 @@ var render = function() {
               return _c("div", { key: image.id }, [
                 _c("img", {
                   staticClass: "img",
-                  attrs: { src: "/storage/img/" + image.image, alt: image.id },
+                  attrs: { src: image.image, alt: image.id },
                   on: {
                     click: function($event) {
                       return _vm.changeImage(image.image)
@@ -78587,7 +78571,11 @@ __webpack_require__.r(__webpack_exports__);
   actions: {
     addSneaker: function addSneaker(_ref2, sneaker) {
       var commit = _ref2.commit;
-      axios.post("/api/sneakers", sneaker).then(function (res) {
+      axios.post("/api/sneakers", sneaker, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (res) {
         {
           commit('addSneaker', res.data);
         }

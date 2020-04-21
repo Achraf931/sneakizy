@@ -10,9 +10,9 @@
                         Price: <input type="text" v-model="sneaker.price">
                         Release Date: <input type="date" v-model="sneaker.release_date">
                         <textarea v-model="sneaker.description" placeholder="description"></textarea>
-                        <input type="text" v-model="sneaker.image">
+                        <input id="image" name="image" type="file">
                     </slot>
-                </div>
+                </div method="post" enctype="multipart/form-data">
 
                 <div class="modal-footer">
                     <slot name="footer">
@@ -42,7 +42,17 @@
         },
         methods: {
             newSneaker() {
-                this.$emit('close', this.sneaker)
+                let formData = new FormData()
+                this.sneaker.image = document.getElementById('image').files[0]
+                formData.append("image", this.sneaker.image)
+                formData.append("name", this.sneaker.name)
+                formData.append("price", this.sneaker.price)
+                formData.append("description", this.sneaker.description)
+                formData.append("release_date", this.sneaker.release_date)
+                formData.append("is_published", this.sneaker.is_published)
+                formData.append("brand", this.sneaker.brand)
+                formData.append("brand_id", this.sneaker.brand_id)
+                this.$emit('close', formData)
             }
         }
     }

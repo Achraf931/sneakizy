@@ -6,7 +6,7 @@
             </div>
             <div :class="{line: brandName === brand.name}" class="brands" v-for="brand in brands" :key="brand.index">
                 <img @click="brandName = brand.name"
-                     :src="'/storage/img/' + brand.image" :alt="brand.name">
+                     :src="brand.image" :alt="brand.name">
             </div>
         </div>
         <Brand :is="'Brand'" :brand="brandName"/>

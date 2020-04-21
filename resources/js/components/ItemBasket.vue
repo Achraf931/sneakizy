@@ -1,7 +1,7 @@
 <template>
     <div class="item">
         <router-link :to="{name: 'sneaker', params: {id: item.sneaker.id}}">
-            <img :src="'/storage/img/' + item.sneaker.image" :alt="item.sneaker.name">
+            <img :src="item.sneaker.image" :alt="item.sneaker.name">
         </router-link>
         <div class="containerInfo">
             <h3>{{item.sneaker.name}}</h3>

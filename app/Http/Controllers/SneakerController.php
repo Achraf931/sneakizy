@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\SneakerAdded;
 use App\Http\Requests\SneakerRequest;
 use App\Sneaker;
+use JD\Cloudder\Facades\Cloudder;
 
 class SneakerController extends Controller
 {
@@ -15,7 +16,20 @@ class SneakerController extends Controller
 
     public function store(SneakerRequest $request)
     {
-        event(new SneakerAdded(Sneaker::create($request->all())));
+
+        Cloudder::upload($request->file('image'));
+        $cloundary_upload = Cloudder::getResult();
+        $sneaker = new Sneaker();
+        $sneaker->name = $request->name;
+        $sneaker->brand = $request->brand;
+        $sneaker->color = $request->color;
+        $sneaker->description = $request->description;
+        $sneaker->price = $request->price;
+        $sneaker->release_date = $request->release_date;
+        $sneaker->image = $cloundary_upload['url'];
+        $sneaker->brand_id = $request->brand_id;
+        $sneaker->save();
+        event(new SneakerAdded($sneaker));
     }
 
     public function show($id)

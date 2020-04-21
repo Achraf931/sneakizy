@@ -12,7 +12,7 @@ class BrandsTableSeeder extends Seeder
         {
             $brand = new \App\Brand();
             $brand->name = $object->name;
-            $brand->image = $object->image;
+            $brand->image = 'https://res.cloudinary.com/hrd7cpazc/image/upload/v1587474506/' . $object->image;
             $brand->banner = $object->banner;
             $brand->save();
         }

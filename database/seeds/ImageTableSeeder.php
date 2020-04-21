@@ -11,7 +11,7 @@ class ImageTableSeeder extends Seeder
         foreach ($data as $object)
         {
             $image = new \App\Image();
-            $image->image = $object->image;
+            $image->image = 'https://res.cloudinary.com/hrd7cpazc/image/upload/v1587474506/' . $object->image;
             $image->sneaker_id = $object->sneaker_id;
             $image->save();
         }

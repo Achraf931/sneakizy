@@ -12,7 +12,7 @@
                             </h2>
                         </router-link>
                     </div>
-                    <img :src="'/storage/img/' + sneaker.image" :alt="sneaker.name">
+                    <img :src="sneaker.image" :alt="sneaker.name">
                 </div>
 
             </div>

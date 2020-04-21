@@ -3,12 +3,12 @@
         <article>
             <div>
                 <div>
-                    <img id="imgPrincipal" @click="openImage(sneaker.image)" :src="'/storage/img/' + sneaker.image"
+                    <img id="imgPrincipal" @click="openImage(sneaker.image)" :src="sneaker.image"
                          :alt="sneaker.name">
                 </div>
                 <div>
                     <div v-for="image in sneaker.images" :key="image.id">
-                        <img @click="changeImage(image.image)" class="img" :src="'/storage/img/' + image.image"
+                        <img @click="changeImage(image.image)" class="img" :src="image.image"
                              :alt="image.id">
                     </div>
                 </div>
@@ -94,7 +94,6 @@
                 this.sneaker.image = img
             },
             selected(e) {
-                console.log(e)
                 e.classList = 'selected'
             },
             addToBasket() {

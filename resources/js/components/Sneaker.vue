@@ -1,6 +1,6 @@
 <template>
     <div class="sneaker">
-        <img :src="'/storage/img/' + sneaker.image" :alt="sneaker.name">
+        <img :src="sneaker.image" :alt="sneaker.name">
         <div>
             <h3>{{sneaker.name}}</h3>
             <h3>{{sneaker.color}}</h3>
@@ -11,7 +11,10 @@
 </template>
 <script>
     export default {
-        props: ['sneaker', 'brand']
+        props: ['sneaker', 'brand'],
+        mounted() {
+            console.log(this.brand)
+        }
     }
 </script>
 <style lang="scss" scoped>
