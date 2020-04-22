@@ -87,7 +87,7 @@
             openImage(img) {
                 this.show = true
                 setTimeout(() => {
-                    document.getElementById('imgShow').src = '/storage/img/' + img
+                    document.getElementById('imgShow').src = img
                 }, 10)
             },
             changeImage(img) {

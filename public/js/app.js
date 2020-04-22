@@ -13071,7 +13071,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     openImage: function openImage(img) {
       this.show = true;
       setTimeout(function () {
-        document.getElementById('imgShow').src = '/storage/img/' + img;
+        document.getElementById('imgShow').src = img;
       }, 10);
     },
     changeImage: function changeImage(img) {
