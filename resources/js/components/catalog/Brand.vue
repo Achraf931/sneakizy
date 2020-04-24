@@ -1,7 +1,11 @@
 <template>
     <div class="containerSneakers">
-        <Sneaker v-for="sneaker in shuffle(sneakers)" :key="sneaker.id"
+        <Sneaker v-for="sneaker in shuffle(sneakers.data)" :key="sneaker.id"
                  v-if="brand !== 'All' ? sneaker.brand === brand : brand = 'All'" :sneaker="sneaker"/>
+        <pagination :data="sneakers" @pagination-change-page="getResults">
+            <span slot="prev-nav">&lt; Previous</span>
+            <span slot="next-nav">Next &gt;</span>
+        </pagination>
     </div>
 </template>
 <script>
@@ -26,6 +30,9 @@
                 })
         },
         methods: {
+            getResults(page = 1) {
+                this.$store.dispatch('sneakers/getSneakers', page)
+            },
             shuffle(array) {
                 let j = 0;
                 let valI = '';

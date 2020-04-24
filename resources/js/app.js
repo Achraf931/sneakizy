@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faTimes, faBars, faShoppingBasket)
 
+Vue.component('pagination', require('laravel-vue-pagination'))
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueRouter)
 
