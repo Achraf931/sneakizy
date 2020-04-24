@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
-use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
     public function index()
     {
         return response()->json(Brand::all());
+    }
+
+    public function show($id)
+    {
+        return response()->json(Brand::findOrFail($id));
+    }
+
+    public function products($id)
+    {
+        return response()->json(Brand::where('id', $id)->with('products')->get()->first());
     }
 }

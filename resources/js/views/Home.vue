@@ -2,17 +2,17 @@
     <div>
         <section>
             <div></div>
-            <div class="containerSneakers">
-                <div v-for="sneaker in sneakers.slice(0, 10)" :key="sneaker.id">
+            <div class="containerProducts">
+                <div v-for="product in products.slice(0, 10)" :key="product.id">
                     <div>
-                        <router-link :to="{name: 'sneaker', params: {id: sneaker.id}}">
+                        <router-link :to="{name: 'product', params: {id: product.id}}">
                             <h2>
-                                {{sneaker.name}}<br>
-                                <p>{{sneaker.color}}</p>
+                                {{product.name}}<br>
+                                <p>{{product.color}}</p>
                             </h2>
                         </router-link>
                     </div>
-                    <img :src="sneaker.image" :alt="sneaker.name">
+                    <img :src="product.image" :alt="product.name">
                 </div>
 
             </div>
@@ -26,11 +26,11 @@
         name: "home",
         computed: {
             ...mapGetters({
-                sneakers: 'sneakers/sneakers'
+                products: 'products/products'
             })
         },
         beforeMount(){
-            this.$store.dispatch('sneakers/getSneakers')
+            this.$store.dispatch('products/getProducts')
         }
     }
 </script>
@@ -51,7 +51,7 @@
             background: #2c3e50;
         }
     }
-    .containerSneakers {
+    .containerProducts {
         display: flex;
         flex-direction: row;
         overflow-x: auto;

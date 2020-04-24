@@ -35,7 +35,7 @@
         },
         beforeMount() {
             this.$store.dispatch('brands/getBrands')
-            this.$store.dispatch('sneakers/getSneakers')
+            this.$store.dispatch('products/getProducts')
         }
     }
 </script>
@@ -107,7 +107,7 @@
         }
     }
 
-    .containerSneakers {
+    .containerProducts {
         margin-top: 20px;
         display: grid;
         grid-gap: 46px;
@@ -117,7 +117,7 @@
     }
 
     @media all and (max-width: 645px) {
-        .containerSneakers {
+        .containerProducts {
             grid-gap: 10px;
         }
     }

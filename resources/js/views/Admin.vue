@@ -9,7 +9,7 @@
                     <ul style="list-style-type:none">
                         <li class="active"><button class="btn" @click="setComponent('main')">Dashboard</button></li>
                         <li><button class="btn" @click="setComponent('orders')">Orders</button></li>
-                        <li><button class="btn" @click="setComponent('sneakers')">Sneakers</button></li>
+                        <li><button class="btn" @click="setComponent('products')">Products</button></li>
                         <li><button class="btn" @click="setComponent('users')">Users</button></li>
                     </ul>
                 </div>
@@ -23,7 +23,7 @@
 <script>
     import Main from '../components/admin/Main'
     import Users from '../components/admin/Users'
-    import Sneakers from '../components/admin/Sneakers'
+    import Products from '../components/admin/Products'
     import Orders from '../components/admin/Orders'
 
     export default {
@@ -37,7 +37,7 @@
         components : {
             Main,
             Users,
-            Sneakers,
+            Products,
             Orders
         },
         beforeMount(){
@@ -57,9 +57,9 @@
                         this.activeComponent = Orders
                         this.$router.push({name : 'admin-pages', params : {page: 'orders'}})
                         break;
-                    case "sneakers":
-                        this.activeComponent = Sneakers
-                        this.$router.push({name : 'admin-pages', params : {page: 'sneakers'}})
+                    case "products":
+                        this.activeComponent = Products
+                        this.$router.push({name : 'admin-pages', params : {page: 'products'}})
                         break;
                     default:
                         this.activeComponent = Main

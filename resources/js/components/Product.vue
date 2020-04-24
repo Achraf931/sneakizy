@@ -1,21 +1,21 @@
 <template>
-    <div class="sneaker">
-        <img :src="sneaker.image" :alt="sneaker.name">
+    <div class="product">
+        <img :src="product.image" :alt="product.name">
         <div>
-            <h3>{{sneaker.name}}</h3>
-            <h3>{{sneaker.color}}</h3>
-            <small>{{Math.round(sneaker.price)}}€</small>
-            <router-link :to="{name: 'sneaker', params: {id: sneaker.id}}">Voir</router-link>
+            <h3>{{product.name}}</h3>
+            <h3>{{product.color}}</h3>
+            <small>{{Math.round(product.price)}}€</small>
+            <router-link :to="{name: 'product', params: {id: product.id}}">Voir</router-link>
         </div>
     </div>
 </template>
 <script>
     export default {
-        props: ['sneaker', 'brand']
+        props: ['product', 'brand']
     }
 </script>
 <style lang="scss" scoped>
-    .sneaker {
+    .product {
         max-width: 300px;
         width: 100%;
         background: white;

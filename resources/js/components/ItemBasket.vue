@@ -1,24 +1,24 @@
 <template>
     <div class="item">
-        <router-link :to="{name: 'sneaker', params: {id: item.sneaker.id}}">
-            <img :src="item.sneaker.image" :alt="item.sneaker.name">
+        <router-link :to="{name: 'product', params: {id: item.product.id}}">
+            <img :src="item.product.image" :alt="item.product.name">
         </router-link>
         <div class="containerInfo">
-            <h3>{{item.sneaker.name}}</h3>
-            <p>{{item.sneaker.color}}</p>
+            <h3>{{item.product.name}}</h3>
+            <p>{{item.product.color}}</p>
             <p>Taille / Pointure : {{item.size}}</p>
             <p>Quantité : {{item.quantity}}</p>
         </div>
         <font-awesome-icon class="delete" @click="removeItem(item)" icon="times"/>
-        <p id="price">{{Math.round(item.sneaker.price * item.quantity)}}€</p>
+        <p id="price">{{Math.round(item.product.price * item.quantity)}}€</p>
     </div>
 </template>
 <script>
     export default {
         props: ['item'],
         methods: {
-            removeItem(sneaker) {
-                this.$emit('removeToBasket', sneaker)
+            removeItem(product) {
+                this.$emit('removeToBasket', product)
             }
         }
     }

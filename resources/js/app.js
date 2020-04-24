@@ -9,16 +9,14 @@ import Register from './views/Register'
 import Admin from './views/Admin'
 import Basket from './views/Basket'
 import UserBoard from './views/UserBoard'
-import Sneaker from './views/SingleSneaker'
+import Product from './views/SingleProduct'
 import Catalog from './views/Catalog'
 import News from './views/News'
 import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTimes, faBars, faShoppingBasket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { BPagination } from 'bootstrap-vue'
 
-Vue.component('b-pagination', BPagination)
 library.add(faTimes, faBars, faShoppingBasket)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -43,9 +41,9 @@ const router = new VueRouter({
             component: News
         },
         {
-            path: '/sneakers/:id',
-            name: 'sneaker',
-            component: Sneaker
+            path: '/products/:id',
+            name: 'product',
+            component: Product
         },
         {
             path: '/contact',

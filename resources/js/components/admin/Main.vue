@@ -5,7 +5,7 @@
         </div>
         <hr>
         <div class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text">
-           	<a href='/admin/products'>Products ({{sneakers.length}})</a>
+           	<a href='/admin/products'>Products ({{products.length}})</a>
         </div>
         <div class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text">
             <a href='/admin/users'>Users ({{users.length}})</a>
@@ -18,7 +18,7 @@
             return {
                 user : null,
                 orders : [],
-                sneakers : [],
+                products : [],
                 users : []
             }
         },
@@ -31,9 +31,9 @@
                 console.error(error);
             })
 
-            axios.get('/api/sneakers/')
+            axios.get('/api/products/')
             .then(response => {
-                this.sneakers = response.data
+                this.products = response.data
             })
             .catch(error => {
                 console.error(error);

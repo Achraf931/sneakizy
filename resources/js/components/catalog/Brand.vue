@@ -1,28 +1,28 @@
 <template>
-    <div class="containerSneakers">
-        <Sneaker v-for="sneaker in shuffle(sneakers)" :key="sneaker.id"
-                 v-if="brand !== 'All' ? sneaker.brand === brand : brand = 'All'" :sneaker="sneaker"/>
+    <div class="containerProducts">
+        <Product v-for="product in shuffle(products)" :key="product.id"
+                 v-if="brand !== 'All' ? product.brand === brand : brand = 'All'" :product="product"/>
     </div>
 </template>
 <script>
     import {mapGetters} from "vuex"
-    import Sneaker from "../Sneaker"
+    import Product from "../Product"
 
     export default {
         name: 'brand',
         props: ['brand'],
         computed: {
             ...mapGetters({
-                sneakers: 'sneakers/sneakers'
+                products: 'products/products'
             })
         },
         components: {
-            Sneaker
+            Product
         },
         mounted() {
-            Echo.channel('sneakers')
-                .listen('SneakerAdded', (e) => {
-                    this.sneakers.push(e.sneaker)
+            Echo.channel('products')
+                .listen('ProductAdded', (e) => {
+                    this.products.push(e.product)
                 })
         },
         methods: {

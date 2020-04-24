@@ -1,48 +1,48 @@
 export default {
     namespaced: true,
     state: {
-        sneakers: [],
-        sneaker: {}
+        products: [],
+        product: {}
     },
     getters: {
-        sneakers: state => {
-            return state.sneakers
+        products: state => {
+            return state.products
         },
-        sneaker: state => {
-            return state.sneaker
+        product: state => {
+            return state.product
         }
     },
     mutations: {
-        getSneakers(state, sneakers) {
-            state.sneakers = sneakers
+        getProducts(state, products) {
+            state.products = products
         },
-        addSneaker(state, {sneaker}) {
-            state.sneakers.unshift(sneaker)
+        addProduct(state, {product}) {
+            state.products.unshift(product)
         },
-        setSneaker(state, sneaker) {
-            state.sneaker = sneaker
+        setProduct(state, product) {
+            state.product = product
         }
     },
     actions: {
-        addSneaker({commit}, sneaker) {
-            axios.post(`/api/products`, sneaker, {
+        addProduct({commit}, product) {
+            axios.post(`/api/products`, product, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
                 .then(res => {
                     {
-                        commit('addSneaker', res.data)
+                        commit('addProduct', res.data)
                     }
                 })
                 .catch(err => console.error(err))
         },
 
-        getSneakers({commit}) {
+        getProducts({commit}) {
             axios.get('/api/products')
                 .then(res => {
                     {
-                        commit('getSneakers', res.data)
+                        commit('getProducts', res.data)
                     }
                 })
                 .catch(err => {
@@ -50,11 +50,11 @@ export default {
                 })
         },
 
-        getSneaker({commit}, sneaker) {
-            axios.get(`/api/products/${sneaker}`)
+        getProduct({commit}, product) {
+            axios.get(`/api/products/${product}`)
                 .then(res => {
                     {
-                        commit('setSneaker', res.data)
+                        commit('setProduct', res.data)
                     }
                 })
                 .catch(err => {

@@ -37,8 +37,8 @@
             ItemBasket
         },
         methods: {
-            removeToBasket(sneaker) {
-                this.$store.dispatch('basket/removeItemFromBasket', sneaker)
+            removeToBasket(product) {
+                this.$store.dispatch('basket/removeItemFromBasket', product)
             }
         }
     }

@@ -13,36 +13,35 @@ export default {
         basketTotalPrice: state => {
             let total = 0
             state.basket.forEach(item => {
-                total += item.sneaker.price * item.quantity
+                total += item.product.price * item.quantity
             })
             return total
         }
     },
     mutations: {
-        AddToBasket(state, {sneaker, quantity, size}) {
-            let sneakerInBasket = state.basket.find(item => {
-                return item.sneaker.id === sneaker.id
+        AddToBasket(state, {product, quantity, size}) {
+            let productInBasket = state.basket.find(item => {
+                return item.product.id === product.id
             })
-            if (sneakerInBasket) {
-                sneakerInBasket.quantity += quantity
+            if (productInBasket) {
+                productInBasket.quantity += quantity
                 localStorage.setItem('basket', JSON.stringify(state.basket))
                 return
             }
-            state.basket.push({sneaker, quantity, size})
+            state.basket.push({product, quantity, size})
             localStorage.setItem('basket', JSON.stringify(state.basket))
         },
-        RemoveToBasket(state, sneaker) {
-            console.log()
-            state.basket.splice(state.basket.indexOf(sneaker), 1)
+        RemoveToBasket(state, product) {
+            state.basket.splice(state.basket.indexOf(product), 1)
             localStorage.setItem('basket', JSON.stringify(state.basket))
         }
     },
     actions: {
-        AddSneakerToBasket({commit}, {sneaker, quantity, size}) {
-            commit('AddToBasket', {sneaker, quantity, size})
+        AddProductToBasket({commit}, {product, quantity, size}) {
+            commit('AddToBasket', {product, quantity, size})
         },
-        removeItemFromBasket({commit}, sneaker) {
-            commit('RemoveToBasket', sneaker)
+        removeItemFromBasket({commit}, product) {
+            commit('RemoveToBasket', product)
         }
     }
 }

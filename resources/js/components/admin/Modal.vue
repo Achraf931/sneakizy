@@ -5,18 +5,18 @@
 
                 <div class="modal-body">
                     <slot name="body">
-                        Name: <input type="text" v-model="sneaker.name">
-                        Marque: <input type="text" v-model="sneaker.brand">
-                        Price: <input type="text" v-model="sneaker.price">
-                        Release Date: <input type="date" v-model="sneaker.release_date">
-                        <textarea v-model="sneaker.description" placeholder="description"></textarea>
+                        Name: <input type="text" v-model="product.name">
+                        Marque: <input type="text" v-model="product.brand">
+                        Price: <input type="text" v-model="product.price">
+                        Release Date: <input type="date" v-model="product.release_date">
+                        <textarea v-model="product.description" placeholder="description"></textarea>
                         <input id="image" name="image" type="file">
                     </slot>
                 </div method="post" enctype="multipart/form-data">
 
                 <div class="modal-footer">
                     <slot name="footer">
-                        <button class="modal-default-button" @click="newSneaker">
+                        <button class="modal-default-button" @click="newProduct">
                             Finish
                         </button>
                     </slot>
@@ -29,7 +29,7 @@
     export default {
         data() {
             return {
-                sneaker: {
+                product: {
                     name: "",
                     price: "",
                     description: "",
@@ -41,17 +41,17 @@
             }
         },
         methods: {
-            newSneaker() {
+            newProduct() {
                 let formData = new FormData()
-                this.sneaker.image = document.getElementById('image').files[0]
-                formData.append("image", this.sneaker.image)
-                formData.append("name", this.sneaker.name)
-                formData.append("price", this.sneaker.price)
-                formData.append("description", this.sneaker.description)
-                formData.append("release_date", this.sneaker.release_date)
-                formData.append("is_published", this.sneaker.is_published)
-                formData.append("brand", this.sneaker.brand)
-                formData.append("brand_id", this.sneaker.brand_id)
+                this.product.image = document.getElementById('image').files[0]
+                formData.append("image", this.product.image)
+                formData.append("name", this.product.name)
+                formData.append("price", this.product.price)
+                formData.append("description", this.product.description)
+                formData.append("release_date", this.product.release_date)
+                formData.append("is_published", this.product.is_published)
+                formData.append("brand", this.product.brand)
+                formData.append("brand_id", this.product.brand_id)
                 this.$emit('close', formData)
             }
         }

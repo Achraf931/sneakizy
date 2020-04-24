@@ -3,11 +3,11 @@
         <article>
             <div>
                 <div>
-                    <img id="imgPrincipal" @click="openImage(sneaker.image)" :src="sneaker.image"
-                         :alt="sneaker.name">
+                    <img id="imgPrincipal" @click="openImage(product.image)" :src="product.image"
+                         :alt="product.name">
                 </div>
                 <div>
-                    <div v-for="image in sneaker.images" :key="image.id">
+                    <div v-for="image in product.images" :key="image.id">
                         <img @click="changeImage(image.image)" class="img" :src="image.image"
                              :alt="image.id">
                     </div>
@@ -16,11 +16,11 @@
 
             <div>
                 <div id="containerNamePrice">
-                    <h1>{{sneaker.brand}}</h1>
-                    <h2 style="color: lightgray">{{sneaker.name}}</h2>
-                    <small>{{sneaker.price}}€</small>
+                    <h1>{{product.brand}}</h1>
+                    <h2 style="color: lightgray">{{product.name}}</h2>
+                    <small>{{product.price}}€</small>
                 </div>
-                <h3>{{sneaker.description}}</h3>
+                <h3>{{product.description}}</h3>
                 <div id="containerSize">
                     <h4>Sélectionner la taille</h4>
                     <div>
@@ -57,7 +57,7 @@
     import {mapGetters} from 'vuex'
 
     export default {
-        name: 'sneaker',
+        name: 'product',
         data() {
             return {
                 size: '39',
@@ -66,7 +66,7 @@
             }
         },
         created() {
-            this.$store.dispatch('sneakers/getSneaker', this.$route.params.id)
+            this.$store.dispatch('products/getProduct', this.$route.params.id)
         },
         watch: {
             isImageVisible: function () {
@@ -80,7 +80,7 @@
         },
         computed: {
             ...mapGetters({
-                sneaker: 'sneakers/sneaker'
+                product: 'products/product'
             })
         },
         methods: {
@@ -91,14 +91,14 @@
                 }, 10)
             },
             changeImage(img) {
-                this.sneaker.image = img
+                this.product.image = img
             },
             selected(e) {
                 e.classList = 'selected'
             },
             addToBasket() {
-                this.$store.dispatch('basket/AddSneakerToBasket', {
-                    sneaker: this.sneaker,
+                this.$store.dispatch('basket/AddProductToBasket', {
+                    product: this.product,
                     quantity: 1,
                     size: this.size
                 })

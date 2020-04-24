@@ -24,6 +24,8 @@ Route::get('/products', 'ProductController@index');
 Route::get('/products/{id}', 'ProductController@show');
 Route::get('/basket', 'BasketController@store');
 Route::get('/brands', 'BrandController@index');
+Route::get('/brands/{id}', 'BrandController@show');
+Route::get('/brands/{id}/products', 'BrandController@products');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/users', 'UserController@index');

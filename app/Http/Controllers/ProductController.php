@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\SneakerAdded;
+use App\Events\ProductAdded;
 use App\Http\Requests\ProductRequest;
 use App\Product;
 use JD\Cloudder\Facades\Cloudder;
@@ -29,7 +29,7 @@ class ProductController extends Controller
         $product->image = $cloundary_upload['url'];
         $product->brand_id = $request->brand_id;
         $product->save();
-        event(new SneakerAdded($product));
+        event(new ProductAdded($product));
     }
 
     public function show($id)
