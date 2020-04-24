@@ -38,8 +38,8 @@ export default {
                 .catch(err => console.error(err))
         },
 
-        getSneakers({commit}, page) {
-            axios.get('/api/sneakers?page=' + page)
+        getSneakers({commit}) {
+            axios.get('/api/sneakers')
                 .then(res => {
                     {
                         commit('getSneakers', res.data)

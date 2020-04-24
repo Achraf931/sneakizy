@@ -51,7 +51,7 @@
         padding: 0;
         text-decoration: none;
         list-style: none;
-        outline: none;
+        outline: none!important;
     }
 
     html, body {

@@ -16,10 +16,11 @@ import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTimes, faBars, faShoppingBasket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { BPagination } from 'bootstrap-vue'
 
+Vue.component('b-pagination', BPagination)
 library.add(faTimes, faBars, faShoppingBasket)
 
-Vue.component('pagination', require('laravel-vue-pagination'))
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueRouter)
 

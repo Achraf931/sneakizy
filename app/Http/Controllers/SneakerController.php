@@ -11,7 +11,7 @@ class SneakerController extends Controller
 {
     public function index()
     {
-        return response()->json(Sneaker::isPublished()->paginate(6), 200);
+        return response()->json(Sneaker::isPublished()->get(), 200);
     }
 
     public function store(SneakerRequest $request)
