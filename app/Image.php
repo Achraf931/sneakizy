@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    public function sneaker()
+    public function product()
     {
-        return $this->belongsTo(Sneaker::class);
+        return $this->belongsTo(Product::class);
     }
 }

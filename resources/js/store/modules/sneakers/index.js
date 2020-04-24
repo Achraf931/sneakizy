@@ -25,7 +25,7 @@ export default {
     },
     actions: {
         addSneaker({commit}, sneaker) {
-            axios.post(`/api/sneakers`, sneaker, {
+            axios.post(`/api/products`, sneaker, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -39,7 +39,7 @@ export default {
         },
 
         getSneakers({commit}) {
-            axios.get('/api/sneakers')
+            axios.get('/api/products')
                 .then(res => {
                     {
                         commit('getSneakers', res.data)
@@ -51,7 +51,7 @@ export default {
         },
 
         getSneaker({commit}, sneaker) {
-            axios.get(`/api/sneakers/${sneaker}`)
+            axios.get(`/api/products/${sneaker}`)
                 .then(res => {
                     {
                         commit('setSneaker', res.data)

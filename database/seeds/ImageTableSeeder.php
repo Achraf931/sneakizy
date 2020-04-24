@@ -12,7 +12,7 @@ class ImageTableSeeder extends Seeder
         {
             $image = new \App\Image();
             $image->image = 'https://res.cloudinary.com/hrd7cpazc/image/upload/v1587474506/' . $object->image;
-            $image->sneaker_id = $object->sneaker_id;
+            $image->product_id = $object->sneaker_id;
             $image->save();
         }
     }

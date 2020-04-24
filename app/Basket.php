@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Basket extends Model
 {
     protected $casts = ['quantity', 'size'];
-    public function sneakers()
+    public function products()
     {
-        return $this->belongsTo(Sneaker::class);
+        return $this->belongsTo(Product::class);
     }
 }
