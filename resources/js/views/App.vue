@@ -3,11 +3,13 @@
         <Nav @logout="logout" :lastname="lastname" :is_admin="is_admin" :isLoggedIn="isLoggedIn"/>
         <main>
             <router-view @loggedIn="change"></router-view>
+            <Footer/>
         </main>
     </div>
 </template>
 <script>
     import Nav from '../components/Nav'
+    import Footer from '../components/Footer'
     export default {
         data() {
             return {
@@ -17,7 +19,8 @@
             }
         },
         components: {
-            Nav
+            Nav,
+            Footer
         },
         mounted() {
             this.setDefaults()
@@ -57,7 +60,7 @@
     html, body {
         background-color: #fff;
         color: #636b6f;
-        font-family: 'Nunito', sans-serif;
+        font-family: Poppins!important;
         font-weight: 200;
     }
 
@@ -72,7 +75,7 @@
         color: #2c3e50;
 
         &.router-link-exact-active {
-            color: #42b983;
+            color: #2067DD;
         }
     }
 </style>

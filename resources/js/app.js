@@ -16,11 +16,13 @@ import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTimes, faBars, faShoppingBasket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import vuelidate from 'vuelidate'
 
 library.add(faTimes, faBars, faShoppingBasket)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueRouter)
+Vue.use(vuelidate)
 
 const router = new VueRouter({
     mode: 'history',
