@@ -40,7 +40,7 @@
     }
     @media all and (max-width: 616px) {
         .article {
-            padding: 0 15px;
+            padding: 80px 15px 15px 15px;
         }
     }
 </style>
