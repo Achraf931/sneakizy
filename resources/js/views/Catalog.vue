@@ -46,6 +46,8 @@
     }
     .catalog {
         padding: 100px 0 40px 0;
+        min-height: 100vh;
+        background-color: #F5F9FE;
     }
 
     .banner {
@@ -70,11 +72,15 @@
         align-items: flex-end;
 
         .all {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
             color: white;
             font-weight: bold;
             background: black;
             border-radius: 100%;
-            padding: 2px;
             font-size: 12px;
             cursor: pointer;
             margin-bottom: 10px;
