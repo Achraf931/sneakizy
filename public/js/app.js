@@ -20162,7 +20162,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".article[data-v-40fe7402] {\n  max-width: 1500px;\n  width: 100%;\n  margin: auto;\n  padding: 80px 100px 40px 100px;\n}\n.article .marginBottom[data-v-40fe7402] {\n  margin-bottom: 20px;\n}\n.article img[data-v-40fe7402] {\n  width: 100%;\n  margin: 20px 0;\n}\n.article p[data-v-40fe7402] {\n  text-align: justify;\n}", ""]);
+exports.push([module.i, ".article[data-v-40fe7402] {\n  max-width: 1500px;\n  width: 100%;\n  margin: auto;\n  padding: 80px 100px 40px 100px;\n}\n.article .marginBottom[data-v-40fe7402] {\n  margin-bottom: 20px;\n}\n.article img[data-v-40fe7402] {\n  width: 100%;\n  margin: 20px 0;\n}\n.article p[data-v-40fe7402] {\n  text-align: justify;\n}\n@media all and (max-width: 616px) {\n.article[data-v-40fe7402] {\n    padding: 0 15px 40px 15px;\n}\n}", ""]);
 
 // exports
 

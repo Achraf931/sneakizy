@@ -38,4 +38,9 @@
             text-align: justify;
         }
     }
+    @media all and (max-width: 616px) {
+        .article {
+            padding: 0 15px 40px 15px;
+        }
+    }
 </style>
