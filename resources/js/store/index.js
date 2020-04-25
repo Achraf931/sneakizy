@@ -4,6 +4,7 @@ import auth from './modules/auth/index'
 import products from './modules/products/index'
 import brands from './modules/brands/index'
 import basket from './modules/basket/index'
+import news from './modules/news/index'
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
         auth,
         products,
         basket,
-        brands
+        brands,
+        news
     }
 })

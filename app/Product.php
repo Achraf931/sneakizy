@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Concerns\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use Filterable;
+
     protected $fillable = ['name', 'description', 'price', 'color', 'release_date', 'image', 'brand', 'is_published', 'brand_id'];
 
     public function images()

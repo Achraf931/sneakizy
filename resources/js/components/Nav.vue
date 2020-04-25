@@ -22,6 +22,9 @@
                 </router-link>
                 <div v-if="basketItemCount > 0" style="width: 10px; height: 10px; position: absolute; top: -5px; right: -5px; background: red; border-radius: 100%;"></div>
             </li>
+            <li>
+                <font-awesome-icon @click="sendEvent" style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="search"/>
+            </li>
         </ul>
 
         <ul v-else id="mobileMenu">
@@ -41,6 +44,8 @@
 </template>
 <script>
     import {mapGetters} from 'vuex'
+    import {bus} from '../app'
+
     export default {
         props: ['lastname', 'isLoggedIn', 'is_admin'],
         data() {
@@ -49,7 +54,8 @@
                     width: 0,
                     height: 0
                 },
-                menu: false
+                menu: false,
+                isSearching: false
             }
         },
         computed: {
@@ -58,6 +64,9 @@
             })
         },
         created() {
+            bus.$on('isSearching', result => {
+                this.isSearching = result
+            })
             window.addEventListener('resize', this.handleResize);
             this.handleResize();
         },
@@ -65,6 +74,10 @@
             window.removeEventListener('resize', this.handleResize);
         },
         methods: {
+            sendEvent() {
+                this.isSearching = !this.isSearching
+                bus.$emit('isSearching', this.isSearching)
+            },
             logout() {
                 this.$emit('logout')
             },
@@ -138,6 +151,7 @@
 
         ul {
             display: flex;
+            font-size: 14px;
 
             a, li {
                 margin-left: 25px;

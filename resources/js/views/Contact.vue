@@ -111,7 +111,7 @@
         align-items: center;
 
         iframe {
-            margin-top: 40px;
+            margin: 40px 0;
             max-width: 1000px;
             width: 100%;
         }
@@ -219,6 +219,16 @@
                 justify-content: space-evenly;
                 padding: 40px;
                 width: 40%;
+            }
+        }
+    }
+    @media all and (max-width: 837px) {
+        .contact > div {
+            flex-direction: column;
+
+            .left, .right {
+                border-radius: 0;
+                width: 100%;
             }
         }
     }

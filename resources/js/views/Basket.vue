@@ -43,7 +43,7 @@
         }
     }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
     .basket {
         display: flex;
         justify-content: center;

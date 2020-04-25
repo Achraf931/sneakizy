@@ -69,7 +69,7 @@
             this.$store.dispatch('products/getProduct', this.$route.params.id)
         },
         watch: {
-            isImageVisible: function () {
+            show: function () {
                 if (this.show) {
                     document.documentElement.style.overflow = 'hidden'
                     return
@@ -164,7 +164,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding: 120px 100px 0 100px;
+        padding: 120px 100px 40px 100px;
 
         & > div:first-child {
             width: 60%;

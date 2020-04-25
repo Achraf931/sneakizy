@@ -45,7 +45,7 @@
         border-bottom: 1.5px solid black!important;
     }
     .catalog {
-        padding: 100px 0 50px 0;
+        padding: 100px 0 40px 0;
     }
 
     .banner {

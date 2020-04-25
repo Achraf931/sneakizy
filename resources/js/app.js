@@ -12,14 +12,16 @@ import UserBoard from './views/UserBoard'
 import Product from './views/SingleProduct'
 import Catalog from './views/Catalog'
 import News from './views/News'
+import SingleArticle from './views/SingleArticle'
 import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faBars, faShoppingBasket } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faBars, faShoppingBasket, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import vuelidate from 'vuelidate'
 
-library.add(faTimes, faBars, faShoppingBasket)
+library.add(faTimes, faBars, faShoppingBasket, faSearch)
 
+export const bus = new Vue()
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueRouter)
 Vue.use(vuelidate)
@@ -30,17 +32,31 @@ const router = new VueRouter({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
+            meta: {
+                title: 'Accueil'
+            }
         },
         {
             path: '/catalog',
             name: 'catalog',
-            component: Catalog
+            component: Catalog,
+            meta: {
+                title: 'Catalogue'
+            }
         },
         {
             path: '/news',
             name: 'news',
-            component: News
+            component: News,
+            meta: {
+                title: 'News'
+            }
+        },
+        {
+            path: '/news/:id',
+            name: 'singleArticle',
+            component: SingleArticle
         },
         {
             path: '/products/:id',
@@ -50,7 +66,10 @@ const router = new VueRouter({
         {
             path: '/contact',
             name: 'contact',
-            component: Contact
+            component: Contact,
+            meta: {
+                title: 'Contact'
+            }
         },
         {
             path: '/login',
