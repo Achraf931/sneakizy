@@ -289,7 +289,7 @@
         }
     }
 
-    @media all and (min-width: 1480px) {
+    @media all and (min-width: 600px) {
         #containerImgShow {
             width: unset;
             height: 85vh;
