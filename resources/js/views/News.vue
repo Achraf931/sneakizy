@@ -1,11 +1,13 @@
 <template>
-    <div class="news">
+    <div class="news animation">
         <ArticleItem v-for="article in articles" :key="article.id" :article="article"/>
     </div>
 </template>
 <script>
     import {mapGetters} from 'vuex'
     import ArticleItem from '../components/ArticleItem'
+    import {bus} from '../app'
+
     export default {
         name: 'news',
         components: {
@@ -18,13 +20,23 @@
         },
         beforeMount() {
             this.$store.dispatch('news/getArticles')
+            setTimeout(() => {
+                document.querySelectorAll('.animation').forEach(elem => {
+                    elem.style.display = 'grid'
+                    elem.style.opacity = '1'
+                })
+            }, 50)
         }
     }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
+    .animation {
+        display: none;
+        opacity: 0;
+        transition: opacity .5s;
+    }
     .news {
-        background: #F5F9FE;
-        padding: 80px 0 40px 0;
+        padding-bottom: 40px;
         display: grid;
         grid-gap: 46px;
         justify-content: center;

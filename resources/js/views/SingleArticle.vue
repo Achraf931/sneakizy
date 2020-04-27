@@ -25,7 +25,7 @@
         max-width: 1500px;
         width: 100%;
         margin: auto;
-        padding: 80px 100px 40px 100px;
+        padding: 0 100px 40px 100px;
 
         .marginBottom {
             margin-bottom: 20px;
@@ -40,7 +40,7 @@
     }
     @media all and (max-width: 616px) {
         .article {
-            padding: 80px 15px 15px 15px;
+            padding: 0 15px 15px 15px;
         }
     }
 </style>

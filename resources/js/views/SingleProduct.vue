@@ -36,8 +36,24 @@
                         <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">43</p>
                     </div>
                 </div>
-                <button id="addBasket" @click.prevent="addToBasket()">Ajouter au panier</button>
-                <h3 style="color: #28A744;">En stock</h3>
+                <div style="display: flex; flex-direction: column">
+                    <button class="button" id="addBasket" @click.prevent="addToBasket">Ajouter au panier</button>
+                    <button class="button" id="addFavorite" @click.prevent="addToBasket"><font-awesome-icon icon="heart"/> Ajouter aux favoris</button>
+                </div>
+                <div class="containerFiability">
+                    <div>
+                        <font-awesome-icon icon="truck"/>
+                        <p>Livraison gratuite</p>
+                    </div>
+                    <div>
+                        <font-awesome-icon icon="stopwatch"/>
+                        <p>Expédition le jour même jusqu'à 13h</p>
+                    </div>
+                    <div>
+                        <font-awesome-icon icon="lock"/>
+                        <p>Paiement 100% sécurisé</p>
+                    </div>
+                </div>
             </div>
         </article>
         <transition name="fade">
@@ -164,10 +180,17 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding: 120px 100px 40px 100px;
+        padding: 0 100px 40px 100px;
+
+        & > div {
+            border-radius: 10px;
+            background-color: white;
+            padding: 20px;
+            height: fit-content;
+        }
 
         & > div:first-child {
-            width: 60%;
+            width: 54%;
 
             div {
                 width: 100%;
@@ -176,8 +199,6 @@
             & > div:first-child {
                 width: 100%;
                 max-width: 888px;
-                height: 100%;
-                max-height: 500px;
 
                 img {
                     width: 100%;
@@ -225,16 +246,25 @@
         }
 
         & > div:last-child {
-            width: 40%;
-            padding-left: 30px;
+            width: 44%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
             #containerNamePrice {
                 position: relative;
+
+                & > h1 {
+                    margin-bottom: 20px;
+                }
 
                 & > small {
                     position: absolute;
                     top: 0;
                     right: 0;
+                    color: #3F44C9;
+                    font-family: NormsBold, Norms, Arial, sans-serif;
+                    font-style: italic;
                     font-weight: bold;
                     font-size: 16px;
                 }
@@ -251,6 +281,7 @@
 
                 & > h4 {
                     font-weight: bold;
+                    margin-bottom: 10px;
                 }
 
                 & > div {
@@ -275,16 +306,39 @@
 
             }
 
-            #addBasket {
+            #addBasket, #addFavorite {
                 padding: 10px 15px;
                 border-radius: 10px;
-                border: 2px solid black;
-                background: black;
                 color: white;
                 font-weight: bold;
                 font-size: 16px;
                 margin-top: 30px;
                 cursor: pointer;
+            }
+            #addFavorite {
+                margin-top: 10px;
+                background-color: white;
+                color: palevioletred;
+                border: 1px solid palevioletred;
+            }
+            .containerFiability {
+                margin-top: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 10px;
+                    text-align: center;
+
+                    p {
+                        margin-top: 5px;
+                    }
+                }
             }
         }
     }
@@ -311,6 +365,7 @@
     @media all and (max-width: 1299px) {
         article {
             flex-direction: column;
+            padding: 0 15px 15px 15px;
 
             & > div:first-child {
                 width: 100%;
@@ -318,32 +373,24 @@
                 & > div:first-child {
                     max-height: none;
                     max-width: none;
+
+                    & > img {
+                        max-height: 600px;
+                    }
+                }
+                & > div:last-child {
+                    max-width: unset;
                 }
             }
 
             & > div:last-child {
                 margin-top: 30px;
-                padding-left: 0;
-            }
-        }
-    }
-
-    @media all and (max-width: 900px) {
-        article > div:last-child {
-            width: 100%;
-        }
-    }
-
-    @media all and (max-width: 616px) {
-        article {
-            padding: 0 15px;
-
-            & > div:last-child {
                 width: 100%;
+
+                #addBasket {
+                    width: 100%;
+                }
             }
-        }
-        #addBasket {
-            width: 100%;
         }
     }
 </style>

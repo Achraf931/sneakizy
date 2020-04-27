@@ -1,5 +1,5 @@
 <template>
-    <div class="contact">
+    <div class="contact animation">
         <div>
             <div class="left">
                 <h2 class="sendTitle">Envoyez nous un message</h2>
@@ -73,6 +73,14 @@
                 }
             }
         },
+        beforeMount() {
+            setTimeout(() => {
+                document.querySelectorAll('.animation').forEach(elem => {
+                    elem.style.display = 'flex'
+                    elem.style.opacity = '1'
+                })
+            }, 50)
+        },
         methods: {
             sendMail() {
                 this.$v.form.$touch()
@@ -101,17 +109,14 @@
         }
     }
     .contact {
-        background-color: #F5F9FE;
-        width: 100vw;
-        padding-top: 80px;
-        min-height: 100vh;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
         iframe {
-            margin: 40px 0;
+            margin: 40px 0 20px 0;
             max-width: 1000px;
             width: 100%;
         }
@@ -120,11 +125,11 @@
         }
 
         .sendTitle {
-            color: #2067DD;
+            color: #4536BB;
         }
         & > div {
             border-radius: 10px;
-            box-shadow: 0 0.5rem 1rem rgba(32, 103, 221, 0.2);
+            //box-shadow: 0 0.5rem 1rem rgba(32, 103, 221, 0.2);
             max-width: 1000px;
             width: 100%;
             display: flex;
@@ -179,7 +184,7 @@
                         width: 50%;
 
                         & h2 {
-                            color: #2067DD!important;
+                            color: #4536BB!important;
                         }
                     }
                     & > div:first-child {
@@ -202,15 +207,15 @@
                     border-radius: .25rem;
                     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
                     border: 1px solid rgba(116, 142, 170, 0.25);
-                    color: #748EAA !important;
+                    color: #748EAA!important;
                     font-size: 12px;
                 }
                 input:focus, textarea:focus {
-                    border: 1px solid #2067DD;
+                    border: 1px solid #4536BB;
                 }
             }
             .right {
-                background: #2067DD;
+                background: #4536BB;
                 color: white;
                 border-radius: 0 10px 10px 0;
                 display: flex;

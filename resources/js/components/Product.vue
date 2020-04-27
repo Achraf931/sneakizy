@@ -5,7 +5,7 @@
             <h3>{{product.name}}</h3>
             <h3>{{product.color}}</h3>
             <small>{{Math.round(product.price)}}€</small>
-            <router-link :to="{name: 'product', params: {id: product.id}}">Voir</router-link>
+            <router-link class="button" :to="{name: 'product', params: {id: product.id}}">Voir</router-link>
         </div>
     </div>
 </template>
@@ -20,8 +20,6 @@
         width: 100%;
         background: white;
         border-radius: 10px;
-        box-shadow: 0 9px 30px #ebebeb82;
-        padding: 20px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -30,21 +28,20 @@
             width: 100%;
             max-height: 200px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 0 10px 0 0;
         }
 
         &> div {
             position: relative;
+            padding: 20px;
 
             & > a {
                 font-weight: bold;
-                color: white;
-                background: black;
                 padding: 5px 10px;
                 border-radius: 5px;
                 position: absolute;
-                bottom: 0;
-                right: 0;
+                bottom: 20px;
+                right: 20px;
             }
             & > h3:nth-child(1) {
                 font-weight: bold;

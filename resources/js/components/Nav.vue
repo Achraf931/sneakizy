@@ -1,9 +1,14 @@
 <template>
     <nav>
         <div @click="closeMenu" v-if="menu === true" class="bg"></div>
-        <router-link style="color: #2c3e50!important;" :to="{name: 'home'}">Sneakizy</router-link>
+        <div class="head">
+            <router-link style="color: #2c3e50!important; font-family: NormsBold;" :to="{name: 'home'}">SNEAKiZY</router-link>
+            <div class="searchBar">
+                <Search/>
+            </div>
+        </div>
         <font-awesome-icon @click="openMenu" v-if="window.width <= 837" icon="bars"/>
-        <ul v-if="window.width > 837">
+        <ul class="bottom" v-if="window.width > 837">
             <router-link :to="{name: 'home'}">Home</router-link>
             <router-link :to="{name: 'catalog'}">Catalogue</router-link>
             <router-link :to="{name: 'news'}">News</router-link>
@@ -15,15 +20,13 @@
                 <router-link :to="{ name: 'admin' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
                 <li v-if="isLoggedIn" @click="logout"> Logout</li>
             </template>
-            <li style="position: relative;">
-                <router-link style="margin-left: 0;" :to="{name: 'basket'}">
-                    <font-awesome-icon style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="shopping-basket"/>
-                    <span v-if="basketItemCount > 0">{{basketItemCount}}</span>
+            <li class="basketIcon">
+                <router-link :to="{name: 'basket'}">
+                    <font-awesome-icon icon="shopping-basket"/>
                 </router-link>
-                <div v-if="basketItemCount > 0" style="width: 10px; height: 10px; position: absolute; top: -5px; right: -5px; background: red; border-radius: 100%;"></div>
-            </li>
-            <li>
-                <font-awesome-icon @click="sendEvent" style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="search"/>
+                <transition v-if="basketItemCount > 0" name="fade">
+                    <div style="width: 15px; height: 15px; position: absolute; top: -5px; right: -5px; background: #4536BB; border-radius: 100%; font-size: 10px; color: white; display: flex; justify-content: center; align-items: center;">{{basketItemCount}}</div>
+                </transition>
             </li>
         </ul>
 
@@ -44,7 +47,7 @@
 </template>
 <script>
     import {mapGetters} from 'vuex'
-    import {bus} from '../app'
+    import Search from './Search'
 
     export default {
         props: ['lastname', 'isLoggedIn', 'is_admin'],
@@ -58,15 +61,15 @@
                 isSearching: false
             }
         },
+        components: {
+            Search
+        },
         computed: {
             ...mapGetters({
                 basketItemCount: 'basket/basketItemCount'
             })
         },
         created() {
-            bus.$on('isSearching', result => {
-                this.isSearching = result
-            })
             window.addEventListener('resize', this.handleResize);
             this.handleResize();
         },
@@ -74,10 +77,6 @@
             window.removeEventListener('resize', this.handleResize);
         },
         methods: {
-            sendEvent() {
-                this.isSearching = !this.isSearching
-                bus.$emit('isSearching', this.isSearching)
-            },
             logout() {
                 this.$emit('logout')
             },
@@ -142,21 +141,49 @@
         position: fixed;
         width: 100vw;
         background: white;
-        padding: 20px 100px;
+        padding: 20px 100px 10px 100px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-direction: row;
+        flex-direction: column;
         border-bottom: 0.5px solid lightgray;
 
-        ul {
+        & > .head {
+            position: relative;
+            width: 100%;
             display: flex;
-            font-size: 14px;
+            justify-content: center;
+            align-items: center;
 
-            a, li {
-                margin-left: 25px;
-                font-weight: bold;
+            .searchBar {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
             }
+        }
+
+        ul {
+            width: 100%;
+            margin-top: 25px;
+            justify-content: space-between;
+            display: flex;
+            font-size: 16px;
+
+            .basketIcon {
+                position: relative;
+
+                & > a {
+                    margin-left: 0;
+
+                    svg {
+                        color: #2c3e50;
+                        font-size: 20px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
             li {
                 color: #DC3445;
                 cursor: pointer;

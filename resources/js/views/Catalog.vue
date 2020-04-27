@@ -33,9 +33,14 @@
                 brands: 'brands/brands'
             })
         },
-        beforeMount() {
+        mounted() {
             this.$store.dispatch('brands/getBrands')
             this.$store.dispatch('products/getProducts')
+            setTimeout(() => {
+                let elem = document.getElementById('containerBrands')
+                    elem.style.display = 'flex'
+                    elem.style.opacity = '1'
+            }, 50)
         }
     }
 </script>
@@ -45,9 +50,8 @@
         border-bottom: 1.5px solid black!important;
     }
     .catalog {
-        padding: 100px 0 40px 0;
+        padding-bottom: 40px;
         min-height: 100vh;
-        background-color: #F5F9FE;
     }
 
     .banner {
@@ -64,14 +68,21 @@
     }
 
     #containerBrands {
+        display: none;
+        opacity: 0;
+        transition: opacity 500s;
         width: 50%;
         margin: auto;
-        display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: flex-end;
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
 
         .all {
+            scroll-snap-align: start;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -87,15 +98,17 @@
         }
 
         .brands {
-            max-width: 50px;
-            max-height: 50px;
+            scroll-snap-align: start;
+            width: 50px;
+            height: 50px;
             margin: 0 10px;
-            padding-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-bottom: 1px solid transparent;
 
             & > img {
                 width: 100%;
-                height: 100%;
                 cursor: pointer;
                 transition-duration: 200ms;
             }
@@ -130,7 +143,7 @@
 
     @media all and (max-width: 616px) {
         section {
-            padding: 0 0 20px 0;
+            padding-bottom: 20px;
         }
     }
 </style>

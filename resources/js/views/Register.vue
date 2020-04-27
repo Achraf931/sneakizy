@@ -1,5 +1,5 @@
 <template>
-    <div class="register">
+    <div class="register animation">
         <form>
             <h2>Register</h2>
             <label for="name">Name</label>
@@ -12,7 +12,7 @@
             <input id="password" type="password" v-model="password" required>
             <label for="password-confirm">Confirm Password</label>
             <input id="password-confirm" type="password" v-model="password_confirmation" required>
-            <button type="submit" @click.prevent="handleSubmit">Register</button>
+            <button class="button" type="submit" @click.prevent="handleSubmit">Register</button>
         </form>
     </div>
 </template>
@@ -29,6 +29,13 @@
                 password: "",
                 password_confirmation: ""
             }
+        },
+        beforeMount() {
+            setTimeout(() => {
+                let elem = document.querySelector('.animation')
+                elem.style.display = 'flex'
+                elem.style.opacity = '1'
+            }, 50)
         },
         methods: {
             handleSubmit(e) {
@@ -65,7 +72,6 @@
 <style lang="scss" scoped>
     .register {
         width: 100%;
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -75,7 +81,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            background: #F7F7F7;
+            background: white;
             padding: 15px;
             border-radius: 10px;
 
@@ -101,20 +107,11 @@
                 margin-top: 10px;
                 max-width: 300px;
                 width: 100%;
-                color: white;
-                background: black;
                 cursor: pointer;
-                border: 1px solid black;
                 padding: 10px 15px;
                 font-weight: bold;
                 font-size: 16px;
                 border-radius: 10px;
-                transition-duration: 400ms;
-            }
-            button:hover {
-                transition-duration: 400ms;
-                background: white;
-                color: black;
             }
         }
     }

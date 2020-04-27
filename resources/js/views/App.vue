@@ -1,9 +1,7 @@
 <template>
     <div>
+        <!--<Loader/>-->
         <Nav @logout="logout" :lastname="lastname" :is_admin="is_admin" :isLoggedIn="isLoggedIn"/>
-        <transition name="fade">
-            <Search @search="searchProduct" :isSearching="isSearching"/>
-        </transition>
         <main>
             <router-view @loggedIn="change"></router-view>
 <!--           <Footer/>-->
@@ -15,11 +13,12 @@
     import Search from '../components/Search'
     import Footer from '../components/Footer'
     import {bus} from '../app'
+    import Loader from '../components/Loader'
 
     export default {
         data() {
             return {
-                isSearching: false,
+                search: '',
                 lastname: null,
                 is_admin: false,
                 isLoggedIn: localStorage.getItem('jwt') != null
@@ -36,14 +35,22 @@
             }
         },
         created() {
-            bus.$on('isSearching', result => {
-                this.isSearching = result
+            bus.$on('search', result => {
+                this.search = result
+                console.log(this.search)
             })
         },
         components: {
             Nav,
             Search,
-            Footer
+            Footer,
+            Loader
+        },
+        beforeMount() {
+            window.addEventListener("DOMContentLoaded", () => {
+                bus.$emit('loading', true)
+                console.log("DOM entièrement chargé et analysé");
+            });
         },
         mounted() {
             this.setDefaults()
@@ -76,6 +83,22 @@
     }
 </script>
 <style lang="scss">
+    @font-face {
+        font-family: Norms;
+        src: url("/fonts/TTNorms-Regular.otf");
+    }
+    @font-face {
+        font-family: NormsLight;
+        src: url("/fonts/TTNorms-Light.otf");
+    }
+    @font-face {
+        font-family: NormsBold;
+        src: url("/fonts/TTNorms-Bold.otf");
+    }
+    @font-face {
+        font-family: NormsBlack;
+        src: url("/fonts/TTNorms-Black.otf");
+    }
     * {
         box-sizing: border-box;
         margin: 0;
@@ -86,24 +109,57 @@
     }
 
     html, body {
-        background-color: #fff;
+        background-color: rgb(245,244,250);
         color: #636b6f;
-        font-family: Poppins!important;
+        font-family: Norms, Poppins, Arial, sans-serif;
         font-weight: 200;
+        scrollbar-base-color: #4536BB;
+        scroll-behavior: smooth;
     }
-
+    body::-webkit-scrollbar {
+        width: 5px!important;
+    }
+    body::-webkit-scrollbar-thumb {
+        mso-background: #4536BB;
+        background: #4536BB!important;
+    }
+    ::selection {
+        color: white;
+        background: #4536BB;
+    }
+    .scrollbar-track-y {
+        width: 4px !important;
+    }
+    button {
+        background: #4536BB;
+        font-family: Norms;
+    }
     main {
-        padding: 0;
+        padding: 120px 0 0 0;
         width: 100%;
         max-width: 100vw;
     }
-
+    .animation {
+        display: none;
+        opacity: 0;
+        transition: opacity 500s;
+    }
+    .button {
+        color: white;
+        font-family: Norms;
+        border: 1px solid #4536BB;
+        background-color: #4536BB;
+    }
+    .button:active {
+        transition: all 0.2s ease;
+        transform: scale(0.96);
+    }
     a {
         font-weight: bold;
         color: #2c3e50;
 
         &.router-link-exact-active {
-            color: #2067DD;
+            color: #4536BB;
         }
     }
     .fade-enter-active, .fade-leave-to {

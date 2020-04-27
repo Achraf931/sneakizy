@@ -1,5 +1,5 @@
 <template>
-    <div class="containerProducts">
+    <div class="containerProducts animation">
         <Product v-for="product in shuffle(products)" :key="product.id"
                  v-if="brand !== 'All' ? product.brand === brand : brand = 'All'" :product="product"/>
     </div>
@@ -7,6 +7,7 @@
 <script>
     import {mapGetters} from "vuex"
     import Product from "../Product"
+    import Vue from 'vue'
 
     export default {
         name: 'brand',
@@ -24,6 +25,11 @@
                 .listen('ProductAdded', (e) => {
                     this.products.push(e.product)
                 })
+            setTimeout(() => {
+                let elem = document.querySelector('.animation')
+                    elem.style.display = 'grid'
+                    elem.style.opacity = '1'
+            }, 50)
         },
         methods: {
             shuffle(array) {

@@ -16,7 +16,7 @@ export default {
         getArticles(state, articles) {
             state.articles = articles
         },
-        addArticle(state, {articless}) {
+        addArticle(state, {articles}) {
             state.articles.unshift(articles)
         },
         setArticle(state, article) {

@@ -15,11 +15,11 @@ import News from './views/News'
 import SingleArticle from './views/SingleArticle'
 import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faBars, faShoppingBasket, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import vuelidate from 'vuelidate'
 
-library.add(faTimes, faBars, faShoppingBasket, faSearch)
+library.add(faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart)
 
 export const bus = new Vue()
 Vue.component('font-awesome-icon', FontAwesomeIcon)

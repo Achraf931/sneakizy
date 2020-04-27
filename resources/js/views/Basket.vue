@@ -1,6 +1,6 @@
 <template>
     <div class="basket">
-        <div class="containerBasket">
+        <div class="containerBasket animation">
             <div class="containerItems">
                 <h2>Panier</h2>
                 <h4 style="margin-top: 20px;" v-if="basket.length === 0">Votre panier est actuellement vide.</h4>
@@ -15,7 +15,7 @@
                     <p>Frais de livraison <span>0,00€</span></p>
                     <h3>Total <span>{{ basketTotalPrice }}€</span></h3>
                     <hr>
-                    <router-link :to="{name: 'checkout'}"><p class="paiement">Paiement</p></router-link>
+                    <router-link :to="{name: 'checkout'}"><p class="paiement button">Paiement</p></router-link>
                 </div>
             </div>
         </div>
@@ -36,6 +36,13 @@
         components: {
             ItemBasket
         },
+        beforeMount() {
+            setTimeout(() => {
+                let elem = document.querySelector('.animation')
+                elem.style.display = 'flex'
+                elem.style.opacity = '1'
+            }, 50)
+        },
         methods: {
             removeToBasket(product) {
                 this.$store.dispatch('basket/removeItemFromBasket', product)
@@ -49,7 +56,6 @@
         justify-content: center;
         align-items: flex-start;
         width: 100%;
-        min-height: 100vh;
         padding: 80px 0 20px 0;
 
         .containerBasket {
@@ -74,7 +80,6 @@
                         float: right;
                     }
                     .paiement {
-                        background: #23272B;
                         color: white;
                         font-weight: bold;
                         border-radius: 10px;
@@ -83,11 +88,6 @@
                         padding: 10px 15px;
                         width: 100%;
                         text-align: center;
-                        transition-duration: 200ms;
-                    }
-                    .paiement:hover {
-                        background: black;
-                        transition-duration: 200ms;
                     }
                 }
             }

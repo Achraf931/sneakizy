@@ -1,9 +1,7 @@
 <template>
-    <div v-if="isSearching" class="searchBox">
-        <div>
-            <font-awesome-icon @click="closeSearching" class="close" icon="times"/>
-            <input @keyup="searchProduct" type="text" v-model="search" placeholder="Rechercher">
-        </div>
+    <div>
+        <input v-model="search" @keyup.enter="sendSearch" type="text" placeholder="ex. Air Jordan 1">
+        <font-awesome-icon @click="sendSearch" style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="search"/>
     </div>
 </template>
 <script>
@@ -16,42 +14,41 @@
             }
         },
         methods: {
-            closeSearching() {
-                bus.$emit('isSearching', false)
-            },
-            searchProduct() {
-                this.$emit('search', this.search)
+            sendSearch() {
+                bus.$emit('search', this.search)
             }
         }
     }
 </script>
 <style lang="scss" scoped>
-    .searchBox {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: 200;
+    div {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        max-height: 38px;
 
-        .close {
+        svg {
             position: absolute;
             right: 10px;
-            top: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: darkgrey!important;
         }
-
-        div {
-            position: relative;
-            background-color: white;
-            padding: 20px;
-            z-index: 200;
-            max-width: 1000px;
-            width: 100%;
+        input {
+            width: 300px;
+            padding: 4px 40px 4px 12px;
+            font-size: 1rem;
+            color: #000000;
+            line-height: 1.4;
+            text-transform: none;
             border-radius: 10px;
+            background-clip: padding-box;
+            background-color: #f2f2f2;
+            border: none;
+            box-sizing: border-box;
+        }
+        input::placeholder {
+            color: darkgrey;
         }
     }
 </style>
