@@ -110,7 +110,7 @@
 
     html, body {
         background-color: rgb(245,244,250);
-        color: #636b6f;
+        color: black;
         font-family: Norms, Poppins, Arial, sans-serif;
         font-weight: 200;
         scrollbar-base-color: #4536BB;
