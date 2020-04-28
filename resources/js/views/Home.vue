@@ -73,6 +73,7 @@
 
                 h4 {
                     line-height: 25px;
+                    margin: 20px 0;
                 }
 
                 .seeArticle > button {
