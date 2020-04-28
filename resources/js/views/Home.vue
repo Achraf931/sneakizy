@@ -47,7 +47,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 1000px;
+        max-width: 940px;
         width: 100%;
         margin: auto;
         padding-bottom: 40px;
@@ -105,7 +105,6 @@
 
         & > .products {
             margin-top: 15px;
-            max-width: 1000px;
             justify-content: space-between;
             width: 100%;
             display: -webkit-inline-box;
