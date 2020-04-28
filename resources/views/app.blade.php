@@ -9,7 +9,7 @@
         <meta property="og:site_name" content = "SNKEAKiZY"/>
         <meta property="og:title" content="SNKEAKiZY"/>
         <meta property="og:url" content="https://sneakizy.herokuapp.com/"/>
-        <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0025/2687/1622/files/logo_nike_1024x1024.jpg?v=1572383751"/>
+        <meta property="og:image" content="https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094080/Sneakizy/Logo/qjmhoqpinrane4jcd7y9.jpg"/>
         <meta property="og:description" content="Boutique en ligne de sneakers."/>
         <title>Sneakizy</title>
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
