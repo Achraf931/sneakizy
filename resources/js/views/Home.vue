@@ -134,12 +134,16 @@
         }
     }
     @media all and (max-width: 749px) {
-        section {
+        .containerProducts > article {
             flex-direction: column;
 
             & > div {
-                width: 100%;
-                max-height: 100vh;
+                width: 100%!important;
+                border-radius: 0!important;
+
+                img {
+                    border-radius: 0!important;
+                }
             }
         }
     }
