@@ -8,7 +8,7 @@
                 <small>{{brand.name}}</small>
             </div>
             <h4>{{product.name}}</h4>
-            <p>{{product.color}}</p>
+            <p>{{product.color.slice(0, 24)}}</p>
             <small>{{Math.round(product.price)}}€</small>
             <router-link class="button" :to="{name: 'product', params: {id: product.id}}">Voir</router-link>
         </div>

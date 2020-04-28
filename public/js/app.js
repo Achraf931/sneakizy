@@ -12921,12 +12921,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'catalog',
   data: function data() {
     return {
+      banner: '',
       count: '',
       brandName: 'All'
     };
@@ -20210,7 +20214,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".line[data-v-41cd806c] {\n  border-bottom: 1.5px solid black !important;\n}\n.catalog[data-v-41cd806c] {\n  padding-bottom: 40px;\n  min-height: 100vh;\n}\n.banner[data-v-41cd806c] {\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n.banner > img[data-v-41cd806c] {\n  max-width: 600px;\n  width: 100%;\n  max-height: 250px;\n  height: 100%;\n}\n#containerBrands[data-v-41cd806c] {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n  width: 50%;\n  margin: auto;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: flex-end;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n#containerBrands .all[data-v-41cd806c] {\n  scroll-snap-align: start;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  color: white;\n  font-weight: bold;\n  background: black;\n  border-radius: 100%;\n  font-size: 12px;\n  cursor: pointer;\n  margin-bottom: 10px;\n}\n#containerBrands .brands[data-v-41cd806c] {\n  scroll-snap-align: start;\n  width: 50px;\n  height: 50px;\n  margin: 0 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: 1px solid transparent;\n}\n#containerBrands .brands > img[data-v-41cd806c] {\n  width: 100%;\n  cursor: pointer;\n  transition-duration: 200ms;\n}\n#containerBrands .brands:hover > img[data-v-41cd806c] {\n  transition-duration: 200ms;\n  transform: scale(1.1);\n}\n#containerBrands .brands[data-v-41cd806c]:first-child {\n  margin-left: 0;\n}\n#containerBrands .brands[data-v-41cd806c]:last-child {\n  margin-right: 0;\n}\n.containerProducts[data-v-41cd806c] {\n  margin-top: 20px;\n  display: grid;\n  grid-gap: 46px;\n  width: 100%;\n  justify-content: center;\n  grid-template-columns: repeat(auto-fit, 300px);\n}\n@media all and (max-width: 645px) {\n.containerProducts[data-v-41cd806c] {\n    grid-gap: 10px;\n}\n}\n@media all and (max-width: 616px) {\nsection[data-v-41cd806c] {\n    padding-bottom: 20px;\n}\n}", ""]);
+exports.push([module.i, ".line[data-v-41cd806c] {\n  border-bottom: 1.5px solid black !important;\n}\n.catalog[data-v-41cd806c] {\n  padding-bottom: 40px;\n  min-height: 100vh;\n}\n.banner[data-v-41cd806c] {\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n.banner > img[data-v-41cd806c] {\n  max-width: 600px;\n  width: 100%;\n  max-height: 250px;\n  height: 100%;\n}\n#containerBrands[data-v-41cd806c] {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n  width: 50%;\n  margin: auto;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: flex-end;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n#containerBrands .all[data-v-41cd806c] {\n  scroll-snap-align: start;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  color: white;\n  font-weight: bold;\n  background: black;\n  border-radius: 100%;\n  font-size: 12px;\n  cursor: pointer;\n}\n#containerBrands .brands[data-v-41cd806c] {\n  scroll-snap-align: start;\n  width: 50px;\n  height: 50px;\n  margin: 0 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: 1px solid transparent;\n}\n#containerBrands .brands > img[data-v-41cd806c] {\n  width: 100%;\n  cursor: pointer;\n  transition-duration: 200ms;\n}\n#containerBrands .brands:hover > img[data-v-41cd806c] {\n  transition-duration: 200ms;\n  transform: scale(1.1);\n}\n#containerBrands .brands[data-v-41cd806c]:first-child {\n  margin-left: 0;\n}\n#containerBrands .brands[data-v-41cd806c]:last-child {\n  margin-right: 0;\n}\n.containerProducts[data-v-41cd806c] {\n  margin-top: 20px;\n  display: grid;\n  grid-gap: 46px;\n  width: 100%;\n  justify-content: center;\n  grid-template-columns: repeat(auto-fit, 300px);\n}\n@media all and (max-width: 645px) {\n.containerProducts[data-v-41cd806c] {\n    grid-gap: 10px;\n}\n}\n@media all and (max-width: 616px) {\nsection[data-v-41cd806c] {\n    padding-bottom: 20px;\n}\n}", ""]);
 
 // exports
 
@@ -60762,7 +60766,7 @@ var render = function() {
         _vm._v(" "),
         _c("h4", [_vm._v(_vm._s(_vm.product.name))]),
         _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.product.color))]),
+        _c("p", [_vm._v(_vm._s(_vm.product.color.slice(0, 24)))]),
         _vm._v(" "),
         _c("small", [_vm._v(_vm._s(Math.round(_vm.product.price)) + "€")]),
         _vm._v(" "),
@@ -61703,7 +61707,12 @@ var render = function() {
             "div",
             {
               class: { line: _vm.brandName === "All" },
-              staticStyle: { "border-bottom": "1px solid transparent" }
+              staticStyle: {
+                "border-bottom": "1px solid transparent",
+                height: "50px",
+                display: "flex",
+                "align-items": "center"
+              }
             },
             [
               _c(
@@ -61734,7 +61743,7 @@ var render = function() {
                   attrs: { src: brand.image, alt: brand.name },
                   on: {
                     click: function($event) {
-                      _vm.brandName = brand.name
+                      ;(_vm.brandName = brand.name), (_vm.banner = brand.banner)
                     }
                   }
                 })
