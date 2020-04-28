@@ -11994,6 +11994,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _Search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Search */ "./resources/js/components/Search.vue");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -12047,12 +12048,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['lastname', 'isLoggedIn', 'is_admin'],
   data: function data() {
     return {
+      mode: false,
       window: {
         width: 0,
         height: 0
@@ -12075,6 +12079,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    activeDark: function activeDark() {
+      this.mode = !this.mode;
+      _app__WEBPACK_IMPORTED_MODULE_2__["bus"].$emit('mode', this.mode);
+    },
     logout: function logout() {
       this.$emit('logout');
     },
@@ -12690,6 +12698,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      mode: false,
       search: '',
       lastname: null,
       is_admin: false,
@@ -12709,9 +12718,11 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
+    _app__WEBPACK_IMPORTED_MODULE_3__["bus"].$on('mode', function (result) {
+      localStorage.setItem('mode', result);
+    });
     _app__WEBPACK_IMPORTED_MODULE_3__["bus"].$on('search', function (result) {
       _this.search = result;
-      console.log(_this.search);
     });
   },
   components: {
@@ -20108,7 +20119,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #f5f4fa;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\n.scrollbar-track-y {\n  width: 4px !important;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
+exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #f5f4fa;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\n.scrollbar-track-y {\n  width: 4px !important;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
 
 // exports
 
@@ -60436,7 +60447,7 @@ var render = function() {
               },
               attrs: { to: { name: "home" } }
             },
-            [_vm._v("SNEAKiZY")]
+            [_c("p", [_vm._v("SNEAKiZY")])]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "searchBar" }, [_c("Search")], 1)
@@ -61449,6 +61460,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { class: _vm.mode ? "dark" : "", staticStyle: { "min-height": "100vh" } },
     [
       _c("Nav", {
         attrs: {

@@ -2,7 +2,8 @@
     <nav>
         <div @click="closeMenu" v-if="menu === true" class="bg"></div>
         <div class="head">
-            <router-link style="color: #2c3e50!important; font-family: NormsBold;" :to="{name: 'home'}">SNEAKiZY</router-link>
+            <router-link style="color: #2c3e50!important; font-family: NormsBold;" :to="{name: 'home'}"><p>SNEAKiZY</p></router-link>
+<!--            <p @click="activeDark">test</p>-->
             <div class="searchBar">
                 <Search/>
             </div>
@@ -48,11 +49,13 @@
 <script>
     import {mapGetters} from 'vuex'
     import Search from './Search'
+    import {bus} from '../app'
 
     export default {
         props: ['lastname', 'isLoggedIn', 'is_admin'],
         data() {
             return {
+                mode: false,
                 window: {
                     width: 0,
                     height: 0
@@ -77,6 +80,10 @@
             window.removeEventListener('resize', this.handleResize);
         },
         methods: {
+            activeDark() {
+                this.mode = !this.mode
+                bus.$emit('mode', this.mode)
+            },
             logout() {
                 this.$emit('logout')
             },

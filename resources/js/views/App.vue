@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="min-height: 100vh" :class="mode ? 'dark' : ''">
         <!--<Loader/>-->
         <Nav @logout="logout" :lastname="lastname" :is_admin="is_admin" :isLoggedIn="isLoggedIn"/>
         <main>
@@ -18,6 +18,7 @@
     export default {
         data() {
             return {
+                mode: false,
                 search: '',
                 lastname: null,
                 is_admin: false,
@@ -35,9 +36,11 @@
             }
         },
         created() {
+            bus.$on('mode', result => {
+                localStorage.setItem('mode', result)
+            })
             bus.$on('search', result => {
                 this.search = result
-                console.log(this.search)
             })
         },
         components: {
@@ -139,6 +142,26 @@
         width: 100%;
         max-width: 100vw;
     }
+    .dark {
+        background: radial-gradient(circle at top right, #252525, #2E2E2E, black);
+        animation: opacity .2s;
+
+        nav {
+            background: transparent;
+
+            ul .basketIcon > a svg {
+                color: white;
+            }
+
+            .head > a > p {
+                color: white!important;
+            }
+
+            ul, li, a {
+                color: white;
+            }
+        }
+    }
     .animation {
         display: none;
         opacity: 0;
@@ -159,7 +182,7 @@
         color: #2c3e50;
 
         &.router-link-exact-active {
-            color: #4536BB;
+            color: #4536BB!important;
         }
     }
     .fade-enter-active, .fade-leave-to {

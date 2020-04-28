@@ -15,9 +15,9 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->is_admin)
+        if (!auth()->user()->is_admin)
         {
-            return $next($request);
+            abort(403, 'Access denied');
         }
         return $next($request);
     }

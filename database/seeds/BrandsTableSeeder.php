@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use JD\Cloudder\Facades\Cloudder;
 
 class BrandsTableSeeder extends Seeder
 {
@@ -10,10 +11,14 @@ class BrandsTableSeeder extends Seeder
         $data = json_decode($json);
         foreach ($data as $object)
         {
+            Cloudder::upload(storage_path('img/' . $object->image), null, ['folder' => 'Sneakizy/Brands']);
+            $image = Cloudder::getResult();
+            Cloudder::upload(storage_path('img/' . $object->banner), null, ['folder' => 'Sneakizy/Brands']);
+            $banner = Cloudder::getResult();
             $brand = new \App\Brand();
             $brand->name = $object->name;
-            $brand->image = 'https://res.cloudinary.com/hrd7cpazc/image/upload/v1587474506/' . $object->image;
-            $brand->banner = $object->banner;
+            $brand->image = $image['url'];
+            $brand->banner = $banner['url'];
             $brand->save();
         }
     }
