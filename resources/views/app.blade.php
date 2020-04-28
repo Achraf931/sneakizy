@@ -8,6 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta property="og:site_name" content = "SNKEAKiZY"/>
         <meta property="og:title" content="SNKEAKiZY"/>
+        <meta property="og:type" content="website"/>
         <meta property="og:url" content="https://sneakizy.herokuapp.com/"/>
         <meta property="og:image" content="https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094080/Sneakizy/Logo/qjmhoqpinrane4jcd7y9.jpg"/>
         <meta property="og:description" content="Boutique en ligne de sneakers."/>

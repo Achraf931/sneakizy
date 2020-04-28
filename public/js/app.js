@@ -12053,6 +12053,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -20176,7 +20177,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #f5f4fa;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\n.scrollbar-track-y {\n  width: 4px !important;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
+exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #f5f4fa;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\n.scrollbar-track-y {\n  width: 4px !important;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
 
 // exports
 
@@ -60504,7 +60505,16 @@ var render = function() {
               },
               attrs: { to: { name: "home" } }
             },
-            [_c("p", [_vm._v("SNEAKiZY")])]
+            [
+              _c("img", {
+                staticStyle: { width: "110px" },
+                attrs: {
+                  src:
+                    "https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094079/Sneakizy/Logo/j67qaz4dabnjiyuttija.png",
+                  alt: "logo"
+                }
+              })
+            ]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "searchBar" }, [_c("Search")], 1)

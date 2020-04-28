@@ -2,7 +2,8 @@
     <nav>
         <div @click="closeMenu" v-if="menu === true" class="bg"></div>
         <div class="head">
-            <router-link style="color: #2c3e50!important; font-family: NormsBold;" :to="{name: 'home'}"><p>SNEAKiZY</p>
+            <router-link style="color: #2c3e50!important; font-family: NormsBold;" :to="{name: 'home'}">
+                <img style="width: 110px;" src="https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094079/Sneakizy/Logo/j67qaz4dabnjiyuttija.png" alt="logo">
             </router-link>
             <!--            <p @click="activeDark">test</p>-->
             <div class="searchBar">

@@ -142,6 +142,9 @@
         width: 100%;
         max-width: 100vw;
     }
+    img {
+        image-rendering: -webkit-optimize-contrast!important;
+    }
     .app {
         min-height: 100vh;
         display: flex;
