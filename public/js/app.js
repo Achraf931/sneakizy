@@ -12049,6 +12049,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -12125,8 +12129,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['product', 'brand']
+  data: function data() {
+    return {
+      brand: '',
+      size: '39',
+      show: false,
+      quantity: ''
+    };
+  },
+  props: ['product', 'brands'],
+  mounted: function mounted() {
+    var _this = this;
+
+    this.brands.forEach(function (brand) {
+      if (brand.name === _this.product.brand) {
+        _this.brand = brand;
+      }
+    });
+  },
+  methods: {
+    addToBasket: function addToBasket() {
+      this.$store.dispatch('basket/AddProductToBasket', {
+        product: this.product,
+        quantity: 1,
+        size: this.size
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -12521,6 +12562,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: 'brand',
   props: ['brand'],
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    brands: 'brands/brands',
     products: 'products/products'
   })),
   components: {
@@ -12812,6 +12854,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'basket',
+  data: function data() {
+    return {
+      scrollY: ''
+    };
+  },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     basket: 'basket/basket',
     basketItemCount: 'basket/basketItemCount',
@@ -12819,6 +12866,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   components: {
     ItemBasket: _components_ItemBasket__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mounted: function mounted() {
+    window.addEventListener('scroll', function () {
+      this.scrollY = document.documentElement.scrollTop;
+      console.log(this.scrollY);
+    });
   },
   beforeMount: function beforeMount() {
     setTimeout(function () {
@@ -20043,7 +20096,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".bg[data-v-7cd4f788] {\n  background: rgba(0, 0, 0, 0.4);\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  transition-duration: 400ms;\n}\n#mobileMenu[data-v-7cd4f788] {\n  position: absolute;\n  top: 0;\n  right: -80vw;\n  width: 70vw;\n  height: 100vh;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  background: black;\n  z-index: 1000;\n  display: none;\n  -webkit-animation: slideInUp-data-v-7cd4f788 400ms forwards;\n          animation: slideInUp-data-v-7cd4f788 400ms forwards;\n}\n#mobileMenu a[data-v-7cd4f788] {\n  color: white;\n}\n@-webkit-keyframes slideInUp-data-v-7cd4f788 {\n0% {\n    right: -80vw;\n    height: 100vh;\n}\n100% {\n    right: 0;\n    height: 100vh;\n}\n}\n@keyframes slideInUp-data-v-7cd4f788 {\n0% {\n    right: -80vw;\n    height: 100vh;\n}\n100% {\n    right: 0;\n    height: 100vh;\n}\n}\nnav[data-v-7cd4f788] {\n  z-index: 70;\n  position: fixed;\n  width: 100vw;\n  background: white;\n  padding: 20px 100px 10px 100px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-direction: column;\n  border-bottom: 0.5px solid lightgray;\n}\nnav > .head[data-v-7cd4f788] {\n  position: relative;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nnav > .head .searchBar[data-v-7cd4f788] {\n  position: absolute;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\nnav ul[data-v-7cd4f788] {\n  width: 100%;\n  margin-top: 25px;\n  justify-content: space-between;\n  display: flex;\n  font-size: 16px;\n}\nnav ul .basketIcon[data-v-7cd4f788] {\n  position: relative;\n}\nnav ul .basketIcon > a[data-v-7cd4f788] {\n  margin-left: 0;\n}\nnav ul .basketIcon > a svg[data-v-7cd4f788] {\n  color: #2c3e50;\n  font-size: 20px;\n  cursor: pointer;\n}\nnav ul li[data-v-7cd4f788] {\n  color: #DC3445;\n  cursor: pointer;\n}\n@media all and (max-width: 837px) {\nnav[data-v-7cd4f788] {\n    padding: 20px 15px;\n}\nul[data-v-7cd4f788]:first-child {\n    display: none !important;\n}\n#mobileMenu[data-v-7cd4f788] {\n    display: none;\n    position: absolute;\n    top: 0;\n    right: -80vw;\n    width: 80vw;\n    transition-duration: 400ms;\n}\nsvg[data-v-7cd4f788] {\n    cursor: pointer;\n}\n}", ""]);
+exports.push([module.i, ".bg[data-v-7cd4f788] {\n  background: rgba(0, 0, 0, 0.4);\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  transition-duration: 400ms;\n}\n#mobileMenu[data-v-7cd4f788] {\n  position: absolute;\n  top: 0;\n  right: -80vw;\n  width: 70vw;\n  height: 100vh;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  background: black;\n  z-index: 1000;\n  display: none;\n  -webkit-animation: slideInUp-data-v-7cd4f788 400ms forwards;\n          animation: slideInUp-data-v-7cd4f788 400ms forwards;\n}\n#mobileMenu a[data-v-7cd4f788] {\n  color: white;\n}\n@-webkit-keyframes slideInUp-data-v-7cd4f788 {\n0% {\n    right: -80vw;\n    height: 100vh;\n}\n100% {\n    right: 0;\n    height: 100vh;\n}\n}\n@keyframes slideInUp-data-v-7cd4f788 {\n0% {\n    right: -80vw;\n    height: 100vh;\n}\n100% {\n    right: 0;\n    height: 100vh;\n}\n}\nnav[data-v-7cd4f788] {\n  z-index: 70;\n  position: fixed;\n  width: 100vw;\n  background: white;\n  padding: 20px 100px 10px 100px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-direction: column;\n  border-bottom: 0.5px solid lightgray;\n}\nnav > .head[data-v-7cd4f788] {\n  position: relative;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nnav > .head .searchBar[data-v-7cd4f788] {\n  position: absolute;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\nnav ul[data-v-7cd4f788] {\n  width: 100%;\n  margin-top: 25px;\n  justify-content: space-between;\n  display: flex;\n  font-size: 16px;\n}\nnav ul .basketIcon[data-v-7cd4f788] {\n  position: relative;\n  margin-left: 0;\n}\nnav ul .basketIcon li > svg[data-v-7cd4f788] {\n  color: #2c3e50 !important;\n  font-size: 20px;\n  cursor: pointer;\n}\nnav ul li[data-v-7cd4f788] {\n  color: #DC3445;\n  cursor: pointer;\n}\n@media all and (max-width: 837px) {\nnav[data-v-7cd4f788] {\n    padding: 20px 15px;\n}\nul[data-v-7cd4f788]:first-child {\n    display: none !important;\n}\n#mobileMenu[data-v-7cd4f788] {\n    display: none;\n    position: absolute;\n    top: 0;\n    right: -80vw;\n    width: 80vw;\n    transition-duration: 400ms;\n}\nsvg[data-v-7cd4f788] {\n    cursor: pointer;\n}\n}", ""]);
 
 // exports
 
@@ -20062,7 +20115,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".product[data-v-7e94e6d4] {\n  max-width: 300px;\n  width: 100%;\n  background: white;\n  border-radius: 10px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.product img[data-v-7e94e6d4] {\n  width: 100%;\n  max-height: 200px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 0 10px 0 0;\n}\n.product > div[data-v-7e94e6d4] {\n  position: relative;\n  padding: 20px;\n}\n.product > div > a[data-v-7e94e6d4] {\n  font-weight: bold;\n  padding: 5px 10px;\n  border-radius: 5px;\n  position: absolute;\n  bottom: 20px;\n  right: 20px;\n}\n.product > div > h3[data-v-7e94e6d4]:nth-child(1) {\n  font-weight: bold;\n}\n.product > div > h3[data-v-7e94e6d4]:nth-child(2) {\n  font-weight: normal;\n  margin-bottom: 10px;\n}\n.product > div > small[data-v-7e94e6d4] {\n  font-weight: bold;\n  font-size: 16px;\n}", ""]);
+exports.push([module.i, ".product[data-v-7e94e6d4] {\n  max-width: 300px;\n  width: 100%;\n  background: white;\n  border-radius: 0 10px 10px 10px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.product .productImage[data-v-7e94e6d4] {\n  padding-top: 0;\n  height: 187px;\n  position: relative;\n}\n.product .productImage div[data-v-7e94e6d4] {\n  width: calc(100% - 30px);\n  height: calc(100% - 15px);\n  opacity: 0;\n  position: absolute;\n  left: 50%;\n  top: 0;\n  transform: translateX(-50%);\n  border-radius: 10px;\n  background: rgba(0, 0, 0, 0.4);\n  transition: opacity 0.2s;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.product .productImage div button[data-v-7e94e6d4] {\n  padding: 10px 15px;\n  color: white;\n  font-size: 16px;\n  font-family: Norms, NormsLight, Arial, sans-serif;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.product .productImage img[data-v-7e94e6d4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  max-height: 200px;\n  border-radius: 10px;\n}\n.product .productImage:hover div[data-v-7e94e6d4] {\n  opacity: 1;\n}\n.product > div[data-v-7e94e6d4] {\n  position: relative;\n  padding: 15px;\n}\n.product > div .brandImage[data-v-7e94e6d4] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  margin-bottom: 10px;\n}\n.product > div .brandImage > div[data-v-7e94e6d4] {\n  width: 50px;\n  height: 50px;\n  border-radius: 100%;\n  box-shadow: 0px 2px 5px rgba(69, 54, 187, 0.2);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 5px;\n}\n.product > div .brandImage > div img[data-v-7e94e6d4] {\n  width: 100%;\n}\n.product > div .brandImage small[data-v-7e94e6d4] {\n  margin-left: 10px;\n}\n.product > div > a[data-v-7e94e6d4] {\n  font-weight: bold;\n  padding: 5px 10px;\n  border-radius: 5px;\n  position: absolute;\n  bottom: 15px;\n  right: 15px;\n}\n.product > div > p[data-v-7e94e6d4] {\n  font-family: NormsLight, Norms, Arial, sans-serif;\n  margin-bottom: 10px;\n}\n.product > div > small[data-v-7e94e6d4] {\n  font-weight: bold;\n  font-size: 16px;\n}", ""]);
 
 // exports
 
@@ -20138,7 +20191,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".basket {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100%;\n  padding: 80px 0 20px 0;\n}\n.basket .containerBasket {\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.basket .containerBasket .rightPanel {\n  width: 300px;\n  font-weight: bold;\n}\n.basket .containerBasket .rightPanel > div {\n  border-radius: 10px;\n  padding: 20px;\n  background: white;\n  position: fixed;\n  width: 300px;\n}\n.basket .containerBasket .rightPanel > div > p, .basket .containerBasket .rightPanel > div h3 {\n  margin-top: 20px;\n}\n.basket .containerBasket .rightPanel > div span {\n  float: right;\n}\n.basket .containerBasket .rightPanel > div .paiement {\n  color: white;\n  font-weight: bold;\n  border-radius: 10px;\n  font-size: 18px;\n  margin-top: 20px;\n  padding: 10px 15px;\n  width: 100%;\n  text-align: center;\n}\n.basket .containerBasket .containerItems {\n  width: calc(98% - 300px);\n}\n.basket .containerBasket .containerItems h2 {\n  border-radius: 10px;\n  background-color: white;\n  padding: 10px 20px;\n}\n.basket .containerBasket .containerItems > div {\n  width: 100%;\n}\n.basket .containerBasket .containerItems > div > div {\n  margin-top: 20px;\n}\n.basket .containerBasket .containerItems > div:first-child {\n  margin-top: 0;\n}\n@media all and (max-width: 900px) {\n.basket .containerBasket {\n    flex-direction: column;\n}\n.basket .containerBasket .containerItems {\n    width: 100%;\n}\n.basket .containerBasket .rightPanel {\n    margin-top: 30px;\n    width: 100%;\n    padding-left: 15px;\n    padding-bottom: 60px;\n}\n.basket .containerBasket .rightPanel div {\n    position: initial;\n    width: 100%;\n}\n.basket .containerBasket .rightPanel div .paiement {\n    position: fixed;\n    bottom: 15px;\n    width: calc(100% - 30px);\n}\n}", ""]);
+exports.push([module.i, ".basket {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100%;\n  padding-bottom: 20px;\n}\n.basket .containerBasket {\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.basket .containerBasket .rightPanel {\n  width: 300px;\n  font-weight: bold;\n}\n.basket .containerBasket .rightPanel > div {\n  border-radius: 10px;\n  padding: 20px;\n  background: white;\n  position: fixed;\n  width: 300px;\n}\n.basket .containerBasket .rightPanel > div > p, .basket .containerBasket .rightPanel > div h3 {\n  margin-top: 20px;\n}\n.basket .containerBasket .rightPanel > div span {\n  float: right;\n}\n.basket .containerBasket .rightPanel > div .paiement {\n  color: white;\n  font-weight: bold;\n  border-radius: 10px;\n  font-size: 18px;\n  margin-top: 20px;\n  padding: 10px 15px;\n  width: 100%;\n  text-align: center;\n}\n.basket .containerBasket .containerItems {\n  width: calc(98% - 300px);\n}\n.basket .containerBasket .containerItems h2 {\n  border-radius: 10px;\n  background-color: white;\n  padding: 10px 20px;\n}\n.basket .containerBasket .containerItems > div {\n  width: 100%;\n}\n.basket .containerBasket .containerItems > div > div {\n  margin-top: 20px;\n}\n.basket .containerBasket .containerItems > div:first-child {\n  margin-top: 0;\n}\n@media all and (max-width: 900px) {\n.positionButton {\n    bottom: 75px !important;\n}\n.basket .containerBasket {\n    flex-direction: column;\n    padding: 0 15px;\n}\n.basket .containerBasket .containerItems {\n    width: 100%;\n}\n.basket .containerBasket .rightPanel {\n    margin-top: 30px;\n    width: 100%;\n    padding-bottom: 60px;\n}\n.basket .containerBasket .rightPanel div {\n    position: initial;\n    width: 100%;\n}\n.basket .containerBasket .rightPanel div .paiement {\n    position: fixed;\n    bottom: 15px;\n    width: calc(100% - 30px);\n    left: 50%;\n    transform: translateX(-50%);\n}\n}", ""]);
 
 // exports
 
@@ -20176,7 +20229,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".error label[data-v-1d91a851] {\n  color: red;\n}\n.error input[data-v-1d91a851], .error textarea[data-v-1d91a851] {\n  border: 1px solid red !important;\n}\n.notError label[data-v-1d91a851] {\n  color: initial;\n}\n.notError input[data-v-1d91a851], .notError textarea[data-v-1d91a851] {\n  border: 1px solid rgba(116, 142, 170, 0.25);\n}\n.contact[data-v-1d91a851] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.contact iframe[data-v-1d91a851] {\n  margin: 40px 0 20px 0;\n  max-width: 1000px;\n  width: 100%;\n}\n.contact h2[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact .sendTitle[data-v-1d91a851] {\n  color: #4536BB;\n}\n.contact > div[data-v-1d91a851] {\n  border-radius: 10px;\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left[data-v-1d91a851] {\n  background-color: white;\n  width: 60%;\n  padding: 20px;\n  border-radius: 10px 0 0 10px;\n}\n.contact > div .left .buttonSend[data-v-1d91a851] {\n  color: white;\n  background-color: #6FBD13;\n  border-color: #6FBD13;\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  margin-top: 20px;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  padding: 0.375rem 0.75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.contact > div .left p[data-v-1d91a851] {\n  font-size: 10px;\n  font-style: italic;\n  margin-top: 10px;\n}\n.contact > div .left #message[data-v-1d91a851] {\n  min-height: 100px;\n}\n.contact > div .left .group[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact > div .left .formGroup[data-v-1d91a851] {\n  display: flex;\n  margin-bottom: 20px;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851] {\n  display: flex;\n  flex-direction: column;\n  width: 50%;\n}\n.contact > div .left .formGroup > div h2[data-v-1d91a851] {\n  color: #4536BB !important;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:first-child {\n  padding-right: 10px;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:last-child {\n  padding-left: 10px;\n}\n.contact > div .left input[data-v-1d91a851], .contact > div .left textarea[data-v-1d91a851] {\n  display: block;\n  width: 100%;\n  height: calc(1.5em + .75rem + 2px);\n  padding: 0.375rem 0.75rem;\n  font-weight: 400;\n  line-height: 1.5;\n  background-color: #fff;\n  background-clip: padding-box;\n  border-radius: 0.25rem;\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n  border: 1px solid rgba(116, 142, 170, 0.25);\n  color: #748EAA !important;\n  font-size: 12px;\n}\n.contact > div .left input[data-v-1d91a851]:focus, .contact > div .left textarea[data-v-1d91a851]:focus {\n  border: 1px solid #4536BB;\n}\n.contact > div .right[data-v-1d91a851] {\n  background: #4536BB;\n  color: white;\n  border-radius: 0 10px 10px 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-evenly;\n  padding: 40px;\n  width: 40%;\n}\n@media all and (max-width: 837px) {\n.contact > div[data-v-1d91a851] {\n    flex-direction: column;\n}\n.contact > div .left[data-v-1d91a851], .contact > div .right[data-v-1d91a851] {\n    border-radius: 0;\n    width: 100%;\n}\n}", ""]);
+exports.push([module.i, ".error label[data-v-1d91a851] {\n  color: red;\n}\n.error input[data-v-1d91a851], .error textarea[data-v-1d91a851] {\n  border: 1px solid red !important;\n}\n.notError label[data-v-1d91a851] {\n  color: initial;\n}\n.notError input[data-v-1d91a851], .notError textarea[data-v-1d91a851] {\n  border: 1px solid rgba(116, 142, 170, 0.25);\n}\n.contact[data-v-1d91a851] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.contact iframe[data-v-1d91a851] {\n  margin: 40px 0 20px 0;\n  max-width: 1000px;\n  width: 100%;\n}\n.contact h2[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact .sendTitle[data-v-1d91a851] {\n  color: #4536BB;\n}\n.contact > div[data-v-1d91a851] {\n  border-radius: 10px;\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left[data-v-1d91a851] {\n  background-color: white;\n  width: 60%;\n  padding: 20px;\n  border-radius: 10px 0 0 10px;\n}\n.contact > div .left .buttonSend[data-v-1d91a851] {\n  color: white;\n  background-color: #6FBD13;\n  border-color: #6FBD13;\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  margin-top: 20px;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  padding: 0.375rem 0.75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.contact > div .left p[data-v-1d91a851] {\n  font-size: 10px;\n  font-style: italic;\n  margin-top: 10px;\n}\n.contact > div .left #message[data-v-1d91a851] {\n  min-height: 100px;\n}\n.contact > div .left .group[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact > div .left .formGroup[data-v-1d91a851] {\n  display: flex;\n  margin-bottom: 20px;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851] {\n  display: flex;\n  flex-direction: column;\n  width: 50%;\n}\n.contact > div .left .formGroup > div h2[data-v-1d91a851] {\n  color: #4536BB !important;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:first-child {\n  padding-right: 10px;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:last-child {\n  padding-left: 10px;\n}\n.contact > div .left input[data-v-1d91a851], .contact > div .left textarea[data-v-1d91a851] {\n  display: block;\n  width: 100%;\n  height: calc(1.5em + .75rem + 2px);\n  padding: 0.375rem 0.75rem;\n  font-weight: 400;\n  line-height: 1.5;\n  background-color: #fff;\n  background-clip: padding-box;\n  border-radius: 0.25rem;\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n  border: 1px solid rgba(116, 142, 170, 0.25);\n  color: #748EAA !important;\n  font-size: 12px;\n}\n.contact > div .left input[data-v-1d91a851]:focus, .contact > div .left textarea[data-v-1d91a851]:focus {\n  border: 1px solid #4536BB;\n}\n.contact > div .right[data-v-1d91a851] {\n  background: #4536BB;\n  color: white;\n  border-radius: 0 10px 10px 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-evenly;\n  padding: 40px;\n  width: 40%;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\n@media all and (max-width: 837px) {\n.contact > div[data-v-1d91a851] {\n    flex-direction: column;\n}\n.contact > div .left[data-v-1d91a851], .contact > div .right[data-v-1d91a851] {\n    border-radius: 0;\n    width: 100%;\n}\n}", ""]);
 
 // exports
 
@@ -60522,46 +60575,54 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _c(
-                "li",
-                { staticClass: "basketIcon" },
+                "router-link",
+                {
+                  staticClass: "basketIcon",
+                  attrs: { to: { name: "basket" } }
+                },
                 [
                   _c(
-                    "router-link",
-                    { attrs: { to: { name: "basket" } } },
+                    "li",
                     [
                       _c("font-awesome-icon", {
                         attrs: { icon: "shopping-basket" }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.basketItemCount > 0
+                        ? _c("transition", { attrs: { name: "fade" } }, [
+                            _c(
+                              "div",
+                              {
+                                staticStyle: {
+                                  width: "15px",
+                                  height: "15px",
+                                  position: "absolute",
+                                  top: "-5px",
+                                  right: "-5px",
+                                  "font-family": "NormsBold",
+                                  background: "#4536BB",
+                                  "border-radius": "100%",
+                                  "font-size": "10px",
+                                  color: "white",
+                                  display: "flex",
+                                  "justify-content": "center",
+                                  "align-items": "center"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(_vm.basketItemCount) +
+                                    "\n                    "
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e()
                     ],
                     1
-                  ),
-                  _vm._v(" "),
-                  _vm.basketItemCount > 0
-                    ? _c("transition", { attrs: { name: "fade" } }, [
-                        _c(
-                          "div",
-                          {
-                            staticStyle: {
-                              width: "15px",
-                              height: "15px",
-                              position: "absolute",
-                              top: "-5px",
-                              right: "-5px",
-                              background: "#4536BB",
-                              "border-radius": "100%",
-                              "font-size": "10px",
-                              color: "white",
-                              display: "flex",
-                              "justify-content": "center",
-                              "align-items": "center"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.basketItemCount))]
-                        )
-                      ])
-                    : _vm._e()
-                ],
-                1
+                  )
+                ]
               )
             ],
             2
@@ -60622,7 +60683,11 @@ var render = function() {
                             attrs: { to: { name: "userboard" } },
                             on: { click: _vm.closeMenu }
                           },
-                          [_vm._v(" Hi, " + _vm._s(_vm.lastname))]
+                          [
+                            _vm._v(
+                              " Hi, " + _vm._s(_vm.lastname) + "\n            "
+                            )
+                          ]
                         )
                       : _vm._e(),
                     _vm._v(" "),
@@ -60682,14 +60747,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "product" }, [
-    _c("img", { attrs: { src: _vm.product.image, alt: _vm.product.name } }),
-    _vm._v(" "),
     _c(
       "div",
       [
-        _c("h3", [_vm._v(_vm._s(_vm.product.name))]),
+        _c("div", { staticClass: "brandImage" }, [
+          _c("div", [
+            _c("img", {
+              attrs: { src: _vm.brand.image, alt: _vm.product.name }
+            })
+          ]),
+          _vm._v(" "),
+          _c("small", [_vm._v(_vm._s(_vm.brand.name))])
+        ]),
         _vm._v(" "),
-        _c("h3", [_vm._v(_vm._s(_vm.product.color))]),
+        _c("h4", [_vm._v(_vm._s(_vm.product.name))]),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.product.color))]),
         _vm._v(" "),
         _c("small", [_vm._v(_vm._s(Math.round(_vm.product.price)) + "€")]),
         _vm._v(" "),
@@ -60703,7 +60776,28 @@ var render = function() {
         )
       ],
       1
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "productImage" }, [
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "button",
+            attrs: { id: "addToBasket" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.addToBasket($event)
+              }
+            }
+          },
+          [_vm._v("Ajouter au panier")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("img", { attrs: { src: _vm.product.image, alt: _vm.product.name } })
+    ])
   ])
 }
 var staticRenderFns = []
@@ -61315,7 +61409,10 @@ var render = function() {
       return (_vm.brand !== "All"
       ? product.brand === _vm.brand
       : (_vm.brand = "All"))
-        ? _c("Product", { key: product.id, attrs: { product: product } })
+        ? _c("Product", {
+            key: product.id,
+            attrs: { brands: _vm.brands, product: product }
+          })
         : _vm._e()
     }),
     1
@@ -61545,7 +61642,15 @@ var render = function() {
             _c("hr"),
             _vm._v(" "),
             _c("router-link", { attrs: { to: { name: "checkout" } } }, [
-              _c("p", { staticClass: "paiement button" }, [_vm._v("Paiement")])
+              _c(
+                "p",
+                {
+                  ref: "buttonScroll",
+                  staticClass: "paiement button",
+                  class: _vm.scrollY >= 398 ? "positionButton" : ""
+                },
+                [_vm._v("Paiement")]
+              )
             ])
           ],
           1

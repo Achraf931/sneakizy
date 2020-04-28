@@ -15,7 +15,7 @@
                     <p>Frais de livraison <span>0,00€</span></p>
                     <h3>Total <span>{{ basketTotalPrice }}€</span></h3>
                     <hr>
-                    <router-link :to="{name: 'checkout'}"><p class="paiement button">Paiement</p></router-link>
+                    <router-link :to="{name: 'checkout'}"><p ref="buttonScroll" :class="scrollY >= 398 ? 'positionButton' : ''" class="paiement button">Paiement</p></router-link>
                 </div>
             </div>
         </div>
@@ -26,6 +26,11 @@
     import ItemBasket from '../components/ItemBasket'
     export default {
         name: 'basket',
+        data() {
+            return {
+                scrollY: ''
+            }
+        },
         computed: {
             ...mapGetters({
                 basket: 'basket/basket',
@@ -35,6 +40,13 @@
         },
         components: {
             ItemBasket
+        },
+
+        mounted() {
+            window.addEventListener('scroll', function(){
+                this.scrollY = document.documentElement.scrollTop
+                console.log(this.scrollY)
+            })
         },
         beforeMount() {
             setTimeout(() => {
@@ -56,7 +68,7 @@
         justify-content: center;
         align-items: flex-start;
         width: 100%;
-        padding: 80px 0 20px 0;
+        padding-bottom: 20px;
 
         .containerBasket {
             max-width: 1000px;
@@ -117,8 +129,12 @@
         }
     }
     @media all and (max-width: 900px) {
+        .positionButton {
+            bottom: 75px!important;
+        }
         .basket .containerBasket {
             flex-direction: column;
+            padding: 0 15px;
 
             .containerItems {
                 width: 100%;
@@ -127,7 +143,6 @@
             .rightPanel {
                 margin-top: 30px;
                 width: 100%;
-                padding-left: 15px;
                 padding-bottom: 60px;
 
                 div {
@@ -138,6 +153,8 @@
                         position: fixed;
                         bottom: 15px;
                         width: calc(100% - 30px);
+                        left: 50%;
+                        transform: translateX(-50%);
                     }
                 }
             }
