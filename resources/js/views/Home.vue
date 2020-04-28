@@ -107,12 +107,29 @@
             max-width: 1000px;
             justify-content: space-between;
             width: 100%;
-            display: flex;
+            display: -webkit-inline-box;
             flex-direction: row;
-            flex-wrap: wrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x mandatory;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .products::-webkit-scrollbar-thumb {
+                mso-background: #4536BB;
+                background: #4536BB!important;
+            }
 
             div {
+                scroll-snap-align: center;
                 margin-top: 15px;
+                margin-left: 20px;
+            }
+            div:first-child {
+                margin-left: 0;
             }
         }
     }

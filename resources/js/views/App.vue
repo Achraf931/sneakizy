@@ -130,9 +130,7 @@
         color: white;
         background: #4536BB;
     }
-    .scrollbar-track-y {
-        width: 4px !important;
-    }
+
     button {
         background: #4536BB;
         font-family: Norms;
