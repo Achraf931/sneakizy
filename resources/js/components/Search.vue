@@ -43,7 +43,7 @@
             text-transform: none;
             border-radius: 10px;
             background-clip: padding-box;
-            background-color: #f2f2f2;
+            background-color: #f5f4fa;
             border: none;
             box-sizing: border-box;
         }

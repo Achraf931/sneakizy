@@ -1,11 +1,11 @@
 <template>
-    <div style="min-height: 100vh" :class="mode ? 'dark' : ''">
+    <div class="app" :class="mode ? 'dark' : ''">
         <!--<Loader/>-->
         <Nav @logout="logout" :lastname="lastname" :is_admin="is_admin" :isLoggedIn="isLoggedIn"/>
         <main>
             <router-view @loggedIn="change"></router-view>
-<!--           <Footer/>-->
         </main>
+        <Footer/>
     </div>
 </template>
 <script>
@@ -142,6 +142,12 @@
         width: 100%;
         max-width: 100vw;
     }
+    .app {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
     .dark {
         background: radial-gradient(circle at top right, #252525, #2E2E2E, black);
         animation: opacity .2s;
@@ -183,6 +189,7 @@
 
         &.router-link-exact-active {
             color: #4536BB!important;
+            font-family: NormsBold;
         }
     }
     .fade-enter-active, .fade-leave-to {

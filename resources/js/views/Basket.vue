@@ -68,11 +68,14 @@
             .rightPanel {
                 width: 300px;
                 font-weight: bold;
-                padding: 0 15px 0 20px;
 
                 & > div {
+                    border-radius: 10px;
+                    padding: 20px;
+                    background: white;
                     position: fixed;
-                    width: calc(300px - 35px);
+                    width: 300px;
+
                     &  > p, &  h3 {
                         margin-top: 20px;
                     }
@@ -92,14 +95,19 @@
                 }
             }
             .containerItems {
-                width: calc(100% - 300px);
-                padding-left: 15px;
+                width: calc(98% - 300px);
+
+                h2 {
+                    border-radius: 10px;
+                    background-color: white;
+                    padding: 10px 20px;
+                }
 
                 & > div {
-                    width: calc(100% - 15px);
+                    width: 100%;
 
                     & > div {
-                        margin: 20px 0;
+                        margin-top: 20px;
                     }
                 }
                 & > div:first-child {
