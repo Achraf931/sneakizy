@@ -13069,7 +13069,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_Product__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Product */ "./resources/js/components/Product.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -13097,15 +13098,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "home",
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    brands: 'brands/brands',
+    news: 'news/articles',
     products: 'products/products'
   })),
+  components: {
+    Product: _components_Product__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   beforeMount: function beforeMount() {
     this.$store.dispatch('products/getProducts');
+    this.$store.dispatch('brands/getBrands');
+    this.$store.dispatch('news/getArticles');
   }
 });
 
@@ -20253,7 +20261,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "section[data-v-63cd6604] {\n  height: 100vh;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n}\nsection > div[data-v-63cd6604] {\n  width: 50%;\n  height: 100%;\n}\nsection > div[data-v-63cd6604]:first-child {\n  background: #2c3e50;\n}\n.containerProducts[data-v-63cd6604] {\n  display: flex;\n  flex-direction: row;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.containerProducts > div[data-v-63cd6604] {\n  position: relative;\n  scroll-snap-align: start;\n  width: 100%;\n  min-width: 100%;\n  height: 100%;\n}\n.containerProducts > div > div[data-v-63cd6604] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n  background: rgba(0, 0, 0, 0.4);\n}\n.containerProducts > div > div > a > h2[data-v-63cd6604] {\n  text-align: center;\n  color: white;\n  font-size: 40px;\n  padding: 40px;\n  border-radius: 10px;\n  background: rgba(0, 0, 0, 0.7);\n}\n.containerProducts > div > div > a > h2 > p[data-v-63cd6604] {\n  font-size: 20px;\n  font-weight: normal;\n}\n.containerProducts > div > img[data-v-63cd6604] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n@media all and (max-width: 749px) {\nsection[data-v-63cd6604] {\n    flex-direction: column;\n}\nsection > div[data-v-63cd6604] {\n    width: 100%;\n    max-height: 100vh;\n}\n}", ""]);
+exports.push([module.i, ".containerProducts[data-v-63cd6604] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  max-width: 1000px;\n  width: 100%;\n  margin: auto;\n  padding-bottom: 40px;\n}\n.containerProducts article[data-v-63cd6604] {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n}\n.containerProducts article > div[data-v-63cd6604]:first-child {\n  width: 35%;\n  padding: 15px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  background-color: white;\n  border-radius: 0 0 0 10px;\n}\n.containerProducts article > div:first-child h3[data-v-63cd6604] {\n  color: #4536BB;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\n.containerProducts article > div:first-child h4[data-v-63cd6604] {\n  line-height: 25px;\n}\n.containerProducts article > div:first-child .seeArticle > button[data-v-63cd6604] {\n  border: 1px solid #4536BB;\n  color: #4536BB;\n  font-family: Norms, Arial, sans-serif;\n  font-size: 16px;\n  padding: 10px 15px;\n  border-radius: 10px;\n  background: white;\n  cursor: pointer;\n  transition: background 0.2s;\n}\n.containerProducts article > div:first-child .seeArticle > button[data-v-63cd6604]:hover {\n  background: #4536BB;\n  color: white;\n}\n.containerProducts article > div[data-v-63cd6604]:last-child {\n  width: 65%;\n}\n.containerProducts article > div:last-child img[data-v-63cd6604] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 0 10px 10px 0;\n}\n.containerProducts > .products[data-v-63cd6604] {\n  margin-top: 15px;\n  max-width: 1000px;\n  justify-content: space-between;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n.containerProducts > .products div[data-v-63cd6604] {\n  margin-top: 15px;\n}\n@media all and (max-width: 749px) {\nsection[data-v-63cd6604] {\n    flex-direction: column;\n}\nsection > div[data-v-63cd6604] {\n    width: 100%;\n    max-height: 100vh;\n}\n}", ""]);
 
 // exports
 
@@ -62082,46 +62090,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("section", [
-      _c("div"),
-      _vm._v(" "),
+  return _c("div", { staticClass: "containerProducts" }, [
+    _c("article", [
       _c(
         "div",
-        { staticClass: "containerProducts" },
-        _vm._l(_vm.products.slice(0, 10), function(product) {
-          return _c("div", { key: product.id }, [
-            _c(
-              "div",
-              [
-                _c(
-                  "router-link",
-                  {
-                    attrs: {
-                      to: { name: "product", params: { id: product.id } }
-                    }
-                  },
-                  [
-                    _c("h2", [
-                      _vm._v(
-                        "\n                            " + _vm._s(product.name)
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(product.color))])
-                    ])
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("img", { attrs: { src: product.image, alt: product.name } })
-          ])
-        }),
-        0
-      )
-    ])
+        [
+          _c("h3", [_vm._v(_vm._s(_vm.news[0].title))]),
+          _vm._v(" "),
+          _c("h4", [_vm._v(_vm._s(_vm.news[0].content.slice(0, 250)) + "...")]),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "seeArticle",
+              attrs: {
+                to: { name: "singleArticle", params: { id: _vm.news[0].id } }
+              }
+            },
+            [
+              _c("button", { staticClass: "button" }, [
+                _vm._v("Lire l'article")
+              ])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", [
+        _c("img", {
+          attrs: { src: _vm.news[0].banner, alt: _vm.news[0].title }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "products" },
+      _vm._l(_vm.products.slice(0, 10), function(product) {
+        return _c("Product", {
+          key: product.id,
+          attrs: { brands: _vm.brands, product: product }
+        })
+      }),
+      1
+    )
   ])
 }
 var staticRenderFns = []

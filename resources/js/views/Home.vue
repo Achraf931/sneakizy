@@ -1,101 +1,118 @@
 <template>
-    <div>
-        <section>
-            <div></div>
-            <div class="containerProducts">
-                <div v-for="product in products.slice(0, 10)" :key="product.id">
-                    <div>
-                        <router-link :to="{name: 'product', params: {id: product.id}}">
-                            <h2>
-                                {{product.name}}<br>
-                                <p>{{product.color}}</p>
-                            </h2>
-                        </router-link>
-                    </div>
-                    <img :src="product.image" :alt="product.name">
-                </div>
-
+    <div class="containerProducts">
+        <article>
+            <div>
+                <h3>{{news[0].title}}</h3>
+                <h4>{{news[0].content.slice(0, 250)}}...</h4>
+                <router-link class="seeArticle" :to="{name: 'singleArticle', params: {id: news[0].id}}">
+                    <button class="button">Lire l'article</button>
+                </router-link>
             </div>
-        </section>
+            <div>
+                <img :src="news[0].banner" :alt="news[0].title">
+            </div>
+        </article>
+
+        <div class="products">
+            <Product v-for="product in products.slice(0, 10)" :key="product.id" :brands="brands" :product="product"/>
+        </div>
     </div>
 </template>
 
 <script>
+    import Product from "../components/Product";
     import {mapGetters} from 'vuex'
     export default {
         name: "home",
         computed: {
             ...mapGetters({
+                brands: 'brands/brands',
+                news: 'news/articles',
                 products: 'products/products'
             })
         },
+        components: {
+            Product
+        },
         beforeMount(){
             this.$store.dispatch('products/getProducts')
+            this.$store.dispatch('brands/getBrands')
+            this.$store.dispatch('news/getArticles')
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    section {
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-
-        & > div {
-            width: 50%;
-            height: 100%;
-        }
-
-        & > div:first-child {
-            background: #2c3e50;
-        }
-    }
     .containerProducts {
         display: flex;
-        flex-direction: row;
-        overflow-x: auto;
-        overflow-y: hidden;
-        overscroll-behavior-x: contain;
-        scroll-snap-type: x mandatory;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1000px;
+        width: 100%;
+        margin: auto;
+        padding-bottom: 40px;
 
-        & > div {
-            position: relative;
-            scroll-snap-align: start;
+        article {
+            display: flex;
+            flex-direction: row;
             width: 100%;
-            min-width: 100%;
-            height: 100%;
 
-            & > div {
+            & > div:first-child {
+                width: 35%;
+                padding: 15px;
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                left: 0;
-                top: 0;
-                background: rgba(0, 0, 0, 0.4);
+                flex-direction: column;
+                justify-content: space-between;
+                background-color: white;
+                border-radius: 0 0 0 10px;
 
-                & > a > h2 {
-                    text-align: center;
-                    color: white;
-                    font-size: 40px;
-                    padding: 40px;
+                h3 {
+                    color: #4536BB;
+                    font-family: NormsBold, Norms, Arial, sans-serif;
+                }
+
+                h4 {
+                    line-height: 25px;
+                }
+
+                .seeArticle > button {
+                    border: 1px solid #4536BB;
+                    color: #4536BB;
+                    font-family:  Norms, Arial, sans-serif;
+                    font-size: 16px;
+                    padding: 10px 15px;
                     border-radius: 10px;
-                    background: rgba(0, 0, 0, 0.7);
-
-                    & > p {
-                        font-size: 20px;
-                        font-weight: normal;
-                    }
+                    background: white;
+                    cursor: pointer;
+                    transition: background .2s;
+                }
+                .seeArticle > button:hover {
+                    background: #4536BB;
+                    color: white;
                 }
             }
+            & > div:last-child {
+                width: 65%;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 0 10px 10px 0;
+                }
+            }
+        }
 
-            & > img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+        & > .products {
+            margin-top: 15px;
+            max-width: 1000px;
+            justify-content: space-between;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            div {
+                margin-top: 15px;
             }
         }
     }
