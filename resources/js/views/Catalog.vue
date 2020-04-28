@@ -1,14 +1,17 @@
 <template>
     <div class="catalog">
         <div id="containerBrands">
-            <div :class="{line: brandName === 'All'}" style="border-bottom: 1px solid transparent;">
+            <div :class="{line: brandName === 'All'}" style="border-bottom: 1px solid transparent; height: 50px; display: flex; align-items: center;">
                 <p class="all" @click="brandName = 'All'">All</p>
             </div>
             <div :class="{line: brandName === brand.name}" class="brands" v-for="brand in brands" :key="brand.index">
-                <img @click="brandName = brand.name"
+                <img @click="brandName = brand.name, banner = brand.banner"
                      :src="brand.image" :alt="brand.name">
             </div>
         </div>
+<!--        <div v-if="banner !== 'All' && banner !== ''" class="banner">
+            <img :src="banner" :alt="banner">
+        </div>-->
         <Brand :is="'Brand'" :brand="brandName"/>
     </div>
 </template>
@@ -21,6 +24,7 @@
         name: 'catalog',
         data() {
             return {
+                banner: '',
                 count: '',
                 brandName: 'All'
             }
@@ -94,7 +98,6 @@
             border-radius: 100%;
             font-size: 12px;
             cursor: pointer;
-            margin-bottom: 10px;
         }
 
         .brands {

@@ -17,7 +17,7 @@
             <div>
                 <div id="containerNamePrice">
                     <h1>{{product.brand}}</h1>
-                    <h2 style="color: lightgray">{{product.name}}</h2>
+                    <h3>{{product.name}}</h3>
                     <small>{{product.price}}€</small>
                 </div>
                 <h3>{{product.description}}</h3>
@@ -254,7 +254,8 @@
             #containerNamePrice {
                 position: relative;
 
-                & > h1 {
+                & > h3 {
+                    color: #4536BB;
                     margin-bottom: 20px;
                 }
 
@@ -262,7 +263,7 @@
                     position: absolute;
                     top: 0;
                     right: 0;
-                    color: #3F44C9;
+                    color: #4536BB;
                     font-family: NormsBold, Norms, Arial, sans-serif;
                     font-style: italic;
                     font-weight: bold;

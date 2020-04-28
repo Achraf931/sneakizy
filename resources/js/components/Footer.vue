@@ -5,7 +5,8 @@
 </template>
 <style>
     footer {
-        background: #DFEAFB;
+        background: rgb(69, 54, 187);
+        color: #f5f4fa;
         display: flex;
         justify-content: center;
         align-items: center;

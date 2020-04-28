@@ -224,6 +224,7 @@
                 justify-content: space-evenly;
                 padding: 40px;
                 width: 40%;
+                font-family: NormsBold, Norms, Arial, sans-serif;
             }
         }
     }

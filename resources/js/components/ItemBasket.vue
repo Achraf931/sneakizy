@@ -25,11 +25,12 @@
 </script>
 <style lang="scss" scoped>
     .item {
+        background-color: white;
+        border-radius: 10px;
         display: flex;
         flex-direction: row;
         padding-bottom: 5px;
         position: relative;
-        border-bottom: 0.5px solid black;
 
         & > a {
             width: 150px;
@@ -39,27 +40,27 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                border-radius: 10px;
+                border-radius: 10px 0 0 10px;
             }
         }
 
         .containerInfo {
-            margin-left: 20px;
+            padding: 20px 0 20px 20px;
             position: relative;
         }
 
         .delete {
             position: absolute;
-            top: 0;
+            top: 10px;
             color: #DC3445;
-            right: 0;
+            right: 10px;
             cursor: pointer;
         }
 
         #price {
             position: absolute;
-            bottom: 0;
-            right: 0;
+            bottom: 10px;
+            right: 10px;
             font-weight: bold;
         }
     }

@@ -12049,6 +12049,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -12125,8 +12129,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['product', 'brand']
+  data: function data() {
+    return {
+      brand: '',
+      size: '39',
+      show: false,
+      quantity: ''
+    };
+  },
+  props: ['product', 'brands'],
+  mounted: function mounted() {
+    var _this = this;
+
+    this.brands.forEach(function (brand) {
+      if (brand.name === _this.product.brand) {
+        _this.brand = brand;
+      }
+    });
+  },
+  methods: {
+    addToBasket: function addToBasket() {
+      this.$store.dispatch('basket/AddProductToBasket', {
+        product: this.product,
+        quantity: 1,
+        size: this.size
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -12521,6 +12562,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: 'brand',
   props: ['brand'],
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    brands: 'brands/brands',
     products: 'products/products'
   })),
   components: {
@@ -12812,6 +12854,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'basket',
+  data: function data() {
+    return {
+      scrollY: ''
+    };
+  },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     basket: 'basket/basket',
     basketItemCount: 'basket/basketItemCount',
@@ -12819,6 +12866,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   components: {
     ItemBasket: _components_ItemBasket__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mounted: function mounted() {
+    window.addEventListener('scroll', function () {
+      this.scrollY = document.documentElement.scrollTop;
+      console.log(this.scrollY);
+    });
   },
   beforeMount: function beforeMount() {
     setTimeout(function () {
@@ -12868,12 +12921,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'catalog',
   data: function data() {
     return {
+      banner: '',
       count: '',
       brandName: 'All'
     };
@@ -20024,7 +20081,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".item[data-v-5391eee4] {\n  display: flex;\n  flex-direction: row;\n  padding-bottom: 5px;\n  position: relative;\n  border-bottom: 0.5px solid black;\n}\n.item > a[data-v-5391eee4] {\n  width: 150px;\n  height: 150px;\n}\n.item > a img[data-v-5391eee4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 10px;\n}\n.item .containerInfo[data-v-5391eee4] {\n  margin-left: 20px;\n  position: relative;\n}\n.item .delete[data-v-5391eee4] {\n  position: absolute;\n  top: 0;\n  color: #DC3445;\n  right: 0;\n  cursor: pointer;\n}\n.item #price[data-v-5391eee4] {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  font-weight: bold;\n}\n@media all and (max-width: 640px) {\n.item[data-v-5391eee4] {\n    font-size: 14px;\n}\n.item > a[data-v-5391eee4] {\n    width: 100px;\n    height: 100px;\n}\n}", ""]);
+exports.push([module.i, ".item[data-v-5391eee4] {\n  background-color: white;\n  border-radius: 10px;\n  display: flex;\n  flex-direction: row;\n  padding-bottom: 5px;\n  position: relative;\n}\n.item > a[data-v-5391eee4] {\n  width: 150px;\n  height: 150px;\n}\n.item > a img[data-v-5391eee4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 10px 0 0 10px;\n}\n.item .containerInfo[data-v-5391eee4] {\n  padding: 20px 0 20px 20px;\n  position: relative;\n}\n.item .delete[data-v-5391eee4] {\n  position: absolute;\n  top: 10px;\n  color: #DC3445;\n  right: 10px;\n  cursor: pointer;\n}\n.item #price[data-v-5391eee4] {\n  position: absolute;\n  bottom: 10px;\n  right: 10px;\n  font-weight: bold;\n}\n@media all and (max-width: 640px) {\n.item[data-v-5391eee4] {\n    font-size: 14px;\n}\n.item > a[data-v-5391eee4] {\n    width: 100px;\n    height: 100px;\n}\n}", ""]);
 
 // exports
 
@@ -20043,7 +20100,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".bg[data-v-7cd4f788] {\n  background: rgba(0, 0, 0, 0.4);\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  transition-duration: 400ms;\n}\n#mobileMenu[data-v-7cd4f788] {\n  position: absolute;\n  top: 0;\n  right: -80vw;\n  width: 70vw;\n  height: 100vh;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  background: black;\n  z-index: 1000;\n  display: none;\n  -webkit-animation: slideInUp-data-v-7cd4f788 400ms forwards;\n          animation: slideInUp-data-v-7cd4f788 400ms forwards;\n}\n#mobileMenu a[data-v-7cd4f788] {\n  color: white;\n}\n@-webkit-keyframes slideInUp-data-v-7cd4f788 {\n0% {\n    right: -80vw;\n    height: 100vh;\n}\n100% {\n    right: 0;\n    height: 100vh;\n}\n}\n@keyframes slideInUp-data-v-7cd4f788 {\n0% {\n    right: -80vw;\n    height: 100vh;\n}\n100% {\n    right: 0;\n    height: 100vh;\n}\n}\nnav[data-v-7cd4f788] {\n  z-index: 70;\n  position: fixed;\n  width: 100vw;\n  background: white;\n  padding: 20px 100px 10px 100px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-direction: column;\n  border-bottom: 0.5px solid lightgray;\n}\nnav > .head[data-v-7cd4f788] {\n  position: relative;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nnav > .head .searchBar[data-v-7cd4f788] {\n  position: absolute;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\nnav ul[data-v-7cd4f788] {\n  width: 100%;\n  margin-top: 25px;\n  justify-content: space-between;\n  display: flex;\n  font-size: 16px;\n}\nnav ul .basketIcon[data-v-7cd4f788] {\n  position: relative;\n}\nnav ul .basketIcon > a[data-v-7cd4f788] {\n  margin-left: 0;\n}\nnav ul .basketIcon > a svg[data-v-7cd4f788] {\n  color: #2c3e50;\n  font-size: 20px;\n  cursor: pointer;\n}\nnav ul li[data-v-7cd4f788] {\n  color: #DC3445;\n  cursor: pointer;\n}\n@media all and (max-width: 837px) {\nnav[data-v-7cd4f788] {\n    padding: 20px 15px;\n}\nul[data-v-7cd4f788]:first-child {\n    display: none !important;\n}\n#mobileMenu[data-v-7cd4f788] {\n    display: none;\n    position: absolute;\n    top: 0;\n    right: -80vw;\n    width: 80vw;\n    transition-duration: 400ms;\n}\nsvg[data-v-7cd4f788] {\n    cursor: pointer;\n}\n}", ""]);
+exports.push([module.i, ".bg[data-v-7cd4f788] {\n  background: rgba(0, 0, 0, 0.4);\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  transition-duration: 400ms;\n}\n#mobileMenu[data-v-7cd4f788] {\n  position: absolute;\n  top: 0;\n  right: -80vw;\n  width: 70vw;\n  height: 100vh;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  background: black;\n  z-index: 1000;\n  display: none;\n  -webkit-animation: slideInUp-data-v-7cd4f788 400ms forwards;\n          animation: slideInUp-data-v-7cd4f788 400ms forwards;\n}\n#mobileMenu a[data-v-7cd4f788] {\n  color: white;\n}\n@-webkit-keyframes slideInUp-data-v-7cd4f788 {\n0% {\n    right: -80vw;\n    height: 100vh;\n}\n100% {\n    right: 0;\n    height: 100vh;\n}\n}\n@keyframes slideInUp-data-v-7cd4f788 {\n0% {\n    right: -80vw;\n    height: 100vh;\n}\n100% {\n    right: 0;\n    height: 100vh;\n}\n}\nnav[data-v-7cd4f788] {\n  z-index: 70;\n  position: fixed;\n  width: 100vw;\n  background: white;\n  padding: 20px 100px 10px 100px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-direction: column;\n  border-bottom: 0.5px solid lightgray;\n}\nnav > .head[data-v-7cd4f788] {\n  position: relative;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nnav > .head .searchBar[data-v-7cd4f788] {\n  position: absolute;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\nnav ul[data-v-7cd4f788] {\n  width: 100%;\n  margin-top: 25px;\n  justify-content: space-between;\n  display: flex;\n  font-size: 16px;\n}\nnav ul .basketIcon[data-v-7cd4f788] {\n  position: relative;\n  margin-left: 0;\n}\nnav ul .basketIcon li > svg[data-v-7cd4f788] {\n  color: #2c3e50 !important;\n  font-size: 20px;\n  cursor: pointer;\n}\nnav ul li[data-v-7cd4f788] {\n  color: #DC3445;\n  cursor: pointer;\n}\n@media all and (max-width: 837px) {\nnav[data-v-7cd4f788] {\n    padding: 20px 15px;\n}\nul[data-v-7cd4f788]:first-child {\n    display: none !important;\n}\n#mobileMenu[data-v-7cd4f788] {\n    display: none;\n    position: absolute;\n    top: 0;\n    right: -80vw;\n    width: 80vw;\n    transition-duration: 400ms;\n}\nsvg[data-v-7cd4f788] {\n    cursor: pointer;\n}\n}", ""]);
 
 // exports
 
@@ -20062,7 +20119,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".product[data-v-7e94e6d4] {\n  max-width: 300px;\n  width: 100%;\n  background: white;\n  border-radius: 10px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.product img[data-v-7e94e6d4] {\n  width: 100%;\n  max-height: 200px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 0 10px 0 0;\n}\n.product > div[data-v-7e94e6d4] {\n  position: relative;\n  padding: 20px;\n}\n.product > div > a[data-v-7e94e6d4] {\n  font-weight: bold;\n  padding: 5px 10px;\n  border-radius: 5px;\n  position: absolute;\n  bottom: 20px;\n  right: 20px;\n}\n.product > div > h3[data-v-7e94e6d4]:nth-child(1) {\n  font-weight: bold;\n}\n.product > div > h3[data-v-7e94e6d4]:nth-child(2) {\n  font-weight: normal;\n  margin-bottom: 10px;\n}\n.product > div > small[data-v-7e94e6d4] {\n  font-weight: bold;\n  font-size: 16px;\n}", ""]);
+exports.push([module.i, ".product[data-v-7e94e6d4] {\n  max-width: 300px;\n  width: 100%;\n  background: white;\n  border-radius: 0 10px 10px 10px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.product .productImage[data-v-7e94e6d4] {\n  padding-top: 0;\n  height: 187px;\n  position: relative;\n}\n.product .productImage div[data-v-7e94e6d4] {\n  width: calc(100% - 30px);\n  height: calc(100% - 15px);\n  opacity: 0;\n  position: absolute;\n  left: 50%;\n  top: 0;\n  transform: translateX(-50%);\n  border-radius: 10px;\n  background: rgba(0, 0, 0, 0.4);\n  transition: opacity 0.2s;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.product .productImage div button[data-v-7e94e6d4] {\n  padding: 10px 15px;\n  color: white;\n  font-size: 16px;\n  font-family: Norms, NormsLight, Arial, sans-serif;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.product .productImage img[data-v-7e94e6d4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  max-height: 200px;\n  border-radius: 10px;\n}\n.product .productImage:hover div[data-v-7e94e6d4] {\n  opacity: 1;\n}\n.product > div[data-v-7e94e6d4] {\n  position: relative;\n  padding: 15px;\n}\n.product > div .brandImage[data-v-7e94e6d4] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  margin-bottom: 10px;\n}\n.product > div .brandImage > div[data-v-7e94e6d4] {\n  width: 50px;\n  height: 50px;\n  border-radius: 100%;\n  box-shadow: 0px 2px 5px rgba(69, 54, 187, 0.2);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 5px;\n}\n.product > div .brandImage > div img[data-v-7e94e6d4] {\n  width: 100%;\n}\n.product > div .brandImage small[data-v-7e94e6d4] {\n  margin-left: 10px;\n}\n.product > div > a[data-v-7e94e6d4] {\n  font-weight: bold;\n  padding: 5px 10px;\n  border-radius: 5px;\n  position: absolute;\n  bottom: 15px;\n  right: 15px;\n}\n.product > div > p[data-v-7e94e6d4] {\n  font-family: NormsLight, Norms, Arial, sans-serif;\n  margin-bottom: 10px;\n}\n.product > div > small[data-v-7e94e6d4] {\n  font-weight: bold;\n  font-size: 16px;\n}", ""]);
 
 // exports
 
@@ -20081,7 +20138,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "div[data-v-5026ffd3] {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  max-height: 38px;\n}\ndiv svg[data-v-5026ffd3] {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  transform: translateY(-50%);\n  color: darkgrey !important;\n}\ndiv input[data-v-5026ffd3] {\n  width: 300px;\n  padding: 4px 40px 4px 12px;\n  font-size: 1rem;\n  color: #000000;\n  line-height: 1.4;\n  text-transform: none;\n  border-radius: 10px;\n  background-clip: padding-box;\n  background-color: #f2f2f2;\n  border: none;\n  box-sizing: border-box;\n}\ndiv input[data-v-5026ffd3]::-webkit-input-placeholder {\n  color: darkgrey;\n}\ndiv input[data-v-5026ffd3]::-moz-placeholder {\n  color: darkgrey;\n}\ndiv input[data-v-5026ffd3]:-ms-input-placeholder {\n  color: darkgrey;\n}\ndiv input[data-v-5026ffd3]::-ms-input-placeholder {\n  color: darkgrey;\n}\ndiv input[data-v-5026ffd3]::placeholder {\n  color: darkgrey;\n}", ""]);
+exports.push([module.i, "div[data-v-5026ffd3] {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  max-height: 38px;\n}\ndiv svg[data-v-5026ffd3] {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  transform: translateY(-50%);\n  color: darkgrey !important;\n}\ndiv input[data-v-5026ffd3] {\n  width: 300px;\n  padding: 4px 40px 4px 12px;\n  font-size: 1rem;\n  color: #000000;\n  line-height: 1.4;\n  text-transform: none;\n  border-radius: 10px;\n  background-clip: padding-box;\n  background-color: #f5f4fa;\n  border: none;\n  box-sizing: border-box;\n}\ndiv input[data-v-5026ffd3]::-webkit-input-placeholder {\n  color: darkgrey;\n}\ndiv input[data-v-5026ffd3]::-moz-placeholder {\n  color: darkgrey;\n}\ndiv input[data-v-5026ffd3]:-ms-input-placeholder {\n  color: darkgrey;\n}\ndiv input[data-v-5026ffd3]::-ms-input-placeholder {\n  color: darkgrey;\n}\ndiv input[data-v-5026ffd3]::placeholder {\n  color: darkgrey;\n}", ""]);
 
 // exports
 
@@ -20119,7 +20176,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #f5f4fa;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\n.scrollbar-track-y {\n  width: 4px !important;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
+exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #f5f4fa;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\n.scrollbar-track-y {\n  width: 4px !important;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
 
 // exports
 
@@ -20138,7 +20195,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".basket {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100%;\n  padding: 80px 0 20px 0;\n}\n.basket .containerBasket {\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.basket .containerBasket .rightPanel {\n  width: 300px;\n  font-weight: bold;\n  padding: 0 15px 0 20px;\n}\n.basket .containerBasket .rightPanel > div {\n  position: fixed;\n  width: calc(300px - 35px);\n}\n.basket .containerBasket .rightPanel > div > p, .basket .containerBasket .rightPanel > div h3 {\n  margin-top: 20px;\n}\n.basket .containerBasket .rightPanel > div span {\n  float: right;\n}\n.basket .containerBasket .rightPanel > div .paiement {\n  color: white;\n  font-weight: bold;\n  border-radius: 10px;\n  font-size: 18px;\n  margin-top: 20px;\n  padding: 10px 15px;\n  width: 100%;\n  text-align: center;\n}\n.basket .containerBasket .containerItems {\n  width: calc(100% - 300px);\n  padding-left: 15px;\n}\n.basket .containerBasket .containerItems > div {\n  width: calc(100% - 15px);\n}\n.basket .containerBasket .containerItems > div > div {\n  margin: 20px 0;\n}\n.basket .containerBasket .containerItems > div:first-child {\n  margin-top: 0;\n}\n@media all and (max-width: 900px) {\n.basket .containerBasket {\n    flex-direction: column;\n}\n.basket .containerBasket .containerItems {\n    width: 100%;\n}\n.basket .containerBasket .rightPanel {\n    margin-top: 30px;\n    width: 100%;\n    padding-left: 15px;\n    padding-bottom: 60px;\n}\n.basket .containerBasket .rightPanel div {\n    position: initial;\n    width: 100%;\n}\n.basket .containerBasket .rightPanel div .paiement {\n    position: fixed;\n    bottom: 15px;\n    width: calc(100% - 30px);\n}\n}", ""]);
+exports.push([module.i, ".basket {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100%;\n  padding-bottom: 20px;\n}\n.basket .containerBasket {\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.basket .containerBasket .rightPanel {\n  width: 300px;\n  font-weight: bold;\n}\n.basket .containerBasket .rightPanel > div {\n  border-radius: 10px;\n  padding: 20px;\n  background: white;\n  position: fixed;\n  width: 300px;\n}\n.basket .containerBasket .rightPanel > div > p, .basket .containerBasket .rightPanel > div h3 {\n  margin-top: 20px;\n}\n.basket .containerBasket .rightPanel > div span {\n  float: right;\n}\n.basket .containerBasket .rightPanel > div .paiement {\n  color: white;\n  font-weight: bold;\n  border-radius: 10px;\n  font-size: 18px;\n  margin-top: 20px;\n  padding: 10px 15px;\n  width: 100%;\n  text-align: center;\n}\n.basket .containerBasket .containerItems {\n  width: calc(98% - 300px);\n}\n.basket .containerBasket .containerItems h2 {\n  border-radius: 10px;\n  background-color: white;\n  padding: 10px 20px;\n}\n.basket .containerBasket .containerItems > div {\n  width: 100%;\n}\n.basket .containerBasket .containerItems > div > div {\n  margin-top: 20px;\n}\n.basket .containerBasket .containerItems > div:first-child {\n  margin-top: 0;\n}\n@media all and (max-width: 900px) {\n.positionButton {\n    bottom: 75px !important;\n}\n.basket .containerBasket {\n    flex-direction: column;\n    padding: 0 15px;\n}\n.basket .containerBasket .containerItems {\n    width: 100%;\n}\n.basket .containerBasket .rightPanel {\n    margin-top: 30px;\n    width: 100%;\n    padding-bottom: 60px;\n}\n.basket .containerBasket .rightPanel div {\n    position: initial;\n    width: 100%;\n}\n.basket .containerBasket .rightPanel div .paiement {\n    position: fixed;\n    bottom: 15px;\n    width: calc(100% - 30px);\n    left: 50%;\n    transform: translateX(-50%);\n}\n}", ""]);
 
 // exports
 
@@ -20157,7 +20214,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".line[data-v-41cd806c] {\n  border-bottom: 1.5px solid black !important;\n}\n.catalog[data-v-41cd806c] {\n  padding-bottom: 40px;\n  min-height: 100vh;\n}\n.banner[data-v-41cd806c] {\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n.banner > img[data-v-41cd806c] {\n  max-width: 600px;\n  width: 100%;\n  max-height: 250px;\n  height: 100%;\n}\n#containerBrands[data-v-41cd806c] {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n  width: 50%;\n  margin: auto;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: flex-end;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n#containerBrands .all[data-v-41cd806c] {\n  scroll-snap-align: start;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  color: white;\n  font-weight: bold;\n  background: black;\n  border-radius: 100%;\n  font-size: 12px;\n  cursor: pointer;\n  margin-bottom: 10px;\n}\n#containerBrands .brands[data-v-41cd806c] {\n  scroll-snap-align: start;\n  width: 50px;\n  height: 50px;\n  margin: 0 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: 1px solid transparent;\n}\n#containerBrands .brands > img[data-v-41cd806c] {\n  width: 100%;\n  cursor: pointer;\n  transition-duration: 200ms;\n}\n#containerBrands .brands:hover > img[data-v-41cd806c] {\n  transition-duration: 200ms;\n  transform: scale(1.1);\n}\n#containerBrands .brands[data-v-41cd806c]:first-child {\n  margin-left: 0;\n}\n#containerBrands .brands[data-v-41cd806c]:last-child {\n  margin-right: 0;\n}\n.containerProducts[data-v-41cd806c] {\n  margin-top: 20px;\n  display: grid;\n  grid-gap: 46px;\n  width: 100%;\n  justify-content: center;\n  grid-template-columns: repeat(auto-fit, 300px);\n}\n@media all and (max-width: 645px) {\n.containerProducts[data-v-41cd806c] {\n    grid-gap: 10px;\n}\n}\n@media all and (max-width: 616px) {\nsection[data-v-41cd806c] {\n    padding-bottom: 20px;\n}\n}", ""]);
+exports.push([module.i, ".line[data-v-41cd806c] {\n  border-bottom: 1.5px solid black !important;\n}\n.catalog[data-v-41cd806c] {\n  padding-bottom: 40px;\n  min-height: 100vh;\n}\n.banner[data-v-41cd806c] {\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n.banner > img[data-v-41cd806c] {\n  max-width: 600px;\n  width: 100%;\n  max-height: 250px;\n  height: 100%;\n}\n#containerBrands[data-v-41cd806c] {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n  width: 50%;\n  margin: auto;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: flex-end;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n#containerBrands .all[data-v-41cd806c] {\n  scroll-snap-align: start;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  color: white;\n  font-weight: bold;\n  background: black;\n  border-radius: 100%;\n  font-size: 12px;\n  cursor: pointer;\n}\n#containerBrands .brands[data-v-41cd806c] {\n  scroll-snap-align: start;\n  width: 50px;\n  height: 50px;\n  margin: 0 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: 1px solid transparent;\n}\n#containerBrands .brands > img[data-v-41cd806c] {\n  width: 100%;\n  cursor: pointer;\n  transition-duration: 200ms;\n}\n#containerBrands .brands:hover > img[data-v-41cd806c] {\n  transition-duration: 200ms;\n  transform: scale(1.1);\n}\n#containerBrands .brands[data-v-41cd806c]:first-child {\n  margin-left: 0;\n}\n#containerBrands .brands[data-v-41cd806c]:last-child {\n  margin-right: 0;\n}\n.containerProducts[data-v-41cd806c] {\n  margin-top: 20px;\n  display: grid;\n  grid-gap: 46px;\n  width: 100%;\n  justify-content: center;\n  grid-template-columns: repeat(auto-fit, 300px);\n}\n@media all and (max-width: 645px) {\n.containerProducts[data-v-41cd806c] {\n    grid-gap: 10px;\n}\n}\n@media all and (max-width: 616px) {\nsection[data-v-41cd806c] {\n    padding-bottom: 20px;\n}\n}", ""]);
 
 // exports
 
@@ -20176,7 +20233,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".error label[data-v-1d91a851] {\n  color: red;\n}\n.error input[data-v-1d91a851], .error textarea[data-v-1d91a851] {\n  border: 1px solid red !important;\n}\n.notError label[data-v-1d91a851] {\n  color: initial;\n}\n.notError input[data-v-1d91a851], .notError textarea[data-v-1d91a851] {\n  border: 1px solid rgba(116, 142, 170, 0.25);\n}\n.contact[data-v-1d91a851] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.contact iframe[data-v-1d91a851] {\n  margin: 40px 0 20px 0;\n  max-width: 1000px;\n  width: 100%;\n}\n.contact h2[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact .sendTitle[data-v-1d91a851] {\n  color: #4536BB;\n}\n.contact > div[data-v-1d91a851] {\n  border-radius: 10px;\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left[data-v-1d91a851] {\n  background-color: white;\n  width: 60%;\n  padding: 20px;\n  border-radius: 10px 0 0 10px;\n}\n.contact > div .left .buttonSend[data-v-1d91a851] {\n  color: white;\n  background-color: #6FBD13;\n  border-color: #6FBD13;\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  margin-top: 20px;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  padding: 0.375rem 0.75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.contact > div .left p[data-v-1d91a851] {\n  font-size: 10px;\n  font-style: italic;\n  margin-top: 10px;\n}\n.contact > div .left #message[data-v-1d91a851] {\n  min-height: 100px;\n}\n.contact > div .left .group[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact > div .left .formGroup[data-v-1d91a851] {\n  display: flex;\n  margin-bottom: 20px;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851] {\n  display: flex;\n  flex-direction: column;\n  width: 50%;\n}\n.contact > div .left .formGroup > div h2[data-v-1d91a851] {\n  color: #4536BB !important;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:first-child {\n  padding-right: 10px;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:last-child {\n  padding-left: 10px;\n}\n.contact > div .left input[data-v-1d91a851], .contact > div .left textarea[data-v-1d91a851] {\n  display: block;\n  width: 100%;\n  height: calc(1.5em + .75rem + 2px);\n  padding: 0.375rem 0.75rem;\n  font-weight: 400;\n  line-height: 1.5;\n  background-color: #fff;\n  background-clip: padding-box;\n  border-radius: 0.25rem;\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n  border: 1px solid rgba(116, 142, 170, 0.25);\n  color: #748EAA !important;\n  font-size: 12px;\n}\n.contact > div .left input[data-v-1d91a851]:focus, .contact > div .left textarea[data-v-1d91a851]:focus {\n  border: 1px solid #4536BB;\n}\n.contact > div .right[data-v-1d91a851] {\n  background: #4536BB;\n  color: white;\n  border-radius: 0 10px 10px 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-evenly;\n  padding: 40px;\n  width: 40%;\n}\n@media all and (max-width: 837px) {\n.contact > div[data-v-1d91a851] {\n    flex-direction: column;\n}\n.contact > div .left[data-v-1d91a851], .contact > div .right[data-v-1d91a851] {\n    border-radius: 0;\n    width: 100%;\n}\n}", ""]);
+exports.push([module.i, ".error label[data-v-1d91a851] {\n  color: red;\n}\n.error input[data-v-1d91a851], .error textarea[data-v-1d91a851] {\n  border: 1px solid red !important;\n}\n.notError label[data-v-1d91a851] {\n  color: initial;\n}\n.notError input[data-v-1d91a851], .notError textarea[data-v-1d91a851] {\n  border: 1px solid rgba(116, 142, 170, 0.25);\n}\n.contact[data-v-1d91a851] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.contact iframe[data-v-1d91a851] {\n  margin: 40px 0 20px 0;\n  max-width: 1000px;\n  width: 100%;\n}\n.contact h2[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact .sendTitle[data-v-1d91a851] {\n  color: #4536BB;\n}\n.contact > div[data-v-1d91a851] {\n  border-radius: 10px;\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left[data-v-1d91a851] {\n  background-color: white;\n  width: 60%;\n  padding: 20px;\n  border-radius: 10px 0 0 10px;\n}\n.contact > div .left .buttonSend[data-v-1d91a851] {\n  color: white;\n  background-color: #6FBD13;\n  border-color: #6FBD13;\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  margin-top: 20px;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  padding: 0.375rem 0.75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.contact > div .left p[data-v-1d91a851] {\n  font-size: 10px;\n  font-style: italic;\n  margin-top: 10px;\n}\n.contact > div .left #message[data-v-1d91a851] {\n  min-height: 100px;\n}\n.contact > div .left .group[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact > div .left .formGroup[data-v-1d91a851] {\n  display: flex;\n  margin-bottom: 20px;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851] {\n  display: flex;\n  flex-direction: column;\n  width: 50%;\n}\n.contact > div .left .formGroup > div h2[data-v-1d91a851] {\n  color: #4536BB !important;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:first-child {\n  padding-right: 10px;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:last-child {\n  padding-left: 10px;\n}\n.contact > div .left input[data-v-1d91a851], .contact > div .left textarea[data-v-1d91a851] {\n  display: block;\n  width: 100%;\n  height: calc(1.5em + .75rem + 2px);\n  padding: 0.375rem 0.75rem;\n  font-weight: 400;\n  line-height: 1.5;\n  background-color: #fff;\n  background-clip: padding-box;\n  border-radius: 0.25rem;\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n  border: 1px solid rgba(116, 142, 170, 0.25);\n  color: #748EAA !important;\n  font-size: 12px;\n}\n.contact > div .left input[data-v-1d91a851]:focus, .contact > div .left textarea[data-v-1d91a851]:focus {\n  border: 1px solid #4536BB;\n}\n.contact > div .right[data-v-1d91a851] {\n  background: #4536BB;\n  color: white;\n  border-radius: 0 10px 10px 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-evenly;\n  padding: 40px;\n  width: 40%;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\n@media all and (max-width: 837px) {\n.contact > div[data-v-1d91a851] {\n    flex-direction: column;\n}\n.contact > div .left[data-v-1d91a851], .contact > div .right[data-v-1d91a851] {\n    border-radius: 0;\n    width: 100%;\n}\n}", ""]);
 
 // exports
 
@@ -20290,7 +20347,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".fade-enter-active[data-v-55d32178], .fade-leave-to[data-v-55d32178] {\n  transition: opacity 500ms;\n}\n.fade-enter[data-v-55d32178], .fade-leave-to[data-v-55d32178] {\n  opacity: 0;\n}\n.selected[data-v-55d32178] {\n  border: 2px solid white;\n  background: black;\n  color: white;\n  transition-duration: 400ms;\n}\n#containerImgShow[data-v-55d32178] {\n  width: 85vw;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 100;\n}\n#containerImgShow div[data-v-55d32178] {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n#containerImgShow div svg[data-v-55d32178] {\n  position: absolute;\n  cursor: pointer;\n  top: 15px;\n  right: 15px;\n  font-size: 20px;\n}\n#containerImgShow div #imgShow[data-v-55d32178] {\n  width: 100%;\n  border-radius: 10px;\n}\n#bg[data-v-55d32178] {\n  background: rgba(0, 0, 0, 0.4);\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 80;\n}\narticle[data-v-55d32178] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  padding: 0 100px 40px 100px;\n}\narticle > div[data-v-55d32178] {\n  border-radius: 10px;\n  background-color: white;\n  padding: 20px;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n}\narticle > div[data-v-55d32178]:first-child {\n  width: 54%;\n}\narticle > div:first-child div[data-v-55d32178] {\n  width: 100%;\n}\narticle > div:first-child > div[data-v-55d32178]:first-child {\n  width: 100%;\n  max-width: 888px;\n}\narticle > div:first-child > div:first-child img[data-v-55d32178] {\n  width: 100%;\n  height: 100%;\n  max-height: 500px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 10px;\n  cursor: pointer;\n}\narticle > div:first-child > div[data-v-55d32178]:last-child {\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n  margin-top: 30px;\n  display: grid;\n  grid-gap: 29px;\n  max-width: 888px;\n  width: 100%;\n  justify-content: start;\n  grid-auto-flow: column;\n  border-radius: 10px;\n  grid-template-columns: repeat(auto-fit, 200px);\n}\narticle > div:first-child > div[data-v-55d32178]:last-child::-webkit-scrollbar {\n  display: none;\n}\narticle > div:first-child > div:last-child div[data-v-55d32178] {\n  scroll-snap-align: center;\n  width: 200px;\n  height: 125px;\n}\narticle > div:first-child > div:last-child div > img[data-v-55d32178] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 10px;\n  cursor: pointer;\n}\narticle > div[data-v-55d32178]:last-child {\n  width: 44%;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\narticle > div:last-child #containerNamePrice[data-v-55d32178] {\n  position: relative;\n}\narticle > div:last-child #containerNamePrice > h1[data-v-55d32178] {\n  margin-bottom: 20px;\n}\narticle > div:last-child #containerNamePrice > small[data-v-55d32178] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  color: #3F44C9;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n  font-style: italic;\n  font-weight: bold;\n  font-size: 16px;\n}\narticle > div:last-child > h3[data-v-55d32178] {\n  margin-bottom: 20px;\n  color: gray;\n}\narticle > div:last-child #containerSize[data-v-55d32178] {\n  display: flex;\n  flex-direction: column;\n}\narticle > div:last-child #containerSize > h4[data-v-55d32178] {\n  font-weight: bold;\n  margin-bottom: 10px;\n}\narticle > div:last-child #containerSize > div[data-v-55d32178] {\n  display: inline-grid;\n  grid-gap: 6px;\n  justify-content: start;\n  grid-template-columns: repeat(auto-fit, 60px);\n}\narticle > div:last-child #containerSize > div > p[data-v-55d32178] {\n  border: 2px solid black;\n  width: 60px;\n  height: 40px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  border-radius: 5px;\n  font-weight: bold;\n  transition-duration: 400ms;\n}\narticle > div:last-child #addBasket[data-v-55d32178], article > div:last-child #addFavorite[data-v-55d32178] {\n  padding: 10px 15px;\n  border-radius: 10px;\n  color: white;\n  font-weight: bold;\n  font-size: 16px;\n  margin-top: 30px;\n  cursor: pointer;\n}\narticle > div:last-child #addFavorite[data-v-55d32178] {\n  margin-top: 10px;\n  background-color: white;\n  color: palevioletred;\n  border: 1px solid palevioletred;\n}\narticle > div:last-child .containerFiability[data-v-55d32178] {\n  margin-top: 20px;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\narticle > div:last-child .containerFiability > div[data-v-55d32178] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 10px;\n  text-align: center;\n}\narticle > div:last-child .containerFiability > div p[data-v-55d32178] {\n  margin-top: 5px;\n}\n@media all and (min-width: 600px) {\n#containerImgShow[data-v-55d32178] {\n    width: unset;\n    height: 85vh;\n}\n#containerImgShow div[data-v-55d32178] {\n    position: relative;\n    width: 100%;\n    height: 100%;\n}\n#containerImgShow div #imgShow[data-v-55d32178] {\n    width: unset;\n    height: 100%;\n    border-radius: 10px;\n}\n}\n@media all and (max-width: 1299px) {\narticle[data-v-55d32178] {\n    flex-direction: column;\n    padding: 0 15px 15px 15px;\n}\narticle > div[data-v-55d32178]:first-child {\n    width: 100%;\n}\narticle > div:first-child > div[data-v-55d32178]:first-child {\n    max-height: none;\n    max-width: none;\n}\narticle > div:first-child > div:first-child > img[data-v-55d32178] {\n    max-height: 600px;\n}\narticle > div:first-child > div[data-v-55d32178]:last-child {\n    max-width: unset;\n}\narticle > div[data-v-55d32178]:last-child {\n    margin-top: 30px;\n    width: 100%;\n}\narticle > div:last-child #addBasket[data-v-55d32178] {\n    width: 100%;\n}\n}", ""]);
+exports.push([module.i, ".fade-enter-active[data-v-55d32178], .fade-leave-to[data-v-55d32178] {\n  transition: opacity 500ms;\n}\n.fade-enter[data-v-55d32178], .fade-leave-to[data-v-55d32178] {\n  opacity: 0;\n}\n.selected[data-v-55d32178] {\n  border: 2px solid white;\n  background: black;\n  color: white;\n  transition-duration: 400ms;\n}\n#containerImgShow[data-v-55d32178] {\n  width: 85vw;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 100;\n}\n#containerImgShow div[data-v-55d32178] {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n#containerImgShow div svg[data-v-55d32178] {\n  position: absolute;\n  cursor: pointer;\n  top: 15px;\n  right: 15px;\n  font-size: 20px;\n}\n#containerImgShow div #imgShow[data-v-55d32178] {\n  width: 100%;\n  border-radius: 10px;\n}\n#bg[data-v-55d32178] {\n  background: rgba(0, 0, 0, 0.4);\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 80;\n}\narticle[data-v-55d32178] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  padding: 0 100px 40px 100px;\n}\narticle > div[data-v-55d32178] {\n  border-radius: 10px;\n  background-color: white;\n  padding: 20px;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n}\narticle > div[data-v-55d32178]:first-child {\n  width: 54%;\n}\narticle > div:first-child div[data-v-55d32178] {\n  width: 100%;\n}\narticle > div:first-child > div[data-v-55d32178]:first-child {\n  width: 100%;\n  max-width: 888px;\n}\narticle > div:first-child > div:first-child img[data-v-55d32178] {\n  width: 100%;\n  height: 100%;\n  max-height: 500px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 10px;\n  cursor: pointer;\n}\narticle > div:first-child > div[data-v-55d32178]:last-child {\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n  margin-top: 30px;\n  display: grid;\n  grid-gap: 29px;\n  max-width: 888px;\n  width: 100%;\n  justify-content: start;\n  grid-auto-flow: column;\n  border-radius: 10px;\n  grid-template-columns: repeat(auto-fit, 200px);\n}\narticle > div:first-child > div[data-v-55d32178]:last-child::-webkit-scrollbar {\n  display: none;\n}\narticle > div:first-child > div:last-child div[data-v-55d32178] {\n  scroll-snap-align: center;\n  width: 200px;\n  height: 125px;\n}\narticle > div:first-child > div:last-child div > img[data-v-55d32178] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 10px;\n  cursor: pointer;\n}\narticle > div[data-v-55d32178]:last-child {\n  width: 44%;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\narticle > div:last-child #containerNamePrice[data-v-55d32178] {\n  position: relative;\n}\narticle > div:last-child #containerNamePrice > h3[data-v-55d32178] {\n  color: #4536BB;\n  margin-bottom: 20px;\n}\narticle > div:last-child #containerNamePrice > small[data-v-55d32178] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  color: #4536BB;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n  font-style: italic;\n  font-weight: bold;\n  font-size: 16px;\n}\narticle > div:last-child > h3[data-v-55d32178] {\n  margin-bottom: 20px;\n  color: gray;\n}\narticle > div:last-child #containerSize[data-v-55d32178] {\n  display: flex;\n  flex-direction: column;\n}\narticle > div:last-child #containerSize > h4[data-v-55d32178] {\n  font-weight: bold;\n  margin-bottom: 10px;\n}\narticle > div:last-child #containerSize > div[data-v-55d32178] {\n  display: inline-grid;\n  grid-gap: 6px;\n  justify-content: start;\n  grid-template-columns: repeat(auto-fit, 60px);\n}\narticle > div:last-child #containerSize > div > p[data-v-55d32178] {\n  border: 2px solid black;\n  width: 60px;\n  height: 40px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  border-radius: 5px;\n  font-weight: bold;\n  transition-duration: 400ms;\n}\narticle > div:last-child #addBasket[data-v-55d32178], article > div:last-child #addFavorite[data-v-55d32178] {\n  padding: 10px 15px;\n  border-radius: 10px;\n  color: white;\n  font-weight: bold;\n  font-size: 16px;\n  margin-top: 30px;\n  cursor: pointer;\n}\narticle > div:last-child #addFavorite[data-v-55d32178] {\n  margin-top: 10px;\n  background-color: white;\n  color: palevioletred;\n  border: 1px solid palevioletred;\n}\narticle > div:last-child .containerFiability[data-v-55d32178] {\n  margin-top: 20px;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\narticle > div:last-child .containerFiability > div[data-v-55d32178] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 10px;\n  text-align: center;\n}\narticle > div:last-child .containerFiability > div p[data-v-55d32178] {\n  margin-top: 5px;\n}\n@media all and (min-width: 600px) {\n#containerImgShow[data-v-55d32178] {\n    width: unset;\n    height: 85vh;\n}\n#containerImgShow div[data-v-55d32178] {\n    position: relative;\n    width: 100%;\n    height: 100%;\n}\n#containerImgShow div #imgShow[data-v-55d32178] {\n    width: unset;\n    height: 100%;\n    border-radius: 10px;\n}\n}\n@media all and (max-width: 1299px) {\narticle[data-v-55d32178] {\n    flex-direction: column;\n    padding: 0 15px 15px 15px;\n}\narticle > div[data-v-55d32178]:first-child {\n    width: 100%;\n}\narticle > div:first-child > div[data-v-55d32178]:first-child {\n    max-height: none;\n    max-width: none;\n}\narticle > div:first-child > div:first-child > img[data-v-55d32178] {\n    max-height: 600px;\n}\narticle > div:first-child > div[data-v-55d32178]:last-child {\n    max-width: unset;\n}\narticle > div[data-v-55d32178]:last-child {\n    margin-top: 30px;\n    width: 100%;\n}\narticle > div:last-child #addBasket[data-v-55d32178] {\n    width: 100%;\n}\n}", ""]);
 
 // exports
 
@@ -20309,7 +20366,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nfooter {\n    background: #DFEAFB;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    padding: 20px 0;\n}\n", ""]);
+exports.push([module.i, "\nfooter {\n    background: rgb(69, 54, 187);\n    color: #f5f4fa;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    padding: 20px 0;\n}\n", ""]);
 
 // exports
 
@@ -60522,46 +60579,54 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _c(
-                "li",
-                { staticClass: "basketIcon" },
+                "router-link",
+                {
+                  staticClass: "basketIcon",
+                  attrs: { to: { name: "basket" } }
+                },
                 [
                   _c(
-                    "router-link",
-                    { attrs: { to: { name: "basket" } } },
+                    "li",
                     [
                       _c("font-awesome-icon", {
                         attrs: { icon: "shopping-basket" }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.basketItemCount > 0
+                        ? _c("transition", { attrs: { name: "fade" } }, [
+                            _c(
+                              "div",
+                              {
+                                staticStyle: {
+                                  width: "15px",
+                                  height: "15px",
+                                  position: "absolute",
+                                  top: "-5px",
+                                  right: "-5px",
+                                  "font-family": "NormsBold",
+                                  background: "#4536BB",
+                                  "border-radius": "100%",
+                                  "font-size": "10px",
+                                  color: "white",
+                                  display: "flex",
+                                  "justify-content": "center",
+                                  "align-items": "center"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(_vm.basketItemCount) +
+                                    "\n                    "
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e()
                     ],
                     1
-                  ),
-                  _vm._v(" "),
-                  _vm.basketItemCount > 0
-                    ? _c("transition", { attrs: { name: "fade" } }, [
-                        _c(
-                          "div",
-                          {
-                            staticStyle: {
-                              width: "15px",
-                              height: "15px",
-                              position: "absolute",
-                              top: "-5px",
-                              right: "-5px",
-                              background: "#4536BB",
-                              "border-radius": "100%",
-                              "font-size": "10px",
-                              color: "white",
-                              display: "flex",
-                              "justify-content": "center",
-                              "align-items": "center"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.basketItemCount))]
-                        )
-                      ])
-                    : _vm._e()
-                ],
-                1
+                  )
+                ]
               )
             ],
             2
@@ -60622,7 +60687,11 @@ var render = function() {
                             attrs: { to: { name: "userboard" } },
                             on: { click: _vm.closeMenu }
                           },
-                          [_vm._v(" Hi, " + _vm._s(_vm.lastname))]
+                          [
+                            _vm._v(
+                              " Hi, " + _vm._s(_vm.lastname) + "\n            "
+                            )
+                          ]
                         )
                       : _vm._e(),
                     _vm._v(" "),
@@ -60682,14 +60751,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "product" }, [
-    _c("img", { attrs: { src: _vm.product.image, alt: _vm.product.name } }),
-    _vm._v(" "),
     _c(
       "div",
       [
-        _c("h3", [_vm._v(_vm._s(_vm.product.name))]),
+        _c("div", { staticClass: "brandImage" }, [
+          _c("div", [
+            _c("img", {
+              attrs: { src: _vm.brand.image, alt: _vm.product.name }
+            })
+          ]),
+          _vm._v(" "),
+          _c("small", [_vm._v(_vm._s(_vm.brand.name))])
+        ]),
         _vm._v(" "),
-        _c("h3", [_vm._v(_vm._s(_vm.product.color))]),
+        _c("h4", [_vm._v(_vm._s(_vm.product.name))]),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.product.color.slice(0, 24)))]),
         _vm._v(" "),
         _c("small", [_vm._v(_vm._s(Math.round(_vm.product.price)) + "€")]),
         _vm._v(" "),
@@ -60703,7 +60780,28 @@ var render = function() {
         )
       ],
       1
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "productImage" }, [
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "button",
+            attrs: { id: "addToBasket" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.addToBasket($event)
+              }
+            }
+          },
+          [_vm._v("Ajouter au panier")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("img", { attrs: { src: _vm.product.image, alt: _vm.product.name } })
+    ])
   ])
 }
 var staticRenderFns = []
@@ -61315,7 +61413,10 @@ var render = function() {
       return (_vm.brand !== "All"
       ? product.brand === _vm.brand
       : (_vm.brand = "All"))
-        ? _c("Product", { key: product.id, attrs: { product: product } })
+        ? _c("Product", {
+            key: product.id,
+            attrs: { brands: _vm.brands, product: product }
+          })
         : _vm._e()
     }),
     1
@@ -61460,7 +61561,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { class: _vm.mode ? "dark" : "", staticStyle: { "min-height": "100vh" } },
+    { staticClass: "app", class: _vm.mode ? "dark" : "" },
     [
       _c("Nav", {
         attrs: {
@@ -61471,7 +61572,9 @@ var render = function() {
         on: { logout: _vm.logout }
       }),
       _vm._v(" "),
-      _c("main", [_c("router-view", { on: { loggedIn: _vm.change } })], 1)
+      _c("main", [_c("router-view", { on: { loggedIn: _vm.change } })], 1),
+      _vm._v(" "),
+      _c("Footer")
     ],
     1
   )
@@ -61543,7 +61646,15 @@ var render = function() {
             _c("hr"),
             _vm._v(" "),
             _c("router-link", { attrs: { to: { name: "checkout" } } }, [
-              _c("p", { staticClass: "paiement button" }, [_vm._v("Paiement")])
+              _c(
+                "p",
+                {
+                  ref: "buttonScroll",
+                  staticClass: "paiement button",
+                  class: _vm.scrollY >= 398 ? "positionButton" : ""
+                },
+                [_vm._v("Paiement")]
+              )
             ])
           ],
           1
@@ -61596,7 +61707,12 @@ var render = function() {
             "div",
             {
               class: { line: _vm.brandName === "All" },
-              staticStyle: { "border-bottom": "1px solid transparent" }
+              staticStyle: {
+                "border-bottom": "1px solid transparent",
+                height: "50px",
+                display: "flex",
+                "align-items": "center"
+              }
             },
             [
               _c(
@@ -61627,7 +61743,7 @@ var render = function() {
                   attrs: { src: brand.image, alt: brand.name },
                   on: {
                     click: function($event) {
-                      _vm.brandName = brand.name
+                      ;(_vm.brandName = brand.name), (_vm.banner = brand.banner)
                     }
                   }
                 })
@@ -62377,9 +62493,7 @@ var render = function() {
           _c("div", { attrs: { id: "containerNamePrice" } }, [
             _c("h1", [_vm._v(_vm._s(_vm.product.brand))]),
             _vm._v(" "),
-            _c("h2", { staticStyle: { color: "lightgray" } }, [
-              _vm._v(_vm._s(_vm.product.name))
-            ]),
+            _c("h3", [_vm._v(_vm._s(_vm.product.name))]),
             _vm._v(" "),
             _c("small", [_vm._v(_vm._s(_vm.product.price) + "€")])
           ]),

@@ -2,8 +2,9 @@
     <nav>
         <div @click="closeMenu" v-if="menu === true" class="bg"></div>
         <div class="head">
-            <router-link style="color: #2c3e50!important; font-family: NormsBold;" :to="{name: 'home'}"><p>SNEAKiZY</p></router-link>
-<!--            <p @click="activeDark">test</p>-->
+            <router-link style="color: #2c3e50!important; font-family: NormsBold;" :to="{name: 'home'}"><p>SNEAKiZY</p>
+            </router-link>
+            <!--            <p @click="activeDark">test</p>-->
             <div class="searchBar">
                 <Search/>
             </div>
@@ -21,14 +22,16 @@
                 <router-link :to="{ name: 'admin' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
                 <li v-if="isLoggedIn" @click="logout"> Logout</li>
             </template>
-            <li class="basketIcon">
-                <router-link :to="{name: 'basket'}">
+            <router-link class="basketIcon" :to="{name: 'basket'}">
+                <li>
                     <font-awesome-icon icon="shopping-basket"/>
-                </router-link>
-                <transition v-if="basketItemCount > 0" name="fade">
-                    <div style="width: 15px; height: 15px; position: absolute; top: -5px; right: -5px; background: #4536BB; border-radius: 100%; font-size: 10px; color: white; display: flex; justify-content: center; align-items: center;">{{basketItemCount}}</div>
-                </transition>
-            </li>
+                    <transition v-if="basketItemCount > 0" name="fade">
+                        <div style="width: 15px; height: 15px; position: absolute; top: -5px; right: -5px; font-family: NormsBold; background: #4536BB; border-radius: 100%; font-size: 10px; color: white; display: flex; justify-content: center; align-items: center;">
+                            {{basketItemCount}}
+                        </div>
+                    </transition>
+                </li>
+            </router-link>
         </ul>
 
         <ul v-else id="mobileMenu">
@@ -39,7 +42,8 @@
             <router-link @click="closeMenu" :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
             <router-link @click="closeMenu" :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
             <template v-if="isLoggedIn">
-                <router-link @click="closeMenu" :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}</router-link>
+                <router-link @click="closeMenu" :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}
+                </router-link>
                 <router-link @click="closeMenu" :to="{ name: 'admin' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
                 <li v-if="isLoggedIn" @click="logout, closeMenu"> Logout</li>
             </template>
@@ -115,6 +119,7 @@
         z-index: 999;
         transition-duration: 400ms;
     }
+
     #mobileMenu {
         position: absolute;
         top: 0;
@@ -133,6 +138,7 @@
             color: white;
         }
     }
+
     @keyframes slideInUp {
         0% {
             right: -80vw;
@@ -143,6 +149,7 @@
             height: 100vh;
         }
     }
+
     nav {
         z-index: 70;
         position: fixed;
@@ -179,15 +186,12 @@
 
             .basketIcon {
                 position: relative;
+                margin-left: 0;
 
-                & > a {
-                    margin-left: 0;
-
-                    svg {
-                        color: #2c3e50;
-                        font-size: 20px;
-                        cursor: pointer;
-                    }
+                li > svg {
+                    color: #2c3e50!important;
+                    font-size: 20px;
+                    cursor: pointer;
                 }
             }
 
@@ -203,7 +207,7 @@
             padding: 20px 15px;
         }
         ul:first-child {
-            display: none!important;
+            display: none !important;
         }
         #mobileMenu {
             display: none;
