@@ -1,6 +1,6 @@
 <template>
     <div class="containerProducts">
-        <carousel :navigationEnabled="false" :centerMode="true" paginationPosition="bottom-overlay" paginationColor="#F5F4FA" :speed="1000" paginationActiveColor="#4536BB" :autoplay="true" :autoplayHoverPause="true" :loop="true" :autoplayTimeout="5000" :per-page="1" :mouse-drag="true" id="splide">
+        <carousel :navigationEnabled="false" :centerMode="true" :paginationPadding="0" :paginationSize="0" paginationPosition="bottom-overlay" paginationColor="#F5F4FA" :speed="1000" paginationActiveColor="#4536BB" :autoplay="true" :autoplayHoverPause="true" :loop="true" :autoplayTimeout="5000" :per-page="1" :mouse-drag="true" id="splide">
             <slide v-for="article in news.slice(0, 5)" :key="article.index">
                 <ItemArticle :article="article"/>
             </slide>
@@ -41,6 +41,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .VueCarousel {
+        width: 100%!important;
+    }
     button.VueCarousel-navigation-button.VueCarousel-nativation-next {
         padding: 0!important;
         margin: 0!important;
@@ -52,6 +55,7 @@
         align-items: center;
         max-width: 940px;
         width: 100%;
+        height: fit-content;
         margin: auto;
         padding-bottom: 40px;
 

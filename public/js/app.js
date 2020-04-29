@@ -12954,6 +12954,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12976,7 +12980,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$store.dispatch('products/getProducts');
     setTimeout(function () {
       var elem = document.getElementById('containerBrands');
-      elem.style.display = 'flex';
+      elem.style.display = '-webkit-inline-box';
       elem.style.opacity = '1';
     }, 50);
   }
@@ -20120,7 +20124,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "article[data-v-129cefc8] {\n  max-height: 411.38px;\n  height: 100%;\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n}\narticle > div[data-v-129cefc8]:first-child {\n  width: 35%;\n  padding: 15px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  background-color: white;\n  border-radius: 0 0 0 10px;\n}\narticle > div:first-child h3[data-v-129cefc8] {\n  color: #4536BB;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\narticle > div:first-child h4[data-v-129cefc8] {\n  line-height: 25px;\n  margin: 20px 0;\n}\narticle > div:first-child .seeArticle > button[data-v-129cefc8] {\n  border: 1px solid #4536BB;\n  color: #4536BB;\n  font-family: Norms, Arial, sans-serif;\n  font-size: 16px;\n  padding: 10px 15px;\n  border-radius: 10px;\n  background: white;\n  cursor: pointer;\n  transition: background 0.2s;\n}\narticle > div:first-child .seeArticle > button[data-v-129cefc8]:hover {\n  background: #4536BB;\n  color: white;\n}\narticle > div[data-v-129cefc8]:last-child {\n  width: 65%;\n}\narticle > div:last-child img[data-v-129cefc8] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 0 10px 10px 0;\n}\n@media all and (max-width: 749px) {\narticle[data-v-129cefc8] {\n    flex-direction: column;\n}\narticle > div[data-v-129cefc8] {\n    width: 100% !important;\n    border-radius: 0 !important;\n}\narticle > div img[data-v-129cefc8] {\n    border-radius: 0 !important;\n}\n}", ""]);
+exports.push([module.i, "article[data-v-129cefc8] {\n  height: 100%;\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n}\narticle > div[data-v-129cefc8]:first-child {\n  width: 35%;\n  padding: 15px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  background-color: white;\n  border-radius: 0 0 0 10px;\n}\narticle > div:first-child h3[data-v-129cefc8] {\n  color: #4536BB;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\narticle > div:first-child h4[data-v-129cefc8] {\n  line-height: 25px;\n  margin: 20px 0;\n}\narticle > div:first-child .seeArticle[data-v-129cefc8] {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\narticle > div:first-child .seeArticle button[data-v-129cefc8] {\n  border: 1px solid #4536BB;\n  color: #4536BB;\n  font-family: Norms, Arial, sans-serif;\n  font-size: 16px;\n  padding: 10px 15px;\n  border-radius: 10px;\n  background: white;\n  cursor: pointer;\n  transition: background 0.2s;\n}\narticle > div:first-child .seeArticle > button[data-v-129cefc8]:hover {\n  background: #4536BB;\n  color: white;\n}\narticle > div[data-v-129cefc8]:last-child {\n  width: 65%;\n}\narticle > div:last-child img[data-v-129cefc8] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 0 10px 10px 0;\n}\n@media all and (max-width: 749px) {\narticle[data-v-129cefc8] {\n    flex-direction: column;\n}\narticle > div[data-v-129cefc8] {\n    width: 100% !important;\n    height: 100%;\n    max-height: 300px;\n    border-radius: 0 !important;\n}\narticle > div img[data-v-129cefc8] {\n    border-radius: 0 !important;\n}\n}\n@media all and (max-width: 334px) {\narticle > div:first-child h4[data-v-129cefc8] {\n    line-height: initial;\n}\n}", ""]);
 
 // exports
 
@@ -20139,7 +20143,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".item[data-v-5391eee4] {\n  background-color: white;\n  border-radius: 10px;\n  display: flex;\n  flex-direction: row;\n  padding-bottom: 5px;\n  position: relative;\n}\n.item > a[data-v-5391eee4] {\n  width: 150px;\n  height: 150px;\n}\n.item > a img[data-v-5391eee4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 10px 0 0 10px;\n}\n.item .containerInfo[data-v-5391eee4] {\n  padding: 20px 0 20px 20px;\n  position: relative;\n}\n.item .delete[data-v-5391eee4] {\n  position: absolute;\n  top: 10px;\n  color: #DC3445;\n  right: 10px;\n  cursor: pointer;\n}\n.item #price[data-v-5391eee4] {\n  position: absolute;\n  bottom: 10px;\n  right: 10px;\n  font-weight: bold;\n}\n@media all and (max-width: 640px) {\n.item[data-v-5391eee4] {\n    font-size: 14px;\n}\n.item > a[data-v-5391eee4] {\n    width: 100px;\n    height: 100px;\n}\n}", ""]);
+exports.push([module.i, ".item[data-v-5391eee4] {\n  background-color: white;\n  border-radius: 10px;\n  display: flex;\n  flex-direction: row;\n  position: relative;\n}\n.item > a[data-v-5391eee4] {\n  width: 150px;\n  height: 150px;\n  padding: 8px;\n}\n.item > a img[data-v-5391eee4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 10px;\n}\n.item .containerInfo[data-v-5391eee4] {\n  padding: 8px 0 8px 15px;\n  position: relative;\n}\n.item .delete[data-v-5391eee4] {\n  position: absolute;\n  top: 10px;\n  color: #DC3445;\n  right: 10px;\n  cursor: pointer;\n}\n.item #price[data-v-5391eee4] {\n  position: absolute;\n  bottom: 10px;\n  right: 10px;\n  font-weight: bold;\n}\n@media all and (max-width: 640px) {\n.item[data-v-5391eee4] {\n    font-size: 14px;\n}\n.item > a[data-v-5391eee4] {\n    width: 100px;\n    height: 100px;\n}\n}", ""]);
 
 // exports
 
@@ -20234,7 +20238,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #F5F4FA;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
+exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #F5F4FA;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\n@media all and (max-width: 837px) {\nmain {\n    padding: 90px 0 0 0;\n}\n}\n@media all and (max-width: 749px) {\nbody::-webkit-scrollbar {\n    display: none;\n}\n}", ""]);
 
 // exports
 
@@ -20272,7 +20276,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".line[data-v-41cd806c] {\n  border-bottom: 1.5px solid black !important;\n}\n.catalog[data-v-41cd806c] {\n  padding-bottom: 40px;\n  min-height: 100vh;\n}\n.banner[data-v-41cd806c] {\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n.banner > img[data-v-41cd806c] {\n  max-width: 600px;\n  width: 100%;\n  max-height: 250px;\n  height: 100%;\n}\n#containerBrands[data-v-41cd806c] {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n  width: 50%;\n  margin: auto;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: flex-end;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n#containerBrands .all[data-v-41cd806c] {\n  scroll-snap-align: start;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  color: white;\n  font-weight: bold;\n  background: black;\n  border-radius: 100%;\n  font-size: 12px;\n  cursor: pointer;\n}\n#containerBrands .brands[data-v-41cd806c] {\n  scroll-snap-align: start;\n  width: 50px;\n  height: 50px;\n  margin: 0 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: 1px solid transparent;\n}\n#containerBrands .brands > img[data-v-41cd806c] {\n  width: 100%;\n  cursor: pointer;\n  transition-duration: 200ms;\n}\n#containerBrands .brands:hover > img[data-v-41cd806c] {\n  transition-duration: 200ms;\n  transform: scale(1.1);\n}\n#containerBrands .brands[data-v-41cd806c]:first-child {\n  margin-left: 0;\n}\n#containerBrands .brands[data-v-41cd806c]:last-child {\n  margin-right: 0;\n}\n.containerProducts[data-v-41cd806c] {\n  margin-top: 20px;\n  display: grid;\n  grid-gap: 46px;\n  width: 100%;\n  justify-content: center;\n  grid-template-columns: repeat(auto-fit, 300px);\n}\n@media all and (max-width: 645px) {\n.containerProducts[data-v-41cd806c] {\n    grid-gap: 10px;\n}\n}\n@media all and (max-width: 616px) {\nsection[data-v-41cd806c] {\n    padding-bottom: 20px;\n}\n}", ""]);
+exports.push([module.i, ".line[data-v-41cd806c] {\n  border-bottom: 1.5px solid black !important;\n}\n.catalog[data-v-41cd806c] {\n  padding-bottom: 40px;\n  min-height: 100vh;\n}\n.banner[data-v-41cd806c] {\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n.banner > img[data-v-41cd806c] {\n  max-width: 600px;\n  width: 100%;\n  max-height: 250px;\n  height: 100%;\n}\n#boxBrands[data-v-41cd806c] {\n  max-width: calc(100% - 200px);\n  width: 100%;\n  margin: auto;\n  display: flex;\n  border-radius: 10px;\n  background: white;\n  padding: 5px 15px;\n}\n#boxBrands .all[data-v-41cd806c] {\n  scroll-snap-align: start;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  color: white;\n  font-weight: bold;\n  background: black;\n  border-radius: 100%;\n  font-size: 12px;\n  cursor: pointer;\n}\n#boxBrands #containerBrands[data-v-41cd806c] {\n  display: none;\n  opacity: 0;\n  margin: auto;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n#boxBrands #containerBrands .brands[data-v-41cd806c] {\n  scroll-snap-align: center;\n  width: 50px;\n  height: 50px;\n  margin: 0 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: 1px solid transparent;\n}\n#boxBrands #containerBrands .brands > img[data-v-41cd806c] {\n  width: 100%;\n  cursor: pointer;\n  transition-duration: 200ms;\n}\n#boxBrands #containerBrands .brands:hover > img[data-v-41cd806c] {\n  transition-duration: 200ms;\n  transform: scale(1.1);\n}\n#boxBrands #containerBrands .brands[data-v-41cd806c]:first-child {\n  margin-left: 0;\n}\n#boxBrands #containerBrands .brands[data-v-41cd806c]:last-child {\n  margin-right: 0;\n}\n.containerProducts[data-v-41cd806c] {\n  margin-top: 20px;\n  display: grid;\n  grid-gap: 46px;\n  width: 100%;\n  justify-content: center;\n  grid-template-columns: repeat(auto-fit, 300px);\n}\n@media all and (max-width: 838px) {\n#boxBrands[data-v-41cd806c] {\n    max-width: 100%;\n}\n[data-v-41cd806c]::-webkit-scrollbar {\n    display: none;\n}\n}\n@media all and (max-width: 645px) {\n.containerProducts[data-v-41cd806c] {\n    grid-gap: 10px;\n}\n}\n@media all and (max-width: 616px) {\nsection[data-v-41cd806c] {\n    padding-bottom: 20px;\n}\n}", ""]);
 
 // exports
 
@@ -20310,7 +20314,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "button.VueCarousel-navigation-button.VueCarousel-nativation-next[data-v-63cd6604] {\n  padding: 0 !important;\n  margin: 0 !important;\n  right: 55px !important !important;\n}\n.containerProducts[data-v-63cd6604] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  max-width: 940px;\n  width: 100%;\n  margin: auto;\n  padding-bottom: 40px;\n}\n.containerProducts > .products[data-v-63cd6604] {\n  margin-top: 15px;\n  justify-content: space-between;\n  width: 100%;\n  display: -webkit-inline-box;\n  flex-direction: row;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.containerProducts > .products[data-v-63cd6604]::-webkit-scrollbar {\n  display: none;\n}\n.containerProducts > .products .products[data-v-63cd6604]::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n.containerProducts > .products div[data-v-63cd6604] {\n  scroll-snap-align: center;\n  margin-top: 15px;\n  margin-left: 20px;\n}\n.containerProducts > .products div[data-v-63cd6604]:first-child {\n  margin-left: 0;\n}", ""]);
+exports.push([module.i, ".VueCarousel[data-v-63cd6604] {\n  width: 100% !important;\n}\nbutton.VueCarousel-navigation-button.VueCarousel-nativation-next[data-v-63cd6604] {\n  padding: 0 !important;\n  margin: 0 !important;\n  right: 55px !important !important;\n}\n.containerProducts[data-v-63cd6604] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  max-width: 940px;\n  width: 100%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  margin: auto;\n  padding-bottom: 40px;\n}\n.containerProducts > .products[data-v-63cd6604] {\n  margin-top: 15px;\n  justify-content: space-between;\n  width: 100%;\n  display: -webkit-inline-box;\n  flex-direction: row;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.containerProducts > .products[data-v-63cd6604]::-webkit-scrollbar {\n  display: none;\n}\n.containerProducts > .products .products[data-v-63cd6604]::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n.containerProducts > .products div[data-v-63cd6604] {\n  scroll-snap-align: center;\n  margin-top: 15px;\n  margin-left: 20px;\n}\n.containerProducts > .products div[data-v-63cd6604]:first-child {\n  margin-left: 0;\n}", ""]);
 
 // exports
 
@@ -60492,7 +60496,7 @@ var render = function() {
       [
         _c("h3", [_vm._v(_vm._s(_vm.article.title))]),
         _vm._v(" "),
-        _c("h4", [_vm._v(_vm._s(_vm.article.content.slice(0, 250)) + "...")]),
+        _c("h4", [_vm._v(_vm._s(_vm.article.content.slice(0, 220)) + "...")]),
         _vm._v(" "),
         _c(
           "router-link",
@@ -61861,37 +61865,39 @@ var render = function() {
     "div",
     { staticClass: "catalog" },
     [
-      _c(
-        "div",
-        { attrs: { id: "containerBrands" } },
-        [
-          _c(
-            "div",
-            {
-              class: { line: _vm.brandName === "All" },
-              staticStyle: {
-                "border-bottom": "1px solid transparent",
-                height: "50px",
-                display: "flex",
-                "align-items": "center"
-              }
-            },
-            [
-              _c(
-                "p",
-                {
-                  staticClass: "all",
-                  on: {
-                    click: function($event) {
-                      _vm.brandName = "All"
-                    }
+      _c("div", { attrs: { id: "boxBrands" } }, [
+        _c(
+          "div",
+          {
+            class: { line: _vm.brandName === "All" },
+            staticStyle: {
+              "border-bottom": "1px solid transparent",
+              height: "50px",
+              "margin-right": "10px",
+              display: "flex",
+              "align-items": "center",
+              "justify-content": "center"
+            }
+          },
+          [
+            _c(
+              "p",
+              {
+                staticClass: "all",
+                on: {
+                  click: function($event) {
+                    _vm.brandName = "All"
                   }
-                },
-                [_vm._v("All")]
-              )
-            ]
-          ),
-          _vm._v(" "),
+                }
+              },
+              [_vm._v("All")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { attrs: { id: "containerBrands" } },
           _vm._l(_vm.brands, function(brand) {
             return _c(
               "div",
@@ -61911,10 +61917,10 @@ var render = function() {
                 })
               ]
             )
-          })
-        ],
-        2
-      ),
+          }),
+          0
+        )
+      ]),
       _vm._v(" "),
       _c("Brand", { tag: "Brand", attrs: { brand: _vm.brandName } })
     ],
@@ -62244,6 +62250,8 @@ var render = function() {
           attrs: {
             navigationEnabled: false,
             centerMode: true,
+            paginationPadding: 0,
+            paginationSize: 0,
             paginationPosition: "bottom-overlay",
             paginationColor: "#F5F4FA",
             speed: 1000,

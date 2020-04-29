@@ -200,4 +200,14 @@
     .fade-enter, .fade-leave-to {
         opacity: 0;
     }
+    @media all and (max-width: 837px){
+        main {
+            padding: 90px 0 0 0;
+        }
+    }
+    @media all and (max-width: 749px){
+        body::-webkit-scrollbar {
+            display: none;
+        }
+    }
 </style>

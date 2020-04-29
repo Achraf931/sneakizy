@@ -29,23 +29,23 @@
         border-radius: 10px;
         display: flex;
         flex-direction: row;
-        padding-bottom: 5px;
         position: relative;
 
         & > a {
             width: 150px;
             height: 150px;
+            padding: 8px;
 
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                border-radius: 10px 0 0 10px;
+                border-radius: 10px;
             }
         }
 
         .containerInfo {
-            padding: 20px 0 20px 20px;
+            padding: 8px 0 8px 15px;
             position: relative;
         }
 
