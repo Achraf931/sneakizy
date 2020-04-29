@@ -1,17 +1,10 @@
 <template>
     <div class="containerProducts">
-        <article>
-            <div>
-                <h3>{{news[0].title}}</h3>
-                <h4>{{news[0].content.slice(0, 250)}}...</h4>
-                <router-link class="seeArticle" :to="{name: 'singleArticle', params: {id: news[0].id}}">
-                    <button class="button">Lire l'article</button>
-                </router-link>
-            </div>
-            <div>
-                <img :src="news[0].banner" :alt="news[0].title">
-            </div>
-        </article>
+        <carousel :navigationEnabled="false" :centerMode="true" paginationPosition="bottom-overlay" paginationColor="#F5F4FA" :speed="1000" paginationActiveColor="#4536BB" :autoplay="true" :autoplayHoverPause="true" :loop="true" :autoplayTimeout="5000" :per-page="1" :mouse-drag="true" id="splide">
+            <slide v-for="article in news.slice(0, 5)" :key="article.index">
+                <ItemArticle :article="article"/>
+            </slide>
+        </carousel>
 
         <div class="products">
             <Product v-for="product in products.slice(0, 10)" :key="product.id" :brands="brands" :product="product"/>
@@ -20,7 +13,9 @@
 </template>
 
 <script>
-    import Product from "../components/Product";
+    import { Carousel, Slide } from 'vue-carousel';
+    import Product from "../components/Product"
+    import ItemArticle from "../components/ItemArticle"
     import {mapGetters} from 'vuex'
     export default {
         name: "home",
@@ -32,17 +27,25 @@
             })
         },
         components: {
-            Product
+            Product,
+            ItemArticle,
+            Carousel,
+            Slide
         },
         beforeMount(){
-            this.$store.dispatch('products/getProducts')
             this.$store.dispatch('brands/getBrands')
+            this.$store.dispatch('products/getProducts')
             this.$store.dispatch('news/getArticles')
         }
     }
 </script>
 
 <style lang="scss" scoped>
+    button.VueCarousel-navigation-button.VueCarousel-nativation-next {
+        padding: 0!important;
+        margin: 0!important;
+        right: 55px!important!important;
+    }
     .containerProducts {
         display: flex;
         flex-direction: column;
@@ -51,57 +54,6 @@
         width: 100%;
         margin: auto;
         padding-bottom: 40px;
-
-        article {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-
-            & > div:first-child {
-                width: 35%;
-                padding: 15px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                background-color: white;
-                border-radius: 0 0 0 10px;
-
-                h3 {
-                    color: #4536BB;
-                    font-family: NormsBold, Norms, Arial, sans-serif;
-                }
-
-                h4 {
-                    line-height: 25px;
-                    margin: 20px 0;
-                }
-
-                .seeArticle > button {
-                    border: 1px solid #4536BB;
-                    color: #4536BB;
-                    font-family:  Norms, Arial, sans-serif;
-                    font-size: 16px;
-                    padding: 10px 15px;
-                    border-radius: 10px;
-                    background: white;
-                    cursor: pointer;
-                    transition: background .2s;
-                }
-                .seeArticle > button:hover {
-                    background: #4536BB;
-                    color: white;
-                }
-            }
-            & > div:last-child {
-                width: 65%;
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 0 10px 10px 0;
-                }
-            }
-        }
 
         & > .products {
             margin-top: 15px;
@@ -130,20 +82,6 @@
             }
             div:first-child {
                 margin-left: 0;
-            }
-        }
-    }
-    @media all and (max-width: 749px) {
-        .containerProducts > article {
-            flex-direction: column;
-
-            & > div {
-                width: 100%!important;
-                border-radius: 0!important;
-
-                img {
-                    border-radius: 0!important;
-                }
             }
         }
     }

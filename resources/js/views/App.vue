@@ -112,7 +112,7 @@
     }
 
     html, body {
-        background-color: rgb(245,244,250);
+        background-color: #F5F4FA;
         color: black;
         font-family: Norms, Poppins, Arial, sans-serif;
         font-weight: 200;

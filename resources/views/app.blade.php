@@ -6,6 +6,7 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="stylesheet" href="node_modules/@splidejs/splide/dist/css/splide.min.css">
         <meta property="og:site_name" content = "SNKEAKiZY"/>
         <meta property="og:title" content="SNKEAKiZY"/>
         <meta property="og:type" content="website"/>
