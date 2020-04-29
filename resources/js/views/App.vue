@@ -18,6 +18,8 @@
     export default {
         data() {
             return {
+                chrono: null,
+                duree: 500,
                 mode: false,
                 search: '',
                 lastname: null,
@@ -90,25 +92,29 @@
         font-family: Norms;
         src: url("/fonts/TTNorms-Regular.otf");
     }
+
     @font-face {
         font-family: NormsLight;
         src: url("/fonts/TTNorms-Light.otf");
     }
+
     @font-face {
         font-family: NormsBold;
         src: url("/fonts/TTNorms-Bold.otf");
     }
+
     @font-face {
         font-family: NormsBlack;
         src: url("/fonts/TTNorms-Black.otf");
     }
+
     * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
         text-decoration: none;
         list-style: none;
-        outline: none!important;
+        outline: none !important;
     }
 
     html, body {
@@ -119,13 +125,16 @@
         scrollbar-base-color: #4536BB;
         scroll-behavior: smooth;
     }
+
     body::-webkit-scrollbar {
-        width: 5px!important;
+        width: 5px !important;
     }
+
     body::-webkit-scrollbar-thumb {
         mso-background: #4536BB;
-        background: #4536BB!important;
+        background: #4536BB !important;
     }
+
     ::selection {
         color: white;
         background: #4536BB;
@@ -135,20 +144,24 @@
         background: #4536BB;
         font-family: Norms;
     }
+
     main {
         padding: 120px 0 0 0;
         width: 100%;
         max-width: 100vw;
     }
+
     img {
-        image-rendering: -webkit-optimize-contrast!important;
+        image-rendering: -webkit-optimize-contrast !important;
     }
+
     .app {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
+
     .dark {
         background: radial-gradient(circle at top right, #252525, #2E2E2E, black);
         animation: opacity .2s;
@@ -161,7 +174,7 @@
             }
 
             .head > a > p {
-                color: white!important;
+                color: white !important;
             }
 
             ul, li, a {
@@ -169,30 +182,35 @@
             }
         }
     }
+
     .animation {
         display: none;
         opacity: 0;
         transition: opacity 500s;
     }
+
     .button {
         color: white;
         font-family: Norms;
         border: 1px solid #4536BB;
         background-color: #4536BB;
     }
+
     .button:active {
         transition: all 0.2s ease;
         transform: scale(0.96);
     }
+
     a {
         font-weight: bold;
         color: #2c3e50;
 
         &.router-link-exact-active {
-            color: #4536BB!important;
+            color: #4536BB !important;
             font-family: NormsBold;
         }
     }
+
     .fade-enter-active, .fade-leave-to {
         transition: opacity 500ms;
     }
@@ -200,12 +218,14 @@
     .fade-enter, .fade-leave-to {
         opacity: 0;
     }
-    @media all and (max-width: 837px){
+
+    @media all and (max-width: 837px) {
         main {
             padding: 90px 0 0 0;
         }
     }
-    @media all and (max-width: 749px){
+
+    @media all and (max-width: 749px) {
         body::-webkit-scrollbar {
             display: none;
         }

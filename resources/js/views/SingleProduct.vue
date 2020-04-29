@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div style="display: flex; flex-direction: column">
-                    <button class="button" id="addBasket" @click.prevent="addToBasket">Ajouter au panier</button>
+                    <button class="button" id="addBasket" @mousemove="onMouseHover" @click.prevent="addToBasket">Ajouter au panier</button>
                     <button class="button" id="addFavorite" @click.prevent="addToBasket"><font-awesome-icon icon="heart"/> Ajouter aux favoris</button>
                 </div>
                 <div class="containerFiability">
@@ -76,6 +76,7 @@
         name: 'product',
         data() {
             return {
+                inButton: false,
                 size: '39',
                 show: false,
                 quantity: ''
@@ -118,6 +119,12 @@
                     quantity: 1,
                     size: this.size
                 })
+            },
+            onMouseHover(e) {
+                document.getElementById('addBasket').style.setProperty(
+                    "background-position",
+                    e.clientX - 15 + "px " + (e.clientY - 15) + "px"
+                )
             }
         }
     }
@@ -315,6 +322,20 @@
                 font-size: 16px;
                 margin-top: 30px;
                 cursor: pointer;
+                position: relative;
+                background-size: 0 0;
+            }
+
+            #addBasket::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(farthest-side, rgba(245,244,250, 0.4) calc(100% - 1px), transparent 100%) fixed no-repeat;
+                background-size: 30px 30px;
+                background-position: inherit;
             }
             #addFavorite {
                 margin-top: 10px;
