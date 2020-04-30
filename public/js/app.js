@@ -62260,8 +62260,8 @@ var render = function() {
           attrs: {
             navigationEnabled: false,
             centerMode: true,
-            paginationPadding: 0,
-            paginationSize: 0,
+            paginationPadding: 5,
+            paginationSize: 10,
             paginationPosition: "bottom-overlay",
             paginationColor: "#F5F4FA",
             speed: 1000,
