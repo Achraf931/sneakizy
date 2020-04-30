@@ -1,6 +1,6 @@
 <template>
     <div class="login animation">
-        <form>
+        <form class="boxShadow">
             <h2>Login</h2>
 
             <label for="email">E-Mail Address</label>

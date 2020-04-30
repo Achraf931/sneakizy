@@ -1,6 +1,6 @@
 <template>
     <div class="register animation">
-        <form>
+        <form class="boxShadow">
             <h2>Register</h2>
             <label for="name">Name</label>
             <input id="name" type="text" v-model="lastname" required autofocus>

@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{name: 'singleArticle', params: {id: article.id}}">
+    <router-link class="boxShadow" :to="{name: 'singleArticle', params: {id: article.id}}">
         <div class="article">
             <img :src="article.image" :alt="article.title">
             <div></div>

@@ -1,6 +1,6 @@
 <template>
     <div class="contact animation">
-        <div>
+        <div class="boxShadow">
             <div class="left">
                 <h2 class="sendTitle">Envoyez nous un message</h2>
                 <div class="formGroup">
@@ -35,7 +35,7 @@
                 <p>contact@ecole-webstart.com</p>
             </div>
         </div>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.3564642210686!2d2.3608514158922684!3d48.87048077928859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e0989542143%3A0x9384848c375ced98!2s%C3%89cole%20Webstart!5e0!3m2!1sfr!2sfr!4v1587739659654!5m2!1sfr!2sfr" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <iframe class="boxShadow" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.3564642210686!2d2.3608514158922684!3d48.87048077928859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e0989542143%3A0x9384848c375ced98!2s%C3%89cole%20Webstart!5e0!3m2!1sfr!2sfr!4v1587739659654!5m2!1sfr!2sfr" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
     </div>
 </template>
 <script>
@@ -129,7 +129,6 @@
         }
         & > div {
             border-radius: 10px;
-            //box-shadow: 0 0.5rem 1rem rgba(32, 103, 221, 0.2);
             max-width: 1000px;
             width: 100%;
             display: flex;
@@ -140,7 +139,7 @@
                 background-color: white;
                 width: 60%;
                 padding: 20px;
-                border-radius: 10px 0 0 10px;
+                border-radius: 10px;
 
                 .buttonSend {
                     color: white;

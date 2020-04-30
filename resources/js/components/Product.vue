@@ -1,5 +1,5 @@
 <template>
-    <div class="product">
+    <div class="product boxShadow">
         <div>
             <div class="brandImage">
                 <div>
@@ -54,7 +54,7 @@
         max-width: 300px;
         width: 100%;
         background: white;
-        border-radius: 0 10px 10px 10px;
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;

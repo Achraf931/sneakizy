@@ -31,7 +31,7 @@
             flex-direction: column;
             justify-content: space-between;
             background-color: white;
-            border-radius: 0 0 0 10px;
+            border-radius: 10px 0 0 10px;
 
             h3 {
                 color: #4536BB;

@@ -20130,7 +20130,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "article[data-v-129cefc8] {\n  height: 100%;\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n}\narticle > div[data-v-129cefc8]:first-child {\n  width: 35%;\n  padding: 15px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  background-color: white;\n  border-radius: 0 0 0 10px;\n}\narticle > div:first-child h3[data-v-129cefc8] {\n  color: #4536BB;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\narticle > div:first-child h4[data-v-129cefc8] {\n  line-height: 25px;\n  margin: 20px 0;\n}\narticle > div:first-child .seeArticle[data-v-129cefc8] {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\narticle > div:first-child .seeArticle button[data-v-129cefc8] {\n  border: 1px solid #4536BB;\n  color: #4536BB;\n  font-family: Norms, Arial, sans-serif;\n  font-size: 16px;\n  padding: 10px 15px;\n  border-radius: 10px;\n  background: white;\n  cursor: pointer;\n  transition: background 0.2s;\n}\narticle > div:first-child .seeArticle > button[data-v-129cefc8]:hover {\n  background: #4536BB;\n  color: white;\n}\narticle > div[data-v-129cefc8]:last-child {\n  width: 65%;\n}\narticle > div:last-child img[data-v-129cefc8] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 0 10px 10px 0;\n}\n@media all and (max-width: 749px) {\narticle[data-v-129cefc8] {\n    flex-direction: column;\n}\narticle > div[data-v-129cefc8] {\n    width: 100% !important;\n    height: 100%;\n    max-height: 300px;\n    border-radius: 0 !important;\n}\narticle > div img[data-v-129cefc8] {\n    border-radius: 0 !important;\n}\n}\n@media all and (max-width: 334px) {\narticle > div:first-child h4[data-v-129cefc8] {\n    line-height: initial;\n}\n}", ""]);
+exports.push([module.i, "article[data-v-129cefc8] {\n  height: 100%;\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n}\narticle > div[data-v-129cefc8]:first-child {\n  width: 35%;\n  padding: 15px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  background-color: white;\n  border-radius: 10px 0 0 10px;\n}\narticle > div:first-child h3[data-v-129cefc8] {\n  color: #4536BB;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\narticle > div:first-child h4[data-v-129cefc8] {\n  line-height: 25px;\n  margin: 20px 0;\n}\narticle > div:first-child .seeArticle[data-v-129cefc8] {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\narticle > div:first-child .seeArticle button[data-v-129cefc8] {\n  border: 1px solid #4536BB;\n  color: #4536BB;\n  font-family: Norms, Arial, sans-serif;\n  font-size: 16px;\n  padding: 10px 15px;\n  border-radius: 10px;\n  background: white;\n  cursor: pointer;\n  transition: background 0.2s;\n}\narticle > div:first-child .seeArticle > button[data-v-129cefc8]:hover {\n  background: #4536BB;\n  color: white;\n}\narticle > div[data-v-129cefc8]:last-child {\n  width: 65%;\n}\narticle > div:last-child img[data-v-129cefc8] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 0 10px 10px 0;\n}\n@media all and (max-width: 749px) {\narticle[data-v-129cefc8] {\n    flex-direction: column;\n}\narticle > div[data-v-129cefc8] {\n    width: 100% !important;\n    height: 100%;\n    max-height: 300px;\n    border-radius: 0 !important;\n}\narticle > div img[data-v-129cefc8] {\n    border-radius: 0 !important;\n}\n}\n@media all and (max-width: 334px) {\narticle > div:first-child h4[data-v-129cefc8] {\n    line-height: initial;\n}\n}", ""]);
 
 // exports
 
@@ -20187,7 +20187,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".product[data-v-7e94e6d4] {\n  max-width: 300px;\n  width: 100%;\n  background: white;\n  border-radius: 0 10px 10px 10px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.product .productImage[data-v-7e94e6d4] {\n  padding-top: 0;\n  height: 187px;\n  position: relative;\n}\n.product .productImage div[data-v-7e94e6d4] {\n  width: calc(100% - 30px);\n  height: calc(100% - 15px);\n  opacity: 0;\n  position: absolute;\n  left: 50%;\n  top: 0;\n  transform: translateX(-50%);\n  border-radius: 10px;\n  background: rgba(0, 0, 0, 0.4);\n  transition: opacity 0.2s;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.product .productImage div button[data-v-7e94e6d4] {\n  padding: 10px 15px;\n  color: white;\n  font-size: 16px;\n  font-family: Norms, NormsLight, Arial, sans-serif;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.product .productImage img[data-v-7e94e6d4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  max-height: 200px;\n  border-radius: 10px;\n}\n.product .productImage:hover div[data-v-7e94e6d4] {\n  opacity: 1;\n}\n.product > div[data-v-7e94e6d4] {\n  position: relative;\n  padding: 15px;\n}\n.product > div .brandImage[data-v-7e94e6d4] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  margin-bottom: 10px;\n}\n.product > div .brandImage > div[data-v-7e94e6d4] {\n  width: 50px;\n  height: 50px;\n  border-radius: 100%;\n  box-shadow: 0px 2px 5px rgba(69, 54, 187, 0.2);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 5px;\n}\n.product > div .brandImage > div img[data-v-7e94e6d4] {\n  width: 100%;\n}\n.product > div .brandImage small[data-v-7e94e6d4] {\n  margin-left: 10px;\n}\n.product > div > a[data-v-7e94e6d4] {\n  font-weight: bold;\n  padding: 5px 10px;\n  border-radius: 5px;\n  position: absolute;\n  bottom: 15px;\n  right: 15px;\n}\n.product > div > p[data-v-7e94e6d4] {\n  font-family: NormsLight, Norms, Arial, sans-serif;\n  margin-bottom: 10px;\n}\n.product > div > small[data-v-7e94e6d4] {\n  font-weight: bold;\n  font-size: 16px;\n}", ""]);
+exports.push([module.i, ".product[data-v-7e94e6d4] {\n  max-width: 300px;\n  width: 100%;\n  background: white;\n  border-radius: 10px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.product .productImage[data-v-7e94e6d4] {\n  padding-top: 0;\n  height: 187px;\n  position: relative;\n}\n.product .productImage div[data-v-7e94e6d4] {\n  width: calc(100% - 30px);\n  height: calc(100% - 15px);\n  opacity: 0;\n  position: absolute;\n  left: 50%;\n  top: 0;\n  transform: translateX(-50%);\n  border-radius: 10px;\n  background: rgba(0, 0, 0, 0.4);\n  transition: opacity 0.2s;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.product .productImage div button[data-v-7e94e6d4] {\n  padding: 10px 15px;\n  color: white;\n  font-size: 16px;\n  font-family: Norms, NormsLight, Arial, sans-serif;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.product .productImage img[data-v-7e94e6d4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  max-height: 200px;\n  border-radius: 10px;\n}\n.product .productImage:hover div[data-v-7e94e6d4] {\n  opacity: 1;\n}\n.product > div[data-v-7e94e6d4] {\n  position: relative;\n  padding: 15px;\n}\n.product > div .brandImage[data-v-7e94e6d4] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  margin-bottom: 10px;\n}\n.product > div .brandImage > div[data-v-7e94e6d4] {\n  width: 50px;\n  height: 50px;\n  border-radius: 100%;\n  box-shadow: 0px 2px 5px rgba(69, 54, 187, 0.2);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 5px;\n}\n.product > div .brandImage > div img[data-v-7e94e6d4] {\n  width: 100%;\n}\n.product > div .brandImage small[data-v-7e94e6d4] {\n  margin-left: 10px;\n}\n.product > div > a[data-v-7e94e6d4] {\n  font-weight: bold;\n  padding: 5px 10px;\n  border-radius: 5px;\n  position: absolute;\n  bottom: 15px;\n  right: 15px;\n}\n.product > div > p[data-v-7e94e6d4] {\n  font-family: NormsLight, Norms, Arial, sans-serif;\n  margin-bottom: 10px;\n}\n.product > div > small[data-v-7e94e6d4] {\n  font-weight: bold;\n  font-size: 16px;\n}", ""]);
 
 // exports
 
@@ -20244,7 +20244,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #F5F4FA;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\n@media all and (max-width: 837px) {\nmain {\n    padding: 90px 0 0 0;\n}\n}\n@media all and (max-width: 749px) {\nbody::-webkit-scrollbar {\n    display: none;\n}\n}", ""]);
+exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #F9F9FC;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\n.boxShadow {\n  box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\n@media all and (max-width: 837px) {\nmain {\n    padding: 90px 0 0 0;\n}\n}\n@media all and (max-width: 749px) {\nbody::-webkit-scrollbar {\n    display: none;\n}\n}", ""]);
 
 // exports
 
@@ -20301,7 +20301,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".error label[data-v-1d91a851] {\n  color: red;\n}\n.error input[data-v-1d91a851], .error textarea[data-v-1d91a851] {\n  border: 1px solid red !important;\n}\n.notError label[data-v-1d91a851] {\n  color: initial;\n}\n.notError input[data-v-1d91a851], .notError textarea[data-v-1d91a851] {\n  border: 1px solid rgba(116, 142, 170, 0.25);\n}\n.contact[data-v-1d91a851] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.contact iframe[data-v-1d91a851] {\n  margin: 40px 0 20px 0;\n  max-width: 1000px;\n  width: 100%;\n}\n.contact h2[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact .sendTitle[data-v-1d91a851] {\n  color: #4536BB;\n}\n.contact > div[data-v-1d91a851] {\n  border-radius: 10px;\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left[data-v-1d91a851] {\n  background-color: white;\n  width: 60%;\n  padding: 20px;\n  border-radius: 10px 0 0 10px;\n}\n.contact > div .left .buttonSend[data-v-1d91a851] {\n  color: white;\n  background-color: #6FBD13;\n  border-color: #6FBD13;\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  margin-top: 20px;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  padding: 0.375rem 0.75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.contact > div .left p[data-v-1d91a851] {\n  font-size: 10px;\n  font-style: italic;\n  margin-top: 10px;\n}\n.contact > div .left #message[data-v-1d91a851] {\n  min-height: 100px;\n}\n.contact > div .left .group[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact > div .left .formGroup[data-v-1d91a851] {\n  display: flex;\n  margin-bottom: 20px;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851] {\n  display: flex;\n  flex-direction: column;\n  width: 50%;\n}\n.contact > div .left .formGroup > div h2[data-v-1d91a851] {\n  color: #4536BB !important;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:first-child {\n  padding-right: 10px;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:last-child {\n  padding-left: 10px;\n}\n.contact > div .left input[data-v-1d91a851], .contact > div .left textarea[data-v-1d91a851] {\n  display: block;\n  width: 100%;\n  height: calc(1.5em + .75rem + 2px);\n  padding: 0.375rem 0.75rem;\n  font-weight: 400;\n  line-height: 1.5;\n  background-color: #fff;\n  background-clip: padding-box;\n  border-radius: 0.25rem;\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n  border: 1px solid rgba(116, 142, 170, 0.25);\n  color: #748EAA !important;\n  font-size: 12px;\n}\n.contact > div .left input[data-v-1d91a851]:focus, .contact > div .left textarea[data-v-1d91a851]:focus {\n  border: 1px solid #4536BB;\n}\n.contact > div .right[data-v-1d91a851] {\n  background: #4536BB;\n  color: white;\n  border-radius: 0 10px 10px 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-evenly;\n  padding: 40px;\n  width: 40%;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\n@media all and (max-width: 837px) {\n.contact > div[data-v-1d91a851] {\n    flex-direction: column;\n}\n.contact > div .left[data-v-1d91a851], .contact > div .right[data-v-1d91a851] {\n    border-radius: 0;\n    width: 100%;\n}\n}", ""]);
+exports.push([module.i, ".error label[data-v-1d91a851] {\n  color: red;\n}\n.error input[data-v-1d91a851], .error textarea[data-v-1d91a851] {\n  border: 1px solid red !important;\n}\n.notError label[data-v-1d91a851] {\n  color: initial;\n}\n.notError input[data-v-1d91a851], .notError textarea[data-v-1d91a851] {\n  border: 1px solid rgba(116, 142, 170, 0.25);\n}\n.contact[data-v-1d91a851] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.contact iframe[data-v-1d91a851] {\n  margin: 40px 0 20px 0;\n  max-width: 1000px;\n  width: 100%;\n}\n.contact h2[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact .sendTitle[data-v-1d91a851] {\n  color: #4536BB;\n}\n.contact > div[data-v-1d91a851] {\n  border-radius: 10px;\n  max-width: 1000px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left[data-v-1d91a851] {\n  background-color: white;\n  width: 60%;\n  padding: 20px;\n  border-radius: 10px;\n}\n.contact > div .left .buttonSend[data-v-1d91a851] {\n  color: white;\n  background-color: #6FBD13;\n  border-color: #6FBD13;\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  margin-top: 20px;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  padding: 0.375rem 0.75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: 10px;\n  cursor: pointer;\n}\n.contact > div .left p[data-v-1d91a851] {\n  font-size: 10px;\n  font-style: italic;\n  margin-top: 10px;\n}\n.contact > div .left #message[data-v-1d91a851] {\n  min-height: 100px;\n}\n.contact > div .left .group[data-v-1d91a851] {\n  margin-bottom: 20px;\n}\n.contact > div .left .formGroup[data-v-1d91a851] {\n  display: flex;\n  margin-bottom: 20px;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851] {\n  display: flex;\n  flex-direction: column;\n  width: 50%;\n}\n.contact > div .left .formGroup > div h2[data-v-1d91a851] {\n  color: #4536BB !important;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:first-child {\n  padding-right: 10px;\n}\n.contact > div .left .formGroup > div[data-v-1d91a851]:last-child {\n  padding-left: 10px;\n}\n.contact > div .left input[data-v-1d91a851], .contact > div .left textarea[data-v-1d91a851] {\n  display: block;\n  width: 100%;\n  height: calc(1.5em + .75rem + 2px);\n  padding: 0.375rem 0.75rem;\n  font-weight: 400;\n  line-height: 1.5;\n  background-color: #fff;\n  background-clip: padding-box;\n  border-radius: 0.25rem;\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n  border: 1px solid rgba(116, 142, 170, 0.25);\n  color: #748EAA !important;\n  font-size: 12px;\n}\n.contact > div .left input[data-v-1d91a851]:focus, .contact > div .left textarea[data-v-1d91a851]:focus {\n  border: 1px solid #4536BB;\n}\n.contact > div .right[data-v-1d91a851] {\n  background: #4536BB;\n  color: white;\n  border-radius: 0 10px 10px 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-evenly;\n  padding: 40px;\n  width: 40%;\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\n@media all and (max-width: 837px) {\n.contact > div[data-v-1d91a851] {\n    flex-direction: column;\n}\n.contact > div .left[data-v-1d91a851], .contact > div .right[data-v-1d91a851] {\n    border-radius: 0;\n    width: 100%;\n}\n}", ""]);
 
 // exports
 
@@ -60426,6 +60426,7 @@ var render = function() {
   return _c(
     "router-link",
     {
+      staticClass: "boxShadow",
       attrs: { to: { name: "singleArticle", params: { id: _vm.article.id } } }
     },
     [
@@ -60547,7 +60548,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "item" },
+    { staticClass: "item boxShadow" },
     [
       _c(
         "router-link",
@@ -60922,7 +60923,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "product" }, [
+  return _c("div", { staticClass: "product boxShadow" }, [
     _c(
       "div",
       [
@@ -61776,7 +61777,7 @@ var render = function() {
   return _c("div", { staticClass: "basket" }, [
     _c("div", { staticClass: "containerBasket animation" }, [
       _c("div", { staticClass: "containerItems" }, [
-        _c("h2", [_vm._v("Panier")]),
+        _c("h2", { staticClass: "boxShadow" }, [_vm._v("Panier")]),
         _vm._v(" "),
         _vm.basket.length === 0
           ? _c("h4", { staticStyle: { "margin-top": "20px" } }, [
@@ -61800,6 +61801,7 @@ var render = function() {
       _c("div", { staticClass: "rightPanel" }, [
         _c(
           "div",
+          { staticClass: "boxShadow" },
           [
             _c("h2", [_vm._v("Récapitulatif")]),
             _vm._v(" "),
@@ -61871,7 +61873,7 @@ var render = function() {
     "div",
     { staticClass: "catalog" },
     [
-      _c("div", { attrs: { id: "boxBrands" } }, [
+      _c("div", { staticClass: "boxShadow", attrs: { id: "boxBrands" } }, [
         _c(
           "div",
           {
@@ -61956,7 +61958,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "contact animation" }, [
-    _c("div", [
+    _c("div", { staticClass: "boxShadow" }, [
       _c("div", { staticClass: "left" }, [
         _c("h2", { staticClass: "sendTitle" }, [
           _vm._v("Envoyez nous un message")
@@ -62197,6 +62199,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("iframe", {
+      staticClass: "boxShadow",
       staticStyle: { border: "0" },
       attrs: {
         src:
@@ -62253,6 +62256,7 @@ var render = function() {
       _c(
         "carousel",
         {
+          staticClass: "boxShadow",
           attrs: {
             navigationEnabled: false,
             centerMode: true,
@@ -62320,7 +62324,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "login animation" }, [
-    _c("form", [
+    _c("form", { staticClass: "boxShadow" }, [
       _c("h2", [_vm._v("Login")]),
       _vm._v(" "),
       _c("label", { attrs: { for: "email" } }, [_vm._v("E-Mail Address")]),
@@ -62440,7 +62444,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "register animation" }, [
-    _c("form", [
+    _c("form", { staticClass: "boxShadow" }, [
       _c("h2", [_vm._v("Register")]),
       _vm._v(" "),
       _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),

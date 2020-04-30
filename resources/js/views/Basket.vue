@@ -2,14 +2,14 @@
     <div class="basket">
         <div class="containerBasket animation">
             <div class="containerItems">
-                <h2>Panier</h2>
+                <h2 class="boxShadow">Panier</h2>
                 <h4 style="margin-top: 20px;" v-if="basket.length === 0">Votre panier est actuellement vide.</h4>
                 <div>
                     <ItemBasket @removeToBasket="removeToBasket" v-for="item in basket" :key="item.index" :item="item"/>
                 </div>
             </div>
             <div class="rightPanel">
-                <div>
+                <div class="boxShadow">
                     <h2>Récapitulatif</h2>
                     <p>Sous-total <span>{{basketTotalPrice}}€</span></p>
                     <p>Frais de livraison <span>0,00€</span></p>

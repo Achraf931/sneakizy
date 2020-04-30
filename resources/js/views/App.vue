@@ -118,7 +118,7 @@
     }
 
     html, body {
-        background-color: #F5F4FA;
+        background-color: #F9F9FC;
         color: black;
         font-family: Norms, Poppins, Arial, sans-serif;
         font-weight: 200;
@@ -144,7 +144,9 @@
         background: #4536BB;
         font-family: Norms;
     }
-
+    .boxShadow {
+        box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    }
     main {
         padding: 120px 0 0 0;
         width: 100%;

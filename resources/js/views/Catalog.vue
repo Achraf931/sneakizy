@@ -1,6 +1,6 @@
 <template>
     <div class="catalog">
-        <div id="boxBrands">
+        <div id="boxBrands" class="boxShadow">
             <div :class="{line: brandName === 'All'}" style="border-bottom: 1px solid transparent; height: 50px; margin-right: 10px; display: flex; align-items: center; justify-content: center">
                 <p class="all" @click="brandName = 'All'">All</p>
             </div>
