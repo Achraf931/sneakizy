@@ -1,7 +1,7 @@
 <template>
     <div class="containerProducts animation">
-        <Product v-for="product in shuffle(products)" :key="product.id"
-                 v-if="brand !== 'All' ? product.brand === brand : brand = 'All'" :brands="brands" :product="product"/>
+        <Product v-for="product in products" :key="product.id"
+                 :brands="brands" :product="product"/>
     </div>
 </template>
 <script>
@@ -11,7 +11,6 @@
 
     export default {
         name: 'brand',
-        props: ['brand'],
         computed: {
             ...mapGetters({
                 brands: 'brands/brands',

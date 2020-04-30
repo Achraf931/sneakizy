@@ -2,7 +2,8 @@ export default {
     namespaced: true,
     state: {
         products: [],
-        product: {}
+        product: {},
+        infos: {}
     },
     getters: {
         products: state => {
@@ -10,6 +11,9 @@ export default {
         },
         product: state => {
             return state.product
+        },
+        infos: state => {
+            return state.infos
         }
     },
     mutations: {
@@ -21,6 +25,9 @@ export default {
         },
         setProduct(state, product) {
             state.product = product
+        },
+        getInfos(state, infos) {
+            state.infos = infos
         }
     },
     actions: {
@@ -38,12 +45,22 @@ export default {
                 .catch(err => console.error(err))
         },
 
-        getProducts({commit}) {
-            axios.get('/api/products')
+        getProducts({commit}, page) {
+            axios.get('/api/products?page=' + page)
                 .then(res => {
-                    {
-                        commit('getProducts', res.data)
-                    }
+                    commit('getProducts', res.data.data)
+                    commit('getInfos', res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+
+        getBrandProducts({commit}, {id, page}) {
+            axios.get('/api/brands/' + id + '/products?page=' + page)
+                .then(res => {
+                    commit('getProducts', res.data.data)
+                    commit('getInfos', res.data)
                 })
                 .catch(err => {
                     console.log(err)

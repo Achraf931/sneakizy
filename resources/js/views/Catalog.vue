@@ -1,22 +1,27 @@
 <template>
     <div class="catalog">
         <div id="boxBrands" class="boxShadow">
-            <div :class="{line: brandName === 'All'}" style="border-bottom: 1px solid transparent; height: 50px; margin-right: 10px; display: flex; align-items: center; justify-content: center">
-                <p class="all" @click="brandName = 'All'">All</p>
-            </div>
+            <router-link :to="{name: 'catalog'}" :class="{line: brandName === 'All'}" style="border-bottom: 1px solid transparent; height: 50px; margin-right: 10px; display: flex; align-items: center; justify-content: center">
+                <p class="all">All</p>
+            </router-link>
             <div id="containerBrands">
-
-                <div :class="{line: brandName === brand.name}" class="brands" v-for="brand in brands" :key="brand.index">
-                    <img @click="brandName = brand.name, banner = brand.banner"
-                         :src="brand.image" :alt="brand.name">
-                </div>
+                <router-link :to="{name: 'brandProducts', params: {id: brand.id}}" :class="{line: brandName === brand.name}" class="brands" v-for="brand in brands" :key="brand.index">
+                    <img :src="brand.image" :alt="brand.name">
+                </router-link>
             </div>
         </div>
 
 <!--        <div v-if="banner !== 'All' && banner !== ''" class="banner">
             <img :src="banner" :alt="banner">
         </div>-->
-        <Brand :is="'Brand'" :brand="brandName"/>
+            <Brand/>
+            <div style="width: 100%; margin-top: 20px; display: flex; justify-content:center;align-items:center;flex-direction:row;">
+                <button class="buttonPage boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(1) : brandProducts(routeBrandId, 1)"><<</button>
+                <button class="buttonPage boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(infos.current_page-1) : brandProducts(routeBrandId, infos.current_page-1)"><</button>
+                <div :class="{isActive: infos.current_page === page}" class="buttonPage boxShadow" v-for="page in infos.last_page" @click="routeName === 'catalog' ? getProducts(page) : brandProducts(routeBrandId, page)">{{page}}</div>
+                <button class="buttonPage boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.current_page+1) : brandProducts(routeBrandId, infos.current_page+1)">></button>
+                <button class="buttonPage boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.last_page) : brandProducts(routeBrandId, infos.last_page)">>></button>
+            </div>
     </div>
 </template>
 
@@ -36,24 +41,59 @@
         components: {
             Brand
         },
+        watch: {
+            routeBrandId(newVal) {
+                this.toggleProducts(newVal)
+            }
+        },
         computed: {
+            routeName() {
+                return this.$route.name
+            },
+            routeBrandId() {
+                return this.$route.params.id
+            },
             ...mapGetters({
+                infos: 'products/infos',
                 brands: 'brands/brands'
             })
         },
         mounted() {
             this.$store.dispatch('brands/getBrands')
-            this.$store.dispatch('products/getProducts')
+            this.toggleProducts(this.routeBrandId)
+
             setTimeout(() => {
                 let elem = document.getElementById('containerBrands')
                     elem.style.display = '-webkit-inline-box'
                     elem.style.opacity = '1'
             }, 50)
+        },
+        methods: {
+            toggleProducts(id) {
+                if(this.routeName === 'brandProducts') {
+                    this.$store.dispatch('products/getBrandProducts', {id: id, page: 1})
+                }
+                else if(this.routeName === 'catalog') {
+                    this.$store.dispatch('products/getProducts', 1)
+                }
+            },
+            getProducts(page) {
+                this.brandId = 0
+                this.$store.dispatch('products/getProducts', page)
+            },
+            brandProducts(id, page) {
+                this.brandId = id
+                this.$store.dispatch('products/getBrandProducts', {id, page})
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
+    .isActive {
+        background: #4536BB!important;
+        color: white;
+    }
     .line {
         border-bottom: 1.5px solid black!important;
     }
@@ -73,6 +113,20 @@
             max-height: 250px;
             height: 100%;
         }
+    }
+
+    .buttonPage {
+        cursor: pointer;
+        width: 40px;
+        border: none;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 10px;
+        margin: 0 10px;
+        padding: 10px 15px;
     }
 
     #boxBrands {
@@ -132,14 +186,8 @@
             .brands:first-child {
                 margin-left: 0;
             }
-
-            .brands:last-child {
-                margin-right: 0;
-            }
         }
     }
-
-
     .containerProducts {
         margin-top: 20px;
         display: grid;

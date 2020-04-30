@@ -48,6 +48,15 @@ const router = new VueRouter({
             }
         },
         {
+            path: '/brands/:id/products',
+            name: 'brandProducts',
+            component: Catalog,
+            props: true,
+            meta: {
+                title: 'Catalogue'
+            }
+        },
+        {
             path: '/news',
             name: 'news',
             component: News,

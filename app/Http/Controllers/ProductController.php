@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Events\ProductAdded;
 use App\Http\Requests\ProductRequest;
 use App\Product;
+use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Product::isPublished()->get(), 200);
+        $search = $request->query('search');
+        if (isset($search) && !empty($search))
+        {
+            return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->isPublished()->paginate(8), 200);
+        }
+        return response()->json(Product::isPublished()->paginate(8), 200);
     }
 
     public function store(ProductRequest $request)

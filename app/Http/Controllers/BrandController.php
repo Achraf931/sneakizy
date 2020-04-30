@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Product;
 
 class BrandController extends Controller
 {
@@ -18,6 +19,6 @@ class BrandController extends Controller
 
     public function products($id)
     {
-        return response()->json(Brand::where('id', $id)->with('products')->get()->first());
+        return response()->json(Product::where('brand_id', $id)->paginate(2));
     }
 }

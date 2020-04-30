@@ -27,22 +27,14 @@
                 isLoggedIn: localStorage.getItem('jwt') != null
             }
         },
-        watch: {
-            isSearching: function () {
-                if (this.isSearching) {
-                    document.documentElement.style.overflow = 'hidden'
-                    return
-                }
-
-                document.documentElement.style.overflow = 'auto'
-            }
-        },
         created() {
             bus.$on('mode', result => {
                 localStorage.setItem('mode', result)
             })
             bus.$on('search', result => {
-                this.search = result
+                axios.get('/api/products?search=' + result).then(res => {
+                    console.log(res)
+                })
             })
         },
         components: {
@@ -126,13 +118,18 @@
         scroll-behavior: smooth;
     }
 
-    body::-webkit-scrollbar {
+    ::-webkit-scrollbar {
         width: 5px !important;
+        height: 5px!important;
+        border-radius: 10px;
     }
 
-    body::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb {
         mso-background: #4536BB;
         background: #4536BB !important;
+        width: 5px !important;
+        height: 5px!important;
+        border-radius: 10px;
     }
 
     ::selection {

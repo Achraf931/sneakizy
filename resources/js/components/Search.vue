@@ -13,8 +13,17 @@
                 search: ''
             }
         },
+        watch: {
+            search() {
+                this.debounce()
+            }
+        },
+        created() {
+            this.debounce = _.debounce(this.sendSearch, 500)
+        },
         methods: {
             sendSearch() {
+
                 bus.$emit('search', this.search)
             }
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="containerProducts">
-        <carousel class="boxShadow" :navigationEnabled="false" :centerMode="true" :paginationPadding="5" :paginationSize="10" paginationPosition="bottom-overlay" paginationColor="#F5F4FA" :speed="1000" paginationActiveColor="#4536BB" :autoplay="true" :autoplayHoverPause="true" :loop="true" :autoplayTimeout="5000" :per-page="1" :mouse-drag="true" id="splide">
+        <carousel class="boxShadow" :navigationEnabled="false" :centerMode="true" :paginationPadding="5" paginationPosition="bottom-overlay" paginationColor="#F5F4FA" :speed="1000" paginationActiveColor="#4536BB" :autoplay="true" :autoplayHoverPause="true" :loop="true" :autoplayTimeout="5000" :per-page="1" :mouse-drag="true" id="splide">
             <slide v-for="article in news.slice(0, 5)" :key="article.index">
                 <ItemArticle :article="article"/>
             </slide>
@@ -43,11 +43,6 @@
 <style lang="scss" scoped>
     .VueCarousel {
         width: 100%!important;
-    }
-    button.VueCarousel-navigation-button.VueCarousel-nativation-next {
-        padding: 0!important;
-        margin: 0!important;
-        right: 55px!important!important;
     }
     .containerProducts {
         display: flex;

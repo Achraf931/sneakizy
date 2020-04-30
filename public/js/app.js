@@ -12226,6 +12226,14 @@ __webpack_require__.r(__webpack_exports__);
       search: ''
     };
   },
+  watch: {
+    search: function search() {
+      this.debounce();
+    }
+  },
+  created: function created() {
+    this.debounce = _.debounce(this.sendSearch, 500);
+  },
   methods: {
     sendSearch: function sendSearch() {
       _app__WEBPACK_IMPORTED_MODULE_0__["bus"].$emit('search', this.search);
@@ -12590,7 +12598,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'brand',
-  props: ['brand'],
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     brands: 'brands/brands',
     products: 'products/products'
@@ -12779,24 +12786,14 @@ __webpack_require__.r(__webpack_exports__);
       isLoggedIn: localStorage.getItem('jwt') != null
     };
   },
-  watch: {
-    isSearching: function isSearching() {
-      if (this.isSearching) {
-        document.documentElement.style.overflow = 'hidden';
-        return;
-      }
-
-      document.documentElement.style.overflow = 'auto';
-    }
-  },
   created: function created() {
-    var _this = this;
-
     _app__WEBPACK_IMPORTED_MODULE_3__["bus"].$on('mode', function (result) {
       localStorage.setItem('mode', result);
     });
     _app__WEBPACK_IMPORTED_MODULE_3__["bus"].$on('search', function (result) {
-      _this.search = result;
+      axios.get('/api/products?search=' + result).then(function (res) {
+        console.log(res);
+      });
     });
   },
   components: {
@@ -12960,6 +12957,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12974,17 +12976,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     Brand: _components_catalog_Brand__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+  watch: {
+    routeBrandId: function routeBrandId(newVal) {
+      this.toggleProducts(newVal);
+    }
+  },
+  computed: _objectSpread({
+    routeName: function routeName() {
+      return this.$route.name;
+    },
+    routeBrandId: function routeBrandId() {
+      return this.$route.params.id;
+    }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    infos: 'products/infos',
     brands: 'brands/brands'
   })),
   mounted: function mounted() {
     this.$store.dispatch('brands/getBrands');
-    this.$store.dispatch('products/getProducts');
+    this.toggleProducts(this.routeBrandId);
     setTimeout(function () {
       var elem = document.getElementById('containerBrands');
       elem.style.display = '-webkit-inline-box';
       elem.style.opacity = '1';
     }, 50);
+  },
+  methods: {
+    toggleProducts: function toggleProducts(id) {
+      if (this.routeName === 'brandProducts') {
+        this.$store.dispatch('products/getBrandProducts', {
+          id: id,
+          page: 1
+        });
+      } else if (this.routeName === 'catalog') {
+        this.$store.dispatch('products/getProducts', 1);
+      }
+    },
+    getProducts: function getProducts(page) {
+      this.brandId = 0;
+      this.$store.dispatch('products/getProducts', page);
+    },
+    brandProducts: function brandProducts(id, page) {
+      this.brandId = id;
+      this.$store.dispatch('products/getBrandProducts', {
+        id: id,
+        page: page
+      });
+    }
   }
 });
 
@@ -20244,7 +20282,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #F9F9FC;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\nbody::-webkit-scrollbar {\n  width: 5px !important;\n}\nbody::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\n.boxShadow {\n  box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\n@media all and (max-width: 837px) {\nmain {\n    padding: 90px 0 0 0;\n}\n}\n@media all and (max-width: 749px) {\nbody::-webkit-scrollbar {\n    display: none;\n}\n}", ""]);
+exports.push([module.i, "@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n}\nhtml, body {\n  background-color: #F9F9FC;\n  color: black;\n  font-family: Norms, Poppins, Arial, sans-serif;\n  font-weight: 200;\n  scrollbar-base-color: #4536BB;\n  scroll-behavior: smooth;\n}\n::-webkit-scrollbar {\n  width: 5px !important;\n  height: 5px !important;\n  border-radius: 10px;\n}\n::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n  width: 5px !important;\n  height: 5px !important;\n  border-radius: 10px;\n}\n::-moz-selection {\n  color: white;\n  background: #4536BB;\n}\n::selection {\n  color: white;\n  background: #4536BB;\n}\nbutton {\n  background: #4536BB;\n  font-family: Norms;\n}\n.boxShadow {\n  box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #4536BB;\n  background-color: #4536BB;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\na {\n  font-weight: bold;\n  color: #2c3e50;\n}\na.router-link-exact-active {\n  color: #4536BB !important;\n  font-family: NormsBold;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\n@media all and (max-width: 837px) {\nmain {\n    padding: 90px 0 0 0;\n}\n}\n@media all and (max-width: 749px) {\nbody::-webkit-scrollbar {\n    display: none;\n}\n}", ""]);
 
 // exports
 
@@ -20282,7 +20320,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".line[data-v-41cd806c] {\n  border-bottom: 1.5px solid black !important;\n}\n.catalog[data-v-41cd806c] {\n  padding-bottom: 40px;\n  min-height: 100vh;\n}\n.banner[data-v-41cd806c] {\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n.banner > img[data-v-41cd806c] {\n  max-width: 600px;\n  width: 100%;\n  max-height: 250px;\n  height: 100%;\n}\n#boxBrands[data-v-41cd806c] {\n  max-width: calc(100% - 200px);\n  width: 100%;\n  margin: auto;\n  display: flex;\n  border-radius: 10px;\n  background: white;\n  padding: 5px 15px;\n}\n#boxBrands .all[data-v-41cd806c] {\n  scroll-snap-align: start;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  color: white;\n  font-weight: bold;\n  background: black;\n  border-radius: 100%;\n  font-size: 12px;\n  cursor: pointer;\n}\n#boxBrands #containerBrands[data-v-41cd806c] {\n  display: none;\n  opacity: 0;\n  margin: auto;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n#boxBrands #containerBrands .brands[data-v-41cd806c] {\n  scroll-snap-align: center;\n  width: 50px;\n  height: 50px;\n  margin: 0 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: 1px solid transparent;\n}\n#boxBrands #containerBrands .brands > img[data-v-41cd806c] {\n  width: 100%;\n  cursor: pointer;\n  transition-duration: 200ms;\n}\n#boxBrands #containerBrands .brands:hover > img[data-v-41cd806c] {\n  transition-duration: 200ms;\n  transform: scale(1.1);\n}\n#boxBrands #containerBrands .brands[data-v-41cd806c]:first-child {\n  margin-left: 0;\n}\n#boxBrands #containerBrands .brands[data-v-41cd806c]:last-child {\n  margin-right: 0;\n}\n.containerProducts[data-v-41cd806c] {\n  margin-top: 20px;\n  display: grid;\n  grid-gap: 46px;\n  width: 100%;\n  justify-content: center;\n  grid-template-columns: repeat(auto-fit, 300px);\n}\n@media all and (max-width: 838px) {\n#boxBrands[data-v-41cd806c] {\n    max-width: 100%;\n}\n[data-v-41cd806c]::-webkit-scrollbar {\n    display: none;\n}\n}\n@media all and (max-width: 645px) {\n.containerProducts[data-v-41cd806c] {\n    grid-gap: 10px;\n}\n}\n@media all and (max-width: 616px) {\nsection[data-v-41cd806c] {\n    padding-bottom: 20px;\n}\n}", ""]);
+exports.push([module.i, ".isActive[data-v-41cd806c] {\n  background: #4536BB !important;\n  color: white;\n}\n.line[data-v-41cd806c] {\n  border-bottom: 1.5px solid black !important;\n}\n.catalog[data-v-41cd806c] {\n  padding-bottom: 40px;\n  min-height: 100vh;\n}\n.banner[data-v-41cd806c] {\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n.banner > img[data-v-41cd806c] {\n  max-width: 600px;\n  width: 100%;\n  max-height: 250px;\n  height: 100%;\n}\n.buttonPage[data-v-41cd806c] {\n  cursor: pointer;\n  width: 40px;\n  border: none;\n  height: 40px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border-radius: 10px;\n  margin: 0 10px;\n  padding: 10px 15px;\n}\n#boxBrands[data-v-41cd806c] {\n  max-width: calc(100% - 200px);\n  width: 100%;\n  margin: auto;\n  display: flex;\n  border-radius: 10px;\n  background: white;\n  padding: 5px 15px;\n}\n#boxBrands .all[data-v-41cd806c] {\n  scroll-snap-align: start;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  color: white;\n  font-weight: bold;\n  background: black;\n  border-radius: 100%;\n  font-size: 12px;\n  cursor: pointer;\n}\n#boxBrands #containerBrands[data-v-41cd806c] {\n  display: none;\n  opacity: 0;\n  margin: auto;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n#boxBrands #containerBrands .brands[data-v-41cd806c] {\n  scroll-snap-align: center;\n  width: 50px;\n  height: 50px;\n  margin: 0 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: 1px solid transparent;\n}\n#boxBrands #containerBrands .brands > img[data-v-41cd806c] {\n  width: 100%;\n  cursor: pointer;\n  transition-duration: 200ms;\n}\n#boxBrands #containerBrands .brands:hover > img[data-v-41cd806c] {\n  transition-duration: 200ms;\n  transform: scale(1.1);\n}\n#boxBrands #containerBrands .brands[data-v-41cd806c]:first-child {\n  margin-left: 0;\n}\n.containerProducts[data-v-41cd806c] {\n  margin-top: 20px;\n  display: grid;\n  grid-gap: 46px;\n  width: 100%;\n  justify-content: center;\n  grid-template-columns: repeat(auto-fit, 300px);\n}\n@media all and (max-width: 838px) {\n#boxBrands[data-v-41cd806c] {\n    max-width: 100%;\n}\n[data-v-41cd806c]::-webkit-scrollbar {\n    display: none;\n}\n}\n@media all and (max-width: 645px) {\n.containerProducts[data-v-41cd806c] {\n    grid-gap: 10px;\n}\n}\n@media all and (max-width: 616px) {\nsection[data-v-41cd806c] {\n    padding-bottom: 20px;\n}\n}", ""]);
 
 // exports
 
@@ -20320,7 +20358,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".VueCarousel[data-v-63cd6604] {\n  width: 100% !important;\n}\nbutton.VueCarousel-navigation-button.VueCarousel-nativation-next[data-v-63cd6604] {\n  padding: 0 !important;\n  margin: 0 !important;\n  right: 55px !important !important;\n}\n.containerProducts[data-v-63cd6604] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  max-width: 940px;\n  width: 100%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  margin: auto;\n  padding-bottom: 40px;\n}\n.containerProducts > .products[data-v-63cd6604] {\n  margin-top: 15px;\n  justify-content: space-between;\n  width: 100%;\n  display: -webkit-inline-box;\n  flex-direction: row;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.containerProducts > .products[data-v-63cd6604]::-webkit-scrollbar {\n  display: none;\n}\n.containerProducts > .products .products[data-v-63cd6604]::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n.containerProducts > .products div[data-v-63cd6604] {\n  scroll-snap-align: center;\n  margin-top: 15px;\n  margin-left: 20px;\n}\n.containerProducts > .products div[data-v-63cd6604]:first-child {\n  margin-left: 0;\n}", ""]);
+exports.push([module.i, ".VueCarousel[data-v-63cd6604] {\n  width: 100% !important;\n}\n.containerProducts[data-v-63cd6604] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  max-width: 940px;\n  width: 100%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  margin: auto;\n  padding-bottom: 40px;\n}\n.containerProducts > .products[data-v-63cd6604] {\n  margin-top: 15px;\n  justify-content: space-between;\n  width: 100%;\n  display: -webkit-inline-box;\n  flex-direction: row;\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.containerProducts > .products[data-v-63cd6604]::-webkit-scrollbar {\n  display: none;\n}\n.containerProducts > .products .products[data-v-63cd6604]::-webkit-scrollbar-thumb {\n  mso-background: #4536BB;\n  background: #4536BB !important;\n}\n.containerProducts > .products div[data-v-63cd6604] {\n  scroll-snap-align: center;\n  margin-top: 15px;\n  margin-left: 20px;\n}\n.containerProducts > .products div[data-v-63cd6604]:first-child {\n  margin-left: 0;\n}", ""]);
 
 // exports
 
@@ -61582,15 +61620,11 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "containerProducts animation" },
-    _vm._l(_vm.shuffle(_vm.products), function(product) {
-      return (_vm.brand !== "All"
-      ? product.brand === _vm.brand
-      : (_vm.brand = "All"))
-        ? _c("Product", {
-            key: product.id,
-            attrs: { brands: _vm.brands, product: product }
-          })
-        : _vm._e()
+    _vm._l(_vm.products, function(product) {
+      return _c("Product", {
+        key: product.id,
+        attrs: { brands: _vm.brands, product: product }
+      })
     }),
     1
   )
@@ -61873,64 +61907,159 @@ var render = function() {
     "div",
     { staticClass: "catalog" },
     [
-      _c("div", { staticClass: "boxShadow", attrs: { id: "boxBrands" } }, [
-        _c(
-          "div",
-          {
-            class: { line: _vm.brandName === "All" },
-            staticStyle: {
-              "border-bottom": "1px solid transparent",
-              height: "50px",
-              "margin-right": "10px",
-              display: "flex",
-              "align-items": "center",
-              "justify-content": "center"
-            }
-          },
-          [
-            _c(
-              "p",
-              {
-                staticClass: "all",
-                on: {
-                  click: function($event) {
-                    _vm.brandName = "All"
-                  }
-                }
+      _c(
+        "div",
+        { staticClass: "boxShadow", attrs: { id: "boxBrands" } },
+        [
+          _c(
+            "router-link",
+            {
+              class: { line: _vm.brandName === "All" },
+              staticStyle: {
+                "border-bottom": "1px solid transparent",
+                height: "50px",
+                "margin-right": "10px",
+                display: "flex",
+                "align-items": "center",
+                "justify-content": "center"
               },
-              [_vm._v("All")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { attrs: { id: "containerBrands" } },
-          _vm._l(_vm.brands, function(brand) {
+              attrs: { to: { name: "catalog" } }
+            },
+            [_c("p", { staticClass: "all" }, [_vm._v("All")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { id: "containerBrands" } },
+            _vm._l(_vm.brands, function(brand) {
+              return _c(
+                "router-link",
+                {
+                  key: brand.index,
+                  staticClass: "brands",
+                  class: { line: _vm.brandName === brand.name },
+                  attrs: {
+                    to: { name: "brandProducts", params: { id: brand.id } }
+                  }
+                },
+                [_c("img", { attrs: { src: brand.image, alt: brand.name } })]
+              )
+            }),
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("Brand"),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticStyle: {
+            width: "100%",
+            "margin-top": "20px",
+            display: "flex",
+            "justify-content": "center",
+            "align-items": "center",
+            "flex-direction": "row"
+          }
+        },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "buttonPage boxShadow",
+              attrs: { disabled: _vm.infos.current_page === 1 },
+              on: {
+                click: function($event) {
+                  _vm.routeName === "catalog"
+                    ? _vm.getProducts(1)
+                    : _vm.brandProducts(_vm.routeBrandId, 1)
+                }
+              }
+            },
+            [_vm._v("<<")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "buttonPage boxShadow",
+              attrs: { disabled: _vm.infos.current_page === 1 },
+              on: {
+                click: function($event) {
+                  _vm.routeName === "catalog"
+                    ? _vm.getProducts(_vm.infos.current_page - 1)
+                    : _vm.brandProducts(
+                        _vm.routeBrandId,
+                        _vm.infos.current_page - 1
+                      )
+                }
+              }
+            },
+            [_vm._v("<")]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.infos.last_page, function(page) {
             return _c(
               "div",
               {
-                key: brand.index,
-                staticClass: "brands",
-                class: { line: _vm.brandName === brand.name }
-              },
-              [
-                _c("img", {
-                  attrs: { src: brand.image, alt: brand.name },
-                  on: {
-                    click: function($event) {
-                      ;(_vm.brandName = brand.name), (_vm.banner = brand.banner)
-                    }
+                staticClass: "buttonPage boxShadow",
+                class: { isActive: _vm.infos.current_page === page },
+                on: {
+                  click: function($event) {
+                    _vm.routeName === "catalog"
+                      ? _vm.getProducts(page)
+                      : _vm.brandProducts(_vm.routeBrandId, page)
                   }
-                })
-              ]
+                }
+              },
+              [_vm._v(_vm._s(page))]
             )
           }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c("Brand", { tag: "Brand", attrs: { brand: _vm.brandName } })
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "buttonPage boxShadow",
+              attrs: {
+                disabled: _vm.infos.current_page === _vm.infos.last_page
+              },
+              on: {
+                click: function($event) {
+                  _vm.routeName === "catalog"
+                    ? _vm.getProducts(_vm.infos.current_page + 1)
+                    : _vm.brandProducts(
+                        _vm.routeBrandId,
+                        _vm.infos.current_page + 1
+                      )
+                }
+              }
+            },
+            [_vm._v(">")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "buttonPage boxShadow",
+              attrs: {
+                disabled: _vm.infos.current_page === _vm.infos.last_page
+              },
+              on: {
+                click: function($event) {
+                  _vm.routeName === "catalog"
+                    ? _vm.getProducts(_vm.infos.last_page)
+                    : _vm.brandProducts(_vm.routeBrandId, _vm.infos.last_page)
+                }
+              }
+            },
+            [_vm._v(">>")]
+          )
+        ],
+        2
+      )
     ],
     1
   )
@@ -62261,7 +62390,6 @@ var render = function() {
             navigationEnabled: false,
             centerMode: true,
             paginationPadding: 5,
-            paginationSize: 10,
             paginationPosition: "bottom-overlay",
             paginationColor: "#F5F4FA",
             speed: 1000,
@@ -81161,6 +81289,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       title: 'Catalogue'
     }
   }, {
+    path: '/brands/:id/products',
+    name: 'brandProducts',
+    component: _views_Catalog__WEBPACK_IMPORTED_MODULE_10__["default"],
+    props: true,
+    meta: {
+      title: 'Catalogue'
+    }
+  }, {
     path: '/news',
     name: 'news',
     component: _views_News__WEBPACK_IMPORTED_MODULE_11__["default"],
@@ -82766,7 +82902,8 @@ __webpack_require__.r(__webpack_exports__);
   namespaced: true,
   state: {
     products: [],
-    product: {}
+    product: {},
+    infos: {}
   },
   getters: {
     products: function products(state) {
@@ -82774,6 +82911,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     product: function product(state) {
       return state.product;
+    },
+    infos: function infos(state) {
+      return state.infos;
     }
   },
   mutations: {
@@ -82786,6 +82926,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     setProduct: function setProduct(state, product) {
       state.product = product;
+    },
+    getInfos: function getInfos(state, infos) {
+      state.infos = infos;
     }
   },
   actions: {
@@ -82803,18 +82946,28 @@ __webpack_require__.r(__webpack_exports__);
         return console.error(err);
       });
     },
-    getProducts: function getProducts(_ref3) {
+    getProducts: function getProducts(_ref3, page) {
       var commit = _ref3.commit;
-      axios.get('/api/products').then(function (res) {
-        {
-          commit('getProducts', res.data);
-        }
+      axios.get('/api/products?page=' + page).then(function (res) {
+        commit('getProducts', res.data.data);
+        commit('getInfos', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
     },
-    getProduct: function getProduct(_ref4, product) {
+    getBrandProducts: function getBrandProducts(_ref4, _ref5) {
       var commit = _ref4.commit;
+      var id = _ref5.id,
+          page = _ref5.page;
+      axios.get('/api/brands/' + id + '/products?page=' + page).then(function (res) {
+        commit('getProducts', res.data.data);
+        commit('getInfos', res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getProduct: function getProduct(_ref6, product) {
+      var commit = _ref6.commit;
       axios.get("/api/products/".concat(product)).then(function (res) {
         {
           commit('setProduct', res.data);
