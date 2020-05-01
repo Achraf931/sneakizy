@@ -80,87 +80,6 @@
     }
 </script>
 <style lang="scss">
-    @font-face {
-        font-family: Norms;
-        src: url("/fonts/TTNorms-Regular.otf");
-    }
-
-    @font-face {
-        font-family: NormsLight;
-        src: url("/fonts/TTNorms-Light.otf");
-    }
-
-    @font-face {
-        font-family: NormsBold;
-        src: url("/fonts/TTNorms-Bold.otf");
-    }
-
-    @font-face {
-        font-family: NormsBlack;
-        src: url("/fonts/TTNorms-Black.otf");
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        text-decoration: none;
-        list-style: none;
-        outline: none !important;
-    }
-
-    html, body {
-        background-color: #F9F9FC;
-        color: black;
-        font-family: Norms, Poppins, Arial, sans-serif;
-        font-weight: 200;
-        scrollbar-base-color: #4536BB;
-        scroll-behavior: smooth;
-    }
-
-    ::-webkit-scrollbar {
-        width: 5px !important;
-        height: 5px!important;
-        border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        mso-background: #4536BB;
-        background: #4536BB !important;
-        width: 5px !important;
-        height: 5px!important;
-        border-radius: 10px;
-    }
-
-    ::selection {
-        color: white;
-        background: #4536BB;
-    }
-
-    button {
-        background: #4536BB;
-        font-family: Norms;
-    }
-    .boxShadow {
-        box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-    }
-    main {
-        padding: 120px 0 0 0;
-        width: 100%;
-        max-width: 100vw;
-    }
-
-    img {
-        image-rendering: -webkit-optimize-contrast !important;
-    }
-
-    .app {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
     .dark {
         background: radial-gradient(circle at top right, #252525, #2E2E2E, black);
         animation: opacity .2s;
@@ -182,31 +101,102 @@
         }
     }
 
-    .animation {
-        display: none;
-        opacity: 0;
-        transition: opacity 500s;
-    }
 
-    .button {
-        color: white;
+    //  Fonts
+    @font-face {
         font-family: Norms;
-        border: 1px solid #4536BB;
-        background-color: #4536BB;
+        src: url("/fonts/TTNorms-Regular.otf");
     }
 
-    .button:active {
-        transition: all 0.2s ease;
-        transform: scale(0.96);
+    @font-face {
+        font-family: NormsLight;
+        src: url("/fonts/TTNorms-Light.otf");
     }
 
-    a {
-        font-weight: bold;
-        color: #2c3e50;
+    @font-face {
+        font-family: NormsBold;
+        src: url("/fonts/TTNorms-Bold.otf");
+    }
 
-        &.router-link-exact-active {
-            color: #4536BB !important;
-            font-family: NormsBold;
+    @font-face {
+        font-family: NormsBlack;
+        src: url("/fonts/TTNorms-Black.otf");
+    }
+
+
+    //  Default
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        list-style: none;
+        outline: none !important;
+        font-family: Norms, Poppins, Arial, sans-serif;
+    }
+
+    html, body {
+        background-color: #F9F9FC;
+        color: black;
+        font-weight: 200;
+        scrollbar-base-color: #591df1;
+        scroll-behavior: smooth;
+    }
+
+    *::-webkit-scrollbar {
+        width: 5px !important;
+        height: 5px!important;
+        border-radius: 10px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        mso-background: #591df1;
+        background: #591df1!important;
+        width: 5px !important;
+        height: 5px!important;
+        border-radius: 10px;
+    }
+
+    ::selection {
+        color: white;
+        background: #591df1;
+    }
+
+    button {
+        background: #591df1;
+        font-family: Norms;
+    }
+
+    main {
+        padding: 120px 0 0 0;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    img {
+        image-rendering: -webkit-optimize-contrast!important;
+    }
+
+    .app {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    nav {
+        a {
+            color: #2c3e50;
+            background: white;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: Poppins, Norms, Arial, sans-serif;
+            padding: 10px;
+
+            &.router-link-exact-active {
+                background: #f0f3ff;
+                color: #591df1!important;
+            }
         }
     }
 
@@ -218,6 +208,396 @@
         opacity: 0;
     }
 
+    footer {
+        background: #591df1;
+        color: #f5f4fa;
+    }
+
+
+    //  Utilities
+    .dGrid {
+        display: grid;
+    }
+
+    .dInlineGrid {
+        display: inline-grid;
+    }
+
+    .dFlex {
+        display: flex;
+    }
+
+    .justifyCenter {
+        justify-content: center;
+    }
+
+    .justifyStart {
+        justify-content: start;
+    }
+
+    .justifySpaceB {
+        justify-content: center;
+    }
+
+    .flexRow {
+        flex-direction: row;
+    }
+
+    .flexColumn {
+        flex-direction: column;
+    }
+
+    .flexWrap {
+        flex-wrap: wrap;
+    }
+
+    .bRadius {
+        border-radius: 10px;
+    }
+
+    .bRadiusFive {
+        border-radius: 5px;
+    }
+
+    .bgWhite {
+        background: white;
+    }
+
+    .alignItemsCenter {
+        align-items: center;
+    }
+
+    //  Margin
+    .mrTop5 {
+        margin-top: 5px;
+    }
+
+    .mrBottom5 {
+        margin-bottom: 5px;
+    }
+
+    .mrLeft5 {
+        margin-left: 5px;
+    }
+
+    .mrRight5 {
+        margin-right: 5px;
+    }
+
+    .margin5 {
+        margin: 5px;
+    }
+
+    .mrTop10 {
+        margin-top: 10px;
+    }
+
+    .mrBottom10 {
+        margin-bottom: 10px;
+    }
+
+    .mrLeft10 {
+        margin-left: 10px;
+    }
+
+    .mrRight10 {
+        margin-right: 10px;
+    }
+
+    .margin10 {
+        margin: 10px;
+    }
+
+    .mrTop20 {
+        margin-top: 20px;
+    }
+
+    .mrBottom20 {
+        margin-bottom: 20px;
+    }
+
+    .mrLeft20 {
+        margin-left: 20px;
+    }
+
+    .mrRight20 {
+        margin-right: 20px;
+    }
+
+    .margin20 {
+        margin: 20px;
+    }
+
+    .mrTop30 {
+        margin-top: 30px;
+    }
+
+    .mrBottom30 {
+        margin-bottom: 30px;
+    }
+
+    .mrLeft30 {
+        margin-left: 30px;
+    }
+
+    .mrRight30 {
+        margin-right: 30px;
+    }
+
+    .margin30 {
+        margin: 30px;
+    }
+
+
+    //  Padding
+    .paddingTop5 {
+        padding-top: 5px;
+    }
+
+    .paddingBottom5 {
+        padding-bottom: 5px;
+    }
+
+    .paddingLeft5 {
+        padding-Left: 5px;
+    }
+
+    .paddingRight5 {
+        padding-right: 5px;
+    }
+
+    .padding5 {
+        padding: 5px;
+    }
+
+    .paddingTop10 {
+        padding-top: 10px;
+    }
+
+    .paddingBottom10 {
+        padding-bottom: 10px;
+    }
+
+    .paddingLeft10 {
+        padding-Left: 10px;
+    }
+
+    .paddingRight10 {
+        padding-right: 10px;
+    }
+
+    .padding10 {
+        padding: 10px;
+    }
+
+    .paddingTop20 {
+        padding-top: 20px;
+    }
+
+    .paddingBottom20 {
+        padding-bottom: 20px;
+    }
+
+    .paddingLeft20 {
+        padding-Left: 20px;
+    }
+
+    .paddingRight20 {
+        padding-right: 20px;
+    }
+
+    .padding20 {
+        padding: 20px;
+    }
+
+    .paddingTop30 {
+        padding-top: 30px;
+    }
+
+    .paddingBottom30 {
+        padding-bottom: 30px;
+    }
+
+    .paddingLeft30 {
+        padding-Left: 30px;
+    }
+
+    .paddingRight30 {
+        padding-right: 30px;
+    }
+
+    .padding30 {
+        padding: 30px;
+    }
+
+
+    //  Carousel CSS
+    .carouselCssH {
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+    }
+
+    .childCarouselStart {
+        scroll-snap-align: start;
+    }
+
+    .childCarouselCenter {
+        scroll-snap-align: center;
+    }
+
+    .colorWhite {
+        color: white;
+    }
+
+    .colorBlack {
+        color: black;
+    }
+
+    .colorGrey {
+        color: grey;
+    }
+
+    .colorUmbrella {
+        color: #591df1!important;
+    }
+
+    .bgUmbrella {
+        background: #591df1;
+    }
+
+    .bgWhite {
+        background: white!important;
+    }
+
+    .fontRegular {
+        font-family: Norms, Arial, sans-serif;
+    }
+
+    .fontBold {
+        font-family: NormsBold, Norms, Arial, sans-serif;
+    }
+
+    .fontLight {
+        font-family: NormsLight, Norms, Arial, sans-serif;
+    }
+
+    .fontS16 {
+        font-size: 16px;
+    }
+
+    .fontBold {
+        font-weight: bold;
+    }
+
+    .fontItalic {
+        font-style: italic;
+    }
+
+    .textCenter {
+        text-align: center;
+    }
+
+    .textStart {
+        text-align: start;
+    }
+
+    .boxShadow {
+        box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    }
+
+    .animation {
+        display: none;
+        opacity: 0;
+        transition: opacity 500s;
+    }
+
+    .button {
+        color: white;
+        font-family: Norms;
+        border: 1px solid #591df1;
+        background-color: #591df1;
+    }
+
+    .button:active {
+        transition: all 0.2s ease;
+        transform: scale(0.96);
+    }
+
+    .paddingButton {
+        padding: 10px 15px;
+    }
+
+    .imgFullCover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .cPointer {
+        cursor: pointer;
+    }
+
+
+    //  Position
+    .pRelative {
+        position: relative;
+    }
+    .pAbsolute {
+        position: absolute;
+    }
+
+    .absoluteCenter {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .top0 {
+        top: 0;
+    }
+
+    .left0 {
+        left: 0;
+    }
+
+    .right0 {
+        right: 0;
+    }
+
+    .bottom0 {
+        bottom: 0;
+    }
+
+
+    //  Width and Height
+    .fullWidth {
+        width: 100%;
+    }
+
+    .fullHeight {
+        height: 100%;
+    }
+
+    //  Z-index
+    .zIndex50 {
+        z-index: 50;
+    }
+
+    .zIndex100 {
+        z-index: 100;
+    }
+
+    .zIndex150 {
+        z-index: 150;
+    }
+
+    .zIndex200 {
+        z-index: 200;
+    }
+
+    //  Responsive
     @media all and (max-width: 837px) {
         main {
             padding: 90px 0 0 0;

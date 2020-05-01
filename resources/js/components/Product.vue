@@ -51,6 +51,7 @@
 </script>
 <style lang="scss" scoped>
     .product {
+        transition: all .3s ease;
         max-width: 300px;
         width: 100%;
         background: white;
@@ -114,7 +115,7 @@
                     width: 50px;
                     height: 50px;
                     border-radius: 100%;
-                    box-shadow: 0px 2px 5px rgba(69, 54, 187, 0.2);
+                    box-shadow: 0 2px 5px rgba(69, 54, 187, 0.2);
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -149,5 +150,8 @@
                 font-size: 16px;
             }
         }
+    }
+    .product:hover {
+        box-shadow: 0 1px 21px 1px rgba(69,65,78,.12);
     }
 </style>

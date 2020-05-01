@@ -6,7 +6,15 @@ import App from './views/App'
 import Home from './views/Home'
 import Login from './views/Login'
 import Register from './views/Register'
+
 import Admin from './views/Admin'
+import MainAdmin from './components/admin/Main'
+import UsersAdmin from './components/admin/Users'
+import ProductsAdmin from './components/admin/Products'
+import OrdersAdmin from './components/admin/Orders'
+import BrandsAdmin from './components/admin/Brands'
+import NewsAdmin from './components/admin/News'
+
 import Basket from './views/Basket'
 import UserBoard from './views/UserBoard'
 import Product from './views/SingleProduct'
@@ -15,12 +23,12 @@ import News from './views/News'
 import SingleArticle from './views/SingleArticle'
 import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import vuelidate from 'vuelidate'
 import VueCarousel from 'vue-carousel';
 
-library.add(faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart)
+library.add(faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft)
 
 export const bus = new Vue()
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -121,15 +129,6 @@ const router = new VueRouter({
             }
         },
         {
-            path: '/admin/:page',
-            name: 'admin-pages',
-            component: Admin,
-            meta: {
-                requiresAuth: true,
-                is_admin : true
-            }
-        },
-        {
             path: '/admin',
             name: 'admin',
             component: Admin,
@@ -137,7 +136,43 @@ const router = new VueRouter({
                 requiresAuth: true,
                 is_admin : true,
                 title: 'Admin'
-            }
+            },
+            children: [
+                {
+                    path: '',
+                    name: 'home_admin',
+                    component: MainAdmin,
+                },
+                {
+                    path: 'users',
+                    name: 'users_admin',
+                    component: UsersAdmin,
+                },
+                {
+                    path: 'products',
+                    name: 'products_admin',
+                    component: ProductsAdmin,
+                },
+                {
+                    path: 'orders',
+                    name: 'orders_admin',
+                    component: OrdersAdmin,
+                },
+                {
+                    path: 'brands',
+                    name: 'brands_admin',
+                    component: BrandsAdmin,
+                },
+                {
+                    path: 'news',
+                    name: 'news_admin',
+                    component: NewsAdmin,
+                },
+                {
+                    path: '*',
+                    redirect: 'home_admin'
+                }
+            ]
         },
         {
             path: '*',

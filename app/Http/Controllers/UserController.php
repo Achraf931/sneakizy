@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\User;
 
 class UserController extends Controller
 {
     public function index(){
-        return response()->json(User::with(['orders'])->get(), 200);
+        return response()->json(User::all(), 200);
     }
 
     public function login(Request $request)

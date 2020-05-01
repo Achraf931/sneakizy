@@ -2,7 +2,7 @@
     <div class="contact animation">
         <div class="boxShadow">
             <div class="left">
-                <h2 class="sendTitle">Envoyez nous un message</h2>
+                <h2 class="sendTitle colorUmbrella">Envoyez nous un message</h2>
                 <div class="formGroup">
                     <div class="vuelidate" :class="{error: $v.form.lastname.$error}">
                         <label for="lastname">Nom</label>
@@ -28,7 +28,7 @@
                 <button class="buttonSend" @click.prevent="sendMail">Envoyer</button>
                 <p>Tous les champs sont obligatoires.</p>
             </div>
-            <div class="right">
+            <div class="right bgUmbrella">
                 <h2>Contact</h2>
                 <p>19 rue Yves Toudic 75010 Paris</p>
                 <p>01 42 41 97 76</p>
@@ -124,9 +124,6 @@
             margin-bottom: 20px;
         }
 
-        .sendTitle {
-            color: #4536BB;
-        }
         & > div {
             border-radius: 10px;
             max-width: 1000px;
@@ -181,10 +178,6 @@
                         display: flex;
                         flex-direction: column;
                         width: 50%;
-
-                        & h2 {
-                            color: #4536BB!important;
-                        }
                     }
                     & > div:first-child {
                         padding-right: 10px;
@@ -210,11 +203,10 @@
                     font-size: 12px;
                 }
                 input:focus, textarea:focus {
-                    border: 1px solid #4536BB;
+                    border: 1px solid #591df1;
                 }
             }
             .right {
-                background: #4536BB;
                 color: white;
                 border-radius: 0 10px 10px 0;
                 display: flex;

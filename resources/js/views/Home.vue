@@ -1,6 +1,6 @@
 <template>
     <div class="containerProducts">
-        <carousel class="boxShadow" :navigationEnabled="false" :centerMode="true" :paginationPadding="5" paginationPosition="bottom-overlay" paginationColor="#F5F4FA" :speed="1000" paginationActiveColor="#4536BB" :autoplay="true" :autoplayHoverPause="true" :loop="true" :autoplayTimeout="5000" :per-page="1" :mouse-drag="true" id="splide">
+        <carousel class="boxShadow" :navigationEnabled="false" :centerMode="true" :paginationPadding="5" paginationPosition="top-overlay" paginationColor="#F5F4FA" :speed="1000" paginationActiveColor="#591df1" :autoplay="true" :autoplayHoverPause="true" :loop="true" :autoplayTimeout="5000" :per-page="1" :mouse-drag="true" id="splide">
             <slide v-for="article in news.slice(0, 5)" :key="article.index">
                 <ItemArticle :article="article"/>
             </slide>
@@ -44,6 +44,7 @@
     .VueCarousel {
         width: 100%!important;
     }
+
     .containerProducts {
         display: flex;
         flex-direction: column;
@@ -70,8 +71,8 @@
             }
 
             .products::-webkit-scrollbar-thumb {
-                mso-background: #4536BB;
-                background: #4536BB!important;
+                mso-background: #591df1;
+                background: #591df1!important;
             }
 
             div {

@@ -20,14 +20,14 @@
             <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
             <template v-if="isLoggedIn">
                 <router-link :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}</router-link>
-                <router-link :to="{ name: 'admin' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
+                <router-link :to="{ name: 'home_admin' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
                 <li v-if="isLoggedIn" @click="logout"> Logout</li>
             </template>
             <router-link class="basketIcon" :to="{name: 'basket'}">
                 <li>
                     <font-awesome-icon icon="shopping-basket"/>
                     <transition v-if="basketItemCount > 0" name="fade">
-                        <div style="width: 15px; height: 15px; position: absolute; top: -5px; right: -5px; font-family: NormsBold; background: #4536BB; border-radius: 100%; font-size: 10px; color: white; display: flex; justify-content: center; align-items: center;">
+                        <div style="width: 15px; height: 15px; position: absolute; top: 5px; right: 5px; font-family: NormsBold, Norms, Arial, sans-serif; background: #591df1; border-radius: 100%; font-size: 10px; color: white; display: flex; justify-content: center; align-items: center;">
                             {{basketItemCount}}
                         </div>
                     </transition>
@@ -180,7 +180,6 @@
 
         ul {
             width: 100%;
-            margin-top: 25px;
             justify-content: space-between;
             display: flex;
             font-size: 16px;

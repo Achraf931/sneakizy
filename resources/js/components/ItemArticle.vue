@@ -1,10 +1,10 @@
 <template>
     <article>
         <div>
-            <h3>{{article.title}}</h3>
+            <h3 class="colorUmbrella fontBold">{{article.title}}</h3>
             <h4>{{article.content.slice(0, 220)}}...</h4>
             <router-link class="seeArticle" :to="{name: 'singleArticle', params: {id: article.id}}">
-                <button class="button">Lire l'article</button>
+                <button class="button colorUmbrella">Lire l'article</button>
             </router-link>
         </div>
         <div>
@@ -33,11 +33,6 @@
             background-color: white;
             border-radius: 10px 0 0 10px;
 
-            h3 {
-                color: #4536BB;
-                font-family: NormsBold, Norms, Arial, sans-serif;
-            }
-
             h4 {
                 line-height: 25px;
                 margin: 20px 0;
@@ -47,8 +42,7 @@
                 width: fit-content;
 
                 button {
-                    border: 1px solid #4536BB;
-                    color: #4536BB;
+                    border: 1px solid #591df1;
                     font-family:  Norms, Arial, sans-serif;
                     font-size: 16px;
                     padding: 10px 15px;
@@ -58,9 +52,9 @@
                     transition: background .2s;
                 }
             }
-            .seeArticle > button:hover {
-                background: #4536BB;
-                color: white;
+            .seeArticle:hover > button {
+                background: #591df1;
+                color: white!important;
             }
         }
         & > div:last-child {

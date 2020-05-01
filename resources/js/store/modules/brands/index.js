@@ -1,29 +1,12 @@
+import state from './state'
+import * as mutations from './mutations'
+import * as actions from './actions'
+import * as getters from './getters'
+
 export default {
     namespaced: true,
-    state: {
-        brands: []
-    },
-    getters: {
-        brands: state => {
-            return state.brands
-        }
-    },
-    mutations: {
-        getBrands(state, brands) {
-            state.brands = brands
-        }
-    },
-    actions: {
-        getBrands({commit}) {
-            axios.get('/api/brands')
-                .then(res => {
-                    {
-                        commit('getBrands', res.data)
-                    }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-    }
+    state,
+    getters,
+    mutations,
+    actions
 }

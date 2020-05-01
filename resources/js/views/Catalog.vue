@@ -15,12 +15,12 @@
             <img :src="banner" :alt="banner">
         </div>-->
             <Brand/>
-            <div style="width: 100%; margin-top: 20px; display: flex; justify-content:center;align-items:center;flex-direction:row;">
-                <button class="buttonPage boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(1) : brandProducts(routeBrandId, 1)"><<</button>
-                <button class="buttonPage boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(infos.current_page-1) : brandProducts(routeBrandId, infos.current_page-1)"><</button>
+            <div class="containerButtonsPage">
+                <button :class="{disabled: infos.current_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(1) : brandProducts(routeBrandId, 1)"><font-awesome-icon icon="angle-double-left"/></button>
+                <button :class="{disabled: infos.current_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(infos.current_page-1) : brandProducts(routeBrandId, infos.current_page-1)"><font-awesome-icon icon="angle-left"/></button>
                 <div :class="{isActive: infos.current_page === page}" class="buttonPage boxShadow" v-for="page in infos.last_page" @click="routeName === 'catalog' ? getProducts(page) : brandProducts(routeBrandId, page)">{{page}}</div>
-                <button class="buttonPage boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.current_page+1) : brandProducts(routeBrandId, infos.current_page+1)">></button>
-                <button class="buttonPage boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.last_page) : brandProducts(routeBrandId, infos.last_page)">>></button>
+                <button :class="{disabled: infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.current_page+1) : brandProducts(routeBrandId, infos.current_page+1)"><font-awesome-icon icon="angle-right"/></button>
+                <button :class="{disabled: infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.last_page) : brandProducts(routeBrandId, infos.last_page)"><font-awesome-icon icon="angle-double-right"/></button>
             </div>
     </div>
 </template>
@@ -90,9 +90,16 @@
 </script>
 
 <style lang="scss" scoped>
+    .disabled {
+        background-color: #F9F9FC!important;
+
+        svg {
+            color: #E1E4F5;
+        }
+    }
     .isActive {
-        background: #4536BB!important;
-        color: white;
+        background: #591df1!important;
+        color: white!important;
     }
     .line {
         border-bottom: 1.5px solid black!important;
@@ -115,18 +122,40 @@
         }
     }
 
-    .buttonPage {
-        cursor: pointer;
-        width: 40px;
-        border: none;
-        height: 40px;
+    .containerButtonsPage {
+        width: fit-content;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content:center;
+        align-items:center;
+        flex-direction:row;
+        margin: 20px auto auto auto;
         background: white;
+        padding: 15px;
         border-radius: 10px;
-        margin: 0 10px;
-        padding: 10px 15px;
+
+        .buttonPage, .arrowPagination {
+            cursor: pointer;
+            color: #93a2dd;
+            width: 40px;
+            border: none;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin: 0 10px;
+            padding: 10px 15px;
+            transition: all .3s;
+        }
+
+        .buttonPage:hover {
+            background-color: #591df1;
+            color: white;
+        }
+
+        .arrowPagination {
+            background-color: #f0f3ff;
+        }
     }
 
     #boxBrands {
