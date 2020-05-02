@@ -2,7 +2,7 @@
     <nav>
         <div @click="closeMenu" v-if="menu === true" class="bg"></div>
         <div class="head">
-            <router-link style="color: #2c3e50!important; font-family: NormsBold;" :to="{name: 'home'}">
+            <router-link style="color: #2c3e50!important; font-family: NormsBold; background: none!important;" :to="{name: 'home'}">
                 <img style="width: 110px;" src="https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094079/Sneakizy/Logo/j67qaz4dabnjiyuttija.png" alt="logo">
             </router-link>
             <!--            <p @click="activeDark">test</p>-->
@@ -20,7 +20,7 @@
             <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
             <template v-if="isLoggedIn">
                 <router-link :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}</router-link>
-                <router-link :to="{ name: 'home_admin' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
+                <router-link :to="{ path: '/admin/' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
                 <li v-if="isLoggedIn" @click="logout"> Logout</li>
             </template>
             <router-link class="basketIcon" :to="{name: 'basket'}">

@@ -23,12 +23,12 @@ import News from './views/News'
 import SingleArticle from './views/SingleArticle'
 import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import vuelidate from 'vuelidate'
 import VueCarousel from 'vue-carousel';
 
-library.add(faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft)
+library.add(faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faEllipsisH, faPlus)
 
 export const bus = new Vue()
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -140,37 +140,42 @@ const router = new VueRouter({
             children: [
                 {
                     path: '',
-                    name: 'home_admin',
+                    name: 'main',
+                    component: MainAdmin,
+                },
+                {
+                    path: '/',
+                    name: 'main',
                     component: MainAdmin,
                 },
                 {
                     path: 'users',
-                    name: 'users_admin',
+                    name: 'users',
                     component: UsersAdmin,
                 },
                 {
                     path: 'products',
-                    name: 'products_admin',
+                    name: 'products',
                     component: ProductsAdmin,
                 },
                 {
                     path: 'orders',
-                    name: 'orders_admin',
+                    name: 'orders',
                     component: OrdersAdmin,
                 },
                 {
                     path: 'brands',
-                    name: 'brands_admin',
+                    name: 'brands',
                     component: BrandsAdmin,
                 },
                 {
                     path: 'news',
-                    name: 'news_admin',
+                    name: 'news',
                     component: NewsAdmin,
                 },
                 {
                     path: '*',
-                    redirect: 'home_admin'
+                    redirect: 'main'
                 }
             ]
         },
@@ -206,6 +211,7 @@ router.beforeEach((to, from, next) => {
                 }
                 else{
                     next({ name: 'admin'})
+                    store.commit('removeAllSelected')
                 }
             }
             next()

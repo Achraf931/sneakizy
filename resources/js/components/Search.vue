@@ -23,7 +23,6 @@
         },
         methods: {
             sendSearch() {
-
                 bus.$emit('search', this.search)
             }
         }

@@ -24,6 +24,7 @@
     import {mapGetters} from 'vuex'
 
 	export default {
+        name: 'main',
 	    computed: {
 	        ...mapGetters({
                 users: 'users/usersLength',

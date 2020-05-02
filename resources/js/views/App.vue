@@ -268,8 +268,28 @@
     }
 
     //  Margin
-    .mrTop5 {
-        margin-top: 5px;
+    .mrTop0 {
+        margin-top: 0;
+    }
+
+    .mrBottom0 {
+        margin-bottom: 0;
+    }
+
+    .mrLeft0 {
+        margin-left: 0!important;
+    }
+
+    .mrRight0 {
+        margin-right: 0;
+    }
+
+    .mrTop0 {
+        margin-top: 0;
+    }
+
+    .mr0 {
+        margin: 0;
     }
 
     .mrBottom5 {
@@ -600,7 +620,7 @@
     //  Responsive
     @media all and (max-width: 837px) {
         main {
-            padding: 90px 0 0 0;
+            padding: 110px 0 0 0;
         }
     }
 

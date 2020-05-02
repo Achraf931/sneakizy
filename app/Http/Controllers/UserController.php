@@ -25,11 +25,11 @@ class UserController extends Controller
         $status = 401;
         $response = ['error' => 'Unauthorised'];
 
-        if (Auth::attempt($credentials)) {
+        if (auth()->attempt($credentials)) {
             $status = 200;
             $response = [
-                'token' => Auth::user()->createToken('sneakizy')->accessToken,
-                'user' => Auth::user()
+                'token' => auth()->user()->createToken('sneakizy')->accessToken,
+                'user' => auth()->user()
             ];
         }
 
@@ -58,6 +58,11 @@ class UserController extends Controller
             'user' => $user,
             'token' => $user->createToken('sneakizy')->accessToken,
         ]);
+    }
+
+    public function currentUser()
+    {
+        return response()->json(auth()->user());
     }
 
     public function show(User $user)

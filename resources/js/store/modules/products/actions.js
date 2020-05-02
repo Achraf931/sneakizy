@@ -1,3 +1,5 @@
+import {bus} from '../../../app'
+
 const headersReq = {'Content-Type': 'multipart/form-data'}
 
 export const addProduct = ({commit}, product) => {
@@ -18,8 +20,27 @@ export const getProduct = ({commit}, product) => {
         })
 }
 
-export const getProducts = ({commit}, page) => {
-    axios.get('/api/products?page=' + page, {headers: headersReq})
+export const getProducts = ({commit, dispatch}, {page, nb}) => {
+    if (nb == null || nb == undefined || nb == false) {
+        nb = 8
+    }
+    axios.get('/api/products?page=' + page + '&max=' + nb, {headers: headersReq})
+        .then(res => {
+            commit('getProducts', res.data.data)
+            commit('getInfos', res.data)
+            //bus.$emit('eventChangePageAdmin')
+            dispatch('admin/verifyCheckPageChange', res.data.data, {root: true})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export const getBrandProducts = ({commit}, {id, page, nb}) => {
+    if (nb == null || nb == undefined || nb == false) {
+        nb = 8
+    }
+    axios.get('/api/brands/' + id + '/products?page=' + page + '&max=' + nb, {headers: headersReq})
         .then(res => {
             commit('getProducts', res.data.data)
             commit('getInfos', res.data)
@@ -29,11 +50,12 @@ export const getProducts = ({commit}, page) => {
         })
 }
 
-export const getBrandProducts = ({commit}, {id, page}) => {
-    axios.get('/api/brands/' + id + '/products?page=' + page, {headers: headersReq})
+export const deleteProduct = ({commit}, id) => {
+    axios.delete('/api/products/' + id)
         .then(res => {
-            commit('getProducts', res.data.data)
-            commit('getInfos', res.data)
+            console.log('res actions')
+            console.log(res)
+            bus.$emit('eventVerifyCheckAll')
         })
         .catch(err => {
             console.log(err)

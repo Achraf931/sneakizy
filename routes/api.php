@@ -26,11 +26,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('products/{product}/units/add', 'ProductController@updateUnits');
     Route::patch('orders/{order}/deliver', 'OrderController@deliverOrder');
     Route::resource('/orders', 'OrderController');
-});
 
-Route::group(['middleware' => 'admin'], function () {
-    Route::apiResource('/brands', 'BrandController')->except(['index', 'show']);
-    Route::apiResource('/users', 'UserController')->except(['update', 'show', 'showOrders']);
-    Route::apiResource('/products', 'ProductController')->except(['index', 'show']);
-    Route::apiResource('/news', 'NewsController')->except(['index', 'show']);
+    Route::group(['middleware' => 'admin'], function () {
+        Route::apiResource('/brands', 'BrandController')->except(['index', 'show']);
+        Route::apiResource('/users', 'UserController')->except(['update', 'show', 'showOrders']);
+        Route::apiResource('/products', 'ProductController')->except(['index', 'show']);
+        Route::apiResource('/news', 'NewsController')->except(['index', 'show']);
+    });
 });

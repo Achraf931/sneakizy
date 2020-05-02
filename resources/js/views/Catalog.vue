@@ -18,7 +18,7 @@
             <div class="containerButtonsPage">
                 <button :class="{disabled: infos.current_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(1) : brandProducts(routeBrandId, 1)"><font-awesome-icon icon="angle-double-left"/></button>
                 <button :class="{disabled: infos.current_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(infos.current_page-1) : brandProducts(routeBrandId, infos.current_page-1)"><font-awesome-icon icon="angle-left"/></button>
-                <div :class="{isActive: infos.current_page === page}" class="buttonPage boxShadow" v-for="page in infos.last_page" @click="routeName === 'catalog' ? getProducts(page) : brandProducts(routeBrandId, page)">{{page}}</div>
+                <div :class="{isActive: infos.current_page === page}" class="buttonPage" v-for="page in infos.last_page" @click="routeName === 'catalog' ? getProducts(page) : brandProducts(routeBrandId, page)">{{page}}</div>
                 <button :class="{disabled: infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.current_page+1) : brandProducts(routeBrandId, infos.current_page+1)"><font-awesome-icon icon="angle-right"/></button>
                 <button :class="{disabled: infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.last_page) : brandProducts(routeBrandId, infos.last_page)"><font-awesome-icon icon="angle-double-right"/></button>
             </div>
@@ -125,8 +125,8 @@
     .containerButtonsPage {
         width: fit-content;
         display: flex;
-        justify-content:center;
-        align-items:center;
+        justify-content: center;
+        align-items: center;
         flex-direction:row;
         margin: 20px auto auto auto;
         background: white;
@@ -145,10 +145,10 @@
             border-radius: 10px;
             margin: 0 10px;
             padding: 10px 15px;
-            transition: all .3s;
+            transition: all .3s ease;
         }
 
-        .buttonPage:hover {
+        .buttonPage:hover, .arrowPagination:hover {
             background-color: #591df1;
             color: white;
         }

@@ -15,9 +15,9 @@ class ProductController extends Controller
         $search = $request->query('search');
         if (isset($search) && !empty($search))
         {
-            return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->isPublished()->paginate(8), 200);
+            return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->isPublished()->paginate((int)$request->query('max')), 200);
         }
-        return response()->json(Product::isPublished()->paginate(8), 200);
+        return response()->json(Product::isPublished()->paginate((int)$request->query('max')), 200);
     }
 
     public function store(ProductRequest $request)
