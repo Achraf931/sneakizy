@@ -13,3 +13,7 @@ export const setProduct = (state, product) => {
 export const getInfos = (state, infos) => {
     state.infos = infos
 }
+
+export const getProductsLength = (state, length) => {
+    state.productsLength = length
+}

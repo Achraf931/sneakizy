@@ -9,3 +9,7 @@ export const article = state => {
 export const articlesLength = state => {
     return state.articles.length
 }
+
+export const infos = state => {
+    return state.infos
+}

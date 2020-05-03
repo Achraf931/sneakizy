@@ -9,3 +9,7 @@ export const checked = ({commit}, id) => {
 export const verifyCheckPageChange = ({commit}, items) => {
     commit('verifyCheckPageChange', items)
 }
+
+export const deleteItem = ({commit}) => {
+    commit('deleteItem')
+}

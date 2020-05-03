@@ -1,9 +1,10 @@
 <template>
     <div class="modal-mask">
         <div class="modal-wrapper">
-            <div class="modal-container">
+            <div v-if="action === 'create'" class="modal-container">
 
                 <div class="modal-body">
+                    <h1>{{action}}</h1>
                     <slot name="body">
                         Name: <input type="text" v-model="product.name">
                         Marque: <input type="text" v-model="product.brand">
@@ -22,11 +23,18 @@
                     </slot>
                 </div>
             </div>
+
+            <div v-else-if="action === 'edit'">
+                <form action="">
+                    <input type="text" placeholder="formulaire edit">
+                </form>
+            </div>
         </div>
     </div>
 </template>
 <script>
     export default {
+        props: ['action'],
         data() {
             return {
                 product: {

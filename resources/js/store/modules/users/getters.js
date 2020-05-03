@@ -3,6 +3,5 @@ export const users = state => {
 }
 
 export const usersLength = state => {
-    console.log(state.users)
     return state.users.length
 }

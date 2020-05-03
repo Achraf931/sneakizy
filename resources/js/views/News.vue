@@ -19,7 +19,7 @@
             })
         },
         beforeMount() {
-            this.$store.dispatch('news/getArticles')
+            this.$store.dispatch('news/getArticles', {page: 1, nb: 10})
             setTimeout(() => {
                 document.querySelectorAll('.animation').forEach(elem => {
                     elem.style.display = 'grid'

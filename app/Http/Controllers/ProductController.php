@@ -12,12 +12,30 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $pageQuery = $request->query('page');
+
+        $maxQuery = $request->query('max');
+
+        $max = isset($maxQuery) && !empty($maxQuery) ? $maxQuery : 10;
+
         $search = $request->query('search');
-        if (isset($search) && !empty($search))
+
+        if (isset($pageQuery) && !empty($pageQuery) && $pageQuery > 0)
         {
-            return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->isPublished()->paginate((int)$request->query('max')), 200);
+            if (isset($search) && !empty($search))
+            {
+                return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->isPublished()->paginate((int)$max), 200);
+            }
+            return response()->json(Product::isPublished()->paginate((int)$max), 200);
         }
-        return response()->json(Product::isPublished()->paginate((int)$request->query('max')), 200);
+        else
+        {
+            if (isset($search) && !empty($search))
+            {
+                return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->isPublished()->get(), 200);
+            }
+            return response()->json(Product::isPublished()->get(), 200);
+        }
     }
 
     public function store(ProductRequest $request)
@@ -63,5 +81,10 @@ class ProductController extends Controller
             'status' => $status,
             'message' => $status ? 'Product Deleted!' : 'Error Deleting Product'
         ]);
+    }
+
+    public function length()
+    {
+        return response()->json('test');
     }
 }

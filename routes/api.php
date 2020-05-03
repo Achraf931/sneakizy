@@ -2,16 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@register');
 
 Route::apiResource('/products', 'ProductController')->only(['index', 'show']);
-Route::apiResource('/news', 'NewsController')->only(['index', 'show']);
+Route::get('/products/length', 'ProductController@length');
 
+Route::apiResource('/news', 'NewsController')->only(['index', 'show']);
 
 Route::get('/basket', 'BasketController@store');
 

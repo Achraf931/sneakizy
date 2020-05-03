@@ -30,23 +30,6 @@
                     elem.style.display = 'grid'
                     elem.style.opacity = '1'
             }, 50)
-        },
-        methods: {
-            shuffle(array) {
-                let j = 0;
-                let valI = '';
-                let valJ = valI;
-                let l = array.length - 1;
-                while (l > -1) {
-                    j = Math.floor(Math.random() * l);
-                    valI = array[l];
-                    valJ = array[j];
-                    array[l] = valJ;
-                    array[j] = valI;
-                    l = l - 1;
-                }
-                return array;
-            }
         }
     }
 </script>

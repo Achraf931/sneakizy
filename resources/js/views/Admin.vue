@@ -17,5 +17,7 @@
     }
 </script>
 <style lang="scss" scoped>
-
+    .admin {
+        padding-bottom: 40px;
+    }
 </style>

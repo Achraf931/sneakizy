@@ -268,6 +268,10 @@
     }
 
     //  Margin
+    .mrAuto {
+        margin: auto;
+    }
+
     .mrTop0 {
         margin-top: 0;
     }
@@ -594,6 +598,10 @@
     //  Width and Height
     .fullWidth {
         width: 100%;
+    }
+
+    .widthContent {
+        width: fit-content;
     }
 
     .fullHeight {

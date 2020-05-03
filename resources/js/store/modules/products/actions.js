@@ -20,7 +20,17 @@ export const getProduct = ({commit}, product) => {
         })
 }
 
-export const getProducts = ({commit, dispatch}, {page, nb}) => {
+export const getProducts = ({commit}) => {
+    axios.get('/api/products', {headers: headersReq})
+        .then(res => {
+            commit('getProducts', res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export const getProductsWithPaginate = ({commit, dispatch}, {page, nb}) => {
     if (nb == null || nb == undefined || nb == false) {
         nb = 8
     }
@@ -28,7 +38,6 @@ export const getProducts = ({commit, dispatch}, {page, nb}) => {
         .then(res => {
             commit('getProducts', res.data.data)
             commit('getInfos', res.data)
-            //bus.$emit('eventChangePageAdmin')
             dispatch('admin/verifyCheckPageChange', res.data.data, {root: true})
         })
         .catch(err => {
@@ -56,6 +65,16 @@ export const deleteProduct = ({commit}, id) => {
             console.log('res actions')
             console.log(res)
             bus.$emit('eventVerifyCheckAll')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export const getProductsLength = ({commit}) => {
+    axios.get('/api/products/length', {headers: headersReq})
+        .then(res => {
+            commit('getProductsLength', res.data)
         })
         .catch(err => {
             console.log(err)

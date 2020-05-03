@@ -5,3 +5,7 @@ export const brands = state => {
 export const brandsLength = state => {
     return state.brands.length
 }
+
+export const infos = state => {
+    return state.infos
+}

@@ -23,12 +23,12 @@ import News from './views/News'
 import SingleArticle from './views/SingleArticle'
 import Contact from './views/Contact'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faEllipsisH, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import vuelidate from 'vuelidate'
 import VueCarousel from 'vue-carousel';
 
-library.add(faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faEllipsisH, faPlus)
+library.add(faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faEllipsisH, faPlus, faTrashAlt)
 
 export const bus = new Vue()
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -130,7 +130,6 @@ const router = new VueRouter({
         },
         {
             path: '/admin',
-            name: 'admin',
             component: Admin,
             meta: {
                 requiresAuth: true,
@@ -150,27 +149,27 @@ const router = new VueRouter({
                 },
                 {
                     path: 'users',
-                    name: 'users',
+                    name: 'admin/users',
                     component: UsersAdmin,
                 },
                 {
                     path: 'products',
-                    name: 'products',
+                    name: 'admin/products',
                     component: ProductsAdmin,
                 },
                 {
                     path: 'orders',
-                    name: 'orders',
+                    name: 'admin/orders',
                     component: OrdersAdmin,
                 },
                 {
                     path: 'brands',
-                    name: 'brands',
+                    name: 'admin/brands',
                     component: BrandsAdmin,
                 },
                 {
                     path: 'news',
-                    name: 'news',
+                    name: 'admin/news',
                     component: NewsAdmin,
                 },
                 {
@@ -211,7 +210,7 @@ router.beforeEach((to, from, next) => {
                 }
                 else{
                     next({ name: 'admin'})
-                    store.commit('removeAllSelected')
+                    store.commit('admin/removeAllSelected')
                 }
             }
             next()

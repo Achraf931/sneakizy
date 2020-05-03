@@ -74,12 +74,12 @@
                     this.$store.dispatch('products/getBrandProducts', {id: id, page: 1})
                 }
                 else if(this.routeName === 'catalog') {
-                    this.$store.dispatch('products/getProducts', 1)
+                    this.$store.dispatch('products/getProductsWithPaginate', {page: 1})
                 }
             },
             getProducts(page) {
                 this.brandId = 0
-                this.$store.dispatch('products/getProducts', page)
+                this.$store.dispatch('products/getProductsWithPaginate', {page})
             },
             brandProducts(id, page) {
                 this.brandId = id

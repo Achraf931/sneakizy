@@ -33,3 +33,13 @@ export const verifyCheckPageChange = (state, items) => {
         state.checkedAll = state.itemsChecked.indexOf(item.id) !== -1
     })
 }
+
+export const deleteItem = (state) => {
+    state.itemsChecked.forEach(item => {
+        state.itemsChecked.splice(state.itemsChecked.indexOf(item.id), 1)
+    })
+}
+
+export const removeAllSelected = (state) => {
+    state.itemsChecked = []
+}
