@@ -12446,6 +12446,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12514,7 +12530,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.addingItem = true;
       }
     },
-    orderBy: function orderBy(order) {
+    orderBy: function orderBy(order, page) {
       if (order === this.orderItems) {
         this.orderItems = 'ASC';
       } else {
@@ -12522,7 +12538,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.$store.dispatch(this.storeActionGetItems, {
-        page: this.infos.current_page,
+        page: page != '' ? page : this.infos.current_page,
         nb: this.nbPerPage,
         orderBy: this.orderItems
       });
@@ -12865,43 +12881,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      users: []
-    };
-  },
-  beforeMount: function beforeMount() {
-    var _this = this;
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _ArrayItems__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArrayItems */ "./resources/js/components/admin/ArrayItems.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-    axios.get('/api/users/').then(function (response) {
-      _this.users = response.data;
-    })["catch"](function (error) {
-      console.error(error);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ArrayItems: _ArrayItems__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    users: 'users/users',
+    infos: 'users/infos'
+  })),
+  beforeMount: function beforeMount() {
+    this.$store.dispatch('users/getUsers', {
+      page: 1,
+      nb: 10
     });
   }
 });
@@ -61695,9 +61699,10 @@ var render = function() {
               _c(
                 "td",
                 {
+                  staticClass: "cPointer",
                   on: {
                     click: function($event) {
-                      return _vm.orderBy("DESC")
+                      return _vm.orderBy("DESC", 1)
                     }
                   }
                 },
@@ -61733,6 +61738,20 @@ var render = function() {
                     _c("td", [_vm._v("Logo")]),
                     _vm._v(" "),
                     _c("td", [_vm._v("Date de création")])
+                  ]
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.routeName === "admin/users"
+                ? [
+                    _c("td", [_vm._v("Nom")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Prénom")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("E-mail")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Date d'inscription")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Admin")])
                   ]
                 : _vm._e(),
               _vm._v(" "),
@@ -61826,6 +61845,30 @@ var render = function() {
                     ]
                   : _vm._e(),
                 _vm._v(" "),
+                _vm.routeName === "admin/users"
+                  ? [
+                      _c("td", { staticClass: "textCenter" }, [
+                        _vm._v(_vm._s(item.lastname))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "textCenter" }, [
+                        _vm._v(_vm._s(item.firstname))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "textCenter" }, [
+                        _vm._v(_vm._s(item.email))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "textCenter" }, [
+                        _vm._v(_vm._s(item.created_at))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "textCenter" }, [
+                        _vm._v(_vm._s(item.is_admin ? "Oui" : "Non"))
+                      ])
+                    ]
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("td", { staticClass: "textCenter" }, [
                   _c(
                     "div",
@@ -61904,19 +61947,21 @@ var render = function() {
             ),
             _vm._v(" "),
             _vm._l(_vm.infos.last_page, function(page) {
-              return _c(
-                "div",
-                {
-                  staticClass: "buttonPage",
-                  class: { isActive: _vm.infos.current_page === page },
-                  on: {
-                    click: function($event) {
-                      return _vm.getItems(page, _vm.nbPerPage)
-                    }
-                  }
-                },
-                [_vm._v(_vm._s(page))]
-              )
+              return _vm.infos.last_page > 1
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "buttonPage",
+                      class: { isActive: _vm.infos.current_page === page },
+                      on: {
+                        click: function($event) {
+                          return _vm.getItems(page, _vm.nbPerPage)
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(page))]
+                  )
+                : _vm._e()
             }),
             _vm._v(" "),
             _c(
@@ -62451,50 +62496,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("table", { staticClass: "table table-responsive table-striped" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.users, function(user, index) {
-          return _c("tr", { on: { key: index } }, [
-            _c("td", [_vm._v(_vm._s(index + 1))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.name))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.email))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.created_at))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.orders.length))])
-          ])
-        }),
-        0
-      )
-    ])
-  ])
+  return _c("ArrayItems", {
+    attrs: {
+      infos: _vm.infos,
+      items: _vm.users,
+      storeActionGetItems: "users/getUsers",
+      title: "utilisateurs"
+    }
+  })
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("td"),
-        _vm._v(" "),
-        _c("td", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Joined")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Total Orders")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -84324,8 +84335,18 @@ var getBrandsWithPaginate = function getBrandsWithPaginate(_ref2, _ref3) {
   var commit = _ref2.commit,
       dispatch = _ref2.dispatch;
   var page = _ref3.page,
-      nb = _ref3.nb;
-  axios.get('/api/brands?page=' + page + '&max=' + nb, {
+      nb = _ref3.nb,
+      orderBy = _ref3.orderBy;
+
+  if (nb == null || nb == undefined || nb == false) {
+    nb = 8;
+  }
+
+  if (orderBy == null || orderBy == undefined || orderBy == false) {
+    orderBy = 'ASC';
+  }
+
+  axios.get('/api/brands?page=' + page + '&max=' + nb + '&orderBy=' + orderBy, {
     headers: headersReq
   }).then(function (res) {
     commit('getBrands', res.data.data);
@@ -84661,13 +84682,18 @@ var getProductsWithPaginate = function getProductsWithPaginate(_ref4, _ref5) {
   var commit = _ref4.commit,
       dispatch = _ref4.dispatch;
   var page = _ref5.page,
-      nb = _ref5.nb;
+      nb = _ref5.nb,
+      orderBy = _ref5.orderBy;
 
   if (nb == null || nb == undefined || nb == false) {
     nb = 8;
   }
 
-  axios.get('/api/products?page=' + page + '&max=' + nb, {
+  if (orderBy == null || orderBy == undefined || orderBy == false) {
+    orderBy = 'ASC';
+  }
+
+  axios.get('/api/products?page=' + page + '&max=' + nb + '&orderBy=' + orderBy, {
     headers: headersReq
   }).then(function (res) {
     commit('getProducts', res.data.data);
@@ -84840,12 +84866,29 @@ __webpack_require__.r(__webpack_exports__);
 var headersReq = {
   'Content-Type': 'multipart/form-data'
 };
-var getUsers = function getUsers(_ref) {
-  var commit = _ref.commit;
-  axios.get('/api/users', {
+var getUsers = function getUsers(_ref, _ref2) {
+  var commit = _ref.commit,
+      dispatch = _ref.dispatch;
+  var page = _ref2.page,
+      nb = _ref2.nb,
+      orderBy = _ref2.orderBy;
+
+  if (nb == null || nb == undefined || nb == false) {
+    nb = 8;
+  }
+
+  if (orderBy == null || orderBy == undefined || orderBy == false) {
+    orderBy = 'ASC';
+  }
+
+  axios.get('/api/users?page=' + page + '&max=' + nb + '&orderBy=' + orderBy, {
     headers: headersReq
   }).then(function (res) {
-    commit('getUsers', res.data);
+    commit('getUsers', res.data.data);
+    commit('getInfos', res.data);
+    dispatch('admin/verifyCheckPageChange', res.data.data, {
+      root: true
+    });
   })["catch"](function (err) {
     console.log(err);
   });
@@ -84857,18 +84900,22 @@ var getUsers = function getUsers(_ref) {
 /*!*****************************************************!*\
   !*** ./resources/js/store/modules/users/getters.js ***!
   \*****************************************************/
-/*! exports provided: users, usersLength */
+/*! exports provided: users, usersLength, infos */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "users", function() { return users; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "usersLength", function() { return usersLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "infos", function() { return infos; });
 var users = function users(state) {
   return state.users;
 };
 var usersLength = function usersLength(state) {
   return state.users.length;
+};
+var infos = function infos(state) {
+  return state.infos;
 };
 
 /***/ }),
@@ -84904,14 +84951,18 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/store/modules/users/mutations.js ***!
   \*******************************************************/
-/*! exports provided: getUsers */
+/*! exports provided: getUsers, getInfos */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInfos", function() { return getInfos; });
 var getUsers = function getUsers(state, users) {
   state.users = users;
+};
+var getInfos = function getInfos(state, infos) {
+  state.infos = infos;
 };
 
 /***/ }),
@@ -84926,7 +84977,8 @@ var getUsers = function getUsers(state, users) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  users: []
+  users: [],
+  infos: {}
 });
 
 /***/ }),

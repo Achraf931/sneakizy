@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         JD\Cloudder\CloudderServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*

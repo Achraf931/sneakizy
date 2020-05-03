@@ -11,7 +11,7 @@
             <thead>
             <tr class="item">
                 <td class="textStart"><input ref="checkAll" @change="toggleCheckAll" type="checkbox" class="boxShadow"></td>
-                <td @click="orderBy('DESC')">#</td>
+                <td class="cPointer" @click="orderBy('DESC', 1)">#</td>
                 <template v-if="routeName === 'admin/news'">
                     <td>Titre</td>
                     <td>Contenu</td>
@@ -29,6 +29,14 @@
                     <td>Titre</td>
                     <td>Logo</td>
                     <td>Date de création</td>
+                </template>
+
+                <template v-if="routeName === 'admin/users'">
+                    <td>Nom</td>
+                    <td>Prénom</td>
+                    <td>E-mail</td>
+                    <td>Date d'inscription</td>
+                    <td>Admin</td>
                 </template>
                 <td>Actions</td>
             </tr>
@@ -57,6 +65,14 @@
                     <td class="textCenter">{{item.created_at}}</td>
                 </template>
 
+                <template v-if="routeName === 'admin/users'">
+                    <td class="textCenter">{{item.lastname}}</td>
+                    <td class="textCenter">{{item.firstname}}</td>
+                    <td class="textCenter">{{item.email}}</td>
+                    <td class="textCenter">{{item.created_at}}</td>
+                    <td class="textCenter">{{item.is_admin ? 'Oui' : 'Non'}}</td>
+                </template>
+
                 <td class="textCenter">
                     <div class="widthContent mrAuto pRelative">
                         <ActionsMenu :id="item.id" @action="actionItem"/>
@@ -69,7 +85,7 @@
             <div class="containerButtonsPage mrTop10">
                 <button :class="{disabled: infos.current_page === 1 || infos.last_page === 1}" class="arrowPagination boxShadow mrLeft0" :disabled="infos.current_page === 1 || infos.last_page === 1" @click="getItems(1, nbPerPage)"><font-awesome-icon icon="angle-double-left"/></button>
                 <button :class="{disabled: infos.current_page === 1 || infos.last_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1 || infos.last_page === 1" @click="getItems(infos.current_page-1, nbPerPage)"><font-awesome-icon icon="angle-left"/></button>
-                <div :class="{isActive: infos.current_page === page}" class="buttonPage" v-for="page in infos.last_page" @click="getItems(page, nbPerPage)">{{page}}</div>
+                <div :class="{isActive: infos.current_page === page}" class="buttonPage" v-if="infos.last_page > 1" v-for="page in infos.last_page" @click="getItems(page, nbPerPage)">{{page}}</div>
                 <button :class="{disabled: infos.current_page === infos.last_page || infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page || infos.current_page === infos.last_page" @click="getItems(infos.current_page+1, nbPerPage)"><font-awesome-icon icon="angle-right"/></button>
                 <button :class="{disabled: infos.current_page === infos.last_page || infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page || infos.current_page === infos.last_page" @click="getItems(infos.last_page, nbPerPage)"><font-awesome-icon icon="angle-double-right"/></button>
             </div>
@@ -145,14 +161,14 @@
                     this.addingItem = true
                 }
             },
-            orderBy(order) {
+            orderBy(order, page) {
                 if (order === this.orderItems) {
                     this.orderItems = 'ASC'
                 }
                 else {
                     this.orderItems = 'DESC'
                 }
-                this.$store.dispatch(this.storeActionGetItems, {page: this.infos.current_page, nb: this.nbPerPage, orderBy: this.orderItems})
+                this.$store.dispatch(this.storeActionGetItems, {page: page != '' ? page : this.infos.current_page, nb: this.nbPerPage, orderBy: this.orderItems})
             }
         }
     }

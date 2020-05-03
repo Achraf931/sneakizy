@@ -30,11 +30,16 @@ export const getProducts = ({commit}) => {
         })
 }
 
-export const getProductsWithPaginate = ({commit, dispatch}, {page, nb}) => {
+export const getProductsWithPaginate = ({commit, dispatch}, {page, nb, orderBy}) => {
     if (nb == null || nb == undefined || nb == false) {
         nb = 8
     }
-    axios.get('/api/products?page=' + page + '&max=' + nb, {headers: headersReq})
+
+    if (orderBy == null || orderBy == undefined || orderBy == false) {
+        orderBy = 'ASC'
+    }
+
+    axios.get('/api/products?page=' + page + '&max=' + nb + '&orderBy=' + orderBy, {headers: headersReq})
         .then(res => {
             commit('getProducts', res.data.data)
             commit('getInfos', res.data)

@@ -2,17 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Validator;
 use App\User;
 
 class UserController extends Controller
 {
-    public function index(){
-        return response()->json(User::all(), 200);
+    use AuthenticatesUsers;
+
+    public function index(Request $request)
+    {
+        $orderBy = $request->query('orderBy');
+
+        $pageQuery = $request->query('page');
+
+        if (isset($pageQuery) && !empty($pageQuery) && $pageQuery > 0)
+        {
+            if (isset($orderBy) && !empty($orderBy))
+            {
+                return response()->json(User::orderBy('created_at', $orderBy)->paginate((int)$request->query('max')), 200);
+            }
+            return response()->json(User::paginate((int)$request->query('max')), 200);
+        }
     }
 
     public function login(Request $request)
@@ -25,11 +39,11 @@ class UserController extends Controller
         $status = 401;
         $response = ['error' => 'Unauthorised'];
 
-        if (auth()->attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $status = 200;
             $response = [
-                'token' => auth()->user()->createToken('sneakizy')->accessToken,
-                'user' => auth()->user()
+                'token' => Auth::user()->createToken('sneakizy')->accessToken,
+                'user' => Auth::user()
             ];
         }
 

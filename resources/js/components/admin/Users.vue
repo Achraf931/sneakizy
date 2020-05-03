@@ -1,42 +1,21 @@
 <template>
-	<div>
-        <table class="table table-responsive table-striped">
-            <thead>
-                <tr>
-                    <td></td>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Joined</td>
-                    <td>Total Orders</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(user,index) in users" @key="index">
-                    <td>{{index+1}}</td>
-                    <td>{{user.name}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.created_at}}</td>
-                    <td>{{user.orders.length}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <ArrayItems :infos="infos" :items="users" :storeActionGetItems="'users/getUsers'" :title="'utilisateurs'"/>
 </template>
 <script>
-	export default {
-        data(){
-            return {
-                users : []
-            }
+    import {mapGetters} from 'vuex'
+    import ArrayItems from './ArrayItems'
+    export default {
+        components: {
+            ArrayItems
         },
-        beforeMount(){
-            axios.get('/api/users/')
-            .then(response => {
-                this.users = response.data
+        computed: {
+            ...mapGetters({
+                users: 'users/users',
+                infos: 'users/infos'
             })
-            .catch(error => {
-                console.error(error);
-            })     
+        },
+        beforeMount() {
+            this.$store.dispatch('users/getUsers', {page: 1, nb: 10})
         }
     }
 </script>

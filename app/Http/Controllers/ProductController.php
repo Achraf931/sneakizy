@@ -12,6 +12,8 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $orderBy = $request->query('orderBy');
+
         $pageQuery = $request->query('page');
 
         $maxQuery = $request->query('max');
@@ -25,6 +27,10 @@ class ProductController extends Controller
             if (isset($search) && !empty($search))
             {
                 return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->isPublished()->paginate((int)$max), 200);
+            }
+            if (isset($orderBy) && !empty($orderBy))
+            {
+                return response()->json(Product::isPublished()->orderBy('created_at', $orderBy)->paginate((int)$max), 200);
             }
             return response()->json(Product::isPublished()->paginate((int)$max), 200);
         }

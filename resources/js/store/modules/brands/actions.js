@@ -10,8 +10,14 @@ export const getBrands = ({commit}) => {
         })
 }
 
-export const getBrandsWithPaginate = ({commit, dispatch}, {page, nb}) => {
-    axios.get('/api/brands?page=' + page + '&max=' + nb, {headers: headersReq})
+export const getBrandsWithPaginate = ({commit, dispatch}, {page, nb, orderBy}) => {
+    if (nb == null || nb == undefined || nb == false) {
+        nb = 8
+    }
+    if (orderBy == null || orderBy == undefined || orderBy == false) {
+        orderBy = 'ASC'
+    }
+    axios.get('/api/brands?page=' + page + '&max=' + nb + '&orderBy=' + orderBy, {headers: headersReq})
         .then(res => {
             commit('getBrands', res.data.data)
             commit('getInfos', res.data)
