@@ -11,7 +11,7 @@
             <thead>
             <tr class="item">
                 <td class="textStart"><input ref="checkAll" @change="toggleCheckAll" type="checkbox" class="boxShadow"></td>
-                <td class="cPointer" @click="orderBy('DESC', 1)">#</td>
+                <td class="cPointer" @click="orderItems = !orderItems, orderBy(orderItems, 1)">#</td>
                 <template v-if="routeName === 'admin/news'">
                     <td>Titre</td>
                     <td>Contenu</td>
@@ -110,7 +110,7 @@
                 nbPerPage: 10,
                 addingItem: null,
                 actionForm: null,
-                orderItems: 'DESC'
+                orderItems: false
             }
         },
         components : {
@@ -162,13 +162,7 @@
                 }
             },
             orderBy(order, page) {
-                if (order === this.orderItems) {
-                    this.orderItems = 'ASC'
-                }
-                else {
-                    this.orderItems = 'DESC'
-                }
-                this.$store.dispatch(this.storeActionGetItems, {page: page != '' ? page : this.infos.current_page, nb: this.nbPerPage, orderBy: this.orderItems})
+                this.$store.dispatch(this.storeActionGetItems, {page: page != '' ? page : this.infos.current_page, nb: this.nbPerPage, orderBy: this.orderItems ? 'DESC' : 'ASC'})
             }
         }
     }

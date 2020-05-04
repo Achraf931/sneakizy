@@ -1,8 +1,8 @@
 <template>
     <div class="customSelect" :tabindex="tabindex" @blur="open = false">
-        <div class="selected" :class="{open: open}" @click="open = !open">{{ current === selected || current < 5 ? selected : current }}</div>
+        <div class="selected" :class="{open: open}" @click="open = !open">{{ selected }}</div>
         <div class="items boxShadow" :class="{selectHide: !open}">
-            <div :class="{sameSelected: open && selected === option}" class="item" v-for="(option, i) of options" :key="i" @click="selected = option, open = false, sendEmit(option)">
+            <div :class="{sameSelected: open && selected === option}" class="item" v-for="(option, i) of options" :key="i" @click="sendEmit(option)">
                 {{ option }}
             </div>
         </div>
@@ -20,20 +20,19 @@
                 type: Number,
                 required: false,
                 default: 0
-            },
-            current: {
-                type: Number
             }
         },
         data() {
             return {
-                selected: this.options.length > 0 ? this.options[0] : null,
+                selected: this.options.length > 0 ? this.options[1] : null,
                 open: false
             }
         },
         methods: {
             sendEmit(option) {
+                this.selected = option
                 this.$emit('nbPerPage', option)
+                this.open = false
             }
         }
     }
