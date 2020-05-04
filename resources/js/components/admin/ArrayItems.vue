@@ -90,7 +90,7 @@
                 <button :class="{disabled: infos.current_page === infos.last_page || infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page || infos.current_page === infos.last_page" @click="getItems(infos.last_page, nbPerPage)"><font-awesome-icon icon="angle-double-right"/></button>
             </div>
             <div class="containerNbPerPage mrTop10">
-                <CustomSelect @nbPerPage="changeNbPerPage" :options="[5, 10, 20, 30, 50, 75, 100]"/>
+                <CustomSelect @nbPerPage="changeNbPerPage" :current="items.length" :options="[5, 10, 20, 30, 50, 75, 100]"/>
             </div>
         </div>
         <Modal @close="addSneaker" :action="actionForm" v-show="addingItem != null"/>

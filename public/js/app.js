@@ -11946,6 +11946,9 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: false,
       "default": 0
+    },
+    current: {
+      type: Number
     }
   },
   data: function data() {
@@ -60878,7 +60881,11 @@ var render = function() {
             }
           }
         },
-        [_vm._v(_vm._s(_vm.selected))]
+        [
+          _vm._v(
+            _vm._s(_vm.current === _vm.selected ? _vm.selected : _vm.current)
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -62027,7 +62034,10 @@ var render = function() {
           { staticClass: "containerNbPerPage mrTop10" },
           [
             _c("CustomSelect", {
-              attrs: { options: [5, 10, 20, 30, 50, 75, 100] },
+              attrs: {
+                current: _vm.items.length,
+                options: [5, 10, 20, 30, 50, 75, 100]
+              },
               on: { nbPerPage: _vm.changeNbPerPage }
             })
           ],
