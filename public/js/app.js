@@ -60883,7 +60883,11 @@ var render = function() {
         },
         [
           _vm._v(
-            _vm._s(_vm.current === _vm.selected ? _vm.selected : _vm.current)
+            _vm._s(
+              _vm.current === _vm.selected || _vm.current < 5
+                ? _vm.selected
+                : _vm.current
+            )
           )
         ]
       ),
