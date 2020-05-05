@@ -12,7 +12,7 @@ export const getBrands = ({commit}) => {
 
 export const getBrandsWithPaginate = ({commit, dispatch}, {page, nb, orderBy}) => {
     if (nb == null || nb == undefined || nb == false) {
-        nb = 8
+        nb = 10
     }
     if (orderBy == null || orderBy == undefined || orderBy == false) {
         orderBy = 'ASC'

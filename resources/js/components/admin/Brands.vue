@@ -11,7 +11,7 @@
         computed: {
             ...mapGetters({
                 brands: 'brands/brands',
-                infos: 'products/infos'
+                infos: 'brands/infos'
             })
         },
         beforeMount() {

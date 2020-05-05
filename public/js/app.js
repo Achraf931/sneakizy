@@ -12536,7 +12536,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       routeName: this.$route.name,
-      nbPerPage: 5,
+      nbPerPage: 10,
       addingItem: null,
       actionForm: null,
       orderItems: false
@@ -12643,7 +12643,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     brands: 'brands/brands',
-    infos: 'products/infos'
+    infos: 'brands/infos'
   })),
   beforeMount: function beforeMount() {
     this.$store.dispatch('brands/getBrandsWithPaginate', {
@@ -85087,7 +85087,7 @@ var getBrandsWithPaginate = function getBrandsWithPaginate(_ref2, _ref3) {
       orderBy = _ref3.orderBy;
 
   if (nb == null || nb == undefined || nb == false) {
-    nb = 8;
+    nb = 10;
   }
 
   if (orderBy == null || orderBy == undefined || orderBy == false) {
