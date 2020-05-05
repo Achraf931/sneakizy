@@ -43,7 +43,6 @@ export const getProductsWithPaginate = ({commit, dispatch}, {page, nb, orderBy})
         .then(res => {
             commit('getProducts', res.data.data)
             commit('getInfos', res.data)
-            console.log(res.data)
             dispatch('admin/verifyCheckPageChange', res.data.data, {root: true})
         })
         .catch(err => {

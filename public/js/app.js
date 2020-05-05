@@ -12536,7 +12536,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       routeName: this.$route.name,
-      nbPerPage: 10,
+      nbPerPage: 5,
       addingItem: null,
       actionForm: null,
       orderItems: false
@@ -13041,20 +13041,65 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'admin',
   data: function data() {
     return {
-      user: ''
+      user: '',
+      routeName: this.$route.name
     };
   },
+  watch: {
+    $route: function $route(to, from) {
+      this.routeName = to.name;
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    users: 'users/usersLength',
+    products: 'products/productsLength',
+    brands: 'brands/brandsLength',
+    news: 'news/articlesLength'
+  })),
   beforeMount: function beforeMount() {
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.$store.dispatch('products/getProducts');
+    this.$store.dispatch('news/getArticles');
+    this.$store.dispatch('users/getUsers');
+    this.$store.dispatch('brands/getBrands');
   }
 });
 
@@ -13120,7 +13165,6 @@ __webpack_require__.r(__webpack_exports__);
   beforeMount: function beforeMount() {
     window.addEventListener("DOMContentLoaded", function () {
       _app__WEBPACK_IMPORTED_MODULE_3__["bus"].$emit('loading', true);
-      console.log("DOM entièrement chargé et analysé");
     });
   },
   mounted: function mounted() {
@@ -20669,7 +20713,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".homeAdmin[data-v-137c6ca4] {\n  max-width: 1000px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.homeAdmin .containerLength[data-v-137c6ca4] {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  background: white;\n  border-radius: 10px;\n  padding: 15px 0;\n}\n.homeAdmin .containerLength div[data-v-137c6ca4] {\n  max-width: 200px;\n  min-width: 200px;\n  width: 100%;\n  border-radius: 10px;\n  padding: 15px;\n  margin: 0 20px;\n  color: white;\n  text-align: center;\n}\n.homeAdmin .containerLength div p[data-v-137c6ca4] {\n  font-size: 20px;\n}\n.homeAdmin .containerLength .users[data-v-137c6ca4] {\n  background: #fd397a;\n}\n.homeAdmin .containerLength .brands[data-v-137c6ca4] {\n  background: #ffb822;\n}\n.homeAdmin .containerLength .newsLength[data-v-137c6ca4] {\n  background: #35BFA3;\n}", ""]);
+exports.push([module.i, ".homeAdmin[data-v-137c6ca4] {\n  max-width: 970px;\n  margin: 0 auto;\n  width: 100%;\n}\n.homeAdmin .containerLength[data-v-137c6ca4] {\n  display: flex;\n  justify-content: space-between;\n  background: white;\n  border-radius: 10px;\n  padding: 0 15px 15px 15px;\n  flex-wrap: wrap;\n}\n.homeAdmin .containerLength div[data-v-137c6ca4] {\n  margin-top: 15px;\n  width: 200px;\n  border-radius: 10px;\n  padding: 15px;\n  color: white;\n  text-align: center;\n}\n.homeAdmin .containerLength div p[data-v-137c6ca4] {\n  font-size: 20px;\n}\n.homeAdmin .containerLength .users[data-v-137c6ca4] {\n  background: #fd397a;\n}\n.homeAdmin .containerLength .brands[data-v-137c6ca4] {\n  background: #ffb822;\n}\n.homeAdmin .containerLength .newsLength[data-v-137c6ca4] {\n  background: #35BFA3;\n}", ""]);
 
 // exports
 
@@ -20688,7 +20732,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".admin[data-v-7abcea40] {\n  padding-bottom: 40px;\n}", ""]);
+exports.push([module.i, ".admin[data-v-7abcea40] {\n  padding: 0 15px 40px 15px;\n}\n.admin > .containerNavAdmin[data-v-7abcea40] {\n  max-width: 1050px;\n  display: flex;\n  justify-content: space-between;\n  padding: 0 0 15px 0;\n  margin: 0 auto 20px auto;\n}\n.admin > .containerNavAdmin a[data-v-7abcea40] {\n  margin: 15px 15px 0 15px;\n  width: 200px;\n  border-radius: 10px;\n  padding: 15px;\n  color: #93a2dd;\n  background: #f0f3ff;\n  text-align: center;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  transition: all 0.2s ease;\n}\n.admin > .containerNavAdmin a p[data-v-7abcea40] {\n  font-size: 20px;\n}\n.admin > .containerNavAdmin a[data-v-7abcea40]:hover {\n  color: white !important;\n}\n.admin > .containerNavAdmin .productsLength[data-v-7abcea40]:hover {\n  background: #591df1;\n}\n.admin > .containerNavAdmin .users[data-v-7abcea40]:hover {\n  background: #fd397a;\n}\n.admin > .containerNavAdmin .brands[data-v-7abcea40]:hover {\n  background: #ffb822;\n}\n.admin > .containerNavAdmin .newsLength[data-v-7abcea40]:hover {\n  background: #35BFA3;\n}\n.admin > .containerNavAdmin .productsBg[data-v-7abcea40] {\n  background: #591df1 !important;\n  color: white !important;\n}\n.admin > .containerNavAdmin .brandsBg[data-v-7abcea40] {\n  background: #ffb822 !important;\n  color: white !important;\n}\n.admin > .containerNavAdmin .newsBg[data-v-7abcea40] {\n  background: #35BFA3 !important;\n  color: white !important;\n}\n.admin > .containerNavAdmin .usersBg[data-v-7abcea40] {\n  background: #fd397a !important;\n  color: white !important;\n}\n@media all and (max-width: 489px) {\n.admin > .containerNavAdmin[data-v-7abcea40] {\n    flex-wrap: wrap;\n}\n.admin > .containerNavAdmin > a[data-v-7abcea40] {\n    width: 38.8%;\n}\n}", ""]);
 
 // exports
 
@@ -63151,7 +63195,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "admin" }, [_c("router-view")], 1)
+  return _c(
+    "div",
+    { staticClass: "admin" },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "boxShadow containerNavAdmin mrRight20 bRadius bgWhite"
+        },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "productsLength boxShadow",
+              class: { productsBg: _vm.routeName === "admin/products" },
+              attrs: { to: { name: "admin/products" } }
+            },
+            [
+              _c("p", [_vm._v(_vm._s(_vm.products))]),
+              _vm._v(" "),
+              _c("small", [_vm._v("Produits")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "brands boxShadow",
+              class: { brandsBg: _vm.routeName === "admin/brands" },
+              attrs: { to: { name: "admin/brands" } }
+            },
+            [
+              _c("p", [_vm._v(_vm._s(_vm.brands))]),
+              _vm._v(" "),
+              _c("small", [_vm._v("Marques")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "newsLength boxShadow",
+              class: { newsBg: _vm.routeName === "admin/news" },
+              attrs: { to: { name: "admin/news" } }
+            },
+            [
+              _c("p", [_vm._v(_vm._s(_vm.news))]),
+              _vm._v(" "),
+              _c("small", [_vm._v("Articles")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "users boxShadow",
+              class: { usersBg: _vm.routeName === "admin/users" },
+              attrs: { to: { name: "admin/users" } }
+            },
+            [
+              _c("p", [_vm._v(_vm._s(_vm.users))]),
+              _vm._v(" "),
+              _c("small", [_vm._v("Utilisateurs")])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("router-view")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -82832,10 +82948,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       title: 'Admin'
     },
     children: [{
-      path: '',
-      name: 'main',
-      component: _components_admin_Main__WEBPACK_IMPORTED_MODULE_7__["default"]
-    }, {
       path: '/',
       name: 'main',
       component: _components_admin_Main__WEBPACK_IMPORTED_MODULE_7__["default"]
@@ -85371,7 +85483,6 @@ var getProductsWithPaginate = function getProductsWithPaginate(_ref4, _ref5) {
   }).then(function (res) {
     commit('getProducts', res.data.data);
     commit('getInfos', res.data);
-    console.log(res.data);
     dispatch('admin/verifyCheckPageChange', res.data.data, {
       root: true
     });

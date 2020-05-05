@@ -46,7 +46,6 @@
         beforeMount() {
             window.addEventListener("DOMContentLoaded", () => {
                 bus.$emit('loading', true)
-                console.log("DOM entièrement chargé et analysé");
             });
         },
         mounted() {

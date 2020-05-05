@@ -109,7 +109,7 @@
         data(){
             return {
                 routeName: this.$route.name,
-                nbPerPage: 10,
+                nbPerPage: 5,
                 addingItem: null,
                 actionForm: null,
                 orderItems: false

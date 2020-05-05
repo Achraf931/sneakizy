@@ -43,28 +43,23 @@
 </script>
 <style lang="scss" scoped>
     .homeAdmin {
-        max-width: 1000px;
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        max-width: 970px;
+        margin: 0 auto;
+        width: 100%;
 
         .containerLength {
-            width: fit-content;
             display: flex;
-            flex-direction: row;
-            align-items: center;
+            justify-content: space-between;
             background: white;
             border-radius: 10px;
-            padding: 15px 0;
+            padding: 0 15px 15px 15px;
+            flex-wrap: wrap;
 
             div {
-                max-width: 200px;
-                min-width: 200px;
-                width: 100%;
+                margin-top: 15px;
+                width: 200px;
                 border-radius: 10px;
                 padding: 15px;
-                margin: 0 20px;
                 color: white;
                 text-align: center;
 

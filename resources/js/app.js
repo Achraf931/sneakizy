@@ -138,11 +138,6 @@ const router = new VueRouter({
             },
             children: [
                 {
-                    path: '',
-                    name: 'main',
-                    component: MainAdmin,
-                },
-                {
                     path: '/',
                     name: 'main',
                     component: MainAdmin,
