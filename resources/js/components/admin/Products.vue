@@ -1,5 +1,5 @@
 <template>
-    <ArrayItems :infos="infos" :items="products" :storeActionGetItems="'products/getProductsWithPaginate'" :title="'produits'"/>
+    <ArrayItems :infos="infos" :items="products" :storeActionGetItems="'products/getProductsWithPaginate'" :actionDeleteItem="'products/deleteProduct'" :title="'produits'"/>
 </template>
 <script>
     import {mapGetters} from 'vuex'

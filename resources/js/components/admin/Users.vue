@@ -1,5 +1,5 @@
 <template>
-    <ArrayItems :infos="infos" :items="users" :storeActionGetItems="'users/getUsers'" :title="'utilisateurs'"/>
+    <ArrayItems :infos="infos" :items="users" :storeActionGetItems="'users/getUsersWithPaginate'" :actionDeleteItem="'users/deleteUser'" :title="'utilisateurs'"/>
 </template>
 <script>
     import {mapGetters} from 'vuex'
@@ -15,7 +15,7 @@
             })
         },
         beforeMount() {
-            this.$store.dispatch('users/getUsers', {page: 1, nb: 10})
+            this.$store.dispatch('users/getUsersWithPaginate', {page: 1, nb: 10})
         }
     }
 </script>

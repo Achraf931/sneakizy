@@ -1,7 +1,7 @@
 <template>
     <div>
         <article>
-            <div>
+            <div class="boxShadow">
                 <div>
                     <img id="imgPrincipal" @click="openImage(product.image)" :src="product.image"
                          :alt="product.name">
@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="boxShadow">
                 <div id="containerNamePrice">
                     <h1>{{product.brand}}</h1>
                     <h3>{{product.name}}</h3>

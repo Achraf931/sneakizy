@@ -27,3 +27,15 @@ export const getBrandsWithPaginate = ({commit, dispatch}, {page, nb, orderBy}) =
             console.log(err)
         })
 }
+
+export const deleteBrand = ({commit}, id) => {
+    axios.delete('/api/brands/' + id, {headers: headersReq})
+        .then(res => {
+            if (res.data.status) {
+                commit('deleteBrand', res.data)
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}

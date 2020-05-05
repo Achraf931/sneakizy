@@ -11892,6 +11892,67 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-helper-vue-jsx-merge-props/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/babel-helper-vue-jsx-merge-props/index.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var nestRE = /^(attrs|props|on|nativeOn|class|style|hook)$/
+
+module.exports = function mergeJSXProps (objs) {
+  return objs.reduce(function (a, b) {
+    var aa, bb, key, nestedKey, temp
+    for (key in b) {
+      aa = a[key]
+      bb = b[key]
+      if (aa && nestRE.test(key)) {
+        // normalize class
+        if (key === 'class') {
+          if (typeof aa === 'string') {
+            temp = aa
+            a[key] = aa = {}
+            aa[temp] = true
+          }
+          if (typeof bb === 'string') {
+            temp = bb
+            b[key] = bb = {}
+            bb[temp] = true
+          }
+        }
+        if (key === 'on' || key === 'nativeOn' || key === 'hook') {
+          // merge functions
+          for (nestedKey in bb) {
+            aa[nestedKey] = mergeFn(aa[nestedKey], bb[nestedKey])
+          }
+        } else if (Array.isArray(aa)) {
+          a[key] = aa.concat(bb)
+        } else if (Array.isArray(bb)) {
+          a[key] = [aa].concat(bb)
+        } else {
+          for (nestedKey in bb) {
+            aa[nestedKey] = bb[nestedKey]
+          }
+        }
+      } else {
+        a[key] = b[key]
+      }
+    }
+    return a
+  }, {})
+}
+
+function mergeFn (a, b) {
+  return function () {
+    a && a.apply(this, arguments)
+    b && b.apply(this, arguments)
+  }
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ArticleItem.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ArticleItem.vue?vue&type=script&lang=js& ***!
@@ -12464,12 +12525,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['infos', 'items', 'storeActionGetItems', 'title'],
+  props: ['infos', 'items', 'storeActionGetItems', 'actionDeleteItem', 'title'],
   data: function data() {
     return {
       routeName: this.$route.name,
@@ -12519,8 +12582,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     checked: function checked(id) {
       this.$store.dispatch('admin/checked', id);
     },
-    deleteProduct: function deleteProduct() {
-      this.$store.dispatch('admin/deleteItem');
+    deleteItems: function deleteItems() {
+      var _this = this;
+
+      this.itemsChecked.forEach(function (item) {
+        _this.$store.dispatch(_this.actionDeleteItem, item);
+      });
     },
     changeNbPerPage: function changeNbPerPage(nb) {
       this.nbPerPage = nb;
@@ -12530,6 +12597,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (action.action === 'edit') {
         this.actionForm = action.action;
         this.addingItem = true;
+      }
+
+      if (action.action === 'delete') {
+        this.$store.dispatch(this.actionDeleteItem, action.id);
       }
     },
     orderBy: function orderBy(order, page) {
@@ -12899,7 +12970,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     infos: 'users/infos'
   })),
   beforeMount: function beforeMount() {
-    this.$store.dispatch('users/getUsers', {
+    this.$store.dispatch('users/getUsersWithPaginate', {
       page: 1,
       nb: 10
     });
@@ -13528,9 +13599,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_ArticleItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/ArticleItem */ "./resources/js/components/ArticleItem.vue");
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
+/* harmony import */ var vue_content_loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-content-loader */ "./node_modules/vue-content-loader/dist/vue-content-loader.es.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_ArticleItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/ArticleItem */ "./resources/js/components/ArticleItem.vue");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -13542,17 +13614,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'news',
-  components: {
-    ArticleItem: _components_ArticleItem__WEBPACK_IMPORTED_MODULE_1__["default"]
+  data: function data() {
+    return {
+      skeleton: true
+    };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+  components: {
+    ArticleItem: _components_ArticleItem__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ContentLoader: vue_content_loader__WEBPACK_IMPORTED_MODULE_0__["ContentLoader"]
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     articles: 'news/articles'
   })),
+  created: function created() {
+    var _this = this;
+
+    _app__WEBPACK_IMPORTED_MODULE_3__["bus"].$on('skeleton', function (res) {
+      _this.skeleton = res;
+    });
+  },
   beforeMount: function beforeMount() {
     this.$store.dispatch('news/getArticles', {
       page: 1,
@@ -13669,6 +13765,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -20552,7 +20650,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".fade-enter-active[data-v-5af00a92], .fade-leave-to[data-v-5af00a92] {\n  transition: opacity 500ms;\n}\n.fade-enter[data-v-5af00a92], .fade-leave-to[data-v-5af00a92] {\n  opacity: 0;\n}\n.checked[data-v-5af00a92] {\n  background: #f7f8fa;\n}\n.disabled[data-v-5af00a92] {\n  background-color: #F9F9FC !important;\n}\n.disabled svg[data-v-5af00a92] {\n  color: #E1E4F5 !important;\n}\n.isActive[data-v-5af00a92] {\n  background: #591df1 !important;\n  color: white !important;\n}\ninput[type=checkbox][data-v-5af00a92] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -ms-appearance: none;\n}\ninput[type=checkbox][data-v-5af00a92] {\n  cursor: pointer;\n  border-radius: 5px;\n  height: 18px;\n  width: 18px;\n  background: #f0f3ff;\n  transition: all 0.3s ease;\n}\ninput[type=checkbox][data-v-5af00a92]:checked {\n  position: relative;\n}\ninput[type=checkbox][data-v-5af00a92]:checked:after {\n  content: \"\";\n  border: solid #99a6bf;\n  position: absolute;\n  display: block;\n  top: 50%;\n  left: 50%;\n  margin-left: -3px;\n  margin-top: -7px;\n  width: 5px;\n  height: 10px;\n  border-width: 0 2px 2px 0 !important;\n  transform: rotate(45deg);\n}\n.adminItems[data-v-5af00a92] {\n  max-width: 1050px;\n  padding: 15px 0;\n  margin: auto;\n  font-size: 13px;\n}\n.adminItems > header[data-v-5af00a92] {\n  display: flex;\n  justify-content: space-between;\n  padding: 0 15px;\n}\n.adminItems > header h3[data-v-5af00a92] {\n  color: #48465b;\n}\n.adminItems .icon[data-v-5af00a92] {\n  width: 1.5rem;\n  height: 1.5rem;\n  padding: 5px;\n  border-radius: 5px;\n  color: #93A2DD;\n  cursor: pointer;\n  transition: background 0.2s ease;\n}\n.adminItems .icon[data-v-5af00a92]:hover {\n  color: #591df1;\n  background: #f0f3ff;\n}\n.adminItems .removeButton[data-v-5af00a92] {\n  color: white !important;\n  background: red !important;\n}\n.adminItems table[data-v-5af00a92] {\n  width: 100%;\n}\n.adminItems table thead[data-v-5af00a92] {\n  text-align: center;\n}\n.adminItems table .item[data-v-5af00a92], .adminItems table thead[data-v-5af00a92] {\n  width: 100%;\n  padding: 0 15px;\n  border-bottom: 1px solid #f0f3ff;\n  transition: background 0.3s ease;\n}\n.adminItems table .item td[data-v-5af00a92], .adminItems table thead td[data-v-5af00a92] {\n  color: #595d6e;\n  padding: 10px;\n}\n.adminItems table .item td[data-v-5af00a92]:first-child, .adminItems table thead td[data-v-5af00a92]:first-child {\n  padding-left: 15px;\n}\n.adminItems table .actionsMenu[data-v-5af00a92] {\n  opacity: 0;\n  display: none;\n  width: 40px;\n  height: 40px;\n}\n.adminItems .bottom[data-v-5af00a92] {\n  padding: 0 15px;\n  display: flex;\n  justify-content: space-between;\n}\n.adminItems .bottom .containerButtonsPage[data-v-5af00a92] {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  display: flex;\n}\n.adminItems .bottom .containerButtonsPage *[data-v-5af00a92] {\n  font-size: 13px;\n}\n.adminItems .bottom .containerButtonsPage .buttonPage[data-v-5af00a92], .adminItems .bottom .containerButtonsPage .arrowPagination[data-v-5af00a92] {\n  cursor: pointer;\n  color: #93a2dd;\n  width: 20px;\n  border: none;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 5px;\n  margin: 0 2px;\n  padding: 10px 15px;\n  transition: all 0.3s ease;\n}\n.adminItems .bottom .containerButtonsPage .buttonPage[data-v-5af00a92]:hover, .adminItems .bottom .containerButtonsPage .arrowPagination[data-v-5af00a92]:hover {\n  background-color: #591df1;\n  color: white;\n}\n.adminItems .bottom .containerButtonsPage .arrowPagination[data-v-5af00a92] {\n  background-color: #f0f3ff;\n}\n.adminItems .bottom .containerNbPerPage[data-v-5af00a92] {\n  display: flex;\n  flex-direction: row;\n}", ""]);
+exports.push([module.i, ".fade-enter-active[data-v-5af00a92], .fade-leave-to[data-v-5af00a92] {\n  transition: opacity 500ms;\n}\n.fade-enter[data-v-5af00a92], .fade-leave-to[data-v-5af00a92] {\n  opacity: 0;\n}\n.checked[data-v-5af00a92] {\n  background: #f7f8fa;\n}\n.disabled[data-v-5af00a92] {\n  background-color: #F9F9FC !important;\n}\n.disabled svg[data-v-5af00a92] {\n  color: #E1E4F5 !important;\n}\n.isActive[data-v-5af00a92] {\n  background: #591df1 !important;\n  color: white !important;\n}\ninput[type=checkbox][data-v-5af00a92] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -ms-appearance: none;\n}\ninput[type=checkbox][data-v-5af00a92] {\n  cursor: pointer;\n  border-radius: 5px;\n  height: 18px;\n  width: 18px;\n  background: #f0f3ff;\n  transition: all 0.3s ease;\n}\ninput[type=checkbox][data-v-5af00a92]:checked {\n  position: relative;\n}\ninput[type=checkbox][data-v-5af00a92]:checked:after {\n  content: \"\";\n  border: solid #99a6bf;\n  position: absolute;\n  display: block;\n  top: 50%;\n  left: 50%;\n  margin-left: -3px;\n  margin-top: -7px;\n  width: 5px;\n  height: 10px;\n  border-width: 0 2px 2px 0 !important;\n  transform: rotate(45deg);\n}\n.adminItems[data-v-5af00a92] {\n  max-width: 1050px;\n  padding: 15px 0;\n  margin: auto;\n  font-size: 13px;\n}\n.adminItems > header[data-v-5af00a92] {\n  display: flex;\n  justify-content: space-between;\n  padding: 0 15px;\n}\n.adminItems > header h3[data-v-5af00a92] {\n  color: #48465b;\n}\n.adminItems .icon[data-v-5af00a92] {\n  width: 1.5rem;\n  height: 1.5rem;\n  padding: 5px;\n  border-radius: 5px;\n  color: #93A2DD;\n  cursor: pointer;\n  transition: background 0.2s ease;\n}\n.adminItems .icon[data-v-5af00a92]:hover {\n  color: #591df1;\n  background: #f0f3ff;\n}\n.adminItems .removeButton[data-v-5af00a92] {\n  color: white !important;\n  background: red !important;\n}\n.adminItems table[data-v-5af00a92] {\n  width: 100%;\n}\n.adminItems table thead[data-v-5af00a92] {\n  text-align: center;\n}\n.adminItems table .item[data-v-5af00a92], .adminItems table thead[data-v-5af00a92] {\n  width: 100%;\n  padding: 0 15px;\n  border-bottom: 1px solid #f0f3ff;\n  transition: background 0.3s ease;\n}\n.adminItems table .item .idTd[data-v-5af00a92]:after, .adminItems table thead .idTd[data-v-5af00a92]:after {\n  content: \"\";\n  width: 0;\n  height: 0;\n  border: 4px solid transparent;\n  border-color: #595d6e transparent transparent transparent;\n}\n.adminItems table .item td[data-v-5af00a92], .adminItems table thead td[data-v-5af00a92] {\n  color: #595d6e;\n  padding: 10px;\n}\n.adminItems table .item td[data-v-5af00a92]:first-child, .adminItems table thead td[data-v-5af00a92]:first-child {\n  padding-left: 15px;\n}\n.adminItems table .actionsMenu[data-v-5af00a92] {\n  opacity: 0;\n  display: none;\n  width: 40px;\n  height: 40px;\n}\n.adminItems .bottom[data-v-5af00a92] {\n  padding: 0 15px;\n  display: flex;\n  justify-content: space-between;\n}\n.adminItems .bottom .containerButtonsPage[data-v-5af00a92] {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  display: flex;\n}\n.adminItems .bottom .containerButtonsPage *[data-v-5af00a92] {\n  font-size: 13px;\n}\n.adminItems .bottom .containerButtonsPage .buttonPage[data-v-5af00a92], .adminItems .bottom .containerButtonsPage .arrowPagination[data-v-5af00a92] {\n  cursor: pointer;\n  color: #93a2dd;\n  width: 20px;\n  border: none;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 5px;\n  margin: 0 2px;\n  padding: 10px 15px;\n  transition: all 0.3s ease;\n}\n.adminItems .bottom .containerButtonsPage .buttonPage[data-v-5af00a92]:hover, .adminItems .bottom .containerButtonsPage .arrowPagination[data-v-5af00a92]:hover {\n  background-color: #591df1;\n  color: white;\n}\n.adminItems .bottom .containerButtonsPage .arrowPagination[data-v-5af00a92] {\n  background-color: #f0f3ff;\n}\n.adminItems .bottom .containerNbPerPage[data-v-5af00a92] {\n  display: flex;\n  flex-direction: row;\n}", ""]);
 
 // exports
 
@@ -20609,7 +20707,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n  font-family: Norms, Poppins, Arial, sans-serif;\n}\nhtml, body {\n  background-color: #F9F9FC;\n  color: black;\n  font-weight: 200;\n  scrollbar-base-color: #591df1;\n  scroll-behavior: smooth;\n}\n*::-webkit-scrollbar {\n  width: 5px !important;\n  height: 5px !important;\n  border-radius: 10px;\n}\n*::-webkit-scrollbar-thumb {\n  mso-background: #591df1;\n  background: #591df1 !important;\n  width: 5px !important;\n  height: 5px !important;\n  border-radius: 10px;\n}\n::-moz-selection {\n  color: white;\n  background: #591df1;\n}\n::selection {\n  color: white;\n  background: #591df1;\n}\nbutton {\n  background: #591df1;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\nnav a {\n  color: #2c3e50;\n  background: white;\n  border-radius: 10px;\n  font-size: 14px;\n  font-family: Poppins, Norms, Arial, sans-serif;\n  padding: 10px;\n}\nnav a.router-link-exact-active {\n  background: #f0f3ff;\n  color: #591df1 !important;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\nfooter {\n  background: #591df1;\n  color: #f5f4fa;\n}\n.dGrid {\n  display: grid;\n}\n.dInlineGrid {\n  display: inline-grid;\n}\n.dFlex {\n  display: flex;\n}\n.justifyCenter {\n  justify-content: center;\n}\n.justifyStart {\n  justify-content: start;\n}\n.justifySpaceB {\n  justify-content: center;\n}\n.flexRow {\n  flex-direction: row;\n}\n.flexColumn {\n  flex-direction: column;\n}\n.flexWrap {\n  flex-wrap: wrap;\n}\n.bRadius {\n  border-radius: 10px;\n}\n.bRadiusFive {\n  border-radius: 5px;\n}\n.bgWhite {\n  background: white;\n}\n.alignItemsCenter {\n  align-items: center;\n}\n.mrAuto {\n  margin: auto;\n}\n.mrTop0 {\n  margin-top: 0;\n}\n.mrBottom0 {\n  margin-bottom: 0;\n}\n.mrLeft0 {\n  margin-left: 0 !important;\n}\n.mrRight0 {\n  margin-right: 0;\n}\n.mrTop0 {\n  margin-top: 0;\n}\n.mr0 {\n  margin: 0;\n}\n.mrBottom5 {\n  margin-bottom: 5px;\n}\n.mrLeft5 {\n  margin-left: 5px;\n}\n.mrRight5 {\n  margin-right: 5px;\n}\n.margin5 {\n  margin: 5px;\n}\n.mrTop10 {\n  margin-top: 10px;\n}\n.mrBottom10 {\n  margin-bottom: 10px;\n}\n.mrLeft10 {\n  margin-left: 10px;\n}\n.mrRight10 {\n  margin-right: 10px;\n}\n.margin10 {\n  margin: 10px;\n}\n.mrTop20 {\n  margin-top: 20px;\n}\n.mrBottom20 {\n  margin-bottom: 20px;\n}\n.mrLeft20 {\n  margin-left: 20px;\n}\n.mrRight20 {\n  margin-right: 20px;\n}\n.margin20 {\n  margin: 20px;\n}\n.mrTop30 {\n  margin-top: 30px;\n}\n.mrBottom30 {\n  margin-bottom: 30px;\n}\n.mrLeft30 {\n  margin-left: 30px;\n}\n.mrRight30 {\n  margin-right: 30px;\n}\n.margin30 {\n  margin: 30px;\n}\n.paddingTop5 {\n  padding-top: 5px;\n}\n.paddingBottom5 {\n  padding-bottom: 5px;\n}\n.paddingLeft5 {\n  padding-Left: 5px;\n}\n.paddingRight5 {\n  padding-right: 5px;\n}\n.padding5 {\n  padding: 5px;\n}\n.paddingTop10 {\n  padding-top: 10px;\n}\n.paddingBottom10 {\n  padding-bottom: 10px;\n}\n.paddingLeft10 {\n  padding-Left: 10px;\n}\n.paddingRight10 {\n  padding-right: 10px;\n}\n.padding10 {\n  padding: 10px;\n}\n.paddingTop20 {\n  padding-top: 20px;\n}\n.paddingBottom20 {\n  padding-bottom: 20px;\n}\n.paddingLeft20 {\n  padding-Left: 20px;\n}\n.paddingRight20 {\n  padding-right: 20px;\n}\n.padding20 {\n  padding: 20px;\n}\n.paddingTop30 {\n  padding-top: 30px;\n}\n.paddingBottom30 {\n  padding-bottom: 30px;\n}\n.paddingLeft30 {\n  padding-Left: 30px;\n}\n.paddingRight30 {\n  padding-right: 30px;\n}\n.padding30 {\n  padding: 30px;\n}\n.carouselCssH {\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.childCarouselStart {\n  scroll-snap-align: start;\n}\n.childCarouselCenter {\n  scroll-snap-align: center;\n}\n.colorWhite {\n  color: white;\n}\n.colorBlack {\n  color: black;\n}\n.colorGrey {\n  color: grey;\n}\n.colorUmbrella {\n  color: #591df1 !important;\n}\n.bgUmbrella {\n  background: #591df1;\n}\n.bgWhite {\n  background: white !important;\n}\n.fontRegular {\n  font-family: Norms, Arial, sans-serif;\n}\n.fontBold {\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\n.fontLight {\n  font-family: NormsLight, Norms, Arial, sans-serif;\n}\n.fontS16 {\n  font-size: 16px;\n}\n.fontBold {\n  font-weight: bold;\n}\n.fontItalic {\n  font-style: italic;\n}\n.textCenter {\n  text-align: center;\n}\n.textStart {\n  text-align: start;\n}\n.boxShadow {\n  box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #591df1;\n  background-color: #591df1;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\n.paddingButton {\n  padding: 10px 15px;\n}\n.imgFullCover {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.cPointer {\n  cursor: pointer;\n}\n.pRelative {\n  position: relative;\n}\n.pAbsolute {\n  position: absolute;\n}\n.absoluteCenter {\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n}\n.top0 {\n  top: 0;\n}\n.left0 {\n  left: 0;\n}\n.right0 {\n  right: 0;\n}\n.bottom0 {\n  bottom: 0;\n}\n.fullWidth {\n  width: 100%;\n}\n.widthContent {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.fullHeight {\n  height: 100%;\n}\n.zIndex50 {\n  z-index: 50;\n}\n.zIndex100 {\n  z-index: 100;\n}\n.zIndex150 {\n  z-index: 150;\n}\n.zIndex200 {\n  z-index: 200;\n}\n@media all and (max-width: 837px) {\nmain {\n    padding: 110px 0 0 0;\n}\n}\n@media all and (max-width: 749px) {\nbody::-webkit-scrollbar {\n    display: none;\n}\n}", ""]);
+exports.push([module.i, ".dark {\n  background: radial-gradient(circle at top right, #252525, #2E2E2E, black);\n  -webkit-animation: opacity 0.2s;\n          animation: opacity 0.2s;\n}\n.dark nav {\n  background: transparent;\n}\n.dark nav ul .basketIcon > a svg {\n  color: white;\n}\n.dark nav .head > a > p {\n  color: white !important;\n}\n.dark nav ul, .dark nav li, .dark nav a {\n  color: white;\n}\n@font-face {\n  font-family: Norms;\n  src: url(\"/fonts/TTNorms-Regular.otf\");\n}\n@font-face {\n  font-family: NormsLight;\n  src: url(\"/fonts/TTNorms-Light.otf\");\n}\n@font-face {\n  font-family: NormsBold;\n  src: url(\"/fonts/TTNorms-Bold.otf\");\n}\n@font-face {\n  font-family: NormsBlack;\n  src: url(\"/fonts/TTNorms-Black.otf\");\n}\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  text-decoration: none;\n  list-style: none;\n  outline: none !important;\n  font-family: Norms, Poppins, Arial, sans-serif;\n}\nhtml, body {\n  background-color: #F9F9FC;\n  color: black;\n  font-weight: 200;\n  scrollbar-base-color: #591df1;\n  scroll-behavior: smooth;\n}\n*::-webkit-scrollbar {\n  width: 5px !important;\n  height: 5px !important;\n  border-radius: 10px;\n}\n*::-webkit-scrollbar-thumb {\n  mso-background: #591df1;\n  background: #591df1 !important;\n  width: 5px !important;\n  height: 5px !important;\n  border-radius: 10px;\n}\n::-moz-selection {\n  color: white;\n  background: #591df1;\n}\n::selection {\n  color: white;\n  background: #591df1;\n}\nbutton {\n  background: #591df1;\n  font-family: Norms;\n}\nmain {\n  padding: 120px 0 0 0;\n  width: 100%;\n  max-width: 100vw;\n}\nimg {\n  image-rendering: -webkit-optimize-contrast !important;\n}\n.app {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\nnav a {\n  color: #2c3e50;\n  background: white;\n  border-radius: 10px;\n  font-size: 14px;\n  font-family: Poppins, Norms, Arial, sans-serif;\n  padding: 10px;\n}\nnav a.router-link-exact-active {\n  background: #f0f3ff;\n  color: #591df1 !important;\n}\n.fade-enter-active, .fade-leave-to {\n  transition: opacity 500ms;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\nfooter {\n  background: #591df1;\n  color: #f5f4fa;\n}\n.dGrid {\n  display: grid;\n}\n.dInlineGrid {\n  display: inline-grid;\n}\n.dFlex {\n  display: flex;\n}\n.justifyCenter {\n  justify-content: center;\n}\n.justifyStart {\n  justify-content: start;\n}\n.justifySpaceA {\n  justify-content: space-around;\n}\n.justifySpaceB {\n  justify-content: space-between;\n}\n.justifySpaceE {\n  justify-content: space-evenly;\n}\n.alignCenter {\n  align-items: center;\n}\n.alignStart {\n  align-items: flex-start;\n}\n.flexRow {\n  flex-direction: row;\n}\n.flexColumn {\n  flex-direction: column;\n}\n.flexWrap {\n  flex-wrap: wrap;\n}\n.bRadius {\n  border-radius: 10px;\n}\n.bRadiusFive {\n  border-radius: 5px;\n}\n.bgWhite {\n  background: white;\n}\n.alignItemsCenter {\n  align-items: center;\n}\n.mrAuto {\n  margin: auto;\n}\n.mrTop0 {\n  margin-top: 0;\n}\n.mrBottom0 {\n  margin-bottom: 0;\n}\n.mrLeft0 {\n  margin-left: 0 !important;\n}\n.mrRight0 {\n  margin-right: 0;\n}\n.mrTop0 {\n  margin-top: 0;\n}\n.mr0 {\n  margin: 0;\n}\n.mrBottom5 {\n  margin-bottom: 5px;\n}\n.mrLeft5 {\n  margin-left: 5px;\n}\n.mrRight5 {\n  margin-right: 5px;\n}\n.margin5 {\n  margin: 5px;\n}\n.mrTop10 {\n  margin-top: 10px;\n}\n.mrBottom10 {\n  margin-bottom: 10px;\n}\n.mrLeft10 {\n  margin-left: 10px;\n}\n.mrRight10 {\n  margin-right: 10px;\n}\n.margin10 {\n  margin: 10px;\n}\n.mrTop20 {\n  margin-top: 20px;\n}\n.mrBottom20 {\n  margin-bottom: 20px;\n}\n.mrLeft20 {\n  margin-left: 20px;\n}\n.mrRight20 {\n  margin-right: 20px;\n}\n.margin20 {\n  margin: 20px;\n}\n.mrTop30 {\n  margin-top: 30px;\n}\n.mrBottom30 {\n  margin-bottom: 30px;\n}\n.mrLeft30 {\n  margin-left: 30px;\n}\n.mrRight30 {\n  margin-right: 30px;\n}\n.margin30 {\n  margin: 30px;\n}\n.paddingTop5 {\n  padding-top: 5px;\n}\n.paddingBottom5 {\n  padding-bottom: 5px;\n}\n.paddingLeft5 {\n  padding-Left: 5px;\n}\n.paddingRight5 {\n  padding-right: 5px;\n}\n.padding5 {\n  padding: 5px;\n}\n.paddingTop10 {\n  padding-top: 10px;\n}\n.paddingBottom10 {\n  padding-bottom: 10px;\n}\n.paddingLeft10 {\n  padding-Left: 10px;\n}\n.paddingRight10 {\n  padding-right: 10px;\n}\n.padding10 {\n  padding: 10px;\n}\n.paddingTop20 {\n  padding-top: 20px;\n}\n.paddingBottom20 {\n  padding-bottom: 20px;\n}\n.paddingLeft20 {\n  padding-Left: 20px;\n}\n.paddingRight20 {\n  padding-right: 20px;\n}\n.padding20 {\n  padding: 20px;\n}\n.paddingTop30 {\n  padding-top: 30px;\n}\n.paddingBottom30 {\n  padding-bottom: 30px;\n}\n.paddingLeft30 {\n  padding-Left: 30px;\n}\n.paddingRight30 {\n  padding-right: 30px;\n}\n.padding10 {\n  padding: 10px;\n}\n.padding15 {\n  padding: 15px;\n}\n.padding20 {\n  padding: 20px;\n}\n.padding30 {\n  padding: 30px;\n}\n.carouselCssH {\n  overflow-x: auto;\n  overflow-y: hidden;\n  overscroll-behavior-x: contain;\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.childCarouselStart {\n  scroll-snap-align: start;\n}\n.childCarouselCenter {\n  scroll-snap-align: center;\n}\n.colorWhite {\n  color: white;\n}\n.colorBlack {\n  color: black;\n}\n.colorGrey {\n  color: grey;\n}\n.colorUmbrella {\n  color: #591df1 !important;\n}\n.bgUmbrella {\n  background: #591df1;\n}\n.bgWhite {\n  background: white !important;\n}\n.fontRegular {\n  font-family: Norms, Arial, sans-serif;\n}\n.fontBold {\n  font-family: NormsBold, Norms, Arial, sans-serif;\n}\n.fontLight {\n  font-family: NormsLight, Norms, Arial, sans-serif;\n}\n.fontS16 {\n  font-size: 16px;\n}\n.fontBold {\n  font-weight: bold;\n}\n.fontItalic {\n  font-style: italic;\n}\n.textCenter {\n  text-align: center;\n}\n.textStart {\n  text-align: start;\n}\n.boxShadow {\n  box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);\n}\n.animation {\n  display: none;\n  opacity: 0;\n  transition: opacity 500s;\n}\n.button {\n  color: white;\n  font-family: Norms;\n  border: 1px solid #591df1;\n  background-color: #591df1;\n}\n.button:active {\n  transition: all 0.2s ease;\n  transform: scale(0.96);\n}\n.paddingButton {\n  padding: 10px 15px;\n}\n.imgFullCover {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.cPointer {\n  cursor: pointer;\n}\n.pRelative {\n  position: relative;\n}\n.pAbsolute {\n  position: absolute;\n}\n.absoluteCenter {\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n}\n.top0 {\n  top: 0;\n}\n.left0 {\n  left: 0;\n}\n.right0 {\n  right: 0;\n}\n.bottom0 {\n  bottom: 0;\n}\n.fullWidth {\n  width: 100%;\n}\n.widthContent {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.fullHeight {\n  height: 100%;\n}\n.zIndex50 {\n  z-index: 50;\n}\n.zIndex100 {\n  z-index: 100;\n}\n.zIndex150 {\n  z-index: 150;\n}\n.zIndex200 {\n  z-index: 200;\n}\n@media all and (max-width: 837px) {\nmain {\n    padding: 110px 0 0 0;\n}\n}\n@media all and (max-width: 749px) {\nbody::-webkit-scrollbar {\n    display: none;\n}\n}", ""]);
 
 // exports
 
@@ -60795,6 +60893,493 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-content-loader/dist/vue-content-loader.es.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/vue-content-loader/dist/vue-content-loader.es.js ***!
+  \***********************************************************************/
+/*! exports provided: ContentLoader, BulletListLoader, CodeLoader, FacebookLoader, ListLoader, InstagramLoader */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContentLoader", function() { return ContentLoader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BulletListLoader", function() { return BulletListLoader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CodeLoader", function() { return CodeLoader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FacebookLoader", function() { return FacebookLoader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListLoader", function() { return ListLoader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstagramLoader", function() { return InstagramLoader; });
+/* harmony import */ var babel_helper_vue_jsx_merge_props__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+/* harmony import */ var babel_helper_vue_jsx_merge_props__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(babel_helper_vue_jsx_merge_props__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var uid = (function () {
+  return Math.random().toString(36).substring(2);
+});
+
+var ContentLoader = {
+  name: 'ContentLoader',
+  functional: true,
+  props: {
+    width: {
+      type: [Number, String],
+      "default": 400
+    },
+    height: {
+      type: [Number, String],
+      "default": 130
+    },
+    speed: {
+      type: Number,
+      "default": 2
+    },
+    preserveAspectRatio: {
+      type: String,
+      "default": 'xMidYMid meet'
+    },
+    baseUrl: {
+      type: String,
+      "default": ''
+    },
+    primaryColor: {
+      type: String,
+      "default": '#f9f9f9'
+    },
+    secondaryColor: {
+      type: String,
+      "default": '#ecebeb'
+    },
+    primaryOpacity: {
+      type: Number,
+      "default": 1
+    },
+    secondaryOpacity: {
+      type: Number,
+      "default": 1
+    },
+    uniqueKey: {
+      type: String
+    },
+    animate: {
+      type: Boolean,
+      "default": true
+    }
+  },
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var idClip = props.uniqueKey ? props.uniqueKey + "-idClip" : uid();
+    var idGradient = props.uniqueKey ? props.uniqueKey + "-idGradient" : uid();
+    return h("svg", babel_helper_vue_jsx_merge_props__WEBPACK_IMPORTED_MODULE_0___default()([data, {
+      attrs: {
+        viewBox: "0 0 " + props.width + " " + props.height,
+        version: "1.1",
+        preserveAspectRatio: props.preserveAspectRatio
+      }
+    }]), [h("rect", {
+      style: {
+        fill: "url(" + props.baseUrl + "#" + idGradient + ")"
+      },
+      attrs: {
+        "clip-path": "url(" + props.baseUrl + "#" + idClip + ")",
+        x: "0",
+        y: "0",
+        width: props.width,
+        height: props.height
+      }
+    }), h("defs", [h("clipPath", {
+      attrs: {
+        id: idClip
+      }
+    }, [children || h("rect", {
+      attrs: {
+        x: "0",
+        y: "0",
+        rx: "5",
+        ry: "5",
+        width: props.width,
+        height: props.height
+      }
+    })]), h("linearGradient", {
+      attrs: {
+        id: idGradient
+      }
+    }, [h("stop", {
+      attrs: {
+        offset: "0%",
+        "stop-color": props.primaryColor,
+        "stop-opacity": props.primaryOpacity
+      }
+    }, [props.animate ? h("animate", {
+      attrs: {
+        attributeName: "offset",
+        values: "-2; 1",
+        dur: props.speed + "s",
+        repeatCount: "indefinite"
+      }
+    }) : null]), h("stop", {
+      attrs: {
+        offset: "50%",
+        "stop-color": props.secondaryColor,
+        "stop-opacity": props.secondaryOpacity
+      }
+    }, [props.animate ? h("animate", {
+      attrs: {
+        attributeName: "offset",
+        values: "-1.5; 1.5",
+        dur: props.speed + "s",
+        repeatCount: "indefinite"
+      }
+    }) : null]), h("stop", {
+      attrs: {
+        offset: "100%",
+        "stop-color": props.primaryColor,
+        "stop-opacity": props.primaryOpacity
+      }
+    }, [props.animate ? h("animate", {
+      attrs: {
+        attributeName: "offset",
+        values: "-1; 2",
+        dur: props.speed + "s",
+        repeatCount: "indefinite"
+      }
+    }) : null])])])]);
+  }
+};
+
+var BulletListLoader = {
+  name: 'BulletListLoader',
+  functional: true,
+  render: function render(h, _ref) {
+    var data = _ref.data;
+    return h(ContentLoader, data, [h("circle", {
+      attrs: {
+        cx: "10",
+        cy: "20",
+        r: "8"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "25",
+        y: "15",
+        rx: "5",
+        ry: "5",
+        width: "220",
+        height: "10"
+      }
+    }), h("circle", {
+      attrs: {
+        cx: "10",
+        cy: "50",
+        r: "8"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "25",
+        y: "45",
+        rx: "5",
+        ry: "5",
+        width: "220",
+        height: "10"
+      }
+    }), h("circle", {
+      attrs: {
+        cx: "10",
+        cy: "80",
+        r: "8"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "25",
+        y: "75",
+        rx: "5",
+        ry: "5",
+        width: "220",
+        height: "10"
+      }
+    }), h("circle", {
+      attrs: {
+        cx: "10",
+        cy: "110",
+        r: "8"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "25",
+        y: "105",
+        rx: "5",
+        ry: "5",
+        width: "220",
+        height: "10"
+      }
+    })]);
+  }
+};
+
+var CodeLoader = {
+  name: 'CodeLoader',
+  functional: true,
+  render: function render(h, _ref) {
+    var data = _ref.data;
+    return h(ContentLoader, data, [h("rect", {
+      attrs: {
+        x: "0",
+        y: "0",
+        rx: "3",
+        ry: "3",
+        width: "70",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "80",
+        y: "0",
+        rx: "3",
+        ry: "3",
+        width: "100",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "190",
+        y: "0",
+        rx: "3",
+        ry: "3",
+        width: "10",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "15",
+        y: "20",
+        rx: "3",
+        ry: "3",
+        width: "130",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "155",
+        y: "20",
+        rx: "3",
+        ry: "3",
+        width: "130",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "15",
+        y: "40",
+        rx: "3",
+        ry: "3",
+        width: "90",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "115",
+        y: "40",
+        rx: "3",
+        ry: "3",
+        width: "60",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "185",
+        y: "40",
+        rx: "3",
+        ry: "3",
+        width: "60",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "0",
+        y: "60",
+        rx: "3",
+        ry: "3",
+        width: "30",
+        height: "10"
+      }
+    })]);
+  }
+};
+
+var FacebookLoader = {
+  name: 'FacebookLoader',
+  functional: true,
+  render: function render(h, _ref) {
+    var data = _ref.data;
+    return h(ContentLoader, data, [h("rect", {
+      attrs: {
+        x: "70",
+        y: "15",
+        rx: "4",
+        ry: "4",
+        width: "117",
+        height: "6.4"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "70",
+        y: "35",
+        rx: "3",
+        ry: "3",
+        width: "85",
+        height: "6.4"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "0",
+        y: "80",
+        rx: "3",
+        ry: "3",
+        width: "350",
+        height: "6.4"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "0",
+        y: "100",
+        rx: "3",
+        ry: "3",
+        width: "380",
+        height: "6.4"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "0",
+        y: "120",
+        rx: "3",
+        ry: "3",
+        width: "201",
+        height: "6.4"
+      }
+    }), h("circle", {
+      attrs: {
+        cx: "30",
+        cy: "30",
+        r: "30"
+      }
+    })]);
+  }
+};
+
+var ListLoader = {
+  name: 'ListLoader',
+  functional: true,
+  render: function render(h, _ref) {
+    var data = _ref.data;
+    return h(ContentLoader, data, [h("rect", {
+      attrs: {
+        x: "0",
+        y: "0",
+        rx: "3",
+        ry: "3",
+        width: "250",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "20",
+        y: "20",
+        rx: "3",
+        ry: "3",
+        width: "220",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "20",
+        y: "40",
+        rx: "3",
+        ry: "3",
+        width: "170",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "0",
+        y: "60",
+        rx: "3",
+        ry: "3",
+        width: "250",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "20",
+        y: "80",
+        rx: "3",
+        ry: "3",
+        width: "200",
+        height: "10"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "20",
+        y: "100",
+        rx: "3",
+        ry: "3",
+        width: "80",
+        height: "10"
+      }
+    })]);
+  }
+};
+
+var InstagramLoader = {
+  name: 'InstagramLoader',
+  functional: true,
+  render: function render(h, _ref) {
+    var data = _ref.data;
+    return h(ContentLoader, babel_helper_vue_jsx_merge_props__WEBPACK_IMPORTED_MODULE_0___default()([data, {
+      attrs: {
+        height: 480
+      }
+    }]), [h("circle", {
+      attrs: {
+        cx: "30",
+        cy: "30",
+        r: "30"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "75",
+        y: "13",
+        rx: "4",
+        ry: "4",
+        width: "100",
+        height: "13"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "75",
+        y: "37",
+        rx: "4",
+        ry: "4",
+        width: "50",
+        height: "8"
+      }
+    }), h("rect", {
+      attrs: {
+        x: "0",
+        y: "70",
+        rx: "5",
+        ry: "5",
+        width: "400",
+        height: "400"
+      }
+    })]);
+  }
+};
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ArticleItem.vue?vue&type=template&id=33348f8e&scoped=true&":
 /*!**************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ArticleItem.vue?vue&type=template&id=33348f8e&scoped=true& ***!
@@ -61596,7 +62181,7 @@ var render = function() {
               staticClass: "item",
               on: {
                 click: function($event) {
-                  _vm.emitActions("remove"), (_vm.open = false)
+                  _vm.emitActions("delete"), (_vm.open = false)
                 }
               }
             },
@@ -61655,7 +62240,7 @@ var render = function() {
                 ? _c("font-awesome-icon", {
                     staticClass: "icon removeButton",
                     attrs: { icon: "trash-alt" },
-                    on: { click: _vm.deleteProduct }
+                    on: { click: _vm.deleteItems }
                   })
                 : _vm._e()
             ],
@@ -61693,7 +62278,8 @@ var render = function() {
               _c(
                 "td",
                 {
-                  staticClass: "cPointer",
+                  staticClass:
+                    "cPointer textCenter pRelative idTd dFlex justifySpaceE alignCenter",
                   on: {
                     click: function($event) {
                       ;(_vm.orderItems = !_vm.orderItems),
@@ -61778,14 +62364,9 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c(
-                  "td",
-                  {
-                    staticClass: "textCenter",
-                    staticStyle: { width: "44px", "text-align": "start" }
-                  },
-                  [_vm._v(_vm._s(item.id))]
-                ),
+                _c("td", { staticClass: "textCenter" }, [
+                  _vm._v(_vm._s(item.id))
+                ]),
                 _vm._v(" "),
                 _vm.routeName === "admin/news"
                   ? [
@@ -61794,7 +62375,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "textCenter" }, [
-                        _vm._v(_vm._s(item.content.slice(0, 40)))
+                        _vm._v(_vm._s(item.content.slice(0, 40)) + "...")
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "textCenter" }, [
@@ -61816,7 +62397,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "textCenter" }, [
-                        _vm._v(_vm._s(item.description.slice(0, 50)) + "...")
+                        _vm._v(_vm._s(item.description.slice(0, 40)) + "...")
                       ])
                     ]
                   : _vm._e(),
@@ -62033,18 +62614,25 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("Modal", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.addingItem != null,
-            expression: "addingItem != null"
-          }
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _c("Modal", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.addingItem != null,
+                expression: "addingItem != null"
+              }
+            ],
+            attrs: { action: _vm.actionForm },
+            on: { close: _vm.addSneaker }
+          })
         ],
-        attrs: { action: _vm.actionForm },
-        on: { close: _vm.addSneaker }
-      })
+        1
+      )
     ],
     1
   )
@@ -62076,6 +62664,7 @@ var render = function() {
       infos: _vm.infos,
       items: _vm.brands,
       storeActionGetItems: "brands/getBrandsWithPaginate",
+      actionDeleteItem: "brands/deleteBrand",
       title: "marques"
     }
   })
@@ -62349,6 +62938,7 @@ var render = function() {
       infos: _vm.infos,
       items: _vm.articles,
       storeActionGetItems: "news/getArticlesWithPaginate",
+      actionDeleteItem: "news/deleteArticle",
       title: "articles"
     }
   })
@@ -62468,6 +63058,7 @@ var render = function() {
       infos: _vm.infos,
       items: _vm.products,
       storeActionGetItems: "products/getProductsWithPaginate",
+      actionDeleteItem: "products/deleteProduct",
       title: "produits"
     }
   })
@@ -62498,7 +63089,8 @@ var render = function() {
     attrs: {
       infos: _vm.infos,
       items: _vm.users,
-      storeActionGetItems: "users/getUsers",
+      storeActionGetItems: "users/getUsersWithPaginate",
+      actionDeleteItem: "users/deleteUser",
       title: "utilisateurs"
     }
   })
@@ -63365,10 +63957,42 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "news animation" },
-    _vm._l(_vm.articles, function(article) {
-      return _c("ArticleItem", { key: article.id, attrs: { article: article } })
-    }),
-    1
+    [
+      _vm.skeleton
+        ? _c(
+            "content-loader",
+            {
+              attrs: {
+                width: "300",
+                height: "300",
+                speed: 2,
+                primaryColor: "#f3f3f3",
+                secondaryColor: "#ecebeb"
+              }
+            },
+            [
+              _c("rect", {
+                attrs: {
+                  x: "0",
+                  y: "0",
+                  rx: "2",
+                  ry: "2",
+                  width: "350",
+                  height: "350"
+                }
+              })
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.articles, function(article) {
+        return _c("ArticleItem", {
+          key: article.id,
+          attrs: { article: article }
+        })
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -63554,15 +64178,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "article" }, [
-    _c("h2", [_vm._v(_vm._s(_vm.article.title))]),
-    _vm._v(" "),
-    _c("img", { attrs: { src: _vm.article.banner, alt: _vm.article.title } }),
-    _vm._v(" "),
-    _c("h2", { staticClass: "marginBottom" }, [
-      _vm._v(_vm._s(_vm.article.summary))
-    ]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.article.content))])
+    _c("div", { staticClass: "boxShadow bRadius bgWhite padding15" }, [
+      _c("h2", [_vm._v(_vm._s(_vm.article.title))]),
+      _vm._v(" "),
+      _c("img", { attrs: { src: _vm.article.banner, alt: _vm.article.title } }),
+      _vm._v(" "),
+      _c("h2", { staticClass: "marginBottom" }, [
+        _vm._v(_vm._s(_vm.article.summary))
+      ]),
+      _vm._v(" "),
+      _c("p", [_vm._v(_vm._s(_vm.article.content))])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -63591,7 +64217,7 @@ var render = function() {
     "div",
     [
       _c("article", [
-        _c("div", [
+        _c("div", { staticClass: "boxShadow" }, [
           _c("div", [
             _c("img", {
               attrs: {
@@ -63626,7 +64252,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", [
+        _c("div", { staticClass: "boxShadow" }, [
           _c("div", { attrs: { id: "containerNamePrice" } }, [
             _c("h1", [_vm._v(_vm._s(_vm.product.brand))]),
             _vm._v(" "),
@@ -84320,13 +84946,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./resources/js/store/modules/brands/actions.js ***!
   \******************************************************/
-/*! exports provided: getBrands, getBrandsWithPaginate */
+/*! exports provided: getBrands, getBrandsWithPaginate, deleteBrand */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBrands", function() { return getBrands; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBrandsWithPaginate", function() { return getBrandsWithPaginate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteBrand", function() { return deleteBrand; });
 var headersReq = {
   'Content-Type': 'multipart/form-data'
 };
@@ -84363,6 +84990,18 @@ var getBrandsWithPaginate = function getBrandsWithPaginate(_ref2, _ref3) {
     dispatch('admin/verifyCheckPageChange', res.data.data, {
       root: true
     });
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+var deleteBrand = function deleteBrand(_ref4, id) {
+  var commit = _ref4.commit;
+  axios["delete"]('/api/brands/' + id, {
+    headers: headersReq
+  }).then(function (res) {
+    if (res.data.status) {
+      commit('deleteBrand', res.data);
+    }
   })["catch"](function (err) {
     console.log(err);
   });
@@ -84425,18 +85064,22 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************!*\
   !*** ./resources/js/store/modules/brands/mutations.js ***!
   \********************************************************/
-/*! exports provided: getBrands, getInfos */
+/*! exports provided: getBrands, getInfos, deleteBrand */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBrands", function() { return getBrands; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInfos", function() { return getInfos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteBrand", function() { return deleteBrand; });
 var getBrands = function getBrands(state, brands) {
   state.brands = brands;
 };
 var getInfos = function getInfos(state, infos) {
   state.infos = infos;
+};
+var deleteBrand = function deleteBrand(state, response) {
+  state.brands.splice(state.brands.indexOf(response), 1);
 };
 
 /***/ }),
@@ -84461,7 +85104,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./resources/js/store/modules/news/actions.js ***!
   \****************************************************/
-/*! exports provided: addArticle, getArticle, getArticles, getArticlesWithPaginate */
+/*! exports provided: addArticle, getArticle, getArticles, getArticlesWithPaginate, deleteArticle */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84470,6 +85113,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getArticle", function() { return getArticle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getArticles", function() { return getArticles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getArticlesWithPaginate", function() { return getArticlesWithPaginate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteArticle", function() { return deleteArticle; });
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../app.js */ "./resources/js/app.js");
+
 var headersReq = {
   'Content-Type': 'multipart/form-data'
 };
@@ -84501,6 +85147,8 @@ var getArticles = function getArticles(_ref3) {
     headers: headersReq
   }).then(function (res) {
     commit('getArticles', res.data);
+  }).then(function () {
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["bus"].$emit('skeleton', false);
   })["catch"](function (err) {
     console.log(err);
   });
@@ -84528,6 +85176,18 @@ var getArticlesWithPaginate = function getArticlesWithPaginate(_ref4, _ref5) {
     dispatch('admin/verifyCheckPageChange', res.data.data, {
       root: true
     });
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+var deleteArticle = function deleteArticle(_ref6, id) {
+  var commit = _ref6.commit;
+  axios["delete"]('/api/news/' + id, {
+    headers: headersReq
+  }).then(function (res) {
+    if (res.data.status) {
+      commit('deleteArticle', res.data);
+    }
   })["catch"](function (err) {
     console.log(err);
   });
@@ -84594,7 +85254,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./resources/js/store/modules/news/mutations.js ***!
   \******************************************************/
-/*! exports provided: getArticles, addArticle, setArticle, getInfos */
+/*! exports provided: getArticles, addArticle, setArticle, getInfos, deleteArticle */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84603,6 +85263,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addArticle", function() { return addArticle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setArticle", function() { return setArticle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInfos", function() { return getInfos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteArticle", function() { return deleteArticle; });
 var getArticles = function getArticles(state, articles) {
   state.articles = articles;
 };
@@ -84615,6 +85276,9 @@ var setArticle = function setArticle(state, article) {
 };
 var getInfos = function getInfos(state, infos) {
   state.infos = infos;
+};
+var deleteArticle = function deleteArticle(state, response) {
+  state.articles.splice(state.articles.indexOf(response), 1);
 };
 
 /***/ }),
@@ -84707,6 +85371,7 @@ var getProductsWithPaginate = function getProductsWithPaginate(_ref4, _ref5) {
   }).then(function (res) {
     commit('getProducts', res.data.data);
     commit('getInfos', res.data);
+    console.log(res.data);
     dispatch('admin/verifyCheckPageChange', res.data.data, {
       root: true
     });
@@ -84735,10 +85400,12 @@ var getBrandProducts = function getBrandProducts(_ref6, _ref7) {
 };
 var deleteProduct = function deleteProduct(_ref8, id) {
   var commit = _ref8.commit;
-  axios["delete"]('/api/products/' + id).then(function (res) {
-    console.log('res actions');
-    console.log(res);
-    _app__WEBPACK_IMPORTED_MODULE_0__["bus"].$emit('eventVerifyCheckAll');
+  axios["delete"]('/api/products/' + id, {
+    headers: headersReq
+  }).then(function (res) {
+    if (res.data.status) {
+      commit('deleteProduct', res.data);
+    }
   })["catch"](function (err) {
     console.log(err);
   });
@@ -84779,7 +85446,7 @@ var infos = function infos(state) {
   return state.infos;
 };
 var productsLength = function productsLength(state) {
-  return state.productsLength;
+  return state.products.length;
 };
 
 /***/ }),
@@ -84815,7 +85482,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************!*\
   !*** ./resources/js/store/modules/products/mutations.js ***!
   \**********************************************************/
-/*! exports provided: getProducts, addProduct, setProduct, getInfos, getProductsLength */
+/*! exports provided: getProducts, addProduct, setProduct, getInfos, getProductsLength, deleteProduct */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84825,6 +85492,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProduct", function() { return setProduct; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInfos", function() { return getInfos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProductsLength", function() { return getProductsLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteProduct", function() { return deleteProduct; });
 var getProducts = function getProducts(state, products) {
   state.products = products;
 };
@@ -84841,6 +85509,9 @@ var getInfos = function getInfos(state, infos) {
 var getProductsLength = function getProductsLength(state, length) {
   state.productsLength = length;
 };
+var deleteProduct = function deleteProduct(state, response) {
+  state.products.splice(state.products.indexOf(response), 1);
+};
 
 /***/ }),
 
@@ -84856,8 +85527,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   products: [],
   product: {},
-  infos: {},
-  productsLength: 0
+  infos: {}
 });
 
 /***/ }),
@@ -84866,16 +85536,18 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/store/modules/users/actions.js ***!
   \*****************************************************/
-/*! exports provided: getUsers */
+/*! exports provided: getUsersWithPaginate, getUsers, deleteUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsersWithPaginate", function() { return getUsersWithPaginate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteUser", function() { return deleteUser; });
 var headersReq = {
   'Content-Type': 'multipart/form-data'
 };
-var getUsers = function getUsers(_ref, _ref2) {
+var getUsersWithPaginate = function getUsersWithPaginate(_ref, _ref2) {
   var commit = _ref.commit,
       dispatch = _ref.dispatch;
   var page = _ref2.page,
@@ -84883,7 +85555,7 @@ var getUsers = function getUsers(_ref, _ref2) {
       orderBy = _ref2.orderBy;
 
   if (nb == null || nb == undefined || nb == false) {
-    nb = 8;
+    nb = 10;
   }
 
   if (orderBy == null || orderBy == undefined || orderBy == false) {
@@ -84898,6 +85570,28 @@ var getUsers = function getUsers(_ref, _ref2) {
     dispatch('admin/verifyCheckPageChange', res.data.data, {
       root: true
     });
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+var getUsers = function getUsers(_ref3) {
+  var commit = _ref3.commit;
+  axios.get('/api/users', {
+    headers: headersReq
+  }).then(function (res) {
+    commit('getUsers', res.data);
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+var deleteUser = function deleteUser(_ref4, id) {
+  var commit = _ref4.commit;
+  axios["delete"]('/api/users/' + id, {
+    headers: headersReq
+  }).then(function (res) {
+    if (res.data.status) {
+      commit('deleteUser', res.data);
+    }
   })["catch"](function (err) {
     console.log(err);
   });
@@ -84960,18 +85654,22 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/store/modules/users/mutations.js ***!
   \*******************************************************/
-/*! exports provided: getUsers, getInfos */
+/*! exports provided: getUsers, getInfos, deleteUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInfos", function() { return getInfos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteUser", function() { return deleteUser; });
 var getUsers = function getUsers(state, users) {
   state.users = users;
 };
 var getInfos = function getInfos(state, infos) {
   state.infos = infos;
+};
+var deleteUser = function deleteUser(state, response) {
+  state.users.splice(state.users.indexOf(response), 1);
 };
 
 /***/ }),

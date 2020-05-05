@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 use App\User;
 
@@ -27,6 +28,8 @@ class UserController extends Controller
             }
             return response()->json(User::paginate((int)$request->query('max')), 200);
         }
+
+        return response()->json(User::all(), 200);
     }
 
     public function login(Request $request)
@@ -36,15 +39,22 @@ class UserController extends Controller
             'password' => $request->get('password'),
         ];
 
-        $status = 401;
-        $response = ['error' => 'Unauthorised'];
-
-        if (Auth::attempt($credentials)) {
-            $status = 200;
-            $response = [
-                'token' => Auth::user()->createToken('sneakizy')->accessToken,
-                'user' => Auth::user()
-            ];
+        $user = User::where('email', $request->get('email'))->first();
+        if ($user)
+        {
+            if (Hash::check($request->get('password'), $user->password))
+            {
+                $status = 200;
+                $response = [
+                    'token' => $user->createToken('sneakizy')->accessToken,
+                    'user' => $user
+                ];
+            }
+            else
+            {
+                $status = 401;
+                $response = ['error' => 'Unauthorised'];
+            }
         }
 
         return response()->json($response, $status);
@@ -71,6 +81,16 @@ class UserController extends Controller
         return response()->json([
             'user' => $user,
             'token' => $user->createToken('sneakizy')->accessToken,
+        ]);
+    }
+
+    public function destroy(User $user)
+    {
+        $status = $user->delete();
+
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'User Deleted!' : 'Error Deleting User'
         ]);
     }
 

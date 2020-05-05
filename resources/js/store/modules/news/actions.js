@@ -1,3 +1,4 @@
+import {bus} from '../../../app.js'
 const headersReq = {'Content-Type': 'multipart/form-data'}
 
 export const addArticle = ({commit}, article) => {
@@ -23,6 +24,9 @@ export const getArticles = ({commit}) => {
         .then(res => {
             commit('getArticles', res.data)
         })
+        .then(() => {
+            bus.$emit('skeleton', false)
+        })
         .catch(err => {
             console.log(err)
         })
@@ -41,6 +45,18 @@ export const getArticlesWithPaginate = ({commit, dispatch}, {page, nb, orderBy})
             commit('getArticles', res.data.data)
             commit('getInfos', res.data)
             dispatch('admin/verifyCheckPageChange', res.data.data, {root: true})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export const deleteArticle = ({commit}, id) => {
+    axios.delete('/api/news/' + id, {headers: headersReq})
+        .then(res => {
+            if (res.data.status) {
+                commit('deleteArticle', res.data)
+            }
         })
         .catch(err => {
             console.log(err)

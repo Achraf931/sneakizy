@@ -1,9 +1,11 @@
 <template>
     <div class="article">
-        <h2>{{article.title}}</h2>
-        <img :src="article.banner" :alt="article.title">
-        <h2 class="marginBottom">{{article.summary}}</h2>
-        <p>{{article.content}}</p>
+        <div class="boxShadow bRadius bgWhite padding15">
+            <h2>{{article.title}}</h2>
+            <img :src="article.banner" :alt="article.title">
+            <h2 class="marginBottom">{{article.summary}}</h2>
+            <p>{{article.content}}</p>
+        </div>
     </div>
 </template>
 <script>

@@ -11,5 +11,5 @@ export const infos = state => {
 }
 
 export const productsLength = state => {
-    return state.productsLength
+    return state.products.length
 }

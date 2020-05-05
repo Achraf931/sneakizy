@@ -3,7 +3,7 @@
         <header class="mrBottom10">
             <h3>Liste des {{title}}</h3>
             <transition name="=fade">
-                <font-awesome-icon v-if="itemsChecked.length > 0" @click="deleteProduct" class="icon removeButton" icon="trash-alt"/>
+                <font-awesome-icon v-if="itemsChecked.length > 0" @click="deleteItems" class="icon removeButton" icon="trash-alt"/>
             </transition>
             <font-awesome-icon @click="actionForm = 'create', addingItem = true" class="icon" icon="plus"/>
         </header>
@@ -11,7 +11,7 @@
             <thead>
             <tr class="item">
                 <td class="textStart"><input ref="checkAll" @change="toggleCheckAll" type="checkbox" class="boxShadow"></td>
-                <td class="cPointer" @click="orderItems = !orderItems, orderBy(orderItems, 1)">#</td>
+                <td class="cPointer textCenter pRelative idTd dFlex justifySpaceE alignCenter" @click="orderItems = !orderItems, orderBy(orderItems, 1)">#</td>
                 <template v-if="routeName === 'admin/news'">
                     <td>Titre</td>
                     <td>Contenu</td>
@@ -44,11 +44,11 @@
             <tbody>
             <tr class="item" v-for="item in items" :key="item.id">
                 <td><input :checked="itemsChecked.indexOf(item.id) !== -1" @change="checked(item.id)" type="checkbox" class="boxShadow"></td>
-                <td style="width: 44px; text-align: start;" class="textCenter">{{item.id}}</td>
+                <td class="textCenter">{{item.id}}</td>
 
                 <template v-if="routeName === 'admin/news'">
                     <td class="textCenter">{{item.title}}</td>
-                    <td class="textCenter">{{item.content.slice(0, 40)}}</td>
+                    <td class="textCenter">{{item.content.slice(0, 40)}}...</td>
                     <td class="textCenter">{{item.is_published === 1 ? 'Oui' : 'Non'}}</td>
                 </template>
 
@@ -56,7 +56,7 @@
                     <td class="textCenter">{{item.name}}</td>
                     <td class="textCenter">{{item.color}}</td>
                     <td class="textCenter">{{item.price}}</td>
-                    <td class="textCenter">{{item.description.slice(0, 50)}}...</td>
+                    <td class="textCenter">{{item.description.slice(0, 40)}}...</td>
                 </template>
 
                 <template v-if="routeName === 'admin/brands'">
@@ -93,7 +93,9 @@
                 <CustomSelect @nbPerPage="changeNbPerPage" :current="items.length" :options="[5, 10, 20, 30, 50, 75, 100]"/>
             </div>
         </div>
-        <Modal @close="addSneaker" :action="actionForm" v-show="addingItem != null"/>
+        <transition name="fade">
+            <Modal @close="addSneaker" :action="actionForm" v-show="addingItem != null"/>
+        </transition>
     </div>
 </template>
 <script>
@@ -103,7 +105,7 @@
     import {mapGetters} from "vuex"
 
     export default {
-        props: ['infos', 'items', 'storeActionGetItems', 'title'],
+        props: ['infos', 'items', 'storeActionGetItems', 'actionDeleteItem', 'title'],
         data(){
             return {
                 routeName: this.$route.name,
@@ -148,8 +150,10 @@
             checked(id) {
                 this.$store.dispatch('admin/checked', id)
             },
-            deleteProduct() {
-                this.$store.dispatch('admin/deleteItem')
+            deleteItems() {
+                this.itemsChecked.forEach(item => {
+                    this.$store.dispatch(this.actionDeleteItem, item);
+                })
             },
             changeNbPerPage(nb) {
                 this.nbPerPage = nb
@@ -159,6 +163,9 @@
                 if (action.action === 'edit') {
                     this.actionForm = action.action
                     this.addingItem = true
+                }
+                if (action.action === 'delete') {
+                    this.$store.dispatch(this.actionDeleteItem, action.id);
                 }
             },
             orderBy(order, page) {
@@ -271,6 +278,13 @@
                 border-bottom: 1px solid #f0f3ff;
                 transition: background .3s ease;
 
+                .idTd:after {
+                    content: "";
+                    width: 0;
+                    height: 0;
+                    border: 4px solid transparent;
+                    border-color: #595d6e transparent transparent transparent;
+                }
                 td {
                     color: #595d6e;
                     padding: 10px;

@@ -43,6 +43,7 @@ export const getProductsWithPaginate = ({commit, dispatch}, {page, nb, orderBy})
         .then(res => {
             commit('getProducts', res.data.data)
             commit('getInfos', res.data)
+            console.log(res.data)
             dispatch('admin/verifyCheckPageChange', res.data.data, {root: true})
         })
         .catch(err => {
@@ -65,11 +66,11 @@ export const getBrandProducts = ({commit}, {id, page, nb}) => {
 }
 
 export const deleteProduct = ({commit}, id) => {
-    axios.delete('/api/products/' + id)
+    axios.delete('/api/products/' + id, {headers: headersReq})
         .then(res => {
-            console.log('res actions')
-            console.log(res)
-            bus.$emit('eventVerifyCheckAll')
+            if (res.data.status) {
+                commit('deleteProduct', res.data)
+            }
         })
         .catch(err => {
             console.log(err)

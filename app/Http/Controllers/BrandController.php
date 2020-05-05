@@ -35,4 +35,14 @@ class BrandController extends Controller
     {
         return response()->json(Product::where('brand_id', $id)->paginate(2));
     }
+
+    public function destroy(Brand $brand)
+    {
+        $status = $brand->delete();
+
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'Brand Deleted!' : 'Error Deleting Brand'
+        ]);
+    }
 }

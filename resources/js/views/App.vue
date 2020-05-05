@@ -235,8 +235,24 @@
         justify-content: start;
     }
 
+    .justifySpaceA {
+        justify-content: space-around;
+    }
+
     .justifySpaceB {
-        justify-content: center;
+        justify-content: space-between;
+    }
+
+    .justifySpaceE {
+        justify-content: space-evenly;
+    }
+
+    .alignCenter {
+        align-items: center;
+    }
+
+    .alignStart {
+        align-items: flex-start;
     }
 
     .flexRow {
@@ -448,6 +464,18 @@
 
     .paddingRight30 {
         padding-right: 30px;
+    }
+
+    .padding10 {
+        padding: 10px;
+    }
+
+    .padding15 {
+        padding: 15px;
+    }
+
+    .padding20 {
+        padding: 20px;
     }
 
     .padding30 {

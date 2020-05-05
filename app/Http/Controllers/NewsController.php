@@ -50,6 +50,11 @@ class NewsController extends Controller
 
     public function destroy(News $news)
     {
-        //
+        $status = $news->delete();
+
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'Article Deleted!' : 'Error Deleting Article'
+        ]);
     }
 }

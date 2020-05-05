@@ -17,3 +17,7 @@ export const getInfos = (state, infos) => {
 export const getProductsLength = (state, length) => {
     state.productsLength = length
 }
+
+export const deleteProduct = (state, response) => {
+    state.products.splice(state.products.indexOf(response), 1)
+}

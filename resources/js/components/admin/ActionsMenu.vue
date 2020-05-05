@@ -7,7 +7,7 @@
                 <p>Edit</p>
             </div>
 
-            <div class="item" @click="emitActions('remove'), open = false">
+            <div class="item" @click="emitActions('delete'), open = false">
                 <font-awesome-icon class="removeButton" icon="trash-alt"/>
                 <p>Delete</p>
             </div>
