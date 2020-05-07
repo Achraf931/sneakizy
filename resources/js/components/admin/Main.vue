@@ -1,83 +1,126 @@
 <template>
 	<div class="homeAdmin">
-        <section class="containerLength boxShadow">
-            <div class="bgUmbrella boxShadow">
-                <p>{{products}}</p>
-                <small>Products</small>
+        <section class="containerMain bgWhite boxShadow">
+            <div class="headNewUsers">
+                <h3>Nouveaux utilisateurs</h3>
+                <div>
+                    <p :class="{isActive: isActive === 'today'}" @click="today">Today</p>
+                    <p :class="{isActive: isActive === 'month'}" @click="month">Month</p>
+                </div>
             </div>
-            <div class="users boxShadow">
-                <p>{{users}}</p>
-                <small>Users</small>
-            </div>
-            <div class="brands boxShadow">
-                <p>{{brands}}</p>
-                <small>Brands</small>
-            </div>
-            <div class="newsLength boxShadow">
-                <p>{{news}}</p>
-                <small>News</small>
-            </div>
+            <table class="fullWidth">
+                <tr v-for="user in users" :key="user.id" class="dFlex justifySpaceB alignCenter padding15">
+                    <td>
+                        <p>{{user.lastname}} {{user.firstname}}</p>
+                        <p>{{user.email}}</p>
+                    </td>
+                    <td class="signingDate bRadius5 boxShadow">{{moment(user.created_at).format('YYYY-MM-DD')}}</td>
+                </tr>
+            </table>
         </section>
     </div>
 </template>
 <script>
     import {mapGetters} from 'vuex'
+    import moment from 'moment'
 
 	export default {
-        name: 'main',
-	    computed: {
-	        ...mapGetters({
-                users: 'users/usersLength',
-                products: 'products/productsLength',
-                brands: 'brands/brandsLength',
-                news: 'news/articlesLength'
+        name: 'mainAdmin',
+        data() {
+            return {
+                isActive: 'today',
+                moment: moment
+            }
+        },
+        computed: {
+            ...mapGetters({
+                users: 'users/usersWithDate'
             })
         },
         beforeMount() {
-	        this.$store.dispatch('products/getProducts')
-	        this.$store.dispatch('news/getArticles')
-	        this.$store.dispatch('users/getUsers')
-	        this.$store.dispatch('brands/getBrands')
+            this.$store.dispatch('users/getUsersWithDate', {today: moment().format('YYYY-MM-DD')})
+        },
+        methods: {
+            today() {
+                this.isActive = 'today'
+                this.$store.dispatch('users/getUsersWithDate', {today: moment().format('YYYY-MM-DD')})
+            },
+            month() {
+                this.isActive = 'month'
+                this.$store.dispatch('users/getUsersWithDate', {start: moment().startOf('month').format('YYYY-MM-DD'), end: moment().endOf('month').format('YYYY-MM-DD')})
+            }
         }
     }
 </script>
 <style lang="scss" scoped>
+    .isActive {
+        color: #591df1;
+        border-bottom: 1px solid #591df1!important;
+    }
     .homeAdmin {
-        max-width: 970px;
-        margin: 0 auto;
+        max-width: 1050px;
         width: 100%;
+        margin: 0 auto;
 
-        .containerLength {
-            display: flex;
-            justify-content: space-between;
-            background: white;
-            border-radius: 10px;
-            padding: 0 15px 15px 15px;
-            flex-wrap: wrap;
+        .containerMain {
+            max-width: 400px;
+            width: 100%;
 
-            div {
-                margin-top: 15px;
-                width: 200px;
-                border-radius: 10px;
-                padding: 15px;
-                color: white;
-                text-align: center;
+            .headNewUsers {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                color: #48465b;
+                border-bottom: 1px solid #ebedf2;
 
-                p {
-                    font-size: 20px;
+                div {
+                    display: flex;
+                    padding: 15px 15px 0 0;
+                    font-size: 13px;
+
+                    p {
+                        transition: all .2s ease;
+                        border-bottom: 1px solid transparent;
+                        padding-bottom: 15px;
+                        cursor: pointer;
+                    }
+
+                    p:first-child {
+                        margin-right: 10px;
+                    }
+
+                    p:hover {
+                        color: #591df1;
+                        border-bottom: 1px solid #591df1;
+                    }
+                }
+
+                h3 {
+                    font-size: 15.21px;
+                    padding: 15px;
                 }
             }
 
-            .users {
-                background: #fd397a;
-            }
+            table > tr {
+                border-bottom: 1px solid #ebedf2;
 
-            .brands {
-                background: #ffb822;
-            }
+                & > td {
+                    color: #591df1;
+                    font-size: 13px;
+                    font-family: NormsBold, Norms, Arial, sans-serif;
 
-            .newsLength {
-                background: #35BFA3;
+                    p:last-child {
+                        color: #74788d;
+                    }
+                }
+
+                & > .signingDate {
+                    font-size: 11.37px;
+                    background: #f0f3ff;
+                    padding: 10px 15px;
+                    color: #93a2dd;
+                    font-family: NormsBold, Norms, Arial, sans-serif;
+                }
             }
         }
     }

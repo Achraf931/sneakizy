@@ -10,7 +10,7 @@
         },
         computed: {
             ...mapGetters({
-                brands: 'brands/brands',
+                brands: 'brands/brandsWithPaginate',
                 infos: 'brands/infos'
             })
         },

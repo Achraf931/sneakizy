@@ -2,6 +2,10 @@ export const getArticles = (state, articles) => {
     state.articles = articles
 }
 
+export const getArticlesWithPaginate = (state, articles) => {
+    state.articlesWithPaginate = articles
+}
+
 export const addArticle = (state, {article}) => {
     state.articles.unshift(article)
 }

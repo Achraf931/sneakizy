@@ -1,5 +1,5 @@
 <template>
-    <ArrayItems :infos="infos" :items="users" :storeActionGetItems="'users/getUsersWithPaginate'" :actionDeleteItem="'users/deleteUser'" :title="'utilisateurs'"/>
+    <ArrayItems :infos="infos" :items="users" :storeActionGetItems="'users/getUsersWithPaginate'" :actionDeleteItem="'users/deleteUser'" :actionEditItem="'users/editUser'" :actionCreateItem="'users/createUser'" :getterItem="'users/user'" :title="'utilisateurs'" :oneItem="'users/getUser'"/>
 </template>
 <script>
     import {mapGetters} from 'vuex'
@@ -10,7 +10,7 @@
         },
         computed: {
             ...mapGetters({
-                users: 'users/users',
+                users: 'users/usersWithPaginate',
                 infos: 'users/infos'
             })
         },

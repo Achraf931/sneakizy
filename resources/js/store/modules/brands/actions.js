@@ -19,7 +19,7 @@ export const getBrandsWithPaginate = ({commit, dispatch}, {page, nb, orderBy}) =
     }
     axios.get('/api/brands?page=' + page + '&max=' + nb + '&orderBy=' + orderBy, {headers: headersReq})
         .then(res => {
-            commit('getBrands', res.data.data)
+            commit('getBrandsWithPaginate', res.data.data)
             commit('getInfos', res.data)
             dispatch('admin/verifyCheckPageChange', res.data.data, {root: true})
         })

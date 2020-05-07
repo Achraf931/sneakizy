@@ -21,7 +21,7 @@
             <template v-if="isLoggedIn">
                 <router-link :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}</router-link>
                 <router-link :to="{ path: '/admin/' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
-                <li v-if="isLoggedIn" @click="logout"> Logout</li>
+                <li class="logout" v-if="isLoggedIn" @click="logout">Logout</li>
             </template>
             <router-link class="basketIcon" :to="{name: 'basket'}">
                 <li>
@@ -195,9 +195,14 @@
                 }
             }
 
-            li {
+            .logout {
                 color: #DC3445;
                 cursor: pointer;
+                background: white;
+                border-radius: 10px;
+                font-size: 14px;
+                font-family: Poppins, Norms, Arial, sans-serif;
+                padding: 10px;
             }
         }
     }

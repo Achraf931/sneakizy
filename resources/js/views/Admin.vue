@@ -16,7 +16,7 @@
                 <small>Articles</small>
             </router-link>
 
-            <router-link :class="{usersBg: routeName === 'admin/users'}" class="users boxShadow" :to="{name: 'admin/users'}">
+            <router-link :class="{usersBgLength: routeName === 'admin/users'}" class="users boxShadow" :to="{name: 'admin/users'}">
                 <p>{{users}}</p>
                 <small>Utilisateurs</small>
             </router-link>
@@ -69,6 +69,7 @@
             margin: 0 auto 20px auto;
 
             a {
+                border: none;
                 margin: 15px 15px 0 15px;
                 width: 200px;
                 border-radius: 10px;
@@ -119,7 +120,7 @@
                 color: white!important;
             }
 
-            .usersBg {
+            .usersBgLength {
                 background: #fd397a!important;
                 color: white!important;
             }

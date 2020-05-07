@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,6 +28,19 @@ class UserController extends Controller
                 return response()->json(User::orderBy('created_at', $orderBy)->paginate((int)$request->query('max')), 200);
             }
             return response()->json(User::paginate((int)$request->query('max')), 200);
+        }
+
+        $date = $request->query('date');
+        $start = $request->query('start');
+        $end = $request->query('end');
+
+        if (isset($date) && !empty($date))
+        {
+            return response()->json(User::where('created_at', $date)->get(), 200);
+        }
+        else if(isset($start) && !empty($start))
+        {
+            return response()->json(User::whereBetween('created_at',[$start, $end])->get(), 200);
         }
 
         return response()->json(User::all(), 200);
@@ -99,13 +113,22 @@ class UserController extends Controller
         return response()->json(auth()->user());
     }
 
-    public function show(User $user)
+    public function show($id)
     {
-        return response()->json($user,200);
+        return response()->json(User::findOrFail($id),200);
     }
 
     public function showOrders(User $user)
     {
         return response()->json($user->orders()->with(['sneaker'])->get(),200);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
     }
 }

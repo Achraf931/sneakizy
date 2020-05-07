@@ -2,6 +2,10 @@ export const articles = state => {
     return state.articles
 }
 
+export const articlesWithPaginate = state => {
+    return state.articlesWithPaginate
+}
+
 export const article = state => {
     return state.article
 }

@@ -1,5 +1,6 @@
 export default {
     products: [],
-    product: {},
+    productsWithPaginate: [],
+    product: null,
     infos: {}
 }

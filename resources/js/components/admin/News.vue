@@ -10,7 +10,7 @@
         },
         computed: {
             ...mapGetters({
-                articles: 'news/articles',
+                articles: 'news/articlesWithPaginate',
                 infos: 'news/infos'
             })
         },

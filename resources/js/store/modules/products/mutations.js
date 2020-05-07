@@ -2,6 +2,11 @@ export const getProducts = (state, products) => {
     state.products = products
 }
 
+
+export const getProductsWithPaginate = (state, products) => {
+    state.productsWithPaginate = products
+}
+
 export const addProduct = (state, {product}) => {
     state.products.unshift(product)
 }

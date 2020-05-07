@@ -5,7 +5,7 @@
             <transition name="=fade">
                 <font-awesome-icon v-if="itemsChecked.length > 0" @click="deleteItems" class="icon removeButton" icon="trash-alt"/>
             </transition>
-            <font-awesome-icon @click="actionForm = 'create', addingItem = true" class="icon" icon="plus"/>
+            <font-awesome-icon @click="actionForm = 'create', openModalItem = true" class="icon" icon="plus"/>
         </header>
         <table>
             <thead>
@@ -23,6 +23,7 @@
                     <td>Couleur</td>
                     <td>Prix</td>
                     <td>Description</td>
+                    <td>Publié</td>
                 </template>
 
                 <template v-if="routeName === 'admin/brands'">
@@ -57,6 +58,7 @@
                     <td class="textCenter">{{item.color}}</td>
                     <td class="textCenter">{{item.price}}</td>
                     <td class="textCenter">{{item.description.slice(0, 40)}}...</td>
+                    <td class="textCenter">{{item.is_published ? 'Oui' : 'Non'}}</td>
                 </template>
 
                 <template v-if="routeName === 'admin/brands'">
@@ -94,7 +96,10 @@
             </div>
         </div>
         <transition name="fade">
-            <Modal @close="addSneaker" :action="actionForm" v-show="addingItem != null"/>
+            <Modal @close="sendForm" :oneItem="oneItemForEditing" :itemForEdit="editingItem" :action="actionForm" v-show="openModalItem != null"/>
+        </transition>
+        <transition name="fade">
+            <div id="bg" v-show="openModalItem != null" @click="openModalItem = null"></div>
         </transition>
     </div>
 </template>
@@ -102,16 +107,17 @@
     import Modal from './Modal'
     import CustomSelect from '../CustomSelect'
     import ActionsMenu from './ActionsMenu'
-    import {mapGetters} from "vuex"
+    import {mapGetters, mapState} from "vuex"
 
     export default {
-        props: ['infos', 'items', 'storeActionGetItems', 'actionDeleteItem', 'title'],
+        props: ['infos', 'items', 'storeActionGetItems', 'actionDeleteItem', 'actionEditItem', 'actionCreateItem', 'title', 'getterItem', 'oneItem'],
         data(){
             return {
                 routeName: this.$route.name,
                 nbPerPage: 10,
-                addingItem: null,
+                openModalItem: null,
                 actionForm: null,
+                editingItem: null,
                 orderItems: false
             }
         },
@@ -129,14 +135,22 @@
             ...mapGetters({
                 checkAll: 'admin/checkedAll',
                 itemsChecked: 'admin/itemsChecked'
+            }),
+            ...mapState({
+                oneItemForEditing (state, getters) {
+                    return getters[`${this.getterItem}`]
+                }
             })
         },
         methods : {
-            addSneaker(product) {
-                this.addingItem = null
-                this.$store.dispatch('products/addProduct', product).catch(err => {
-                    console.log(err)
-                })
+            sendForm(res) {
+                this.openModalItem = null
+                if (res.action === 'create') {
+                    this.$store.dispatch(this.actionCreateItem, res.item)
+                }
+                else if (res.action === 'edit') {
+                    this.$store.dispatch(this.actionEditItem, res.item)
+                }
             },
             getItems(page, nb = this.nbPerPage) {
                 this.$store.dispatch(this.storeActionGetItems, {page, nb})
@@ -162,7 +176,8 @@
             actionItem(action) {
                 if (action.action === 'edit') {
                     this.actionForm = action.action
-                    this.addingItem = true
+                    this.$store.dispatch(this.oneItem, action.id)
+                    this.openModalItem = true
                 }
                 if (action.action === 'delete') {
                     this.$store.dispatch(this.actionDeleteItem, action.id);
@@ -175,6 +190,16 @@
     }
 </script>
 <style lang="scss" scoped>
+    #bg {
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 150;
+    }
+
     .fade-enter-active, .fade-leave-to {
         transition: opacity 500ms;
     }
