@@ -14,8 +14,9 @@
         },
         methods: {
             sendForm(form) {
+                let formData = new FormData()
+
                 if (this.$route.name === 'admin/products') {
-                    let formData = new FormData()
                     this.product.image = document.getElementById('image').files[0]
                     formData.append("image", this.product.image)
                     formData.append("name", this.product.name)
@@ -28,7 +29,7 @@
                     this.$emit('close', formData)
                 }
                 else if (this.$route.name === 'admin/users') {
-                    this.$emit('close', {item: form, action: this.action})
+                    this.$emit('close', {id: form.id !== null ? form.id : null, item: form, action: this.action})
                 }
             }
         }

@@ -18,8 +18,8 @@ Route::get('/brands/{id}/products', 'BrandController@products');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('users/{id}', 'UserController@show');
-    Route::patch('users/{user}', 'UserController@update');
-    Route::get('users/{user}/orders', 'UserController@showOrders');
+    Route::patch('users/{id}', 'UserController@update');
+    Route::get('users/{id}/orders', 'UserController@showOrders');
     Route::patch('products/{product}/units/add', 'ProductController@updateUnits');
     Route::patch('orders/{order}/deliver', 'OrderController@deliverOrder');
     Route::resource('/orders', 'OrderController');

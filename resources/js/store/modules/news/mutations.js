@@ -8,6 +8,7 @@ export const getArticlesWithPaginate = (state, articles) => {
 
 export const addArticle = (state, {article}) => {
     state.articles.unshift(article)
+    state.articlesWithPaginate.unshift(article)
 }
 
 export const setArticle = (state, article) => {
@@ -20,4 +21,5 @@ export const getInfos = (state, infos) => {
 
 export const deleteArticle = (state, response) => {
     state.articles.splice(state.articles.indexOf(response), 1)
+    state.articlesWithPaginate.splice(state.articlesWithPaginate.indexOf(response), 1)
 }

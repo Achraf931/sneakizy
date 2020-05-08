@@ -55,9 +55,10 @@ export const getUser = ({commit}, id) => {
 }
 
 export const editUser = ({commit}, {id, form}) => {
-    axios.patch('/api/users/' + id, form, {headers: headersReq})
+    console.log(form)
+    axios.patch('/api/users/' + id, form.form)
         .then(res => {
-            commit('getUser', res.data)
+            commit('setUser', res.data)
         })
 }
 
@@ -74,9 +75,9 @@ export const deleteUser = ({commit}, id) => {
 }
 
 export const createUser = ({commit}, form) => {
-    axios.post('/api/users', form,  {headers: headersReq})
+    axios.post('/api/users', form.form)
         .then(res => {
-            commit('getUser', res.data)
+            commit('setUser', res.data)
         })
         .catch(err => {
             console.log(err)

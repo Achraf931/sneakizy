@@ -48,9 +48,9 @@ class NewsController extends Controller
         //
     }
 
-    public function destroy(News $news)
+    public function destroy($id)
     {
-        $status = $news->delete();
+        $status = News::findOrFail($id)->delete();
 
         return response()->json([
             'status' => $status,

@@ -98,14 +98,27 @@ class UserController extends Controller
         ]);
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $status = $user->delete();
+        $status = User::findOrFail($id)->delete();
 
         return response()->json([
             'status' => $status,
             'message' => $status ? 'User Deleted!' : 'Error Deleting User'
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $user = User::create($data);
+        return response()->json($user);
+    }
+
+    public function update(Request $request, $id)
+    {
+        User::findOrFail($id)->update($request->all());
+        return response()->json(User::where('id', $id)->first());
     }
 
     public function currentUser()

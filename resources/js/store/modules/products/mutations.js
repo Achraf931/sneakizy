@@ -9,6 +9,7 @@ export const getProductsWithPaginate = (state, products) => {
 
 export const addProduct = (state, {product}) => {
     state.products.unshift(product)
+    state.productsWithPaginate.unshift(product)
 }
 
 export const setProduct = (state, product) => {
@@ -25,4 +26,5 @@ export const getProductsLength = (state, length) => {
 
 export const deleteProduct = (state, response) => {
     state.products.splice(state.products.indexOf(response), 1)
+    state.productsWithPaginate.splice(state.productsWithPaginate.indexOf(response), 1)
 }

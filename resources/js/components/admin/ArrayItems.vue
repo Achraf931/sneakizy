@@ -96,7 +96,7 @@
             </div>
         </div>
         <transition name="fade">
-            <Modal @close="sendForm" :oneItem="oneItemForEditing" :itemForEdit="editingItem" :action="actionForm" v-show="openModalItem != null"/>
+            <Modal @close="sendForm" :oneItem="actionForm === 'edit' ? oneItemForEditing : null" :itemForEdit="editingItem" :action="actionForm" v-show="openModalItem != null"/>
         </transition>
         <transition name="fade">
             <div id="bg" v-show="openModalItem != null" @click="openModalItem = null"></div>
@@ -149,7 +149,7 @@
                     this.$store.dispatch(this.actionCreateItem, res.item)
                 }
                 else if (res.action === 'edit') {
-                    this.$store.dispatch(this.actionEditItem, res.item)
+                    this.$store.dispatch(this.actionEditItem, {id: res.id, form: res.item})
                 }
             },
             getItems(page, nb = this.nbPerPage) {

@@ -37,9 +37,9 @@ class ImageController extends Controller
         //
     }
 
-    public function destroy(Image $image)
+    public function destroy($id)
     {
-        $status = $image->delete();
+        $status = Image::findOrFail($id)->delete();
 
         return response()->json([
             'status' => $status,

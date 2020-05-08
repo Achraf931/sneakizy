@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input v-model="search" @keyup.enter="sendSearch" type="text" placeholder="ex. Air Jordan 1">
+        <input autocomplete="off" v-model="search" @keyup.enter="sendSearch" type="text" placeholder="ex. Air Jordan 1">
         <font-awesome-icon @click="sendSearch" style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="search"/>
     </div>
 </template>

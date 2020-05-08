@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\ChatEvent;
+use App\Events\ProductAdded;
 use App\Events\SneakerAdded;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;

@@ -1,5 +1,13 @@
 const headersReq = {'Content-Type': 'multipart/form-data'}
 
+export const addBrand = ({commit}, brand) => {
+    axios.post('/api/brands', brand, {headers: headersReq})
+        .then(res => {
+            commit('setBrand', res.data)
+        })
+        .catch(err => console.log(err))
+}
+
 export const getBrands = ({commit}) => {
     axios.get('/api/brands', {headers: headersReq})
         .then(res => {

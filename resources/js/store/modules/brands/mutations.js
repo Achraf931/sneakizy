@@ -10,6 +10,11 @@ export const getInfos = (state, infos) => {
     state.infos = infos
 }
 
+export const setBrand = (state, brand) => {
+    state.brands.push(brand)
+    state.brandsWithPaginate.push(brand)
+}
+
 export const deleteBrand = (state, response) => {
-    state.brands.splice(state.brands.indexOf(response), 1)
+    state.brandsWithPaginate.splice(state.brandsWithPaginate.indexOf(response), 1)
 }

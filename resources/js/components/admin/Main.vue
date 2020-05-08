@@ -16,6 +16,11 @@
                     </td>
                     <td class="signingDate bRadius5 boxShadow">{{moment(user.created_at).format('YYYY-MM-DD')}}</td>
                 </tr>
+                <tr class="dFlex justifySpaceB alignCenter padding15" v-if="users.length === 0">
+                    <td>
+                        <p>{{isEmpty}}</p>
+                    </td>
+                </tr>
             </table>
         </section>
     </div>
@@ -28,6 +33,7 @@
         name: 'mainAdmin',
         data() {
             return {
+                isEmpty: 'Aucune nouvelle inscription',
                 isActive: 'today',
                 moment: moment
             }
@@ -36,6 +42,9 @@
             ...mapGetters({
                 users: 'users/usersWithDate'
             })
+        },
+        mounted() {
+            console.log(this.users)
         },
         beforeMount() {
             this.$store.dispatch('users/getUsersWithDate', {today: moment().format('YYYY-MM-DD')})

@@ -36,9 +36,9 @@ class BrandController extends Controller
         return response()->json(Product::where('brand_id', $id)->paginate(2));
     }
 
-    public function destroy(Brand $brand)
+    public function destroy($id)
     {
-        $status = $brand->delete();
+        $status = Brand::findOrFail($id)->delete();
 
         return response()->json([
             'status' => $status,
