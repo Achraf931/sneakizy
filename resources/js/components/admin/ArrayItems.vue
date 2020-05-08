@@ -229,6 +229,7 @@
     }
 
     input[type=checkbox] {
+        border: none;
         cursor: pointer;
         border-radius: 5px;
         height: 18px;
