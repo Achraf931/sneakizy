@@ -3,7 +3,25 @@
         <h3>Produit</h3>
         <input type="text" placeholder="Nom" v-model="form.name" @input="setName($event.target.value)" :class="{error: $v.form.name.$error}">
         <input type="text" placeholder="Marque" v-model="form.brand" @input="setBrand($event.target.value)" :class="{error: $v.form.brand.$error}">
-        <textarea placeholder="Description" v-model="form.description" @input="setDescription($event.target.value)" :class="{error: $v.form.description.$error}"></textarea>
+
+        <editor
+            v-model="form.description"
+            api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
+            :init="{
+         height: 200,
+         menubar: true,
+         plugins: [
+           'advlist autolink lists link image charmap print preview anchor',
+           'searchreplace visualblocks code fullscreen',
+           'insertdatetime media table paste code help wordcount'
+         ],
+         toolbar:
+           'undo redo | formatselect | bold italic backcolor | \
+           alignleft aligncenter alignright alignjustify | \
+           bullist numlist outdent indent | removeformat | help'
+       }"
+        />
+
         <input type="number" placeholder="Prix" v-model="form.price" @input="setPrice($event.target.value)" :class="{error: $v.form.price.$error}">
         <input type="file" id="image" :change="form.image" @input="setImage($event.target.value)">
         <div>
@@ -16,7 +34,25 @@
         <h3>Produit</h3>
         <input type="text" placeholder="Nom" v-model="oneItem.name" @input="setName($event.target.value)" :class="{error: $v.form.name.$error}">
         <input type="text" placeholder="Marque" v-model="oneItem.brand" @input="setBrand($event.target.value)" :class="{error: $v.form.brand.$error}">
-        <textarea style="min-height: 100px" placeholder="Description" v-model="oneItem.description" @input="setDescription($event.target.value)" :class="{error: $v.form.description.$error}">{{oneItem.description}}</textarea>
+
+        <editor
+            v-model="oneItem.description"
+            api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
+            :init="{
+         height: 200,
+         menubar: true,
+         plugins: [
+           'advlist autolink lists link image charmap print preview anchor',
+           'searchreplace visualblocks code fullscreen',
+           'insertdatetime media table paste code help wordcount'
+         ],
+         toolbar:
+           'undo redo | formatselect | bold italic backcolor | \
+           alignleft aligncenter alignright alignjustify | \
+           bullist numlist outdent indent | removeformat | help'
+       }"
+        />
+
         <input type="number" placeholder="Prix" v-model="oneItem.price" @input="setPrice($event.target.value)" :class="{error: $v.form.price.$error}">
         <input type="file" id="image" :change="oneItem.image" @input="setImage($event.target.value)">
         <h3>Image principale</h3>
@@ -32,6 +68,7 @@
     </div>
 </template>
 <script>
+    import Editor from '@tinymce/tinymce-vue'
     import {required} from "vuelidate/lib/validators";
 
     export default {
@@ -50,6 +87,9 @@
                     brand_id: 1
                 }
             }
+        },
+        components: {
+            Editor
         },
         validations: {
             form: {
