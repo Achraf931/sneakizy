@@ -146,9 +146,12 @@
             sendForm(res) {
                 this.openModalItem = null
                 if (res.action === 'create') {
+                    console.log('create')
+                    console.log(res);
                     this.$store.dispatch(this.actionCreateItem, res.item)
                 }
                 else if (res.action === 'edit') {
+                    console.log('edit')
                     this.$store.dispatch(this.actionEditItem, {id: res.id, form: res.item})
                 }
             },

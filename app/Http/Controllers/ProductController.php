@@ -47,6 +47,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
 
+        dd($request->all());
         Cloudder::upload($request->file('image'));
         $cloundary_upload = Cloudder::getResult();
         $product = new Product();
@@ -67,11 +68,11 @@ class ProductController extends Controller
         return response()->json(Product::isPublished()->where('id', $id)->with('images')->get()->first(), 200);
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, $id)
     {
-        $status = $product->update(
-            $request->only(['name', 'description', 'release_date', 'price', 'image', 'brand', 'is_published'])
-        );
+        dd(Product::find($id));
+
+
 
         return response()->json([
             'status' => $status,

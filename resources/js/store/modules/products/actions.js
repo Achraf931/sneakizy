@@ -2,8 +2,8 @@ import {bus} from '../../../app'
 
 const headersReq = {'Content-Type': 'multipart/form-data'}
 
-export const createProduct = ({commit}, product) => {
-    axios.post(`/api/products`, product, {headers: headersReq})
+export const createProduct = ({commit}, form) => {
+    axios.post(`/api/products`, form, {headers: headersReq})
         .then(res => {
             commit('addProduct', res.data)
         })
@@ -40,7 +40,7 @@ export const getProducts = ({commit}) => {
 
 export const getProductsWithPaginate = ({commit, dispatch}, {page, nb, orderBy}) => {
     if (nb == null || nb == undefined || nb == false) {
-        nb = 8
+        nb = 10
     }
 
     if (orderBy == null || orderBy == undefined || orderBy == false) {
@@ -64,7 +64,7 @@ export const getBrandProducts = ({commit}, {id, page, nb}) => {
     }
     axios.get('/api/brands/' + id + '/products?page=' + page + '&max=' + nb, {headers: headersReq})
         .then(res => {
-            commit('getProducts', res.data.data)
+            commit('getProductsWithPaginate', res.data.data)
             commit('getInfos', res.data)
         })
         .catch(err => {

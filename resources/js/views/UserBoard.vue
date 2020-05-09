@@ -1,70 +1,65 @@
 <template>
-    <div>
-        <div class="container-fluid hero-section d-flex align-content-center justify-content-center flex-wrap ml-auto">
-            <h2 class="title">All your orders</h2>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4 product-box" v-for="(order,index) in orders" @key="index">
-                            <img :src="order.sneaker.image" :alt="order.sneaker.name">
-                            <h5><span v-html="order.product.name"></span><br>
-                                <span class="small-text text-muted">$ {{order.sneaker.price}}</span>
-                            </h5>
-                            <hr>
-                            <span class="small-text text-muted">Quantity: {{order.quantity}}
-                                <span class="float-right">{{order.is_delivered == 1? "shipped!" : "not shipped"}}</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="userBoard">
+        <section class="boxShadow containerProfil mrRight20 bRadius bgWhite">
+            <h3 class="mrBottom10">{{user.lastname}} {{user.firstname}}</h3>
+            <p class="mrBottom10"><span>E-mail</span> {{user.email}}</p>
+            <p class="mrBottom10"><span>Numéro</span> {{user.phone !== null ? user.phone : 'Non renseigné'}}</p>
+            <p class="mrBottom10"><span>Adresse</span> {{user.address !== null ? user.address : 'Non renseigné'}}</p>
+            <p class="mrBottom10"><span>Infos</span> {{user.additional_info !== null ? user.additional_info : 'Non renseigné'}}</p>
+            <p class="mrBottom10"><span>Ville</span> {{user.city !== null ? user.city : 'Non renseigné'}}</p>
+            <p class="mrBottom10"><span>Code postal</span> {{user.zipcode !== null ? user.zipcode : 'Non renseigné'}}</p>
+        </section>
+        <section class="boxShadow containerRight mrRight20 bRadius bgWhite">
+
+        </section>
     </div>
 </template>
 <script>
+    import {mapGetters} from 'vuex'
     export default {
         name: 'userboard',
-        data(){
-            return {
-                user : null,
-                orders : []
-            }
+        computed: {
+            ...mapGetters({
+                user: 'users/user'
+            })
         },
-        beforeMount(){
-            this.user = JSON.parse(localStorage.getItem('user'))
-            axios.defaults.headers.common['Content-Type'] = 'application/json'
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
-
-            axios.get(`api/users/${this.user.id}/orders`)
-            .then(response => {
-                this.orders = response.data
-            })
-            .catch(error => {
-                console.error(error);
-            })
+        beforeMount() {
+            let user = JSON.parse(localStorage.getItem('user'))
+            this.$store.dispatch('users/getUser', user.id)
         }
     }
 </script>
-<style scoped>
-    .small-text {
-        font-size: 14px;
-    }
-    .product-box {
-        border: 1px solid #cccccc;
-        padding: 10px 15px;
-    }
-    .hero-section {
-        height: 20vh;
-        background: #ababab;
-        align-items: center;
-        margin-bottom: 20px;
-        margin-top: -20px;
-    }
-    .title {
-        font-size: 60px;
-        color: #ffffff;
+<style lang="scss" scoped>
+    .userBoard {
+        max-width: 1050px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px 40px 15px;
+
+        .containerProfil {
+            width: fit-content;
+            padding: 15px;
+
+            h3 {
+                font-size: 15.21px;
+                font-family: NormsBold, Norms, Arial, sans-serif;
+                color: #591df1;
+            }
+
+            p {
+                font-size: 13px;
+
+                span {
+                    font-family: NormsBold, Norms, Arial, sans-serif;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .containerRight {
+            max-width: 770px;
+            width: 100%;
+        }
     }
 </style>

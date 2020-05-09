@@ -14,7 +14,7 @@
         computed: {
             ...mapGetters({
                 brands: 'brands/brands',
-                products: 'products/products'
+                products: 'products/productsWithPaginate'
             })
         },
         components: {

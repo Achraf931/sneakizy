@@ -17,16 +17,15 @@
                 let formData = new FormData()
 
                 if (this.$route.name === 'admin/products') {
-                    this.product.image = document.getElementById('image').files[0]
-                    formData.append("image", this.product.image)
-                    formData.append("name", this.product.name)
-                    formData.append("price", this.product.price)
-                    formData.append("description", this.product.description)
-                    formData.append("release_date", this.product.release_date)
-                    formData.append("is_published", this.product.is_published)
-                    formData.append("brand", this.product.brand)
-                    formData.append("brand_id", this.product.brand_id)
-                    this.$emit('close', formData)
+                    formData.append("image", form.image)
+                    formData.append("name", form.name)
+                    formData.append("price", form.price)
+                    formData.append("description", form.description)
+                    formData.append("release_date", form.release_date)
+                    formData.append("is_published", form.is_published)
+                    formData.append("brand", form.brand)
+                    formData.append("brand_id", form.brand_id)
+                    this.$emit('close', {id: form.id !== null ? form.id : null, item: formData, action: this.action})
                 }
                 else if (this.$route.name === 'admin/users') {
                     this.$emit('close', {id: form.id !== null ? form.id : null, item: form, action: this.action})

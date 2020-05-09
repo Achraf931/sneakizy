@@ -121,14 +121,9 @@ class UserController extends Controller
         return response()->json(User::where('id', $id)->first());
     }
 
-    public function currentUser()
-    {
-        return response()->json(auth()->user());
-    }
-
     public function show($id)
     {
-        return response()->json(User::findOrFail($id),200);
+        return response()->json(User::where('id', $id)->with('orders')->get()->first(),200);
     }
 
     public function showOrders(User $user)
