@@ -24,16 +24,16 @@
                 <div id="containerSize">
                     <h4>Sélectionner la taille</h4>
                     <div>
-                        <p @click="selected">34</p>
-                        <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">35</p>
-                        <p>36</p>
-                        <p>37</p>
-                        <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">38</p>
-                        <p>39</p>
-                        <p>40</p>
-                        <p>41</p>
-                        <p>42</p>
-                        <p style="background: #F7F7F7; color: #E4E4E4; border: 2px solid #E4E4E4;">43</p>
+                        <p :class="{selected: size === 34}" @click="size = 34">34</p>
+                        <p :class="{selected: size === 35}" @click="size = 35">35</p>
+                        <p :class="{selected: size === 36}" @click="size = 36">36</p>
+                        <p :class="{selected: size === 37}" @click="size = 37">37</p>
+                        <p :class="{selected: size === 38}" @click="size = 38">38</p>
+                        <p :class="{selected: size === 39}" @click="size = 39">39</p>
+                        <p :class="{selected: size === 40}" @click="size = 40">40</p>
+                        <p :class="{selected: size === 41}" @click="size = 41">41</p>
+                        <p :class="{selected: size === 42}" @click="size = 42">42</p>
+                        <p :class="{selected: size === 43}" @click="size = 43">43</p>
                     </div>
                 </div>
                 <div style="display: flex; flex-direction: column">
@@ -77,7 +77,7 @@
         data() {
             return {
                 inButton: false,
-                size: '39',
+                size: null,
                 show: false,
                 quantity: ''
             }

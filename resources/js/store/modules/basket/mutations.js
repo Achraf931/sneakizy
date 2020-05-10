@@ -1,9 +1,16 @@
 export const AddToBasket = (state, {product, quantity, size}) => {
     let productInBasket = state.basket.find(item => {
-        return item.product.id === product.id
+        return item.product.id === product.id && item.size === size
     })
+
     if (productInBasket) {
-        productInBasket.quantity += quantity
+        if (productInBasket.size === size) {
+            productInBasket.quantity += quantity
+        }
+        else {
+            state.basket.push({product, quantity, size})
+        }
+
         localStorage.setItem('basket', JSON.stringify(state.basket))
         return
     }

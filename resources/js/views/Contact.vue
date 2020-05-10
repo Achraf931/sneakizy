@@ -4,24 +4,24 @@
             <div class="left">
                 <h2 class="sendTitle colorUmbrella">Envoyez nous un message</h2>
                 <div class="formGroup">
-                    <div class="vuelidate" :class="{error: $v.form.lastname.$error}">
+                    <div class="vuelidate" :class="{errorForm: $v.form.lastname.$error}">
                         <label for="lastname">Nom</label>
                         <input type="text" id="lastname" v-model.trim="$v.form.lastname.$model" placeholder="Entrez votre nom">
                     </div>
-                    <div class="vuelidate" :class="{error: $v.form.firstname.$error}">
+                    <div class="vuelidate" :class="{errorForm: $v.form.firstname.$error}">
                         <label for="firstname">Prénom</label>
                         <input type="text" id="firstname" v-model.trim="$v.form.firstname.$model" placeholder="Entrez votre prénom">
                     </div>
                 </div>
-                <div class="group vuelidate" :class="{error: $v.form.email.$error}">
+                <div class="group vuelidate" :class="{errorForm: $v.form.email.$error}">
                     <label for="email">Email</label>
                     <input type="email" id="email" v-model.trim="$v.form.email.$model" placeholder="Entrez votre adresse mail">
                 </div>
-                <div class="group vuelidate" :class="{error: $v.form.object.$error}">
+                <div class="group vuelidate" :class="{errorForm: $v.form.object.$error}">
                     <label for="object">Objet</label>
                     <input type="text" id="object" v-model.trim="$v.form.object.$model" placeholder="Objet">
                 </div>
-                <div class="vuelidate" :class="{error: $v.form.message.$error}">
+                <div class="vuelidate" :class="{errorForm: $v.form.message.$error}">
                     <label for="message">Message</label>
                     <textarea id="message" v-model.trim="$v.form.message.$model" placeholder="Entrez votre message"></textarea>
                 </div>
@@ -92,7 +92,7 @@
     }
 </script>
 <style lang="scss" scoped>
-    .error {
+    .errorForm {
         label {
             color: red;
         }
