@@ -1,30 +1,19 @@
 <template>
-    <div v-if="isLoading" class="containerLoader"><div class="lds-ripple"><div></div><div></div></div></div>
+    <div class="containerLoader"><div class="lds-ripple"><div></div><div></div></div></div>
 </template>
-<script>
-    import {bus} from '../app'
-
-    export default {
-        data() {
-            return {
-                isLoading: false
-            }
-        },
-        created() {
-            bus.$on('loading', result => {
-                console.log(result)
-                this.isLoading = result
-            })
-        }
-    }
-</script>
 <style>
     .containerLoader {
         position: fixed;
-        z-index: 200;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        width: 100vw;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        z-index: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.1);
+        transition: all .2s ease;
     }
     .lds-ripple {
         display: inline-block;

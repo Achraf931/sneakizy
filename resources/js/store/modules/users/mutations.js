@@ -1,3 +1,5 @@
+import {bus} from "../../../app";
+
 export const getUsers = (state, users) => {
     state.users = users
 }
@@ -30,6 +32,7 @@ export const getInfos = (state, infos) => {
 export const deleteUser = (state, response) => {
     state.users.splice(state.users.indexOf(response), 1)
     state.usersWithPaginate.splice(state.usersWithPaginate.indexOf(response), 1)
+    bus.$emit('loading', false)
 }
 
 export const getUsersWithDate = (state, users) => {

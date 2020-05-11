@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ProductAdded;
 use App\Http\Requests\ProductRequest;
+use App\Image;
 use App\Product;
 use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
@@ -46,8 +47,6 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-
-        dd($request->all());
         Cloudder::upload($request->file('image'));
         $cloundary_upload = Cloudder::getResult();
         $product = new Product();
@@ -82,7 +81,22 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+        $images = Image::where('product_id', $id)->get();
+        foreach ($images as $image)
+        {
+            $test = explode('/', $image->image);
+            $publicId = strtok($test[9], '.');
+            Image::findOrFail($image->id)->delete();
+            Cloudder::destroyImage('Sneakizy/Images/' . $publicId);
+            Cloudder::delete('Sneakizy/Images/' . $publicId);
+        }
+
+        $pro = Product::where('id', $id)->first();
+        $test = explode('/', $pro->image);
+        $publicId = strtok($test[9], '.');
         $status = Product::findOrFail($id)->delete();
+        Cloudder::destroyImage('Sneakizy/Products/' . $publicId);
+        Cloudder::delete('Sneakizy/Products/' . $publicId);
 
         return response()->json([
             'status' => $status,

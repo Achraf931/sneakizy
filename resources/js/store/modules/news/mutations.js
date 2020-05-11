@@ -1,3 +1,5 @@
+import {bus} from "../../../app";
+
 export const getArticles = (state, articles) => {
     state.articles = articles
 }
@@ -22,4 +24,5 @@ export const getInfos = (state, infos) => {
 export const deleteArticle = (state, response) => {
     state.articles.splice(state.articles.indexOf(response), 1)
     state.articlesWithPaginate.splice(state.articlesWithPaginate.indexOf(response), 1)
+    bus.$emit('loading', false)
 }

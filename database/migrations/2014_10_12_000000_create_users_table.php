@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
@@ -26,8 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('additional_info')->nullable();
             $table->integer('phone')->nullable();
             $table->rememberToken();
-            $table->date('created_at');
-            $table->timestamp('updated_at');
+            $table->date('created_at')->useCurrent();
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->boolean('is_admin')->default(false);
             $table->softDeletes();
         });

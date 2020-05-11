@@ -70,10 +70,20 @@
         <label for="image">Image</label>
         <input type="file" id="image" :change="oneItem.image">
         <h3>Image principale</h3>
-        <img style="width: 200px" :src="oneItem.image" :alt="oneItem.name">
+        <img class="boxShadow" style="width: 200px; border-radius: 10px" :src="oneItem.image" :alt="oneItem.name">
         <h3>Images secondaires</h3>
         <div style="display: grid; grid-gap: 20px; grid-template-columns: repeat(auto-fit, 126px);">
-            <img style="width: 120px; height: 120px; object-fit: cover;" v-for="img in oneItem.images" :key="img.id" :src="img.image" :alt="img.name">
+            <div class="cPointer pRelative" style="width: 126px; height: 126px; border-radius: 5px; border: 1px dashed #591df1; color: #591df1; font-size: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column">
+                <div v-if="isAdding" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                <input @change="inputFileStyle" class="input-file-container input-file" id="my-file" type="file">
+                <font-awesome-icon class="icon mrBottom5" icon="plus"/>
+                <label style="font-size: 13px" @click="inputFileStyle" tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
+            </div>
+            <div class="pRelative boxShadow" v-for="img in oneItem.images" :key="img.id">
+                <div v-if="loading === img.id" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                <img style="width: 126px; height: 126px; object-fit: cover; border-radius: 5px;" :src="img.image" :alt="img.name">
+                <p class="cPointer button" style="border: none!important; width: 100%; background: red; padding: 5px; border-radius: 5px; text-align: center; color: white; font-size: 13px" @click="deleteImage(img)">Supprimer</p>
+            </div>
         </div>
         <div>
             <button class="button sendForm" @click.prevent="sendForm">Envoyer</button>
@@ -89,13 +99,16 @@
         props: ['oneItem'],
         data() {
             return {
+                isAdding: false,
                 error: '',
+                loading: null,
                 routeName: this.$route.name,
                 form: {
                     name: '',
                     price: '',
                     description: '',
                     image: null,
+                    release_date: '2020-01-01',
                     is_published: 1,
                     brand: '',
                     brand_id: 1
@@ -122,6 +135,17 @@
             }
         },
         methods: {
+            inputFileStyle() {
+                this.isAdding = true
+                let formData = new FormData()
+                formData.append('image', event.target.files[0])
+                formData.append('product_id', this.oneItem.id)
+                document.querySelector( ".input-file" ).focus()
+                axios.post('/api/images', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                    this.oneItem.images.unshift(res.data.image)
+                    this.isAdding = false
+                })
+            },
             setName(value) {
                 if (this.oneItem !== null) {
                     this.form.name = this.oneItem.name
@@ -161,13 +185,18 @@
                 }
                 this.$v.form.price.$touch()
             },
-            deleteImage() {
-                console.log('delete img')
+            deleteImage(img) {
+                this.loading = img.id
+                axios.delete('/api/images/' + img.id).then(res => {
+                    if (res.data.status) {
+                        this.oneItem.images.splice(this.oneItem.images.indexOf(img), 1)
+                        this.loading = null
+                    }
+                })
             },
             sendForm() {
                 this.$v.form.$touch()
                 if (this.$v.form.$invalid) {
-                    console.log(this.form)
                     this.error = "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge"
                 } else {
                     this.form.image = document.getElementById('image').files[0]
@@ -177,3 +206,93 @@
         }
     }
 </script>
+<style lang="scss" scoped>
+    .input-file-container {
+        position: relative;
+        width: 225px;
+    }
+    .input-file {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .file-return {
+        margin: 0;
+    }
+    .file-return:not(:empty) {
+        margin: 1em 0;
+    }
+    .file-return {
+        font-style: italic;
+        font-size: .9em;
+        font-weight: bold;
+    }
+    .file-return:not(:empty):before {
+        content: "Selected file: ";
+        font-style: normal;
+        font-weight: normal;
+    }
+
+
+    .lds-ellipsis {
+        display: inline-block;
+        position: absolute;
+        width: 126px;
+        height: 126px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+    }
+    .lds-ellipsis div {
+        position: absolute;
+        top: 50%;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #591df1;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+    .lds-ellipsis div:nth-child(1) {
+        left: 35px;
+        animation: lds-ellipsis1 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(2) {
+        left: 35px;
+        animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(3) {
+        left: 59px;
+        animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(4) {
+        left: 81px;
+        animation: lds-ellipsis3 0.6s infinite;
+    }
+    @keyframes lds-ellipsis1 {
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    @keyframes lds-ellipsis3 {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0);
+        }
+    }
+    @keyframes lds-ellipsis2 {
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(24px, 0);
+        }
+    }
+</style>

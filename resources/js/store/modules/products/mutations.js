@@ -1,7 +1,8 @@
+import {bus} from "../../../app"
+
 export const getProducts = (state, products) => {
     state.products = products
 }
-
 
 export const getProductsWithPaginate = (state, products) => {
     state.productsWithPaginate = products
@@ -27,4 +28,5 @@ export const getProductsLength = (state, length) => {
 export const deleteProduct = (state, response) => {
     state.products.splice(state.products.indexOf(response), 1)
     state.productsWithPaginate.splice(state.productsWithPaginate.indexOf(response), 1)
+    bus.$emit('loading', false)
 }

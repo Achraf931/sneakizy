@@ -47,7 +47,8 @@
 
         h3 {
             color: #591df1;
-            font-family: NormsBold, Norms, Arial, sans-serif;
+            font-family: Norms, Arial, sans-serif;
+            margin-top: 15px;
             margin-bottom: 15px;
         }
 

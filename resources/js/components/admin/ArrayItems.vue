@@ -1,5 +1,6 @@
 <template>
     <div class="adminItems boxShadow bRadius bgWhite fullWidth">
+        <Loader v-if="loading"/>
         <header class="mrBottom10">
             <h3>Liste des {{title}}</h3>
             <transition name="=fade">
@@ -11,7 +12,7 @@
             <thead>
             <tr class="item">
                 <td class="textStart"><input ref="checkAll" @change="toggleCheckAll" type="checkbox" class="boxShadow"></td>
-                <td class="cPointer textCenter pRelative idTd dFlex justifySpaceE alignCenter" @click="orderItems = !orderItems, orderBy(orderItems, 1)">#</td>
+                <td class="cPointer pRelative idTd dFlex alignCenter" @click="orderItems = !orderItems, orderBy(orderItems, 1)">#</td>
                 <template v-if="routeName === 'admin/news'">
                     <td>Titre</td>
                     <td>Contenu</td>
@@ -39,43 +40,43 @@
                     <td>Date d'inscription</td>
                     <td>Admin</td>
                 </template>
-                <td>Actions</td>
+                <td class="textCenter">Actions</td>
             </tr>
             </thead>
             <tbody>
             <tr class="item" v-for="item in items" :key="item.id">
                 <td><input :checked="itemsChecked.indexOf(item.id) !== -1" @change="checked(item.id)" type="checkbox" class="boxShadow"></td>
-                <td class="textCenter">{{item.id}}</td>
+                <td>{{item.id}}</td>
 
                 <template v-if="routeName === 'admin/news'">
-                    <td class="textCenter">{{item.title}}</td>
-                    <td class="textCenter">{{item.content.slice(0, 40)}}...</td>
-                    <td class="textCenter">{{item.is_published === 1 ? 'Oui' : 'Non'}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.content.slice(0, 40)}}...</td>
+                    <td>{{item.is_published === 1 ? 'Oui' : 'Non'}}</td>
                 </template>
 
                 <template v-else-if="routeName === 'admin/products'">
-                    <td class="textCenter">{{item.name}}</td>
-                    <td class="textCenter">{{item.color}}</td>
-                    <td class="textCenter">{{item.price}}</td>
-                    <td class="textCenter">{{item.description.slice(0, 40)}}...</td>
-                    <td class="textCenter">{{item.is_published ? 'Oui' : 'Non'}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.color}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.description.slice(0, 10).replace(/(<([^>]+)>)/ig, '')}}...</td>
+                    <td>{{item.is_published ? 'Oui' : 'Non'}}</td>
                 </template>
 
                 <template v-if="routeName === 'admin/brands'">
-                    <td class="textCenter">{{item.name}}</td>
-                    <td class="textCenter"><img style="width: 30px;" :src="item.image" :alt="item.name"></td>
-                    <td class="textCenter">{{item.created_at}}</td>
+                    <td>{{item.name}}</td>
+                    <td><img style="width: 30px;" :src="item.image" :alt="item.name"></td>
+                    <td>{{item.created_at}}</td>
                 </template>
 
                 <template v-if="routeName === 'admin/users'">
-                    <td class="textCenter">{{item.lastname}}</td>
-                    <td class="textCenter">{{item.firstname}}</td>
-                    <td class="textCenter">{{item.email}}</td>
-                    <td class="textCenter">{{item.created_at}}</td>
-                    <td class="textCenter">{{item.is_admin ? 'Oui' : 'Non'}}</td>
+                    <td>{{item.lastname}}</td>
+                    <td>{{item.firstname}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.created_at}}</td>
+                    <td>{{item.is_admin ? 'Oui' : 'Non'}}</td>
                 </template>
 
-                <td class="textCenter">
+                <td>
                     <div class="widthContent mrAuto pRelative">
                         <ActionsMenu :id="item.id" @action="actionItem"/>
                     </div>
@@ -104,6 +105,8 @@
     </div>
 </template>
 <script>
+    import {bus} from "../../app"
+    import Loader from "../Loader"
     import Modal from './Modal'
     import CustomSelect from '../CustomSelect'
     import ActionsMenu from './ActionsMenu'
@@ -113,6 +116,7 @@
         props: ['infos', 'items', 'storeActionGetItems', 'actionDeleteItem', 'actionEditItem', 'actionCreateItem', 'title', 'getterItem', 'oneItem'],
         data(){
             return {
+                loading: false,
                 routeName: this.$route.name,
                 nbPerPage: 10,
                 openModalItem: null,
@@ -124,11 +128,17 @@
         components : {
             Modal,
             CustomSelect,
-            ActionsMenu
+            ActionsMenu,
+            Loader
         },
         watch: {
             checkAll() {
                 this.$refs.checkAll.checked = this.checkAll
+            },
+            loading() {
+                bus.$on('loading', res => {
+                    this.loading = res
+                })
             }
         },
         computed: {
@@ -183,6 +193,8 @@
                     this.openModalItem = true
                 }
                 if (action.action === 'delete') {
+                    this.loading = true
+                    console.log(this.loading);
                     this.$store.dispatch(this.actionDeleteItem, action.id);
                 }
             },
@@ -297,10 +309,6 @@
         table {
             width: 100%;
 
-            thead {
-                text-align: center;
-            }
-
             .item, thead {
                 width: 100%;
                 padding: 0 15px;
@@ -311,6 +319,7 @@
                     content: "";
                     width: 0;
                     height: 0;
+                    margin-left: 5px;
                     border: 4px solid transparent;
                     border-color: #595d6e transparent transparent transparent;
                 }

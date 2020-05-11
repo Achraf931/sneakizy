@@ -30,5 +30,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::apiResource('/users', 'UserController')->except(['update', 'show', 'showOrders']);
         Route::apiResource('/products', 'ProductController')->except(['index', 'show']);
         Route::apiResource('/news', 'NewsController')->except(['index', 'show']);
+
+        Route::post('/images', 'ImageController@store');
+        Route::delete('/images/{id}', 'ImageController@destroy');
     });
 });

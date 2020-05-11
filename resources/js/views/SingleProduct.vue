@@ -24,7 +24,6 @@
                 <div id="containerSize">
                     <h4>Sélectionner la taille</h4>
                     <div>
-                        <p :class="{selected: size === 34}" @click="size = 34">34</p>
                         <p :class="{selected: size === 35}" @click="size = 35">35</p>
                         <p :class="{selected: size === 36}" @click="size = 36">36</p>
                         <p :class="{selected: size === 37}" @click="size = 37">37</p>
@@ -34,6 +33,9 @@
                         <p :class="{selected: size === 41}" @click="size = 41">41</p>
                         <p :class="{selected: size === 42}" @click="size = 42">42</p>
                         <p :class="{selected: size === 43}" @click="size = 43">43</p>
+                        <p :class="{selected: size === 44}" @click="size = 44">44</p>
+                        <p :class="{selected: size === 45}" @click="size = 45">45</p>
+                        <p :class="{selected: size === 46}" @click="size = 46">46</p>
                     </div>
                 </div>
                 <div style="display: flex; flex-direction: column">

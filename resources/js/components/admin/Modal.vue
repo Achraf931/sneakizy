@@ -14,17 +14,17 @@
         },
         methods: {
             sendForm(form) {
-                let formData = new FormData()
 
                 if (this.$route.name === 'admin/products') {
-                    formData.append("image", form.image)
-                    formData.append("name", form.name)
-                    formData.append("price", form.price)
-                    formData.append("description", form.description)
-                    formData.append("release_date", form.release_date)
-                    formData.append("is_published", form.is_published)
-                    formData.append("brand", form.brand)
-                    formData.append("brand_id", form.brand_id)
+                    let formData = new FormData()
+                    formData.append("image", form.form.image)
+                    formData.append("name", form.form.name)
+                    formData.append("price", form.form.price)
+                    formData.append("description", form.form.description)
+                    formData.append("release_date", form.form.release_date)
+                    formData.append("is_published", form.form.is_published)
+                    formData.append("brand", form.form.brand)
+                    formData.append("brand_id", form.form.brand_id)
                     this.$emit('close', {id: form.id !== null ? form.id : null, item: formData, action: this.action})
                 }
                 else if (this.$route.name === 'admin/users') {
