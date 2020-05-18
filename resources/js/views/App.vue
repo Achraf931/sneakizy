@@ -191,6 +191,7 @@
             font-size: 14px;
             font-family: Poppins, Norms, Arial, sans-serif;
             padding: 10px;
+            transition: all .2s ease;
 
             &.router-link-exact-active {
                 background: #f0f3ff;

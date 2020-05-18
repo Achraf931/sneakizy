@@ -47,7 +47,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        Cloudder::upload($request->file('image'));
+        Cloudder::upload($request->file('image'), null, ['folder' => 'Sneakizy/Products']);
         $cloundary_upload = Cloudder::getResult();
         $product = new Product();
         $product->name = $request->name;
@@ -69,12 +69,7 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, $id)
     {
-        dd(Product::find($id));
-
-
-
         return response()->json([
-            'status' => $status,
             'message' => $status ? 'Sneaker Updated!' : 'Error Updating Product'
         ]);
     }
@@ -84,19 +79,15 @@ class ProductController extends Controller
         $images = Image::where('product_id', $id)->get();
         foreach ($images as $image)
         {
-            $test = explode('/', $image->image);
-            $publicId = strtok($test[9], '.');
             Image::findOrFail($image->id)->delete();
-            Cloudder::destroyImage('Sneakizy/Images/' . $publicId);
-            Cloudder::delete('Sneakizy/Images/' . $publicId);
+            Cloudder::destroyImage('Sneakizy/Images/' . pathinfo($image->image)['filename']);
+            Cloudder::delete('Sneakizy/Images/' . pathinfo($image->image)['filename']);
         }
 
         $pro = Product::where('id', $id)->first();
-        $test = explode('/', $pro->image);
-        $publicId = strtok($test[9], '.');
         $status = Product::findOrFail($id)->delete();
-        Cloudder::destroyImage('Sneakizy/Products/' . $publicId);
-        Cloudder::delete('Sneakizy/Products/' . $publicId);
+        Cloudder::destroyImage('Sneakizy/Products/' . pathinfo($pro->image)['filename']);
+        Cloudder::delete('Sneakizy/Products/' . pathinfo($pro->image)['filename']);
 
         return response()->json([
             'status' => $status,

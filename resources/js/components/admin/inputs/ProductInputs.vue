@@ -30,6 +30,21 @@
         <input id="price" type="number" placeholder="Prix" v-model="form.price" @input="setPrice($event.target.value)" :class="{error: $v.form.price.$error}">
         <label for="image">Image</label>
         <input type="file" id="image" :change="form.image">
+
+        <h3>Images secondaires</h3>
+        <div style="display: grid; grid-gap: 20px; grid-template-columns: repeat(auto-fit, 126px);">
+            <div class="cPointer pRelative" style="width: 126px; height: 126px; border-radius: 5px; border: 1px dashed #591df1; color: #591df1; font-size: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column">
+                <div v-if="isAdding" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                <input @change="inputFileStyleTmp" class="input-file-container input-file" id="my-file" type="file">
+                <font-awesome-icon class="icon mrBottom5" icon="plus"/>
+                <label style="font-size: 13px" @click="inputFileStyleTmp" tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
+            </div>
+            <div v-if="imgArrayTmp.length > 0" class="pRelative boxShadow" v-for="img in imgArrayTmp" :key="img.id">
+                <div v-if="loading === img.id" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                <img style="width: 126px; height: 126px; object-fit: cover; border-radius: 5px;" :src="img.image" :alt="img.image">
+                <button :class="{disabled: loading === img.id}" :disabled="loading === img.id" class="cPointer button buttonDelete" style="border: none!important; width: 100%; background: red; padding: 5px; border-radius: 5px; text-align: center; color: white; font-size: 13px" @click="deleteImageTmp(img)">Supprimer</button>
+            </div>
+        </div>
         <div>
             <button class="button sendForm" @click.prevent="sendForm">Envoyer</button>
         </div>
@@ -81,8 +96,8 @@
             </div>
             <div class="pRelative boxShadow" v-for="img in oneItem.images" :key="img.id">
                 <div v-if="loading === img.id" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                <img style="width: 126px; height: 126px; object-fit: cover; border-radius: 5px;" :src="img.image" :alt="img.name">
-                <p class="cPointer button" style="border: none!important; width: 100%; background: red; padding: 5px; border-radius: 5px; text-align: center; color: white; font-size: 13px" @click="deleteImage(img)">Supprimer</p>
+                <img style="width: 126px; height: 126px; object-fit: cover; border-radius: 5px;" :src="img.image" :alt="img.image">
+                <button :class="{disabled: loading === img.id}" :disabled="loading === img.id" class="cPointer button buttonDelete" style="border: none!important; width: 100%; background: red; padding: 5px; border-radius: 5px; text-align: center; color: white; font-size: 13px" @click="deleteImage(img)">Supprimer</button>
             </div>
         </div>
         <div>
@@ -99,6 +114,7 @@
         props: ['oneItem'],
         data() {
             return {
+                imgArrayTmp: [],
                 isAdding: false,
                 error: '',
                 loading: null,
@@ -142,8 +158,22 @@
                 formData.append('product_id', this.oneItem.id)
                 document.querySelector( ".input-file" ).focus()
                 axios.post('/api/images', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
-                    this.oneItem.images.unshift(res.data.image)
-                    this.isAdding = false
+                    if (res.data.status) {
+                        this.oneItem.images.push(res.data.image)
+                        this.isAdding = false
+                    }
+                })
+            },
+            inputFileStyleTmp() {
+                this.isAdding = true
+                let formData = new FormData()
+                formData.append('image', event.target.files[0])
+                document.querySelector( ".input-file" ).focus()
+                axios.post('/api/images', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                    if (res.data.status) {
+                        this.imgArrayTmp.push(res.data.image)
+                        this.isAdding = false
+                    }
                 })
             },
             setName(value) {
@@ -194,6 +224,15 @@
                     }
                 })
             },
+            deleteImageTmp(img) {
+                this.loading = img.id
+                axios.delete('/api/images/' + img.id).then(res => {
+                    if (res.data.status) {
+                        this.imgArrayTmp.splice(this.imgArrayTmp.indexOf(img), 1)
+                        this.loading = null
+                    }
+                })
+            },
             sendForm() {
                 this.$v.form.$touch()
                 if (this.$v.form.$invalid) {
@@ -207,9 +246,10 @@
     }
 </script>
 <style lang="scss" scoped>
-    .input-file-container {
-        position: relative;
-        width: 225px;
+    .disabled {
+        transition: background .2s ease;
+        background-color: transparent!important;
+        color: transparent!important;
     }
     .input-file {
         position: absolute;
@@ -243,8 +283,8 @@
         position: absolute;
         width: 126px;
         height: 126px;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 10px;
+        background: white;
+        border-radius: 5px;
     }
     .lds-ellipsis div {
         position: absolute;

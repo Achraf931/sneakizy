@@ -20,11 +20,11 @@ class ImageController extends Controller
 
     public function store(Request $request)
     {
-        Cloudder::upload($request->file('image'));
+        Cloudder::upload($request->file('image'), null, ['folder' => 'Sneakizy/Images']);
         $cloundary_upload = Cloudder::getResult();
         $image = new Image();
         $image->image = $cloundary_upload['url'];
-        $image->product_id = $request->product_id;
+        $image->product_id = (int)$request->product_id;
         $image->save();
 
         return response()->json(['image' => $image, 'status' => true], 200);
@@ -48,10 +48,8 @@ class ImageController extends Controller
     public function destroy($id)
     {
         $image = Image::where('id', $id)->first();
-        $test = explode('/', $image->image);
-        $publicId = strtok($test[9], '.');
-        Cloudder::destroyImage('Sneakizy/Images/' . $publicId);
-        Cloudder::delete('Sneakizy/Images/' . $publicId);
+        Cloudder::destroyImage('Sneakizy/Images/' . pathinfo($image->image)['filename']);
+        Cloudder::delete('Sneakizy/Images/' . pathinfo($image->image)['filename']);
         $status = Image::findOrFail($id)->delete();
 
         return response()->json([
