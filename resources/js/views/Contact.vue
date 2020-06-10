@@ -6,24 +6,24 @@
                 <div class="formGroup">
                     <div class="vuelidate" :class="{errorForm: $v.form.lastname.$error}">
                         <label for="lastname">Nom</label>
-                        <input type="text" id="lastname" v-model.trim="$v.form.lastname.$model" placeholder="Entrez votre nom">
+                        <input type="text" id="lastname" v-model="form.lastname" @input="setLastname($event.target.value)" placeholder="Entrez votre nom">
                     </div>
                     <div class="vuelidate" :class="{errorForm: $v.form.firstname.$error}">
                         <label for="firstname">Prénom</label>
-                        <input type="text" id="firstname" v-model.trim="$v.form.firstname.$model" placeholder="Entrez votre prénom">
+                        <input type="text" id="firstname" v-model="form.firstname" @input="setFirstname($event.target.value)" placeholder="Entrez votre prénom">
                     </div>
                 </div>
                 <div class="group vuelidate" :class="{errorForm: $v.form.email.$error}">
                     <label for="email">Email</label>
-                    <input type="email" id="email" v-model.trim="$v.form.email.$model" placeholder="Entrez votre adresse mail">
+                    <input type="email" id="email" v-model="form.email" @input="setEmail($event.target.value)" placeholder="Entrez votre adresse mail">
                 </div>
                 <div class="group vuelidate" :class="{errorForm: $v.form.object.$error}">
                     <label for="object">Objet</label>
-                    <input type="text" id="object" v-model.trim="$v.form.object.$model" placeholder="Objet">
+                    <input type="text" id="object" v-model="form.object" @input="setObject($event.target.value)" placeholder="Objet">
                 </div>
                 <div class="vuelidate" :class="{errorForm: $v.form.message.$error}">
                     <label for="message">Message</label>
-                    <textarea id="message" v-model.trim="$v.form.message.$model" placeholder="Entrez votre message"></textarea>
+                    <textarea id="message" v-model="form.message" @input="setMessage($event.target.value)" placeholder="Entrez votre message"></textarea>
                 </div>
                 <button class="buttonSend" @click.prevent="sendMail">Envoyer</button>
                 <p>Tous les champs sont obligatoires.</p>
@@ -82,6 +82,26 @@
             }, 50)
         },
         methods: {
+            setLastname(value) {
+                this.form.lastname = value
+                this.$v.form.lastname.$touch()
+            },
+            setFirstname(value) {
+                this.form.firstname = value
+                this.$v.form.firstname.$touch()
+            },
+            setEmail(value) {
+                this.form.email = value
+                this.$v.form.email.$touch()
+            },
+            setObject(value) {
+                this.form.object = value
+                this.$v.form.object.$touch()
+            },
+            setMessage(value) {
+                this.form.message = value
+                this.$v.form.message.$touch()
+            },
             sendMail() {
                 this.$v.form.$touch()
                 if (this.$v.form.$invalid) {
@@ -89,6 +109,7 @@
                 } else {
                     this.$store.dispatch("loader/OpenLoader", true)
                     axios.post('/api/contact', this.form).then(() => {
+                        this.form = ''
                         this.$store.dispatch("loader/OpenLoader", false)
                         this.$store.dispatch("notifications/AddNotification", {notification: "Message envoyé avec succès !", type: 1})
                     })
