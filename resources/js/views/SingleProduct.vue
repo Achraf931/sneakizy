@@ -327,18 +327,6 @@
                 position: relative;
                 background-size: 0 0;
             }
-
-            #addBasket::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: radial-gradient(farthest-side, rgba(245,244,250, 0.4) calc(100% - 1px), transparent 100%) fixed no-repeat;
-                background-size: 30px 30px;
-                background-position: inherit;
-            }
             #addFavorite {
                 margin-top: 10px;
                 background-color: white;

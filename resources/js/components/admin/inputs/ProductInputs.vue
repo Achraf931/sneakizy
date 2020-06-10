@@ -60,7 +60,7 @@
 
         <label for="description">Description</label>
         <editor
-            :class="{error: $v.form.price.$error}"
+            :class="{error: $v.form.description.$error}"
             @input="setDescription($event.target.value)"
             id="description"
             v-model="oneItem.description"
@@ -245,94 +245,3 @@
         }
     }
 </script>
-<style lang="scss" scoped>
-    .disabled {
-        transition: background .2s ease;
-        background-color: transparent!important;
-        color: transparent!important;
-    }
-    .input-file {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-    }
-    .file-return {
-        margin: 0;
-    }
-    .file-return:not(:empty) {
-        margin: 1em 0;
-    }
-    .file-return {
-        font-style: italic;
-        font-size: .9em;
-        font-weight: bold;
-    }
-    .file-return:not(:empty):before {
-        content: "Selected file: ";
-        font-style: normal;
-        font-weight: normal;
-    }
-
-
-    .lds-ellipsis {
-        display: inline-block;
-        position: absolute;
-        width: 126px;
-        height: 126px;
-        background: white;
-        border-radius: 5px;
-    }
-    .lds-ellipsis div {
-        position: absolute;
-        top: 50%;
-        width: 13px;
-        height: 13px;
-        border-radius: 50%;
-        background: #591df1;
-        animation-timing-function: cubic-bezier(0, 1, 1, 0);
-    }
-    .lds-ellipsis div:nth-child(1) {
-        left: 35px;
-        animation: lds-ellipsis1 0.6s infinite;
-    }
-    .lds-ellipsis div:nth-child(2) {
-        left: 35px;
-        animation: lds-ellipsis2 0.6s infinite;
-    }
-    .lds-ellipsis div:nth-child(3) {
-        left: 59px;
-        animation: lds-ellipsis2 0.6s infinite;
-    }
-    .lds-ellipsis div:nth-child(4) {
-        left: 81px;
-        animation: lds-ellipsis3 0.6s infinite;
-    }
-    @keyframes lds-ellipsis1 {
-        0% {
-            transform: scale(0);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-    @keyframes lds-ellipsis3 {
-        0% {
-            transform: scale(1);
-        }
-        100% {
-            transform: scale(0);
-        }
-    }
-    @keyframes lds-ellipsis2 {
-        0% {
-            transform: translate(0, 0);
-        }
-        100% {
-            transform: translate(24px, 0);
-        }
-    }
-</style>

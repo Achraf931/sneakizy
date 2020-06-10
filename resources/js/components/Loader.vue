@@ -1,6 +1,16 @@
 <template>
-    <div class="containerLoader"><div class="lds-ripple"><div></div><div></div></div></div>
+    <div v-if="loader" class="containerLoader"><div class="lds-ripple"><div></div><div></div></div></div>
 </template>
+<script>
+    import {mapGetters} from "vuex";
+    export default {
+        computed: {
+            ...mapGetters({
+                loader: 'loader/loader'
+            })
+        }
+    }
+</script>
 <style>
     .containerLoader {
         position: fixed;

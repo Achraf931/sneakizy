@@ -97,7 +97,7 @@
             </div>
         </div>
         <transition name="fade">
-            <Modal @close="sendForm" :oneItem="actionForm === 'edit' ? oneItemForEditing : null" :itemForEdit="editingItem" :action="actionForm" v-show="openModalItem != null"/>
+            <Modal @closeModal="openModalItem = null" @close="sendForm" :oneItem="actionForm === 'edit' ? oneItemForEditing : null" :itemForEdit="editingItem" :action="actionForm" v-show="openModalItem != null"/>
         </transition>
         <transition name="fade">
             <div id="bg" v-show="openModalItem != null" @click="openModalItem = null"></div>

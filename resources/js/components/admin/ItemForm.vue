@@ -1,16 +1,22 @@
 <template>
     <UserInputs @sendEvent="sendForm" v-if="routeName === 'admin/users'" :oneItem="oneItem"/>
     <ProductInputs @sendEvent="sendForm" v-else-if="routeName === 'admin/products'" :oneItem="oneItem"/>
+    <ArticleInputs @sendEvent="sendForm" v-else-if="routeName === 'admin/news'" :oneItem="oneItem"/>
+    <BrandInputs @sendEvent="sendForm" v-else-if="routeName === 'admin/brands'" :oneItem="oneItem"/>
 </template>
 <script>
     import UserInputs from "./inputs/UserInputs"
-    import ProductInputs from "./inputs/ProductInputs";
+    import ProductInputs from "./inputs/ProductInputs"
+    import ArticleInputs from "./inputs/ArticleInputs"
+    import BrandInputs from "./inputs/BrandInputs"
 
     export default {
         props: ['itemForEdit', 'oneItem'],
         components: {
+            ArticleInputs,
             UserInputs,
-            ProductInputs
+            ProductInputs,
+            BrandInputs
         },
         data() {
             return {
@@ -52,6 +58,10 @@
             margin-bottom: 15px;
         }
 
+        h3:first-child {
+            margin-top: 0;
+        }
+
         input, textarea {
             padding: 10px 15px;
             margin: 5px 0;
@@ -70,6 +80,96 @@
             margin-top: 15px;
             padding: 10px 15px;
             border-radius: 5px;
+        }
+    }
+
+    .disabled {
+        transition: background .2s ease;
+        background-color: transparent!important;
+        color: transparent!important;
+    }
+    .input-file {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .file-return {
+        margin: 0;
+    }
+    .file-return:not(:empty) {
+        margin: 1em 0;
+    }
+    .file-return {
+        font-style: italic;
+        font-size: .9em;
+        font-weight: bold;
+    }
+    .file-return:not(:empty):before {
+        content: "Selected file: ";
+        font-style: normal;
+        font-weight: normal;
+    }
+
+
+    .lds-ellipsis {
+        display: inline-block;
+        position: absolute;
+        width: 126px;
+        height: 126px;
+        background: white;
+        border-radius: 5px;
+    }
+    .lds-ellipsis div {
+        position: absolute;
+        top: 50%;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #591df1;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+    .lds-ellipsis div:nth-child(1) {
+        left: 35px;
+        animation: lds-ellipsis1 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(2) {
+        left: 35px;
+        animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(3) {
+        left: 59px;
+        animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(4) {
+        left: 81px;
+        animation: lds-ellipsis3 0.6s infinite;
+    }
+    @keyframes lds-ellipsis1 {
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    @keyframes lds-ellipsis3 {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0);
+        }
+    }
+    @keyframes lds-ellipsis2 {
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(24px, 0);
         }
     }
 </style>

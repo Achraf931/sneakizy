@@ -12,9 +12,13 @@ export const getInfos = (state, infos) => {
     state.infos = infos
 }
 
-export const setBrand = (state, brand) => {
-    state.brands.push(brand)
+export const addBrand = (state, brand) => {
+    state.brands.unshift(brand)
     state.brandsWithPaginate.push(brand)
+}
+
+export const setBrand = (state, brand) => {
+    state.brand = brand
 }
 
 export const deleteBrand = (state, response) => {

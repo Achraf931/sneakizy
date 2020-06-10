@@ -7,6 +7,9 @@ import brands from './modules/brands/index'
 import basket from './modules/basket/index'
 import news from './modules/news/index'
 import admin from './modules/admin/index'
+import notifications from './modules/notifications/index'
+import loader from './modules/loader/index'
+
 import axios from 'axios'
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
@@ -21,6 +24,8 @@ export default new Vuex.Store({
         basket,
         brands,
         news,
-        admin
+        admin,
+        notifications,
+        loader
     }
 })

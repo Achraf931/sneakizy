@@ -1,8 +1,17 @@
 import {bus} from '../../../app.js'
+
 const headersReq = {'Content-Type': 'multipart/form-data'}
 
-export const addArticle = ({commit}, article) => {
-    axios.post(`/api/news`, article, {headers: {headersReq}})
+export const createArticle = ({commit}, form) => {
+    axios.post(`/api/news`, form, {headers: {headersReq}})
+        .then(res => {
+            commit('addArticle', res.data)
+        })
+        .catch(err => console.error(err))
+}
+
+export const editArticle = ({commit}, {id, form}) => {
+    axios.post(`/api/news/` + id, form, {headers: headersReq})
         .then(res => {
             commit('addArticle', res.data)
         })

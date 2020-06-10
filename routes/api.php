@@ -16,6 +16,8 @@ Route::get('/brands', 'BrandController@index');
 Route::get('/brands/{id}', 'BrandController@show');
 Route::get('/brands/{id}/products', 'BrandController@products');
 
+Route::post('/contact', 'ContactController@mail');
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('users/{id}', 'UserController@show');
     Route::patch('users/{id}', 'UserController@update');

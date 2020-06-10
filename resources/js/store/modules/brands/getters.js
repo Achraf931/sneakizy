@@ -6,6 +6,10 @@ export const brandsWithPaginate = state => {
     return state.brandsWithPaginate
 }
 
+export const brand = state => {
+    return state.brand
+}
+
 export const brandsLength = state => {
     return state.brands.length
 }

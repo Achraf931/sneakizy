@@ -8,17 +8,20 @@ use Illuminate\Queue\SerializesModels;
 
 class Mailtrap extends Mailable
 {
-    private $url;
     use Queueable, SerializesModels;
+    protected $email, $name, $object, $content;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($url)
+    public function __construct($email, $name, $object, $content)
     {
-        $this->url = $url;
+        $this->email = $email;
+        $this->name = $name;
+        $this->object = $object;
+        $this->content = $content;
     }
 
     /**
@@ -28,9 +31,9 @@ class Mailtrap extends Mailable
      */
     public function build()
     {
-        return $this->from('sneakizy@ecommerce.com', 'Sneakizy')
-            ->subject('SnapMail message')
+        return $this->from($this->email, $this->name)
+            ->subject($this->object)
             ->view('mail')
-            ->with(['url' => $this->url]);
+            ->with(['content' => $this->content]);
     }
 }

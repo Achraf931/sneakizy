@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleRequest;
 use App\News;
 use Illuminate\Http\Request;
+use JD\Cloudder\Facades\Cloudder;
 
 class NewsController extends Controller
 {
@@ -28,33 +30,46 @@ class NewsController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        //
+        Cloudder::upload($request->file('image'), null, ['folder' => 'Sneakizy/News']);
+        $cloundary_upload = Cloudder::getResult();
+        Cloudder::upload($request->file('banner'), null, ['folder' => 'Sneakizy/News']);
+        $cloundary_upload_banner = Cloudder::getResult();
+        $article = new News();
+        $article->title = $request->title;
+        $article->image = $cloundary_upload['url'];
+        $article->banner = $cloundary_upload_banner['url'];
+        $article->author = $request->author;
+        $article->summary = $request->summary;
+        $article->content = $request->content;
+        $article->save();
     }
 
     public function show($id)
     {
-        return response()->json(News::findOrFail($id));
+        return response()->json(News::isPublished()->where('id', $id)->get()->first(), 200);
     }
 
-    public function edit(News $news)
+    public function update(ArticleRequest $request, $id)
     {
-        //
-    }
-
-    public function update(Request $request, News $news)
-    {
-        //
+        return response()->json([
+            'message' => $status ? 'Sneaker Updated!' : 'Error Updating Product'
+        ]);
     }
 
     public function destroy($id)
     {
+        $article = News::where('id', $id)->first();
         $status = News::findOrFail($id)->delete();
+        Cloudder::destroyImage('Sneakizy/News/' . pathinfo($article->image)['filename']);
+        Cloudder::delete('Sneakizy/News/' . pathinfo($article->image)['filename']);
+        Cloudder::destroyImage('Sneakizy/News/' . pathinfo($article->banner)['filename']);
+        Cloudder::delete('Sneakizy/News/' . pathinfo($article->banner)['filename']);
 
         return response()->json([
             'status' => $status,
-            'message' => $status ? 'Article Deleted!' : 'Error Deleting Article'
+            'message' => $status ? 'Product Deleted!' : 'Error Deleting Product'
         ]);
     }
 }

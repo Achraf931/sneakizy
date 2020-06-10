@@ -1,6 +1,7 @@
 <template>
     <div class="app" :class="mode ? 'dark' : ''">
-        <!--<Loader/>-->
+        <Notification/>
+        <Loader/>
         <Nav @logout="logout" :lastname="lastname" :is_admin="is_admin" :isLoggedIn="isLoggedIn"/>
         <main>
             <router-view @loggedIn="change"></router-view>
@@ -9,6 +10,7 @@
     </div>
 </template>
 <script>
+    import Notification from "../components/Notification"
     import Nav from '../components/Nav'
     import Search from '../components/Search'
     import Footer from '../components/Footer'
@@ -41,7 +43,8 @@
             Nav,
             Search,
             Footer,
-            Loader
+            Loader,
+            Notification,
         },
         beforeMount() {
             window.addEventListener("DOMContentLoaded", () => {
@@ -620,6 +623,22 @@
 
     .bottom0 {
         bottom: 0;
+    }
+
+    .top15 {
+        top: 15px;
+    }
+
+    .left15 {
+        left: 15px;
+    }
+
+    .right15 {
+        right: 15px;
+    }
+
+    .bottom15 {
+        bottom: 15px;
     }
 
 

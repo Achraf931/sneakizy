@@ -84,8 +84,14 @@
         methods: {
             sendMail() {
                 this.$v.form.$touch()
-                if (this.$v.form.required) {
-                    console.log('test')
+                if (this.$v.form.$invalid) {
+                    this.$store.dispatch("notifications/AddNotification", {notification: "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge", type: 0})
+                } else {
+                    this.$store.dispatch("loader/OpenLoader", true)
+                    axios.post('/api/contact', this.form).then(() => {
+                        this.$store.dispatch("loader/OpenLoader", false)
+                        this.$store.dispatch("notifications/AddNotification", {notification: "Message envoyé avec succès !", type: 1})
+                    })
                 }
             }
         }
@@ -141,7 +147,6 @@
                 .buttonSend {
                     color: white;
                     background-color: #6FBD13;
-                    border-color: #6FBD13;
                     display: inline-block;
                     font-weight: 400;
                     text-align: center;
@@ -156,6 +161,7 @@
                     line-height: 1.5;
                     border-radius: 10px;
                     cursor: pointer;
+                    border: 1px solid #6FBD13;
                 }
                 p {
                     font-size: 10px;

@@ -1,6 +1,7 @@
 <template>
     <section class="bgWhite bRadius padding15 fullWidth">
         <div id="bg"></div>
+        <font-awesome-icon class="pAbsolute top15 right15" @click="close" icon="times"/>
 
         <ItemForm :oneItem="oneItem" :itemForEdit="itemForEdit" @send="sendForm"/>
     </section>
@@ -13,8 +14,10 @@
             ItemForm
         },
         methods: {
+            close() {
+                this.$emit('closeModal')
+            },
             sendForm(form) {
-
                 if (this.$route.name === 'admin/products') {
                     let formData = new FormData()
                     formData.append("image", form.form.image)
@@ -29,6 +32,23 @@
                 }
                 else if (this.$route.name === 'admin/users') {
                     this.$emit('close', {id: form.id !== null ? form.id : null, item: form, action: this.action})
+                }
+                else if (this.$route.name === 'admin/news') {
+                    let formData = new FormData()
+                    formData.append("image", form.form.image)
+                    formData.append("banner", form.form.banner)
+                    formData.append("title", form.form.title)
+                    formData.append("summary", form.form.summary)
+                    formData.append("content", form.form.content)
+                    formData.append("author", form.form.author)
+                    this.$emit('close', {id: form.id !== null ? form.id : null, item: formData, action: this.action})
+                }
+                else if (this.$route.name === 'admin/brands') {
+                    let formData = new FormData()
+                    formData.append("image", form.form.image)
+                    formData.append("banner", form.form.banner)
+                    formData.append("name", form.form.name)
+                    this.$emit('close', {id: form.id !== null ? form.id : null, item: formData, action: this.action})
                 }
             }
         }
