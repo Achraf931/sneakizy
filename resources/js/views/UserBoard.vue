@@ -8,9 +8,10 @@
             <p class="mrBottom10"><span>Infos</span> {{user.additional_info !== null ? user.additional_info : 'Non renseigné'}}</p>
             <p class="mrBottom10"><span>Ville</span> {{user.city !== null ? user.city : 'Non renseigné'}}</p>
             <p class="mrBottom10"><span>Code postal</span> {{user.zipcode !== null ? user.zipcode : 'Non renseigné'}}</p>
+
         </section>
         <section class="boxShadow containerRight mrRight20 bRadius bgWhite">
-
+            <p class="logout" @click="logout">Logout</p>
         </section>
     </div>
 </template>
@@ -26,6 +27,11 @@
         beforeMount() {
             let user = JSON.parse(localStorage.getItem('user'))
             this.$store.dispatch('users/getUser', user.id)
+        },
+        methods: {
+            logout() {
+                this.$emit('logout')
+            }
         }
     }
 </script>

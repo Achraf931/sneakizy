@@ -2,16 +2,12 @@
     <div class="login animation">
         <form class="boxShadow">
             <h2>Login</h2>
-
             <label for="email">E-Mail Address</label>
-
             <input id="email" type="email" v-model="email" required autofocus>
-
             <label for="password">Password</label>
-
             <input id="password" type="password" v-model="password" required>
-
             <button class="button" type="submit" @click.prevent="handleSubmit">Login</button>
+            <p class="textCenter mrTop5">Vous n'avez pas encore de compte ?<br><router-link class="colorUmbrella" :to="{name: 'register'}">Inscrivez-vous ici !</router-link></p>
         </form>
     </div>
 </template>
@@ -40,6 +36,7 @@
                         password: this.password
                     })
                         .then(response => {
+                            console.log(response.data)
                             let is_admin = response.data.user.is_admin
                             localStorage.setItem('user', JSON.stringify(response.data.user))
                             localStorage.setItem('jwt', response.data.token)

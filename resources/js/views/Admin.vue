@@ -21,7 +21,7 @@
                 <small>Utilisateurs</small>
             </router-link>
         </div>
-        <router-view></router-view>
+        <router-view @logout="logout"></router-view>
     </div>
 </template>
 <script>
@@ -54,6 +54,11 @@
             this.$store.dispatch('news/getArticles')
             this.$store.dispatch('users/getUsers')
             this.$store.dispatch('brands/getBrands')
+        },
+        methods: {
+            logout() {
+                this.$emit('logout')
+            }
         }
     }
 </script>

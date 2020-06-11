@@ -1,20 +1,9 @@
 <template>
     <div class="news animation">
-        <content-loader
-            v-if="skeleton"
-            width="300"
-            height="300"
-            :speed="2"
-            primaryColor="#f3f3f3"
-            secondaryColor="#ecebeb">
-            <rect x="0" y="0" rx="2" ry="2" width="350" height="350" />
-        </content-loader>
-
         <ArticleItem v-for="article in articles" :key="article.id" :article="article"/>
     </div>
 </template>
 <script>
-    import { ContentLoader } from "vue-content-loader"
     import {mapGetters} from 'vuex'
     import ArticleItem from '../components/ArticleItem'
     import {bus} from '../app'
@@ -27,17 +16,11 @@
             }
         },
         components: {
-            ArticleItem,
-            ContentLoader
+            ArticleItem
         },
         computed: {
             ...mapGetters({
                 articles: 'news/articles'
-            })
-        },
-        created() {
-            bus.$on('skeleton', res => {
-                this.skeleton = res
             })
         },
         beforeMount() {

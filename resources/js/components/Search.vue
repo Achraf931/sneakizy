@@ -43,7 +43,7 @@
             color: darkgrey!important;
         }
         input {
-            width: 300px;
+            width: 270px;
             padding: 4px 40px 4px 12px;
             font-size: 1rem;
             color: #000000;

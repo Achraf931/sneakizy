@@ -1,7 +1,7 @@
 <template>
     <section class="bgWhite bRadius padding15 fullWidth">
         <div id="bg"></div>
-        <font-awesome-icon class="pAbsolute top15 right15" @click="close" icon="times"/>
+        <font-awesome-icon class="pAbsolute top15 right15 cPointer" @click="close" icon="times"/>
 
         <ItemForm :oneItem="oneItem" :itemForEdit="itemForEdit" @send="sendForm"/>
     </section>

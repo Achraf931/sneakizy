@@ -5,7 +5,6 @@
             <router-link style="color: #2c3e50!important; font-family: NormsBold; background: none!important;" :to="{name: 'home'}">
                 <img style="width: 110px;" src="https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094079/Sneakizy/Logo/j67qaz4dabnjiyuttija.png" alt="logo">
             </router-link>
-            <!--            <p @click="activeDark">test</p>-->
             <div class="searchBar">
                 <Search/>
             </div>
@@ -13,15 +12,14 @@
         <font-awesome-icon @click="openMenu" v-if="window.width <= 837" icon="bars"/>
         <ul class="bottom" v-if="window.width > 837">
             <router-link :to="{name: 'home'}">Home</router-link>
-            <router-link :to="{name: 'catalog'}">Catalogue</router-link>
-            <router-link :to="{name: 'news'}">News</router-link>
+            <router-link :class="{'router-link-exact-active': this.$route.name === 'brandProducts' || this.$route.name === 'product'}" :to="{name: 'catalog'}">Catalogue</router-link>
+            <router-link :class="{'router-link-exact-active': this.$route.name === 'singleArticle'}" :to="{name: 'news'}">News</router-link>
             <router-link :to="{name: 'contact'}">Contact</router-link>
             <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
             <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
             <template v-if="isLoggedIn">
                 <router-link :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}</router-link>
                 <router-link :to="{ path: '/admin/' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
-                <li class="logout" v-if="isLoggedIn" @click="logout">Logout</li>
             </template>
             <router-link class="basketIcon" :to="{name: 'basket'}">
                 <li>
@@ -193,16 +191,6 @@
                     font-size: 20px;
                     cursor: pointer;
                 }
-            }
-
-            .logout {
-                color: #DC3445;
-                cursor: pointer;
-                background: white;
-                border-radius: 10px;
-                font-size: 14px;
-                font-family: Poppins, Norms, Arial, sans-serif;
-                padding: 10px;
             }
         }
     }

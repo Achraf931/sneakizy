@@ -26,7 +26,7 @@
         }
 
         div {
-            opacity: 0;
+            opacity: 1;
             position: absolute;
             left: 0;
             top: 0;
@@ -34,25 +34,22 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.4);
             z-index: 1;
-            transition-duration: 200ms;
+            transition: opacity .2s ease;
         }
 
         h3 {
-            opacity: 0;
+            opacity: 1;
             position: absolute;
             left: 10px;
             bottom: 10px;
             color: white;
             z-index: 20;
-            transition-duration: 200ms;
         }
     }
     .article:hover div {
-        opacity: 1;
-        transition-duration: 200ms;
+        opacity: 0;
     }
     .article:hover h3 {
-        opacity: 1;
-        transition-duration: 200ms;
+        opacity: 0;
     }
 </style>

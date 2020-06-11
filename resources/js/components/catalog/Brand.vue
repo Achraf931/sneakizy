@@ -1,7 +1,7 @@
 <template>
     <div class="containerProducts animation">
-        <Product v-for="product in products" :key="product.id"
-                 :brands="brands" :product="product"/>
+        <p class="bgWhite bRadius padding10" v-if="products.length === 0">Il n'y a aucune paire pour cette marque</p>
+        <Product v-else v-for="product in products" :key="product.id" :brands="brands" :product="product"/>
     </div>
 </template>
 <script>

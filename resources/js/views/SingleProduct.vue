@@ -3,13 +3,11 @@
         <article>
             <div class="boxShadow">
                 <div>
-                    <img id="imgPrincipal" @click="openImage(product.image)" :src="product.image"
-                         :alt="product.name">
+                    <img id="imgPrincipal" @click="openImage(product.image)" :src="product.image" :alt="product.name">
                 </div>
                 <div>
                     <div v-for="image in product.images" :key="image.id">
-                        <img @click="changeImage(image.image)" class="img" :src="image.image"
-                             :alt="image.id">
+                        <img @click="changeImage(image.image)" class="img" :src="image.image" :alt="image.id">
                     </div>
                 </div>
             </div>

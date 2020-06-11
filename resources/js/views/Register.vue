@@ -13,6 +13,7 @@
             <label for="password-confirm">Confirm Password</label>
             <input id="password-confirm" type="password" v-model="password_confirmation" required>
             <button class="button" type="submit" @click.prevent="handleSubmit">Register</button>
+            <p class="textCenter mrTop5">Vous avez déjà un compte ?<br><router-link class="colorUmbrella" :to="{name: 'login'}">Connectez-vous ici !</router-link></p>
         </form>
     </div>
 </template>

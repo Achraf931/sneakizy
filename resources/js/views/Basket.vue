@@ -15,7 +15,7 @@
                     <p>Frais de livraison <span>0,00€</span></p>
                     <h3>Total <span>{{ basketTotalPrice }}€</span></h3>
                     <hr>
-                    <router-link :to="{name: 'checkout'}"><p ref="buttonScroll" :class="scrollY >= 398 ? 'positionButton' : ''" class="paiement button">Paiement</p></router-link>
+                    <router-link v-if="basket.length > 0" :to="{name: 'checkout'}"><p ref="buttonScroll" class="paiement button">Paiement</p></router-link>
                 </div>
             </div>
         </div>

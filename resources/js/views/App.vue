@@ -2,9 +2,9 @@
     <div class="app" :class="mode ? 'dark' : ''">
         <Notification/>
         <Loader/>
-        <Nav @logout="logout" :lastname="lastname" :is_admin="is_admin" :isLoggedIn="isLoggedIn"/>
+        <Nav :lastname="lastname" :is_admin="is_admin" :isLoggedIn="isLoggedIn"/>
         <main>
-            <router-view @loggedIn="change"></router-view>
+            <router-view @logout="logout" @loggedIn="change"></router-view>
         </main>
         <Footer/>
     </div>
@@ -30,9 +30,6 @@
             }
         },
         created() {
-            bus.$on('mode', result => {
-                localStorage.setItem('mode', result)
-            })
             bus.$on('search', result => {
                 axios.get('/api/products?search=' + result).then(res => {
                     console.log(res)
@@ -55,11 +52,6 @@
             this.setDefaults()
         },
         methods: {
-            searchProduct(product) {
-                axios.get('/api/products?search=' + product).then(res => {
-                    console.log(res)
-                })
-            },
             setDefaults() {
                 if (this.isLoggedIn) {
                     let user = JSON.parse(localStorage.getItem('user'))
@@ -315,6 +307,10 @@
         margin: 0;
     }
 
+    .mrTop5 {
+        margin-top: 5px;
+    }
+
     .mrBottom5 {
         margin-bottom: 5px;
     }
@@ -538,8 +534,8 @@
         font-family: NormsLight, Norms, Arial, sans-serif;
     }
 
-    .fontS16 {
-        font-size: 16px;
+    .fontS12 {
+        font-size: 12px;
     }
 
     .fontBold {

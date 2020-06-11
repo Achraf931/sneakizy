@@ -23,6 +23,7 @@
                 </tr>
             </table>
         </section>
+        <p class="button boxShadow logout mrTop10 textCenter" @click="logout">Logout</p>
     </div>
 </template>
 <script>
@@ -43,13 +44,13 @@
                 users: 'users/usersWithDate'
             })
         },
-        mounted() {
-            console.log(this.users)
-        },
         beforeMount() {
             this.$store.dispatch('users/getUsersWithDate', {today: moment().format('YYYY-MM-DD')})
         },
         methods: {
+            logout() {
+                this.$emit('logout')
+            },
             today() {
                 this.isActive = 'today'
                 this.$store.dispatch('users/getUsersWithDate', {today: moment().format('YYYY-MM-DD')})
@@ -62,6 +63,17 @@
     }
 </script>
 <style lang="scss" scoped>
+    .logout {
+        color: white;
+        cursor: pointer;
+        width: fit-content;
+        border: 1px solid #DC3445;
+        background: #DC3445;
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: Poppins, Norms, Arial, sans-serif;
+        padding: 10px;
+    }
     .isActive {
         color: #591df1;
         border-bottom: 1px solid #591df1!important;

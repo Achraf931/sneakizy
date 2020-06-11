@@ -1,13 +1,17 @@
 <template>
     <div class="catalog">
         <div id="boxBrands" class="boxShadow">
-            <router-link :to="{name: 'catalog'}" :class="{line: brandName === 'All'}" style="border-bottom: 1px solid transparent; height: 50px; margin-right: 10px; display: flex; align-items: center; justify-content: center">
-                <p class="all">All</p>
+            <router-link :to="{name: 'catalog'}" :class="{line: brandName == 0}" style="border-bottom: 1px solid transparent; height: 50px; margin-right: 10px; display: flex; align-items: center; justify-content: center">
+                <p @click="brandName = 0" class="all">All</p>
             </router-link>
             <div id="containerBrands">
-                <router-link :to="{name: 'brandProducts', params: {id: brand.id}}" :class="{line: brandName === brand.name}" class="brands" v-for="brand in brands" :key="brand.index">
-                    <img :src="brand.image" :alt="brand.name">
+                <router-link :to="{name: 'brandProducts', params: {id: brand.id}}" :class="{line: brandName == brand.id}" class="brands" v-for="brand in brands" :key="brand.index">
+                    <img @click="brandName = brand.id" :src="brand.image" :alt="brand.name">
                 </router-link>
+            </div>
+            <div class="dFlex alignCenter justifyCenter flexColumn">
+                <p class="fontS12">Total</p>
+                <p style="width: 20px; height: 20px" class="dFlex justifyCenter alignCenter colorWhite bgUmbrella fontS12 bRadius">{{infos.total}}</p>
             </div>
         </div>
 
@@ -35,7 +39,7 @@
             return {
                 banner: '',
                 count: '',
-                brandName: 'All'
+                brandName: Object.keys(this.$route.params).length === 0 ? 0 : this.$route.params.id
             }
         },
         components: {
