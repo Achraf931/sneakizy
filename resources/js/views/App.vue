@@ -32,7 +32,6 @@
         created() {
             bus.$on('search', result => {
                 axios.get('/api/products?search=' + result).then(res => {
-                    console.log(res)
                 })
             })
         },

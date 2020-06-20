@@ -5,11 +5,14 @@
         <input id="name" type="text" placeholder="Nom" v-model="form.name" @input="setName($event.target.value)" :class="{error: $v.form.name.$error}">
         <label for="brand">Marque</label>
         <input id="brand" type="text" placeholder="Marque" v-model="form.brand" @input="setBrand($event.target.value)" :class="{error: $v.form.brand.$error}">
+        <label for="color">Couleur</label>
+        <input id="color" type="text" placeholder="Couleur" v-model="form.color">
 
         <label for="description">Description</label>
-        <editor
+ <!--       <editor
             id="description"
             v-model="form.description"
+            @input="setDescription($event.target.value)"
             api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
             :init="{
          height: 200,
@@ -24,7 +27,9 @@
            alignleft aligncenter alignright alignjustify | \
            bullist numlist outdent indent | removeformat | help'
        }"
-        />
+        />-->
+
+        <textarea name="description" id="description" v-model="form.description" @input="setDescription($event.target.value)"></textarea>
 
         <label for="price">Prix</label>
         <input id="price" type="number" placeholder="Prix" v-model="form.price" @input="setPrice($event.target.value)" :class="{error: $v.form.price.$error}">
@@ -57,13 +62,14 @@
         <input id="name" type="text" placeholder="Nom" v-model="oneItem.name" @input="setName($event.target.value)" :class="{error: $v.form.name.$error}">
         <label for="brand">Marque</label>
         <input id="brand" type="text" placeholder="Marque" v-model="oneItem.brand" @input="setBrand($event.target.value)" :class="{error: $v.form.brand.$error}">
+        <label for="color">Couleur</label>
+        <input id="color" type="text" placeholder="Couleur" v-model="form.color">
 
         <label for="description">Description</label>
-        <editor
-            :class="{error: $v.form.description.$error}"
-            @input="setDescription($event.target.value)"
+<!--        <editor
             id="description"
             v-model="oneItem.description"
+            @input="setDescription($event.target.value)"
             api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
             :init="{
          height: 200,
@@ -78,7 +84,9 @@
            alignleft aligncenter alignright alignjustify | \
            bullist numlist outdent indent | removeformat | help'
        }"
-        />
+        />-->
+
+        <textarea name="description" id="description" v-model="oneItem.description" @input="setDescription($event.target.value)"></textarea>
 
         <label for="price">Prix</label>
         <input id="price" type="number" placeholder="Prix" v-model="oneItem.price" @input="setPrice($event.target.value)" :class="{error: $v.form.price.$error}">
@@ -115,6 +123,7 @@
         data() {
             return {
                 imgArrayTmp: [],
+                idImgArrayTmp: [],
                 isAdding: false,
                 error: '',
                 loading: null,
@@ -122,10 +131,10 @@
                 form: {
                     name: '',
                     price: '',
+                    color: '',
                     description: '',
                     image: null,
                     release_date: '2020-01-01',
-                    is_published: 1,
                     brand: '',
                     brand_id: 1
                 }
@@ -142,10 +151,10 @@
                 price: {
                     required
                 },
-                description: {
+                brand: {
                     required
                 },
-                brand: {
+                description: {
                     required
                 }
             }
@@ -172,6 +181,7 @@
                 axios.post('/api/images', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
                     if (res.data.status) {
                         this.imgArrayTmp.push(res.data.image)
+                        this.idImgArrayTmp.push(res.data.image.id)
                         this.isAdding = false
                     }
                 })
@@ -235,11 +245,14 @@
             },
             sendForm() {
                 this.$v.form.$touch()
-                if (this.$v.form.$invalid) {
+                if (this.$v.$invalid) {
                     this.error = "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge"
                 } else {
                     this.form.image = document.getElementById('image').files[0]
+                    this.form.images = this.idImgArrayTmp
                     this.$emit('sendEvent', {form: this.form, id: this.oneItem !== null ? this.oneItem.id : null})
+                    this.form = {}
+                    this.$v.$reset()
                 }
             }
         }

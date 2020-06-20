@@ -8,7 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-<img src="https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094080/Sneakizy/Logo/qjmhoqpinrane4jcd7y9.jpg" alt="logo">
 <h1>Hello, vous avez reçu un nouveau message</h1>
 <p>{{$content}}</p>
 </body>

@@ -78,6 +78,7 @@
                 document.querySelectorAll('.animation').forEach(elem => {
                     elem.style.display = 'flex'
                     elem.style.opacity = '1'
+                    this.$v.$reset()
                 })
             }, 50)
         },
@@ -104,12 +105,13 @@
             },
             sendMail() {
                 this.$v.form.$touch()
-                if (this.$v.form.$invalid) {
+                if (this.$v.$invalid) {
                     this.$store.dispatch("notifications/AddNotification", {notification: "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge", type: 0})
                 } else {
                     this.$store.dispatch("loader/OpenLoader", true)
                     axios.post('/api/contact', this.form).then(() => {
-                        this.form = ''
+                        this.form = {}
+                        this.$v.$reset()
                         this.$store.dispatch("loader/OpenLoader", false)
                         this.$store.dispatch("notifications/AddNotification", {notification: "Message envoyé avec succès !", type: 1})
                     })

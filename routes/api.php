@@ -28,12 +28,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/logout', 'UserController@logout');
 
     Route::group(['middleware' => 'admin'], function () {
-        Route::apiResource('/brands', 'BrandController')->except(['index', 'show']);
-        Route::apiResource('/users', 'UserController')->except(['update', 'show', 'showOrders']);
-        Route::apiResource('/products', 'ProductController')->except(['index', 'show']);
-        Route::apiResource('/news', 'NewsController')->except(['index', 'show']);
+        Route::apiResource('/brands', 'BrandController')->except(['index', 'show', 'update']);
+        Route::apiResource('/users', 'UserController')->except(['show', 'showOrders']);
+        Route::apiResource('/products', 'ProductController')->except(['index', 'show', 'update']);
+        Route::apiResource('/news', 'NewsController')->except(['index', 'show', 'update']);
+
+        Route::post('/brands/{id}', 'BrandController@update');
+        Route::post('/products/{id}', 'ProductController@update');
+        Route::post('/news/{id}', 'NewsController@update');
 
         Route::post('/images', 'ImageController@store');
+        Route::post('/images/{id}', 'ImageController@update');
         Route::delete('/images/{id}', 'ImageController@destroy');
     });
 });

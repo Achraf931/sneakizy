@@ -39,6 +39,7 @@ class BrandController extends Controller
         $brand->image = $cloundary_upload['url'];
         $brand->banner = $cloundary_upload_banner['url'];
         $brand->save();
+        return response()->json($brand);
     }
 
     public function show($id)
@@ -49,6 +50,36 @@ class BrandController extends Controller
     public function products($id)
     {
         return response()->json(Product::where('brand_id', $id)->paginate(2));
+    }
+
+    public function update(BrandRequest $request, $id)
+    {
+        $brand = Brand::where('id', $id)->first();
+
+        if (isset($request->image) && $request->image !== 'undefined')
+        {
+            Cloudder::destroyImage('Sneakizy/Brands/' . pathinfo($brand->image)['filename']);
+            Cloudder::delete('Sneakizy/Brands/' . pathinfo($brand->image)['filename']);
+
+            Cloudder::upload($request->file('image'), null, ['folder' => 'Sneakizy/Brands']);
+            $cloundary_upload = Cloudder::getResult();
+            $brand->image = $cloundary_upload['url'];
+        }
+
+        if (isset($request->banner) && $request->banner !== 'undefined')
+        {
+            Cloudder::destroyImage('Sneakizy/Brands/' . pathinfo($brand->banner)['filename']);
+            Cloudder::delete('Sneakizy/Brands/' . pathinfo($brand->banner)['filename']);
+
+            Cloudder::upload($request->file('banner'), null, ['folder' => 'Sneakizy/Brands']);
+            $cloundary_upload2 = Cloudder::getResult();
+            $brand->banner = $cloundary_upload2['url'];
+        }
+
+        $brand->name = $request->name;
+        $brand->save();
+
+        return response()->json($brand);
     }
 
     public function destroy($id)

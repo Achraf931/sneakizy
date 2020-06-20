@@ -27,13 +27,13 @@ class ProductController extends Controller
         {
             if (isset($search) && !empty($search))
             {
-                return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->isPublished()->paginate((int)$max), 200);
+                return response()->json(Product::where('name', 'LIKE', '%'. $search .'%')->paginate((int)$max), 200);
             }
             if (isset($orderBy) && !empty($orderBy))
             {
-                return response()->json(Product::isPublished()->orderBy('created_at', $orderBy)->paginate((int)$max), 200);
+                return response()->json(Product::orderBy('created_at', $orderBy)->paginate((int)$max), 200);
             }
-            return response()->json(Product::isPublished()->paginate((int)$max), 200);
+            return response()->json(Product::paginate((int)$max), 200);
         }
         else
         {
@@ -60,18 +60,46 @@ class ProductController extends Controller
         $product->brand_id = $request->brand_id;
         $product->save();
         event(new ProductAdded($product));
+        return response()->json($product);
     }
 
     public function show($id)
     {
-        return response()->json(Product::isPublished()->where('id', $id)->with('images')->get()->first(), 200);
+        return response()->json(Product::where('id', $id)->with('images')->get()->first(), 200);
     }
 
     public function update(ProductRequest $request, $id)
     {
-        return response()->json([
-            'message' => $status ? 'Sneaker Updated!' : 'Error Updating Product'
-        ]);
+        $product = Product::where('id', $id)->first();
+
+        if (isset($request->is_published) && $request->is_published !== 'undefined')
+        {
+            $product->is_published = $request->is_published;
+        }
+        else
+        {
+            if (isset($request->image) && $request->image !== 'undefined')
+            {
+                Cloudder::destroyImage('Sneakizy/Products/' . pathinfo($product->image)['filename']);
+                Cloudder::delete('Sneakizy/Products/' . pathinfo($product->image)['filename']);
+
+                Cloudder::upload($request->file('image'), null, ['folder' => 'Sneakizy/Products']);
+                $cloundary_upload = Cloudder::getResult();
+                $product->image = $cloundary_upload['url'];
+            }
+
+            $product->name = $request->name;
+            $product->brand = $request->brand;
+            $product->color = $request->color;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->release_date = $request->release_date;
+            $product->brand_id = $request->brand_id;
+        }
+
+        $product->save();
+
+        return response()->json($product);
     }
 
     public function destroy($id)

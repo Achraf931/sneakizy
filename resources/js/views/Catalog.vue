@@ -9,7 +9,7 @@
                     <img @click="brandName = brand.id" :src="brand.image" :alt="brand.name">
                 </router-link>
             </div>
-            <div class="dFlex alignCenter justifyCenter flexColumn">
+            <div class="mrLeft10 dFlex alignCenter justifyCenter flexColumn">
                 <p class="fontS12">Total</p>
                 <p style="width: 20px; height: 20px" class="dFlex justifyCenter alignCenter colorWhite bgUmbrella fontS12 bRadius">{{infos.total}}</p>
             </div>
@@ -127,7 +127,8 @@
     }
 
     .containerButtonsPage {
-        width: fit-content;
+        max-width: 290px;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -140,14 +141,14 @@
         .buttonPage, .arrowPagination {
             cursor: pointer;
             color: #93a2dd;
-            width: 40px;
+            width: 30px;
             border: none;
-            height: 40px;
+            height: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 10px;
-            margin: 0 10px;
+            border-radius: 5px;
+            margin: 0 8px;
             padding: 10px 15px;
             transition: all .3s ease;
         }

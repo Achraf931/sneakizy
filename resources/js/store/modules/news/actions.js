@@ -2,18 +2,22 @@ import {bus} from '../../../app.js'
 
 const headersReq = {'Content-Type': 'multipart/form-data'}
 
-export const createArticle = ({commit}, form) => {
+export const createArticle = ({commit, dispatch}, form) => {
     axios.post(`/api/news`, form, {headers: {headersReq}})
         .then(res => {
             commit('addArticle', res.data)
+            dispatch('notifications/AddNotification', {notification: "Article ajouté avec succès !", type: 1}, {root: true})
+            dispatch('loader/OpenLoader', false, {root: true})
         })
         .catch(err => console.error(err))
 }
 
-export const editArticle = ({commit}, {id, form}) => {
-    axios.post(`/api/news/` + id, form, {headers: headersReq})
+export const editArticle = ({commit, dispatch}, {id, form}) => {
+    axios.post(`/api/news/` + id, form, typeof form.is_published === 'undefined' ? {headers: headersReq} : '')
         .then(res => {
-            commit('addArticle', res.data)
+            commit('editArticle', res.data)
+            dispatch('notifications/AddNotification', {notification: "Article modifié avec succès !", type: 1}, {root: true})
+            dispatch('loader/OpenLoader', false, {root: true})
         })
         .catch(err => console.error(err))
 }
@@ -60,11 +64,13 @@ export const getArticlesWithPaginate = ({commit, dispatch}, {page, nb, orderBy})
         })
 }
 
-export const deleteArticle = ({commit}, id) => {
+export const deleteArticle = ({commit, dispatch}, id) => {
     axios.delete('/api/news/' + id, {headers: headersReq})
         .then(res => {
             if (res.data.status) {
                 commit('deleteArticle', res.data)
+                dispatch('notifications/AddNotification', {notification: "Article supprimé avec succès !", type: 1}, {root: true})
+                dispatch('loader/OpenLoader', false, {root: true})
             }
         })
         .catch(err => {

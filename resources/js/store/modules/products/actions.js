@@ -1,19 +1,29 @@
-import {bus} from '../../../app'
-
 const headersReq = {'Content-Type': 'multipart/form-data'}
 
-export const createProduct = ({commit}, form) => {
+export const createProduct = ({commit, dispatch}, form) => {
+    let idImgs = form.get('images').split(',')
+
     axios.post(`/api/products`, form, {headers: headersReq})
         .then(res => {
-            commit('addProduct', res.data)
+            idImgs.forEach(image => {
+                axios.post('/api/images/' + image, {product_id: res.data.id})
+            })
+            return res.data
+        })
+        .then(product => {
+            commit('addProduct', product)
+            dispatch('notifications/AddNotification', {notification: "Produit ajouté avec succès !", type: 1}, {root: true})
+            dispatch('loader/OpenLoader', false, {root: true})
         })
         .catch(err => console.error(err))
 }
 
-export const editProduct = ({commit}, {id, form}) => {
-    axios.post(`/api/products/` + id, form, {headers: headersReq})
+export const editProduct = ({commit, dispatch}, {id, form}) => {
+    axios.post(`/api/products/` + id, form, typeof form.is_published === 'undefined' ? {headers: headersReq} : '')
         .then(res => {
-            commit('addProduct', res.data)
+            commit('editProduct', res.data)
+            dispatch('notifications/AddNotification', {notification: "Produit modifié avec succès !", type: 1}, {root: true})
+            dispatch('loader/OpenLoader', false, {root: true})
         })
         .catch(err => console.error(err))
 }
@@ -72,11 +82,13 @@ export const getBrandProducts = ({commit}, {id, page, nb}) => {
         })
 }
 
-export const deleteProduct = ({commit}, id) => {
+export const deleteProduct = ({commit, dispatch}, id) => {
     axios.delete('/api/products/' + id, {headers: headersReq})
         .then(res => {
             if (res.data.status) {
                 commit('deleteProduct', res.data)
+                dispatch('notifications/AddNotification', {notification: "Utilisateur supprimé avec succès !", type: 1}, {root: true})
+                dispatch('loader/OpenLoader', false, {root: true})
             }
         })
         .catch(err => {

@@ -1,6 +1,6 @@
 <template>
     <div class="customSelect" :tabindex="tabindex" @blur="open = false">
-        <div class="selected" :class="{open: open}" @click="open = !open">{{ selected }}</div>
+        <div class="selected" :class="{open: open}" @click="open = !open">{{ current === selected ? selected : selected = current }}</div>
         <div class="items boxShadow" :class="{selectHide: !open}">
             <div :class="{sameSelected: open && selected === option}" class="item" v-for="(option, i) of options" :key="i" @click="sendEmit(option)">
                 {{ option }}
@@ -20,6 +20,12 @@
                 type: Number,
                 required: false,
                 default: 0
+            },
+            current: {
+                required: false
+            },
+            id: {
+                required: false
             }
         },
         data() {
@@ -31,7 +37,7 @@
         methods: {
             sendEmit(option) {
                 this.selected = option
-                this.$emit('nbPerPage', option)
+                this.$emit('option', this.id != null ? {id: this.id, option: option === 'Oui' ? option = 1 : option = 0 } : option)
                 this.open = false
             }
         }
@@ -52,7 +58,9 @@
         border-radius: 5px;
         color: #93a2dd;
         height: 30px;
-        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
         cursor: pointer;
         user-select: none;
         transition: all .2s ease;
@@ -74,7 +82,7 @@
     .selected:after {
         position: absolute;
         content: "";
-        top: 11px;
+        top: 10px;
         right: 10px;
         width: 0;
         height: 0;

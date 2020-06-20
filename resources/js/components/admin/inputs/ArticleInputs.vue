@@ -193,12 +193,14 @@
             },
             sendForm() {
                 this.$v.form.$touch()
-                if (this.$v.form.$invalid) {
+                if (this.$v.$invalid) {
                     this.error = "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge"
                 } else {
                     this.form.image = document.getElementById('image').files[0]
                     this.form.banner = document.getElementById('banner').files[0]
                     this.$emit('sendEvent', {form: this.form, id: this.oneItem !== null ? this.oneItem.id : null})
+                    this.form = {}
+                    this.$v.$reset()
                 }
             }
         }

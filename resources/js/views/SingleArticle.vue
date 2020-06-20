@@ -11,7 +11,7 @@
 <script>
     import {mapGetters} from 'vuex'
     export default {
-        name: 'article',
+        name: 'singleArticle',
         computed: {
             ...mapGetters({
                 article: 'news/article'

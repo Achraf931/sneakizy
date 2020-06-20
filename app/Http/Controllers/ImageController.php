@@ -40,9 +40,11 @@ class ImageController extends Controller
         //
     }
 
-    public function update(Request $request, Image $image)
+    public function update(Request $request, $id)
     {
-        //
+        $image = Image::where('id', $id)->first();
+        $image->product_id = $request->product_id;
+        $image->save();
     }
 
     public function destroy($id)

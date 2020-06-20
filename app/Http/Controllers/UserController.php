@@ -117,7 +117,16 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        User::findOrFail($id)->update($request->all());
+        if (isset($request->is_admin))
+        {
+            $user = User::where('id', $id)->first();
+            $user->is_admin = $request->is_admin;
+            $user->save();
+        }
+        else
+        {
+            User::findOrFail($id)->update($request->all());
+        }
         return response()->json(User::where('id', $id)->first());
     }
 

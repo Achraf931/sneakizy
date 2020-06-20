@@ -36,7 +36,6 @@
                         password: this.password
                     })
                         .then(response => {
-                            console.log(response.data)
                             let is_admin = response.data.user.is_admin
                             localStorage.setItem('user', JSON.stringify(response.data.user))
                             localStorage.setItem('jwt', response.data.token)

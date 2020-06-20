@@ -18,6 +18,7 @@ export const getUsersWithPaginate = ({commit, dispatch}, {page, nb, orderBy}) =>
         .catch(err => {
             console.log(err)
         })
+
 }
 
 export const getUsers = ({commit}) => {
@@ -54,30 +55,33 @@ export const getUser = ({commit}, id) => {
         })
 }
 
-export const editUser = ({commit}, {id, form}) => {
-    console.log(form)
+export const editUser = ({commit, dispatch}, {id, form}) => {
     axios.patch('/api/users/' + id, form.form)
         .then(res => {
-            commit('setUser', res.data)
+            commit('editUser', res.data)
+            dispatch('notifications/AddNotification', {notification: "Utilisateur modifié avec succès !", type: 1}, {root: true})
+            dispatch('loader/OpenLoader', false, {root: true})
         })
 }
 
-export const deleteUser = ({commit}, id) => {
+export const deleteUser = ({commit, dispatch}, id) => {
     axios.delete('/api/users/' + id, {headers: headersReq})
         .then(res => {
-            if (res.data.status) {
-                commit('deleteUser', res.data)
-            }
+            commit('deleteUser', res.data)
+            dispatch('notifications/AddNotification', {notification: "Utilisateur supprimé avec succès !", type: 1}, {root: true})
+            dispatch('loader/OpenLoader', false, {root: true})
         })
         .catch(err => {
             console.log(err)
         })
 }
 
-export const createUser = ({commit}, form) => {
+export const createUser = ({commit, dispatch}, form) => {
     axios.post('/api/users', form.form)
         .then(res => {
             commit('setUser', res.data)
+            dispatch('notifications/AddNotification', {notification: "Utilisateur ajouté avec succès !", type: 1}, {root: true})
+            dispatch('loader/OpenLoader', false, {root: true})
         })
         .catch(err => {
             console.log(err)

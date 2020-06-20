@@ -21,8 +21,10 @@
                 if (this.$route.name === 'admin/products') {
                     let formData = new FormData()
                     formData.append("image", form.form.image)
+                    formData.append("images", form.form.images)
                     formData.append("name", form.form.name)
                     formData.append("price", form.form.price)
+                    formData.append("color", form.form.color)
                     formData.append("description", form.form.description)
                     formData.append("release_date", form.form.release_date)
                     formData.append("is_published", form.form.is_published)

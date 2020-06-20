@@ -1,6 +1,5 @@
 <template>
     <div class="adminItems boxShadow bRadius bgWhite fullWidth">
-        <Loader v-if="loading"/>
         <header class="mrBottom10">
             <h3>Liste des {{title}}</h3>
             <transition name="=fade">
@@ -30,6 +29,7 @@
                 <template v-if="routeName === 'admin/brands'">
                     <td>Titre</td>
                     <td>Logo</td>
+                    <td>Bannière</td>
                     <td>Date de création</td>
                 </template>
 
@@ -51,7 +51,7 @@
                 <template v-if="routeName === 'admin/news'">
                     <td>{{item.title}}</td>
                     <td>{{item.content.slice(0, 40)}}...</td>
-                    <td>{{item.is_published === 1 ? 'Oui' : 'Non'}}</td>
+                    <CustomSelect :id="item.id" @option="changeIsPublished" :current="item.is_published === 1 ? 'Oui' : 'Non'" :options="['Oui', 'Non']"/>
                 </template>
 
                 <template v-else-if="routeName === 'admin/products'">
@@ -59,21 +59,22 @@
                     <td>{{item.color}}</td>
                     <td>{{item.price}}</td>
                     <td>{{item.description.slice(0, 10).replace(/(<([^>]+)>)/ig, '')}}...</td>
-                    <td>{{item.is_published ? 'Oui' : 'Non'}}</td>
+                    <CustomSelect :id="item.id" @option="changeIsPublished" :current="item.is_published === 1 ? 'Oui' : 'Non'" :options="['Oui', 'Non']"/>
                 </template>
 
                 <template v-if="routeName === 'admin/brands'">
                     <td>{{item.name}}</td>
                     <td><img style="width: 30px;" :src="item.image" :alt="item.name"></td>
-                    <td>{{item.created_at}}</td>
+                    <td><img style="width: 80px;" :src="item.banner" :alt="item.banner"></td>
+                    <td>{{moment(item.created_at).format('YYYY-MM-DD')}}</td>
                 </template>
 
                 <template v-if="routeName === 'admin/users'">
                     <td>{{item.lastname}}</td>
                     <td>{{item.firstname}}</td>
                     <td>{{item.email}}</td>
-                    <td>{{item.created_at}}</td>
-                    <td>{{item.is_admin ? 'Oui' : 'Non'}}</td>
+                    <td>{{moment(item.created_at).format('YYYY-MM-DD')}}</td>
+                    <CustomSelect :id="item.id" @option="changeIsAdmin" :current="item.is_admin === 1 ? 'Oui' : 'Non'" :options="['Oui', 'Non']"/>
                 </template>
 
                 <td>
@@ -93,7 +94,7 @@
                 <button :class="{disabled: infos.current_page === infos.last_page || infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page || infos.current_page === infos.last_page" @click="getItems(infos.last_page, nbPerPage)"><font-awesome-icon icon="angle-double-right"/></button>
             </div>
             <div class="containerNbPerPage mrTop10">
-                <CustomSelect @nbPerPage="changeNbPerPage" :current="items.length" :options="[5, 10, 20, 30, 50, 75, 100]"/>
+                <CustomSelect @option="changeNbPerPage" :current="items.length" :options="[5, 10, 20, 30, 50, 75, 100]"/>
             </div>
         </div>
         <transition name="fade">
@@ -106,11 +107,11 @@
 </template>
 <script>
     import {bus} from "../../app"
-    import Loader from "../Loader"
     import Modal from './Modal'
     import CustomSelect from '../CustomSelect'
     import ActionsMenu from './ActionsMenu'
     import {mapGetters, mapState} from "vuex"
+    import moment from 'moment'
 
     export default {
         props: ['infos', 'items', 'storeActionGetItems', 'actionDeleteItem', 'actionEditItem', 'actionCreateItem', 'title', 'getterItem', 'oneItem'],
@@ -122,14 +123,14 @@
                 openModalItem: null,
                 actionForm: null,
                 editingItem: null,
-                orderItems: false
+                orderItems: false,
+                moment: moment
             }
         },
         components : {
             Modal,
             CustomSelect,
-            ActionsMenu,
-            Loader
+            ActionsMenu
         },
         watch: {
             checkAll() {
@@ -156,12 +157,10 @@
             sendForm(res) {
                 this.openModalItem = null
                 if (res.action === 'create') {
-                    console.log('create')
-                    console.log(res);
+                    this.$store.dispatch('loader/OpenLoader', true)
                     this.$store.dispatch(this.actionCreateItem, res.item)
                 }
                 else if (res.action === 'edit') {
-                    console.log('edit')
                     this.$store.dispatch(this.actionEditItem, {id: res.id, form: res.item})
                 }
             },
@@ -186,6 +185,17 @@
                 this.nbPerPage = nb
                 this.getItems(1, nb)
             },
+            changeIsAdmin(option) {
+                let form = {
+                    form: {
+                        is_admin: option.option
+                     }
+                }
+                this.$store.dispatch('users/editUser', {id: option.id, form: form})
+            },
+            changeIsPublished(option) {
+                this.$store.dispatch(this.actionEditItem, {id: option.id, form: {is_published: option.option}})
+            },
             actionItem(action) {
                 if (action.action === 'edit') {
                     this.actionForm = action.action
@@ -193,8 +203,7 @@
                     this.openModalItem = true
                 }
                 if (action.action === 'delete') {
-                    this.loading = true
-                    console.log(this.loading);
+                    this.$store.dispatch('loader/OpenLoader', true)
                     this.$store.dispatch(this.actionDeleteItem, action.id);
                 }
             },

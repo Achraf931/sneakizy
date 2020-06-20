@@ -8,14 +8,12 @@
                 <small>{{brand.name}}</small>
             </div>
             <h4>{{product.name}}</h4>
-            <p>{{product.color.slice(0, 24)}}</p>
+            <p v-if="product.color">{{product.color.slice(0, 24)}}</p>
+            <p v-else>{{product.color}}</p>
             <small>{{Math.round(product.price)}}€</small>
             <router-link class="button" :to="{name: 'product', params: {id: product.id}}">Voir</router-link>
         </div>
         <div class="productImage">
-            <div>
-                <button @click.prevent="addToBasket" class="button" id="addToBasket">Ajouter au panier</button>
-            </div>
             <img :src="product.image" :alt="product.name">
         </div>
     </div>
@@ -96,9 +94,6 @@
                 max-height: 200px;
                 border-radius: 10px;
             }
-        }
-        .productImage:hover div {
-            opacity: 1;
         }
 
         & > div {
