@@ -5,28 +5,28 @@
                 <h2 class="sendTitle colorUmbrella">Envoyez nous un message</h2>
                 <div class="formGroup">
                     <div class="vuelidate" :class="{errorForm: $v.form.lastname.$error}">
-                        <label for="lastname">Nom</label>
+                        <label class="labelColor" for="lastname">Nom</label>
                         <input type="text" id="lastname" v-model="form.lastname" @input="setLastname($event.target.value)" placeholder="Entrez votre nom">
                     </div>
                     <div class="vuelidate" :class="{errorForm: $v.form.firstname.$error}">
-                        <label for="firstname">Prénom</label>
+                        <label class="labelColor" for="firstname">Prénom</label>
                         <input type="text" id="firstname" v-model="form.firstname" @input="setFirstname($event.target.value)" placeholder="Entrez votre prénom">
                     </div>
                 </div>
                 <div class="group vuelidate" :class="{errorForm: $v.form.email.$error}">
-                    <label for="email">Email</label>
+                    <label class="labelColor" for="email">Email</label>
                     <input type="email" id="email" v-model="form.email" @input="setEmail($event.target.value)" placeholder="Entrez votre adresse mail">
                 </div>
                 <div class="group vuelidate" :class="{errorForm: $v.form.object.$error}">
-                    <label for="object">Objet</label>
+                    <label class="labelColor" for="object">Objet</label>
                     <input type="text" id="object" v-model="form.object" @input="setObject($event.target.value)" placeholder="Objet">
                 </div>
                 <div class="vuelidate" :class="{errorForm: $v.form.message.$error}">
-                    <label for="message">Message</label>
+                    <label class="labelColor" for="message">Message</label>
                     <textarea id="message" v-model="form.message" @input="setMessage($event.target.value)" placeholder="Entrez votre message"></textarea>
                 </div>
                 <button class="buttonSend" @click.prevent="sendMail">Envoyer</button>
-                <p>Tous les champs sont obligatoires.</p>
+                <p style="font-size: 10px" class="labelColor mrTop10 fontItalic">Tous les champs sont obligatoires.</p>
             </div>
             <div class="right bgUmbrella">
                 <h2>Contact</h2>
@@ -39,7 +39,7 @@
     </div>
 </template>
 <script>
-    import {required} from 'vuelidate/lib/validators'
+    import {required, email} from 'vuelidate/lib/validators'
 
     export default {
         name: 'contact',
@@ -63,6 +63,7 @@
                     required
                 },
                 email: {
+                    email,
                     required
                 },
                 object: {
@@ -186,11 +187,7 @@
                     cursor: pointer;
                     border: 1px solid #6FBD13;
                 }
-                p {
-                    font-size: 10px;
-                    font-style: italic;
-                    margin-top: 10px;
-                }
+
                 #message {
                     min-height: 100px;
                 }
@@ -216,21 +213,19 @@
                     }
                 }
 
-                input, textarea {
-                    display: block;
-                    width: 100%;
-                    height: calc(1.5em + .75rem + 2px);
-                    padding: .375rem .75rem;
-                    font-weight: 400;
-                    line-height: 1.5;
-                    background-color: #fff;
-                    background-clip: padding-box;
-                    border-radius: .25rem;
-                    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-                    border: 1px solid rgba(116, 142, 170, 0.25);
-                    color: #748EAA!important;
-                    font-size: 12px;
+                label {
+                    font-size: 13.333px;
                 }
+
+                input, textarea {
+                    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+                    margin-top: 3px;
+                    padding: 15px;
+                    width: 100%;
+                    border-radius: 5px;
+                    border: 1px solid #dcdcdc;
+                }
+
                 input:focus, textarea:focus {
                     border: 1px solid #591df1;
                 }

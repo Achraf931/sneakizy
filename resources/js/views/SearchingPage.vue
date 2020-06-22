@@ -1,5 +1,5 @@
 <template>
-    <div class="containerProducts animation">
+    <div style="margin-bottom: 40px" class="containerProducts animation">
         <template v-if="products.length > 0">
             <Product v-for="product in products" :key="product.id" :brands="brands" :product="product"/>
         </template>

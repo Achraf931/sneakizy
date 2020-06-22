@@ -6,20 +6,41 @@
         <div class="containerInfo">
             <h3>{{item.product.name}}</h3>
             <p>{{item.product.color}}</p>
-            <p>Taille / Pointure : {{item.size}}</p>
-            <p>Quantité : {{item.quantity}}</p>
+            <small>Taille / Pointure : <CustomSelect :id="item.id" @option="changeSize" :current="item.size" :options="['35', '36', '37', '38', '39']"/></small>
+            <small>Quantité : <CustomSelect :id="item.id" @option="changeQuantity" :current="item.quantity" :options="['1', '2', '3', '4', '5']"/></small>
         </div>
         <font-awesome-icon class="delete" @click="removeItem(item)" icon="times"/>
         <p id="price">{{Math.round(item.product.price * item.quantity)}}€</p>
     </div>
 </template>
 <script>
+    import CustomSelect from "./CustomSelect"
     export default {
         props: ['item'],
+        data() {
+            return {
+                quantity: this.item.quantity,
+                size: this.item.size
+            }
+        },
         methods: {
             removeItem(product) {
                 this.$emit('removeToBasket', product)
+            },
+            changeQuantity(quantity) {
+                this.quantity = quantity
+                this.sendEdition()
+            },
+            changeSize(size) {
+                this.size = size
+                this.sendEdition()
+            },
+            sendEdition() {
+                this.$store.dispatch('basket/EditProductInBasket', {id: this.item.product.id, data: {size: this.size, quantity: this.quantity}})
             }
+        },
+        components: {
+            CustomSelect
         }
     }
 </script>
@@ -47,6 +68,9 @@
         .containerInfo {
             padding: 8px 0 8px 15px;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .delete {

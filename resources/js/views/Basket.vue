@@ -45,7 +45,6 @@
         mounted() {
             window.addEventListener('scroll', function(){
                 this.scrollY = document.documentElement.scrollTop
-                console.log(this.scrollY)
             })
         },
         beforeMount() {
@@ -62,7 +61,7 @@
         }
     }
 </script>
-<style lang="scss" >
+<style lang="scss">
     .basket {
         display: flex;
         justify-content: center;

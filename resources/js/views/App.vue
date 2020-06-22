@@ -229,6 +229,10 @@
         justify-content: start;
     }
 
+    .justifyEnd {
+        justify-content: flex-end;
+    }
+
     .justifySpaceA {
         justify-content: space-around;
     }
@@ -247,6 +251,10 @@
 
     .alignStart {
         align-items: flex-start;
+    }
+
+    .alignEnd {
+        align-items: flex-end;
     }
 
     .flexRow {
@@ -509,8 +517,21 @@
         color: grey;
     }
 
+    .borderUmbrella {
+        border: 2px solid #591df1!important;
+    }
+
+
+    .borderWhite {
+        border: 2px solid white!important;
+    }
+
     .colorUmbrella {
         color: #591df1!important;
+    }
+
+    .labelColor {
+        color: #707070;
     }
 
     .bgUmbrella {
@@ -522,23 +543,19 @@
     }
 
     .fontRegular {
-        font-family: Norms, Arial, sans-serif;
+        font-family: Norms, Arial, sans-serif!important;
     }
 
     .fontBold {
-        font-family: NormsBold, Norms, Arial, sans-serif;
+        font-family: NormsBold, Norms, Arial, sans-serif!important;
     }
 
     .fontLight {
-        font-family: NormsLight, Norms, Arial, sans-serif;
+        font-family: NormsLight, Norms, Arial, sans-serif!important;
     }
 
     .fontS12 {
         font-size: 12px;
-    }
-
-    .fontBold {
-        font-weight: bold;
     }
 
     .fontItalic {

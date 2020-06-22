@@ -17,6 +17,7 @@ import NewsAdmin from './components/admin/News'
 import SearchingPage from "./views/SearchingPage"
 
 import Basket from './views/Basket'
+import Checkout from './views/Checkout'
 import UserBoard from './views/UserBoard'
 import Product from './views/SingleProduct'
 import Catalog from './views/Catalog'
@@ -27,7 +28,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faEllipsisH, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import vuelidate from 'vuelidate'
-import VueCarousel from 'vue-carousel';
+import VueCarousel from 'vue-carousel'
 
 library.add(faTimes, faBars, faShoppingBasket, faSearch, faTruck, faStopwatch, faLock, faHeart, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faEllipsisH, faPlus, faTrashAlt)
 
@@ -125,6 +126,14 @@ const router = new VueRouter({
             component: Basket,
             meta: {
                 title: 'Panier'
+            }
+        },
+        {
+            path: '/checkout',
+            name: 'checkout',
+            component: Checkout,
+            meta: {
+                title: 'Checkout'
             }
         },
         {
