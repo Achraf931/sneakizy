@@ -14,6 +14,7 @@ import ProductsAdmin from './components/admin/Products'
 import OrdersAdmin from './components/admin/Orders'
 import BrandsAdmin from './components/admin/Brands'
 import NewsAdmin from './components/admin/News'
+import SearchingPage from "./views/SearchingPage"
 
 import Basket from './views/Basket'
 import UserBoard from './views/UserBoard'
@@ -53,6 +54,14 @@ const router = new VueRouter({
             component: Catalog,
             meta: {
                 title: 'Catalogue'
+            }
+        },
+        {
+            path: '/search',
+            name: 'searchingPage',
+            component: SearchingPage,
+            meta: {
+                title: 'Recherche'
             }
         },
         {

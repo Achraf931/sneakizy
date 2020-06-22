@@ -1,5 +1,5 @@
 <template>
-    <div class="product boxShadow">
+    <router-link :to="{name: 'product', params: {id: product.id}}" class="product boxShadow">
         <div>
             <div class="brandImage">
                 <div>
@@ -11,12 +11,11 @@
             <p v-if="product.color">{{product.color.slice(0, 24)}}</p>
             <p v-else>{{product.color}}</p>
             <small>{{Math.round(product.price)}}€</small>
-            <router-link class="button" :to="{name: 'product', params: {id: product.id}}">Voir</router-link>
         </div>
         <div class="productImage">
             <img :src="product.image" :alt="product.name">
         </div>
-    </div>
+    </router-link>
 </template>
 <script>
     export default {
@@ -49,6 +48,7 @@
 </script>
 <style lang="scss" scoped>
     .product {
+        color: black;
         transition: all .3s ease;
         max-width: 300px;
         width: 100%;

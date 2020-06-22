@@ -36,6 +36,7 @@
                         <p :class="{selected: size === 46}" @click="size = 46">46</p>
                     </div>
                 </div>
+
                 <div style="display: flex; flex-direction: column">
                     <button class="button" id="addBasket" @mousemove="onMouseHover" @click.prevent="addToBasket">Ajouter au panier</button>
                     <button class="button" id="addFavorite" @click.prevent="addToBasket"><font-awesome-icon icon="heart"/> Ajouter aux favoris</button>
@@ -114,6 +115,10 @@
                 e.classList = 'selected'
             },
             addToBasket() {
+                if (this.size === null) {
+                    this.$store.dispatch('notifications/AddNotification', {notification: 'Vous devez choisir une taille !', type: 0})
+                    return
+                }
                 this.$store.dispatch('basket/AddProductToBasket', {
                     product: this.product,
                     quantity: 1,

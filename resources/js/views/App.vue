@@ -31,8 +31,7 @@
         },
         created() {
             bus.$on('search', result => {
-                axios.get('/api/products?search=' + result).then(res => {
-                })
+                this.$store.dispatch('products/getSearchProducts', result)
             })
         },
         components: {
@@ -157,7 +156,8 @@
 
     button {
         background: #591df1;
-        font-family: Norms;
+        font-family: Norms, Poppins, Arial, sans-serif;
+        user-select: none;
     }
 
     main {

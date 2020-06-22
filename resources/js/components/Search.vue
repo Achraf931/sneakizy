@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input autocomplete="off" v-model="search" @keyup.enter="sendSearch" type="text" placeholder="ex. Air Jordan 1">
+        <input autocomplete="off" v-model="search" @keyup.enter="sendWithEnter" type="text" placeholder="ex. Air Jordan 1">
         <font-awesome-icon @click="sendSearch" style="color: #2c3e50; font-size: 20px; cursor: pointer" icon="search"/>
     </div>
 </template>
@@ -23,7 +23,19 @@
         },
         methods: {
             sendSearch() {
+                if (this.search === '') {
+                    return
+                }
                 bus.$emit('search', this.search)
+            },
+            sendWithEnter() {
+                this.sendSearch()
+                if (this.search != '') {
+                    if (this.$route.name !== 'searchingPage') {
+                        this.$router.push({name: 'searchingPage'})
+                    }
+                }
+                this.search = ''
             }
         }
     }

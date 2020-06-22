@@ -105,3 +105,14 @@ export const getProductsLength = ({commit}) => {
             console.log(err)
         })
 }
+
+
+export const getSearchProducts = ({commit}, search) => {
+    axios.get('/api/products?search=' + search)
+        .then(res => {
+            commit('getProducts', res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
