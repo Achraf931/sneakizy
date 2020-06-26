@@ -18,6 +18,9 @@ import SearchingPage from "./views/SearchingPage"
 
 import Basket from './views/Basket'
 import Checkout from './views/Checkout'
+import Recap from './views/Recap'
+
+
 import UserBoard from './views/UserBoard'
 import Product from './views/SingleProduct'
 import Catalog from './views/Catalog'
@@ -134,6 +137,14 @@ const router = new VueRouter({
             component: Checkout,
             meta: {
                 title: 'Checkout'
+            }
+        },
+        {
+            path: '/recap',
+            name: 'recap',
+            component: Recap,
+            meta: {
+                title: 'Récapitulatif de commande'
             }
         },
         {

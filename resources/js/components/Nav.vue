@@ -9,7 +9,7 @@
                 <Search/>
             </div>
         </div>
-        <font-awesome-icon @click="openMenu" v-if="window.width <= 837" icon="bars"/>
+        <font-awesome-icon class="pAbsolute openMenu" @click="openMenu" v-if="window.width <= 837" icon="bars"/>
         <ul class="bottom" v-if="window.width > 837">
             <router-link :to="{name: 'home'}">Home</router-link>
             <router-link :class="{'router-link-exact-active': this.$route.name === 'brandProducts' || this.$route.name === 'product'}" :to="{name: 'catalog'}">Catalogue</router-link>
@@ -34,18 +34,26 @@
         </ul>
 
         <ul v-else id="mobileMenu">
-            <router-link @click="closeMenu" :to="{name: 'home'}">Home</router-link>
-            <router-link :to="{name: 'catalog'}">Catalogue</router-link>
-            <router-link :to="{name: 'news'}">News</router-link>
+            <router-link :to="{name: 'home'}">Home</router-link>
+            <router-link :class="{'router-link-exact-active': this.$route.name === 'brandProducts' || this.$route.name === 'product'}" :to="{name: 'catalog'}">Catalogue</router-link>
+            <router-link :class="{'router-link-exact-active': this.$route.name === 'singleArticle'}" :to="{name: 'news'}">News</router-link>
             <router-link :to="{name: 'contact'}">Contact</router-link>
-            <router-link @click="closeMenu" :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
-            <router-link @click="closeMenu" :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
+            <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
+            <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
             <template v-if="isLoggedIn">
-                <router-link @click="closeMenu" :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}
-                </router-link>
-                <router-link @click="closeMenu" :to="{ name: 'admin' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
-                <li v-if="isLoggedIn" @click="logout, closeMenu"> Logout</li>
+                <router-link :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}</router-link>
+                <router-link :to="{ path: '/admin/' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
             </template>
+            <router-link class="basketIcon" :to="{name: 'basket'}">
+                <li>
+                    <font-awesome-icon icon="shopping-basket"/>
+                    <transition v-if="basketItemCount > 0" name="fade">
+                        <div style="width: 15px; height: 15px; position: absolute; top: 5px; right: 5px; font-family: NormsBold, Norms, Arial, sans-serif; background: #591df1; border-radius: 100%; font-size: 10px; color: white; display: flex; justify-content: center; align-items: center;">
+                            {{basketItemCount}}
+                        </div>
+                    </transition>
+                </li>
+            </router-link>
         </ul>
     </nav>
 </template>
@@ -133,8 +141,13 @@
         display: none;
         animation: slideInUp 400ms forwards;
 
-        a {
-            color: white;
+        & > a {
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        & > a:first-child {
+            margin-top: 0;
         }
     }
 
@@ -196,6 +209,11 @@
     }
 
     @media all and (max-width: 837px) {
+        .openMenu {
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
         nav {
             padding: 20px 15px;
         }
@@ -212,6 +230,12 @@
         }
         svg {
             cursor: pointer;
+        }
+    }
+    @media all and (max-width: 440px) {
+        nav > .head > .searchBar {
+            top: 72%;
+            transform: none;
         }
     }
 </style>

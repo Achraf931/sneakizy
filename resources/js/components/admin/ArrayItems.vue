@@ -45,7 +45,9 @@
             </thead>
             <tbody>
             <tr class="item" v-for="item in items" :key="item.id">
-                <td><input :checked="itemsChecked.indexOf(item.id) !== -1" @change="checked(item.id)" type="checkbox" class="boxShadow"></td>
+                <td>
+                    <input v-if="routeName === 'admin/products' || routeName === 'admin/news' || routeName === 'admin/brands' || routeName === 'admin/users' && currentUser.id !== item.id" :checked="itemsChecked.indexOf(item.id) !== -1" @change="checked(item.id)" type="checkbox" class="boxShadow">
+                </td>
                 <td>{{item.id}}</td>
 
                 <template v-if="routeName === 'admin/news'">
@@ -117,6 +119,7 @@
         props: ['infos', 'items', 'storeActionGetItems', 'actionDeleteItem', 'actionEditItem', 'actionCreateItem', 'title', 'getterItem', 'oneItem'],
         data(){
             return {
+                currentUser: JSON.parse(localStorage.getItem('user')),
                 loading: false,
                 routeName: this.$route.name,
                 nbPerPage: 10,
@@ -168,7 +171,11 @@
                 this.$store.dispatch(this.storeActionGetItems, {page, nb})
             },
             toggleCheckAll() {
-                this.$store.dispatch('admin/toggleCheckAll', {items: this.items, event: event.target.checked})
+                this.items.forEach(item => {
+                    if (this.$route.name === 'admin/users' && this.currentUser.id != item.id) {
+                        this.$store.dispatch('admin/toggleCheckAll', {items: this.items, event: event.target.checked})
+                    }
+                })
             },
             verifyCheckPageChange() {
                 this.$store.dispatch('admin/verifyCheckPageChange', this.items)
@@ -178,7 +185,12 @@
             },
             deleteItems() {
                 this.itemsChecked.forEach(item => {
-                    this.$store.dispatch(this.actionDeleteItem, item);
+                    if (this.$route.name === 'admin/users' && this.currentUser.id === item.id) {
+                        this.$store.dispatch('notifications/AddNotification', {notification: 'Vous ne pouvez pas supprimer le compte avec lequel vous êtes connecté !', type: 0})
+                    }
+                    else {
+                        this.$store.dispatch(this.actionDeleteItem, item);
+                    }
                 })
             },
             changeNbPerPage(nb) {
@@ -203,6 +215,10 @@
                     this.openModalItem = true
                 }
                 if (action.action === 'delete') {
+                    if (this.$route.name === 'admin/users' && this.currentUser.id === action.id) {
+                        this.$store.dispatch('notifications/AddNotification', {notification: 'Vous ne pouvez pas supprimer le compte avec lequel vous êtes connecté !', type: 0})
+                        return
+                    }
                     this.$store.dispatch('loader/OpenLoader', true)
                     this.$store.dispatch(this.actionDeleteItem, action.id);
                 }

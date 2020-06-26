@@ -23,6 +23,11 @@ export const RemoveToBasket = (state, product) => {
     localStorage.setItem('basket', JSON.stringify(state.basket))
 }
 
+export const ClearBasket = (state) => {
+    state.basket = []
+    localStorage.removeItem('basket')
+}
+
 export const EditQuantityOrSize = (state, product) => {
     let productInBasket = state.basket.find(item => {
         return item.product.id === product.id

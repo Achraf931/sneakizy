@@ -10,21 +10,20 @@ use Illuminate\Queue\SerializesModels;
 class Mailorder extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $email, $name, $object, $user;
+    protected $email, $name, $products;
 
-    public function __construct($email, $name, $object, $user)
+    public function __construct($email, $name, $products)
     {
         $this->email = $email;
         $this->name = $name;
-        $this->user = $user;
-        $this->object = $object;
+        $this->products = $products;
     }
 
     public function build()
     {
         return $this->from($this->email, $this->name)
-            ->subject($this->object)
+            ->subject('Merci pour votre commande !')
             ->view('mailOrder')
-            ->with(['user' => $this->user]);
+            ->with(['products' => $this->products]);
     }
 }

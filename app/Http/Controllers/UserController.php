@@ -100,12 +100,15 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $status = User::findOrFail($id)->delete();
+        if ($id != auth()->user())
+        {
+            $status = User::findOrFail($id)->delete();
 
-        return response()->json([
-            'status' => $status,
-            'message' => $status ? 'User Deleted!' : 'Error Deleting User'
-        ]);
+            return response()->json([
+                'status' => $status,
+                'message' => $status ? 'User Deleted!' : 'Error Deleting User'
+            ]);
+        }
     }
 
     public function store(Request $request)

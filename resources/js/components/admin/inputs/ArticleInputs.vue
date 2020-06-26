@@ -5,43 +5,10 @@
         <input id="title" type="text" placeholder="Titre" v-model="form.title" @input="setTitle($event.target.value)" :class="{error: $v.form.title.$error}">
 
         <label for="summary">Summary</label>
-        <editor
-            id="summary"
-            v-model="form.summary"
-            api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
-            :init="{
-         height: 200,
-         menubar: true,
-         plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
-         ],
-         toolbar:
-           'undo redo | formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help'
-       }"
-        />
+        <textarea id="summary" v-model="form.summary"></textarea>
 
         <label for="content">Contenu</label>
-        <editor
-            id="content"
-            v-model="form.content"
-            api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
-            :init="{
-         height: 200,
-         menubar: true,
-         plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
-         ],
-         toolbar:
-           'undo redo | formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help'
-       }"/>
+        <textarea id="content" v-model="form.content"></textarea>
 
         <label for="image">Image</label>
         <input type="file" id="image" :change="form.image">
@@ -61,48 +28,10 @@
         <input id="title" type="text" placeholder="Titre" v-model="oneItem.title" @input="setTitle($event.target.value)" :class="{error: $v.form.title.$error}">
 
         <label for="summary">Summary</label>
-        <editor
-            :class="{error: $v.form.summary.$error}"
-            @input="setSummary($event.target.value)"
-            id="summary"
-            v-model="oneItem.summary"
-            api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
-            :init="{
-         height: 200,
-         menubar: true,
-         plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
-         ],
-         toolbar:
-           'undo redo | formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help'
-       }"
-        />
+        <textarea id="summary" :class="{error: $v.form.summary.$error}" @input="setSummary($event.target.value)" v-model="oneItem.summary"></textarea>
 
         <label for="content">Contenu</label>
-        <editor
-            :class="{error: $v.form.content.$error}"
-            @input="setContent($event.target.value)"
-            id="content"
-            v-model="oneItem.content"
-            api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
-            :init="{
-         height: 200,
-         menubar: true,
-         plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
-         ],
-         toolbar:
-           'undo redo | formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help'
-       }"
-        />
+        <textarea id="content" :class="{error: $v.form.content.$error}" @input="setContent($event.target.value)" v-model="oneItem.content"></textarea>
 
         <label for="image">Image</label>
         <input type="file" id="image" :change="oneItem.image">

@@ -1,44 +1,46 @@
 <template>
-    <div style="margin-bottom: 40px" class="animation containerCheckout justifySpaceB">
+    <div style="margin-bottom: 40px" class="containerCheckout dFlex justifySpaceB">
         <div class="containerForm justifySpaceB dFlex mrRight20" style="padding-right: 0!important;">
             <section style="height: fit-content" class="padding20 bgWhite bRadius boxShadow">
                 <h3 class="mrBottom20">Infos</h3>
 
                 <div class="dFlex justifySpaceB field">
-                    <div class="mrRight10" :class="{errorForm: $v.form.lastname.$error}">
+
+                    <div class="mrRight10" :class="{errorForm: $v.user.lastname.$error}">
                         <label class="labelColor" for="lastname">Nom*</label>
-                        <input id="lastname" class="input" type="text" v-model="user.lastname" @input="setLastname($event.target.value)" placeholder="Nom">
+                        <input id="lastname" class="input" type="text" v-model.trim="user.lastname" @input="setLastname($event.target.value)" placeholder="Nom">
                     </div>
-                    <div :class="{errorForm: $v.form.firstname.$error}">
+
+                    <div :class="{errorForm: $v.user.firstname.$error}">
                         <label class="labelColor" for="firstname">Prénom*</label>
-                        <input class="input" id="firstname" type="text" v-model="user.firstname" @input="setFirstname($event.target.value)" placeholder="Prénom">
+                        <input class="input" id="firstname" type="text" v-model.trim="user.firstname" @input="setFirstname($event.target.value)" placeholder="Prénom">
                     </div>
                 </div>
 
-                <div class="field" :class="{errorForm: $v.form.address.$error}">
+                <div class="field" :class="{errorForm: $v.user.address.$error}">
                     <label class="labelColor" for="address">Adresse*</label>
-                    <input class="input" id="address" type="text" v-model="user.address" @input="setAddress($event.target.value)" placeholder="Adresse">
+                    <input class="input" id="address" type="text" v-model.trim="user.address" @input="setAddress($event.target.value)" placeholder="Adresse">
                 </div>
 
                 <div class="field">
                     <label class="labelColor" for="additional_info">Complément d'adresse</label>
-                    <input class="input" id="additional_info" type="text" v-model="user.additional_info" placeholder="Complément d'adresse">
+                    <input class="input" id="additional_info" type="text" v-model.trim="user.additional_info" placeholder="Complément d'adresse">
                 </div>
 
                 <div class="dFlex justifySpaceB field">
-                    <div class="mrRight10" :class="{errorForm: $v.form.city.$error}">
+                    <div class="mrRight10" :class="{errorForm: $v.user.city.$error}">
                         <label class="labelColor" for="city">Ville*</label>
-                        <input class="input" id="city" type="text" v-model="user.city" @input="setCity($event.target.value)" placeholder="Ville">
+                        <input class="input" id="city" type="text" v-model.trim="user.city" @input="setCity($event.target.value)" placeholder="Ville">
                     </div>
-                    <div :class="{errorForm: $v.form.zipcode.$error}">
+                    <div :class="{errorForm: $v.user.zipcode.$error}">
                         <label class="labelColor" for="zipcode">Code postal*</label>
-                        <input class="input" id="zipcode" type="number" v-model="user.zipcode" @input="setZipcode($event.target.value)" placeholder="Code postal">
+                        <input class="input" id="zipcode" type="number" v-model.trim="user.zipcode" @input="setZipcode($event.target.value)" placeholder="Code postal">
                     </div>
                 </div>
 
-                <div class="field" :class="{errorForm: $v.form.email.$error}">
+                <div class="field" :class="{errorForm: $v.user.email.$error}">
                     <label class="labelColor" for="email">E-mail</label>
-                    <input class="input" id="email" type="text" v-model="user.email" @input="setEmail($event.target.value)" placeholder="E-mail">
+                    <input class="input" id="email" type="text" v-model.trim="user.email" @input="setEmail($event.target.value)" placeholder="E-mail">
                 </div>
 
                 <small style="font-size: 10px" class="labelColor mrTop10 fontItalic">*Champs obligatoires.</small>
@@ -52,7 +54,28 @@
                     <p :class="{selected: cardType === 1}" @click="cardType = 1">Paypal</p>
                 </div>
 
-                <VCreditCard v-if="cardType === 0" class="padding0" :trans="translations" :noCard="true" @change="creditInfoChanged"/>
+                <div class="paddingRight20 paddingLeft20 mrTop20" v-if="cardType === 0">
+                    <div class="field" :class="{errorForm: $v.user.cardName.$error}">
+                        <label class="labelCardName" for="cardName">Nom complet*</label>
+                        <input class="input" id="cardName" type="text" v-model.trim="user.cardName" @input="setCardName($event.target.value)" placeholder="Nom complet">
+                    </div>
+                    <div class="field" :class="{errorForm: $v.user.cardCode.$error}">
+                        <label class="labelCardCode" for="cardCode">Numéro de carte*</label>
+                        <input class="input" id="cardCode" type="text" v-model.trim="user.cardCode" maxlength="16" @input="setCardCode($event.target.value)" placeholder="Numéro de carte">
+                    </div>
+
+
+                    <div class="dFlex justifySpaceB field">
+                        <div class="mrRight10" :class="{errorForm: $v.user.cardDate.$error}">
+                            <label class="labelCardDate" for="cardDate">Expiration (mm/yy)*</label>
+                            <input class="input" id="cardDate" type="text" v-model.trim="user.cardDate" maxlength="5" @keyup="formatDate($event.target.value)" @input="setCardDate($event.target.value)" placeholder="Expiration">
+                        </div>
+                        <div :class="{errorForm: $v.user.cardCVC.$error}">
+                            <label class="labelCardCVC" for="cardCVC">CVC*</label>
+                            <input class="input" id="cardCVC" type="text" v-model.trim="user.cardCVC" maxlength="4" @input="setCardCVC($event.target.value)" placeholder="CVC">
+                        </div>
+                    </div>
+                </div>
 
                 <div v-if="cardType === 0" class="dFlex paddingLeft20 paddingRight20 justifyEnd">
                     <button @click.prevent="sendForm" class="button bRadius payButton paddingRight20 paddingLeft20 cPointer">Payer</button>
@@ -69,6 +92,7 @@
                     <div>
                         <p class="fontBold colorWhite">{{product.product.name.slice(0, 12)}}</p>
                         <p class="colorWhite" v-if="product.product.color != ''">{{product.product.color.slice(0, 12)}}</p>
+                        <p class="colorWhite">Taille: {{product.size}}</p>
                     </div>
                     <div class="dFlex flexColumn alignEnd justifySpaceB">
                         <p class="quantity dFlex justifyCenter alignCenter cPointer colorUmbrella bgWhite borderWhite fontBold">{{product.quantity}}</p>
@@ -88,8 +112,6 @@
 </template>
 
 <script>
-    import VCreditCard from 'v-credit-card'
-    import 'v-credit-card/dist/VCreditCard.css'
     import {mapGetters} from 'vuex'
     import {required, email, maxLength, minLength, numeric} from "vuelidate/lib/validators";
 
@@ -100,38 +122,21 @@
                 loaded: false,
                 paidFor: false,
                 cardInfo: null,
-                user: null,
                 card: null,
                 cardType: null,
-                translations: {
-                    name: {
-                        label: 'Nom complet',
-                        placeholder: 'Nom complet'
-                    },
-                    card: {
-                        label: 'Numéro de carte',
-                        placeholder: 'Numéro de carte'
-                    },
-                    expiration: {
-                        label: 'Expiration'
-                    },
-                    security: {
-                        label: 'CVC',
-                        placeholder: 'CVC'
-                    }
-                },
-                form: {
+                user: JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {
                     lastname: '',
                     firstname: '',
                     email: '',
                     address: '',
                     zipcode: '',
-                    city: ''
+                    city: '',
+                    cardName: '',
+                    cardDate: '',
+                    cardCVC: '',
+                    cardCode: ''
                 }
             }
-        },
-        components: {
-            VCreditCard
         },
         computed: {
             ...mapGetters({
@@ -140,16 +145,8 @@
                 basketTotalPrice: 'basket/basketTotalPrice'
             })
         },
-        beforeMount() {
-            setTimeout(() => {
-                let elem = document.querySelector('.animation')
-                elem.style.display = 'flex'
-                elem.style.opacity = '1'
-            }, 50)
-            this.user = typeof JSON.parse(localStorage.getItem('user')) === 'undefined' ? null : JSON.parse(localStorage.getItem('user'))
-        },
         validations: {
-            form: {
+            user: {
                 lastname: {
                     required
                 },
@@ -171,48 +168,93 @@
                 },
                 city: {
                     required
+                },
+                cardName: {
+                    required
+                },
+                cardDate: {
+                    required,
+                    minLength: minLength(5),
+                    maxLength: maxLength(5)
+                },
+                cardCVC: {
+                    required,
+                    numeric,
+                    minLength: minLength(3),
+                    maxLength: maxLength(4)
+                },
+                cardCode: {
+                    required,
+                    numeric,
+                    minLength: minLength(16),
+                    maxLength: maxLength(16)
                 }
             }
         },
+        beforeMount() {
+            if (!JSON.parse(localStorage.getItem('basket')))
+                this.$router.replace({name: 'basket'})
+        },
         methods: {
+            setCardName(value) {
+                this.user.cardName = value
+                this.$v.user.cardName.$touch()
+            },
+            setCardDate(value) {
+                this.user.cardDate = value
+                this.$v.user.cardDate.$touch()
+            },
+            setCardCVC(value) {
+                this.user.cardCVC = value
+                this.$v.user.cardCVC.$touch()
+            },
+            setCardCode(value) {
+                this.user.cardCode = value
+                this.$v.user.cardCode.$touch()
+            },
             setLastname(value) {
-                this.form.lastname = value
-                this.$v.form.lastname.$touch()
+                this.user.cardCode = value
+                this.$v.user.lastname.$touch()
             },
             setFirstname(value) {
-                this.form.firstname = value
-                this.$v.form.firstname.$touch()
+                this.user.firstname = value
+                this.$v.user.firstname.$touch()
             },
             setEmail(value) {
-                this.form.email = value
-                this.$v.form.email.$touch()
+                this.user.email = value
+                this.$v.user.email.$touch()
             },
             setAddress(value) {
-                this.form.address = value
-                this.$v.form.address.$touch()
+                this.user.address = value
+                this.$v.user.address.$touch()
             },
             setZipcode(value) {
-                this.form.zipcode = value
-                this.$v.form.zipcode.$touch()
+                this.user.zipcode = value
+                this.$v.user.zipcode.$touch()
             },
             setCity(value) {
-                this.form.city = value
-                this.$v.form.city.$touch()
+                this.user.city = value
+                this.$v.user.city.$touch()
             },
-            creditInfoChanged(values) {
-                this.cardInfo = values
+            formatDate(value) {
+                if (value.length === 2) {
+                    this.user.cardDate += '/'
+                }
             },
             sendForm() {
-                this.$v.form.$touch()
+                this.$v.user.$touch()
                 if (this.$v.$invalid) {
                     this.$store.dispatch("notifications/AddNotification", {notification: "Veuillez remplir les champs en rouge", type: 0})
                 } else {
+                    this.user.products = this.basket
                     this.$store.dispatch("loader/OpenLoader", true)
-                    axios.post('/api/contact', this.form).then(() => {
-                        this.form = {}
-                        this.$v.$reset()
-                        this.$store.dispatch("loader/OpenLoader", false)
-                        this.$store.dispatch("notifications/AddNotification", {notification: "Message envoyé avec succès !", type: 1})
+                    axios.post('/api/checkout', this.user).then(res => {
+                        if (res.data) {
+                            this.$v.$reset()
+                            this.$store.dispatch("loader/OpenLoader", false)
+                            this.$router.replace({name: 'recap', params: {products: this.user.products, total: this.basketTotalPrice}})
+                            this.$store.dispatch('basket/ClearBasket')
+                        }
                     })
                 }
             }

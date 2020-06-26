@@ -55,7 +55,7 @@
             color: darkgrey!important;
         }
         input {
-            width: 270px;
+            width: 150px;
             padding: 4px 40px 4px 12px;
             font-size: 1rem;
             color: #000000;

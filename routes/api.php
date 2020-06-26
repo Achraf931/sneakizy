@@ -11,6 +11,7 @@ Route::get('/products/length', 'ProductController@length');
 Route::apiResource('/news', 'NewsController')->only(['index', 'show']);
 
 Route::get('/basket', 'BasketController@store');
+Route::post('/checkout', 'OrderController@store');
 
 Route::get('/brands', 'BrandController@index');
 Route::get('/brands/{id}', 'BrandController@show');
