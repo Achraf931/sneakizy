@@ -26,7 +26,7 @@
                 if (this.search === '') {
                     return
                 }
-                bus.$emit('search', this.search)
+                bus.$emit('search', this.strUcFirst(this.search))
             },
             sendWithEnter() {
                 this.sendSearch()
@@ -36,6 +36,9 @@
                     }
                 }
                 this.search = ''
+            },
+            strUcFirst(a) {
+                return (a+'').charAt(0).toUpperCase()+a.substr(1)
             }
         }
     }
