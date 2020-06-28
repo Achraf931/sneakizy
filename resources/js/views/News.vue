@@ -10,11 +10,6 @@
 
     export default {
         name: 'news',
-        data() {
-            return {
-                skeleton: true
-            }
-        },
         components: {
             ArticleItem
         },

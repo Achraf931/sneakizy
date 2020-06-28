@@ -56,7 +56,7 @@ class NewsController extends Controller
         }
         else
         {
-            if (isset($request->image) && $request->image !== 'undefined')
+            if (isset($request['image']) && $request['image'] !== 'undefined')
             {
                 Cloudder::destroyImage('Sneakizy/News/' . pathinfo($article->image)['filename']);
                 Cloudder::delete('Sneakizy/News/' . pathinfo($article->image)['filename']);
@@ -66,7 +66,7 @@ class NewsController extends Controller
                 $article->image = $cloundary_upload['url'];
             }
 
-            if (isset($request->banner) && $request->banner !== 'undefined')
+            if (isset($request['banner']) && $request['banner'] !== 'undefined')
             {
                 Cloudder::destroyImage('Sneakizy/News/' . pathinfo($article->banner)['filename']);
                 Cloudder::delete('Sneakizy/News/' . pathinfo($article->banner)['filename']);
@@ -76,10 +76,10 @@ class NewsController extends Controller
                 $article->banner = $cloundary_upload2['url'];
             }
 
-            $article->title = $request->title;
-            $article->summary = $request->summary;
-            $article->content = $request->content;
-            $article->author = $request->author;
+            $article->title = $request['title'];
+            $article->summary = $request['summary'];
+            $article->content = $request['content'];
+            $article->author = $request['author'];
         }
 
         $article->save();

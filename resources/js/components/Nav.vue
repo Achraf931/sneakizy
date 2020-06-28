@@ -3,7 +3,7 @@
         <div @click="closeMenu" v-if="menu === true" class="bg"></div>
         <div class="head">
             <router-link style="color: #2c3e50!important; font-family: NormsBold; background: none!important;" :to="{name: 'home'}">
-                <img style="width: 110px;" src="https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094079/Sneakizy/Logo/j67qaz4dabnjiyuttija.png" alt="logo">
+                <img style="width: 110px;" src="https://res.cloudinary.com/hyp1x6w5j/image/upload/v1593189236/sneakizy_qwvo1n.png" alt="logo">
             </router-link>
             <div class="searchBar">
                 <Search/>
@@ -34,21 +34,21 @@
         </ul>
 
         <ul v-else id="mobileMenu">
-            <router-link :to="{name: 'home'}">Home</router-link>
-            <router-link :class="{'router-link-exact-active': this.$route.name === 'brandProducts' || this.$route.name === 'product'}" :to="{name: 'catalog'}">Catalogue</router-link>
-            <router-link :class="{'router-link-exact-active': this.$route.name === 'singleArticle'}" :to="{name: 'news'}">News</router-link>
-            <router-link :to="{name: 'contact'}">Contact</router-link>
-            <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
-            <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
+            <router-link @click="closeMenu" :to="{name: 'home'}">Home</router-link>
+            <router-link @click="closeMenu" :class="{'router-link-exact-active': this.$route.name === 'brandProducts' || this.$route.name === 'product'}" :to="{name: 'catalog'}">Catalogue</router-link>
+            <router-link @click="closeMenu" :class="{'router-link-exact-active': this.$route.name === 'singleArticle'}" :to="{name: 'news'}">News</router-link>
+            <router-link @click="closeMenu" :to="{name: 'contact'}">Contact</router-link>
+            <router-link @click="closeMenu" :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
+            <router-link @click="closeMenu" :to="{ name: 'register' }" v-if="!isLoggedIn">Register</router-link>
             <template v-if="isLoggedIn">
-                <router-link :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}</router-link>
-                <router-link :to="{ path: '/admin/' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
+                <router-link @click="closeMenu" :to="{ name: 'userboard' }" v-if="!is_admin"> Hi, {{lastname}}</router-link>
+                <router-link @click="closeMenu" :to="{ path: '/admin/' }" v-if="is_admin"> Hi, {{lastname}}</router-link>
             </template>
-            <router-link class="basketIcon" :to="{name: 'basket'}">
+            <router-link @click="closeMenu" class="basketIcon" :to="{name: 'basket'}">
                 <li>
                     <font-awesome-icon icon="shopping-basket"/>
                     <transition v-if="basketItemCount > 0" name="fade">
-                        <div style="width: 15px; height: 15px; position: absolute; top: 5px; right: 5px; font-family: NormsBold, Norms, Arial, sans-serif; background: #591df1; border-radius: 100%; font-size: 10px; color: white; display: flex; justify-content: center; align-items: center;">
+                        <div class="basketCount">
                             {{basketItemCount}}
                         </div>
                     </transition>
@@ -116,6 +116,21 @@
     }
 </script>
 <style lang="scss" scoped>
+    .basketCount {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-family: NormsBold, Norms, Arial, sans-serif;
+        background: #591df1;
+        border-radius: 100%;
+        font-size: 10px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .bg {
         background: rgba(0, 0, 0, 0.4);
         width: 100vw;

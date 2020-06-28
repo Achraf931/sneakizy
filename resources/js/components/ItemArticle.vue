@@ -4,7 +4,7 @@
             <h3 class="colorUmbrella fontBold">{{article.title}}</h3>
             <h4>{{article.content.slice(0, 220)}}...</h4>
             <router-link class="seeArticle" :to="{name: 'singleArticle', params: {id: article.id}}">
-                <button class="button colorUmbrella">Lire l'article</button>
+                <button class="button colorUmbrella mrBottom10">Lire l'article</button>
             </router-link>
         </div>
         <div>

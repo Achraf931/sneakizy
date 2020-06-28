@@ -39,7 +39,8 @@
 
                 <div style="display: flex; flex-direction: column">
                     <button class="button" id="addBasket" @mousemove="onMouseHover" @click.prevent="addToBasket">Ajouter au panier</button>
-                    <button class="button" id="addFavorite" @click.prevent="addToBasket"><font-awesome-icon icon="heart"/> Ajouter aux favoris</button>
+                    <button v-if="bookmark.includes(product)" id="addFavorite" class="button alreadyBookmarked"><font-awesome-icon icon="heart"/> Already in bookmark</button>
+                    <button v-else class="button" id="addFavorite" @click.prevent="addToBookmark"><font-awesome-icon icon="heart"/> Ajouter aux favoris</button>
                 </div>
                 <div class="containerFiability">
                     <div>
@@ -98,8 +99,12 @@
         },
         computed: {
             ...mapGetters({
-                product: 'products/product'
+                product: 'products/product',
+                bookmark: 'bookmark/bookmark'
             })
+        },
+        beforeMount() {
+            this.$store.dispatch('bookmark/getBookmark')
         },
         methods: {
             openImage(img) {
@@ -125,6 +130,9 @@
                     size: this.size
                 })
             },
+            addToBookmark() {
+                this.$store.dispatch('bookmark/AddProductToBookmark', this.product)
+            },
             onMouseHover(e) {
                 document.getElementById('addBasket').style.setProperty(
                     "background-position",
@@ -148,6 +156,12 @@
         background: black;
         color: white;
         transition-duration: 400ms;
+    }
+
+    .alreadyBookmarked {
+        background: pink!important;
+        border: 1px solid pink!important;
+        color: white!important;
     }
 
     #containerImgShow {
@@ -335,6 +349,7 @@
                 background-color: white;
                 color: palevioletred;
                 border: 1px solid palevioletred;
+                transition: all .2s ease;
             }
             .containerFiability {
                 margin-top: 20px;

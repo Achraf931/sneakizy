@@ -11,8 +11,8 @@
         <meta property="og:title" content="SNKEAKiZY"/>
         <meta property="og:type" content="website"/>
         <meta property="og:url" content="https://sneakizy.herokuapp.com/"/>
-        <meta property="og:image" content="https://res.cloudinary.com/hrd7cpazc/image/upload/v1588094080/Sneakizy/Logo/qjmhoqpinrane4jcd7y9.jpg"/>
-        <meta property="og:description" content="Boutique en ligne de sneakers."/>
+        <meta property="og:image" content="https://res.cloudinary.com/hyp1x6w5j/image/upload/v1593189235/logo2_kagvfm.jpg"/>
+        <meta property="og:description" content="Boutique en ligne de sneakers"/>
         <title>Sneakizy</title>
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">

@@ -13,7 +13,6 @@
         <div>
             <button class="button sendForm" @click.prevent="sendForm">Envoyer</button>
         </div>
-        <div class="notifError" v-if="error != ''">{{error}}</div>
     </div>
 
     <div class="form" v-else>
@@ -30,7 +29,6 @@
         <div>
             <button class="button sendForm" @click.prevent="sendForm">Envoyer</button>
         </div>
-        <div class="notifError" v-if="error != ''">{{error}}</div>
     </div>
 </template>
 <script>
@@ -40,7 +38,6 @@
         props: ['oneItem'],
         data() {
             return {
-                error: '',
                 routeName: this.$route.name,
                 form: {
                     lastname: '',
@@ -91,7 +88,7 @@
             sendForm() {
                 this.$v.form.$touch()
                 if (this.$v.$invalid) {
-                    this.error = "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge"
+                    this.$store.dispatch('notifications/AddNotification', {notification: "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge", type: 0})
                 } else {
                     this.$emit('sendEvent', {form: this.form, id: this.oneItem !== null ? this.oneItem.id : null})
                     this.form = {}

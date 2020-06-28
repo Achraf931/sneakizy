@@ -21,10 +21,7 @@
     export default {
         data() {
             return {
-                brand: '',
-                size: '39',
-                show: false,
-                quantity: ''
+                brand: ''
             }
         },
         props: ['product', 'brands'],
@@ -34,15 +31,6 @@
                     this.brand = brand
                 }
             })
-        },
-        methods: {
-            addToBasket() {
-                this.$store.dispatch('basket/AddProductToBasket', {
-                    product: this.product,
-                    quantity: 1,
-                    size: this.size
-                })
-            }
         }
     }
 </script>

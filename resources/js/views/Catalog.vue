@@ -2,11 +2,11 @@
     <div class="catalog">
         <div id="boxBrands" class="boxShadow">
             <router-link :to="{name: 'catalog'}" :class="{line: brandName == 0}" style="border-bottom: 1px solid transparent; height: 50px; margin-right: 10px; display: flex; align-items: center; justify-content: center">
-                <p @click="brandName = 0" class="all">All</p>
+                <p @click="brandName = 0, brandBanner = null" class="all">All</p>
             </router-link>
             <div id="containerBrands">
                 <router-link :to="{name: 'brandProducts', params: {id: brand.id}}" :class="{line: brandName == brand.id}" class="brands" v-for="brand in brands" :key="brand.index">
-                    <img @click="brandName = brand.id" :src="brand.image" :alt="brand.name">
+                    <img @click="brandName = brand.id, brandBanner = brand.banner, getBrand(brand.id)" :src="brand.image" :alt="brand.name">
                 </router-link>
             </div>
             <div class="mrLeft10 dFlex alignCenter justifyCenter flexColumn">
@@ -14,18 +14,17 @@
                 <p style="width: 20px; height: 20px" class="dFlex justifyCenter alignCenter colorWhite bgUmbrella fontS12 bRadius">{{infos.total}}</p>
             </div>
         </div>
-
-<!--        <div v-if="banner !== 'All' && banner !== ''" class="banner">
-            <img :src="banner" :alt="banner">
-        </div>-->
-            <Brand/>
-            <div class="containerButtonsPage" v-if="infos.last_page > 1">
-                <button :class="{disabled: infos.current_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(1) : brandProducts(routeBrandId, 1)"><font-awesome-icon icon="angle-double-left"/></button>
-                <button :class="{disabled: infos.current_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(infos.current_page-1) : brandProducts(routeBrandId, infos.current_page-1)"><font-awesome-icon icon="angle-left"/></button>
-                <div :class="{isActive: infos.current_page === page}" class="buttonPage" v-for="page in infos.last_page" @click="routeName === 'catalog' ? getProducts(page) : brandProducts(routeBrandId, page)">{{page}}</div>
-                <button :class="{disabled: infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.current_page+1) : brandProducts(routeBrandId, infos.current_page+1)"><font-awesome-icon icon="angle-right"/></button>
-                <button :class="{disabled: infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.last_page) : brandProducts(routeBrandId, infos.last_page)"><font-awesome-icon icon="angle-double-right"/></button>
-            </div>
+        <div v-if="brand != null && brandBanner != null" class="banner">
+            <img class="bRadius boxShadow mrTop20" :src="brand.banner" :alt="brand.banner">
+        </div>
+        <Brand/>
+        <div class="containerButtonsPage" v-if="infos.last_page > 1">
+            <button :class="{disabled: infos.current_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(1) : brandProducts(routeBrandId, 1)"><font-awesome-icon icon="angle-double-left"/></button>
+            <button :class="{disabled: infos.current_page === 1}" class="arrowPagination boxShadow" :disabled="infos.current_page === 1" @click="routeName === 'catalog' ? getProducts(infos.current_page-1) : brandProducts(routeBrandId, infos.current_page-1)"><font-awesome-icon icon="angle-left"/></button>
+            <div :class="{isActive: infos.current_page === page}" class="buttonPage" v-for="page in infos.last_page" @click="routeName === 'catalog' ? getProducts(page) : brandProducts(routeBrandId, page)">{{page}}</div>
+            <button :class="{disabled: infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.current_page+1) : brandProducts(routeBrandId, infos.current_page+1)"><font-awesome-icon icon="angle-right"/></button>
+            <button :class="{disabled: infos.current_page === infos.last_page}" class="arrowPagination boxShadow" :disabled="infos.current_page === infos.last_page" @click="routeName === 'catalog' ? getProducts(infos.last_page) : brandProducts(routeBrandId, infos.last_page)"><font-awesome-icon icon="angle-double-right"/></button>
+        </div>
     </div>
 </template>
 
@@ -37,7 +36,7 @@
         name: 'catalog',
         data() {
             return {
-                banner: '',
+                brandBanner: null,
                 count: '',
                 brandName: Object.keys(this.$route.params).length === 0 ? 0 : this.$route.params.id
             }
@@ -59,12 +58,16 @@
             },
             ...mapGetters({
                 infos: 'products/infos',
-                brands: 'brands/brands'
+                brands: 'brands/brands',
+                brand: 'brands/brand'
             })
         },
         mounted() {
             this.$store.dispatch('brands/getBrands')
+            this.getBrand(this.routeBrandId)
             this.toggleProducts(this.routeBrandId)
+
+
 
             setTimeout(() => {
                 let elem = document.getElementById('containerBrands')
@@ -73,6 +76,10 @@
             }, 50)
         },
         methods: {
+            getBrand(id) {
+                if (id)
+                    this.$store.dispatch('brands/getBrand', id)
+            },
             toggleProducts(id) {
                 if(this.routeName === 'brandProducts') {
                     this.$store.dispatch('products/getBrandProducts', {id: id, page: 1})
@@ -123,6 +130,7 @@
             width: 100%;
             max-height: 250px;
             height: 100%;
+            object-fit: cover;
         }
     }
 

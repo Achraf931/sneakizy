@@ -1,5 +1,5 @@
 <template>
-    <div class="app" :class="mode ? 'dark' : ''">
+    <div class="app">
         <Notification/>
         <Loader/>
         <Nav :lastname="lastname" :is_admin="is_admin" :isLoggedIn="isLoggedIn"/>
@@ -72,28 +72,6 @@
     }
 </script>
 <style lang="scss">
-    .dark {
-        background: radial-gradient(circle at top right, #252525, #2E2E2E, black);
-        animation: opacity .2s;
-
-        nav {
-            background: transparent;
-
-            ul .basketIcon > a svg {
-                color: white;
-            }
-
-            .head > a > p {
-                color: white !important;
-            }
-
-            ul, li, a {
-                color: white;
-            }
-        }
-    }
-
-
     //  Fonts
     @font-face {
         font-family: Norms;
@@ -273,7 +251,7 @@
         border-radius: 10px;
     }
 
-    .bRadiusFive {
+    .bRadius5 {
         border-radius: 5px;
     }
 
@@ -540,6 +518,10 @@
 
     .bgWhite {
         background: white!important;
+    }
+
+    .bgBlack {
+        background: black!important;
     }
 
     .fontRegular {

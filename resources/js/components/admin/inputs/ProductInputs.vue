@@ -4,31 +4,15 @@
         <label for="name">Nom</label>
         <input id="name" type="text" placeholder="Nom" v-model="form.name" @input="setName($event.target.value)" :class="{error: $v.form.name.$error}">
         <label for="brand">Marque</label>
-        <input id="brand" type="text" placeholder="Marque" v-model="form.brand" @input="setBrand($event.target.value)" :class="{error: $v.form.brand.$error}">
+        <div class="dFlex mrTop10 mrBottom10 flexWrap justifySpaceB">
+            <p class="brandButton cPointer bRadius5 paddingTop5 paddingBottom5 paddingLeft10 paddingRight10" v-for="brand in brands" :key="brand.id" v-model="form.brand" @click.prevent="setBrand(brand)" :class="{isSelected: brandTmp.id === brand.id}">
+                {{brand.name}}
+            </p>
+        </div>
         <label for="color">Couleur</label>
         <input id="color" type="text" placeholder="Couleur" v-model="form.color">
 
         <label for="description">Description</label>
- <!--       <editor
-            id="description"
-            v-model="form.description"
-            @input="setDescription($event.target.value)"
-            api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
-            :init="{
-         height: 200,
-         menubar: true,
-         plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
-         ],
-         toolbar:
-           'undo redo | formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help'
-       }"
-        />-->
-
         <textarea name="description" id="description" v-model="form.description" @input="setDescription($event.target.value)"></textarea>
 
         <label for="price">Prix</label>
@@ -40,7 +24,7 @@
         <div style="display: grid; grid-gap: 20px; grid-template-columns: repeat(auto-fit, 126px);">
             <div class="cPointer pRelative" style="width: 126px; height: 126px; border-radius: 5px; border: 1px dashed #591df1; color: #591df1; font-size: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column">
                 <div v-if="isAdding" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                <input @change="inputFileStyleTmp" class="input-file-container input-file" id="my-file" type="file">
+                <input multiple @change="inputFileStyleTmp" class="input-file-container input-file" id="my-file" type="file">
                 <font-awesome-icon class="icon mrBottom5" icon="plus"/>
                 <label style="font-size: 13px" @click="inputFileStyleTmp" tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
             </div>
@@ -53,7 +37,6 @@
         <div>
             <button class="button sendForm" @click.prevent="sendForm">Envoyer</button>
         </div>
-        <div class="notifError" v-if="error != ''">{{error}}</div>
     </div>
 
     <div class="form" v-else>
@@ -61,31 +44,15 @@
         <label for="name">Nom</label>
         <input id="name" type="text" placeholder="Nom" v-model="oneItem.name" @input="setName($event.target.value)" :class="{error: $v.form.name.$error}">
         <label for="brand">Marque</label>
-        <input id="brand" type="text" placeholder="Marque" v-model="oneItem.brand" @input="setBrand($event.target.value)" :class="{error: $v.form.brand.$error}">
+        <div class="dFlex mrTop10 mrBottom10 flexWrap justifySpaceB">
+            <p class="brandButton cPointer bRadius5 paddingTop5 paddingBottom5 paddingLeft10 paddingRight10" v-for="brand in brands" :key="brand.id" v-model="oneItem.brand" @click.prevent="setBrand(brand)" :class="{isSelected: brandTmp.id === brand.id || oneItem.brand_id === brand.id}">
+                {{brand.name}}
+            </p>
+        </div>
         <label for="color">Couleur</label>
-        <input id="color" type="text" placeholder="Couleur" v-model="form.color">
+        <input id="color" type="text" placeholder="Couleur" v-model="oneItem.color">
 
         <label for="description">Description</label>
-<!--        <editor
-            id="description"
-            v-model="oneItem.description"
-            @input="setDescription($event.target.value)"
-            api-key="aurm6hyuh28jihz3rr0alf6vphzbd5xo471xz1nzal5iyptm"
-            :init="{
-         height: 200,
-         menubar: true,
-         plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
-         ],
-         toolbar:
-           'undo redo | formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help'
-       }"
-        />-->
-
         <textarea name="description" id="description" v-model="oneItem.description" @input="setDescription($event.target.value)"></textarea>
 
         <label for="price">Prix</label>
@@ -98,7 +65,7 @@
         <div style="display: grid; grid-gap: 20px; grid-template-columns: repeat(auto-fit, 126px);">
             <div class="cPointer pRelative" style="width: 126px; height: 126px; border-radius: 5px; border: 1px dashed #591df1; color: #591df1; font-size: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column">
                 <div v-if="isAdding" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                <input @change="inputFileStyle" class="input-file-container input-file" id="my-file" type="file">
+                <input multiple @change="inputFileStyle" class="input-file-container input-file" id="my-file" type="file">
                 <font-awesome-icon class="icon mrBottom5" icon="plus"/>
                 <label style="font-size: 13px" @click="inputFileStyle" tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
             </div>
@@ -111,12 +78,12 @@
         <div>
             <button class="button sendForm" @click.prevent="sendForm">Envoyer</button>
         </div>
-        <div class="notifError" v-if="error != ''">{{error}}</div>
     </div>
 </template>
 <script>
     import Editor from '@tinymce/tinymce-vue'
     import {required} from "vuelidate/lib/validators";
+    import {mapGetters} from 'vuex'
 
     export default {
         props: ['oneItem'],
@@ -125,9 +92,9 @@
                 imgArrayTmp: [],
                 idImgArrayTmp: [],
                 isAdding: false,
-                error: '',
                 loading: null,
                 routeName: this.$route.name,
+                brandTmp: '',
                 form: {
                     name: '',
                     price: '',
@@ -136,9 +103,14 @@
                     image: null,
                     release_date: '2020-01-01',
                     brand: '',
-                    brand_id: 1
+                    brand_id: ''
                 }
             }
+        },
+        computed: {
+            ...mapGetters({
+                brands: 'brands/brands'
+            })
         },
         components: {
             Editor
@@ -151,9 +123,6 @@
                 price: {
                     required
                 },
-                brand: {
-                    required
-                },
                 description: {
                     required
                 }
@@ -162,29 +131,33 @@
         methods: {
             inputFileStyle() {
                 this.isAdding = true
-                let formData = new FormData()
-                formData.append('image', event.target.files[0])
-                formData.append('product_id', this.oneItem.id)
-                document.querySelector( ".input-file" ).focus()
-                axios.post('/api/images', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
-                    if (res.data.status) {
-                        this.oneItem.images.push(res.data.image)
-                        this.isAdding = false
-                    }
-                })
+                for (let i = 0; i < event.target.files.length; i++) {
+                    let formData = new FormData()
+                    formData.append('image', event.target.files[i])
+                    formData.append('product_id', this.oneItem.id)
+                    document.querySelector(".input-file").focus()
+                    axios.post('/api/images', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                        if (res.data.status) {
+                            this.oneItem.images.push(res.data.image)
+                            this.isAdding = false
+                        }
+                    })
+                }
             },
             inputFileStyleTmp() {
-                this.isAdding = true
-                let formData = new FormData()
-                formData.append('image', event.target.files[0])
-                document.querySelector( ".input-file" ).focus()
-                axios.post('/api/images', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
-                    if (res.data.status) {
-                        this.imgArrayTmp.push(res.data.image)
-                        this.idImgArrayTmp.push(res.data.image.id)
-                        this.isAdding = false
-                    }
-                })
+                for (let i = 0; i < event.target.files.length; i++) {
+                    this.isAdding = true
+                    let formData = new FormData()
+                    formData.append('image', event.target.files[i])
+                    document.querySelector( ".input-file" ).focus()
+                    axios.post('/api/images', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                        if (res.data.status) {
+                            this.imgArrayTmp.push(res.data.image)
+                            this.idImgArrayTmp.push(res.data.image.id)
+                            this.isAdding = false
+                        }
+                    })
+                }
             },
             setName(value) {
                 if (this.oneItem !== null) {
@@ -196,14 +169,7 @@
                 this.$v.form.name.$touch()
             },
             setBrand(value) {
-                if (this.oneItem !== null) {
-                    this.form.brand = this.oneItem.brand
-                }
-                else {
-                    this.form.brand = value
-                    this.$v.form.brand.$touch()
-                }
-                this.$v.form.brand.$touch()
+                this.brandTmp = value
             },
             setDescription(value) {
                 if (this.oneItem !== null) {
@@ -246,10 +212,12 @@
             sendForm() {
                 this.$v.form.$touch()
                 if (this.$v.$invalid) {
-                    this.error = "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge"
+                    this.$store.dispatch('notifications/AddNotification', {notification: "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge", type: 0})
                 } else {
                     this.form.image = document.getElementById('image').files[0]
                     this.form.images = this.idImgArrayTmp
+                    this.form.brand = this.brandTmp.name
+                    this.form.brand_id = this.brandTmp.id
                     this.$emit('sendEvent', {form: this.form, id: this.oneItem !== null ? this.oneItem.id : null})
                     this.form = {}
                     this.$v.$reset()
@@ -258,3 +226,21 @@
         }
     }
 </script>
+<style lang="scss" scoped>
+    .brandButton {
+        background: #f0f3ff;
+        color: #93a2dd;
+        border: 1px solid transparent;
+        transition: all .2s ease;
+    }
+
+    .brandButton:hover {
+        color: #591df1;
+        border: 1px solid #591df1;
+    }
+    .isSelected {
+        background: #591df1!important;
+        color: white!important;
+        transition: all .2s ease;
+    }
+</style>

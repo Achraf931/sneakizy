@@ -5,6 +5,7 @@
             <img :src="article.banner" :alt="article.title">
             <h2 class="marginBottom">{{article.summary}}</h2>
             <p>{{article.content}}</p>
+            <p class="mrTop20">Author: {{article.author}}</p>
         </div>
     </div>
 </template>

@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::group(['middleware' => 'admin'], function () {
         Route::apiResource('/brands', 'BrandController')->except(['index', 'show', 'update']);
-        Route::apiResource('/users', 'UserController')->except(['show', 'showOrders']);
+        Route::apiResource('/users', 'UserController')->except(['show', 'showOrders', 'index']);
         Route::apiResource('/products', 'ProductController')->except(['index', 'show', 'update']);
         Route::apiResource('/news', 'NewsController')->except(['index', 'show', 'update']);
 

@@ -5,10 +5,17 @@
         <input id="title" type="text" placeholder="Titre" v-model="form.title" @input="setTitle($event.target.value)" :class="{error: $v.form.title.$error}">
 
         <label for="summary">Summary</label>
-        <textarea id="summary" v-model="form.summary"></textarea>
+        <textarea id="summary" v-model="form.summary" @input="setSummary($event.target.value)" :class="{error: $v.form.summary.$error}"></textarea>
 
         <label for="content">Contenu</label>
-        <textarea id="content" v-model="form.content"></textarea>
+        <textarea id="content" v-model="form.content" @input="setContent($event.target.value)" :class="{error: $v.form.content.$error}"></textarea>
+
+        <label for="">Auteur</label>
+        <div class="dFlex mrTop10 mrBottom10 flexWrap justifySpaceB">
+            <p class="userButton cPointer bRadius5 paddingTop5 paddingBottom5 paddingLeft10 paddingRight10" v-for="user in users" :key="user.id" v-model="form.user" @click.prevent="setUser(user)" :class="{isSelected: userTmp.lastname === user.lastname}">
+                {{user.lastname}}
+            </p>
+        </div>
 
         <label for="image">Image</label>
         <input type="file" id="image" :change="form.image">
@@ -19,7 +26,6 @@
         <div>
             <button class="button sendForm" @click.prevent="sendForm">Envoyer</button>
         </div>
-        <div class="notifError" v-if="error != ''">{{error}}</div>
     </div>
 
     <div class="form" v-else>
@@ -32,6 +38,13 @@
 
         <label for="content">Contenu</label>
         <textarea id="content" :class="{error: $v.form.content.$error}" @input="setContent($event.target.value)" v-model="oneItem.content"></textarea>
+
+        <label for="">Auteur</label>
+        <div class="dFlex mrTop10 mrBottom10 flexWrap justifySpaceB">
+            <p class="userButton cPointer bRadius5 paddingTop5 paddingBottom5 paddingLeft10 paddingRight10" v-for="user in users" :key="user.id" v-model="oneItem.author" @click.prevent="setUser(user)" :class="{isSelected: userTmp.lastname === user.lastname}">
+                {{user.lastname}}
+            </p>
+        </div>
 
         <label for="image">Image</label>
         <input type="file" id="image" :change="oneItem.image">
@@ -48,12 +61,12 @@
         <div>
             <button class="button sendForm" @click.prevent="sendForm">Envoyer</button>
         </div>
-        <div class="notifError" v-if="error != ''">{{error}}</div>
     </div>
 </template>
 <script>
     import Editor from '@tinymce/tinymce-vue'
-    import {required} from "vuelidate/lib/validators";
+    import {required} from "vuelidate/lib/validators"
+    import {mapGetters} from 'vuex'
 
     export default {
         props: ['oneItem'],
@@ -61,18 +74,23 @@
             return {
                 imgArrayTmp: [],
                 isAdding: false,
-                error: '',
                 loading: null,
                 routeName: this.$route.name,
+                userTmp: '',
                 form: {
                     title: '',
                     summary: '',
                     content: '',
-                    author: 'Achraf',
+                    author: '',
                     image: null,
                     banner: null
                 }
             }
+        },
+        computed: {
+            ...mapGetters({
+                users: 'users/users'
+            })
         },
         components: {
             Editor
@@ -120,18 +138,44 @@
                 }
                 this.$v.form.content.$touch()
             },
+            setUser(value) {
+                this.userTmp = value
+            },
             sendForm() {
                 this.$v.form.$touch()
                 if (this.$v.$invalid) {
-                    this.error = "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge"
+                    this.$store.dispatch('notifications/AddNotification', {notification: "Le formulaire n'est pas rempli correctement, veuillez bien remplir les champs en rouge", type: 0})
                 } else {
-                    this.form.image = document.getElementById('image').files[0]
-                    this.form.banner = document.getElementById('banner').files[0]
-                    this.$emit('sendEvent', {form: this.form, id: this.oneItem !== null ? this.oneItem.id : null})
-                    this.form = {}
-                    this.$v.$reset()
+                    if (this.oneItem == null && document.getElementById('image').files[0] !== undefined) {
+                        this.form.image = document.getElementById('image').files[0]
+                        this.form.banner = document.getElementById('banner').files[0]
+                        this.form.author = this.userTmp.lastname
+                        this.$emit('sendEvent', {form: this.form, id: this.oneItem !== null ? this.oneItem.id : null})
+                        this.form = {}
+                        this.$v.$reset()
+                    } else {
+                        this.$store.dispatch('notifications/AddNotification', {notification: "L'image principale est obligatoire !", type: 0})
+                    }
                 }
             }
         }
     }
 </script>
+<style lang="scss" scoped>
+    .userButton {
+        background: #f0f3ff;
+        color: #93a2dd;
+        border: 1px solid transparent;
+        transition: all .2s ease;
+    }
+
+    .userButton:hover {
+        color: #591df1;
+        border: 1px solid #591df1;
+    }
+    .isSelected {
+        background: #591df1!important;
+        color: white!important;
+        transition: all .2s ease;
+    }
+</style>

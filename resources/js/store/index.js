@@ -5,6 +5,7 @@ import users from './modules/users/index'
 import products from './modules/products/index'
 import brands from './modules/brands/index'
 import basket from './modules/basket/index'
+import bookmark from './modules/bookmark/index'
 import news from './modules/news/index'
 import admin from './modules/admin/index'
 import notifications from './modules/notifications/index'
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         news,
         admin,
         notifications,
-        loader
+        loader,
+        bookmark
     }
 })

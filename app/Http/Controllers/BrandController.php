@@ -49,7 +49,7 @@ class BrandController extends Controller
 
     public function products($id)
     {
-        return response()->json(Product::where('brand_id', $id)->paginate(2));
+        return response()->json(Product::where('brand_id', $id)->paginate(4));
     }
 
     public function update(BrandRequest $request, $id)
