@@ -38,9 +38,8 @@
                 </div>
 
                 <div style="display: flex; flex-direction: column">
-                    <button class="button" id="addBasket" @mousemove="onMouseHover" @click.prevent="addToBasket">Ajouter au panier</button>
-                    <button v-if="bookmark.includes(product)" id="addFavorite" class="button alreadyBookmarked"><font-awesome-icon icon="heart"/> Already in bookmark</button>
-                    <button v-else class="button" id="addFavorite" @click.prevent="addToBookmark"><font-awesome-icon icon="heart"/> Ajouter aux favoris</button>
+                    <button class="button" id="addBasket" @click.prevent="addToBasket">Ajouter au panier</button>
+                    <button class="button" id="addFavorite"><font-awesome-icon icon="heart"/> Ajouter aux favoris</button>
                 </div>
                 <div class="containerFiability">
                     <div>
@@ -78,17 +77,16 @@
         name: 'product',
         data() {
             return {
-                inButton: false,
                 size: null,
                 show: false,
-                quantity: ''
+                quantity: 1
             }
         },
         created() {
             this.$store.dispatch('products/getProduct', this.$route.params.id)
         },
         watch: {
-            show: function () {
+            show() {
                 if (this.show) {
                     document.documentElement.style.overflow = 'hidden'
                     return
@@ -99,12 +97,8 @@
         },
         computed: {
             ...mapGetters({
-                product: 'products/product',
-                bookmark: 'bookmark/bookmark'
+                product: 'products/product'
             })
-        },
-        beforeMount() {
-            this.$store.dispatch('bookmark/getBookmark')
         },
         methods: {
             openImage(img) {
@@ -126,18 +120,9 @@
                 }
                 this.$store.dispatch('basket/AddProductToBasket', {
                     product: this.product,
-                    quantity: 1,
+                    quantity: this.quantity,
                     size: this.size
                 })
-            },
-            addToBookmark() {
-                this.$store.dispatch('bookmark/AddProductToBookmark', this.product)
-            },
-            onMouseHover(e) {
-                document.getElementById('addBasket').style.setProperty(
-                    "background-position",
-                    e.clientX - 15 + "px " + (e.clientY - 15) + "px"
-                )
             }
         }
     }
