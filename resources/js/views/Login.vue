@@ -31,6 +31,7 @@
         methods: {
             handleSubmit() {
                 if (this.password !== '') {
+                    this.$store.dispatch('loader/OpenLoader', true)
                     axios.post('api/login', {
                         email: this.email,
                         password: this.password
@@ -51,6 +52,7 @@
                                         this.$router.push('dashboard')
                                     }
                                 }
+                                this.$store.dispatch('loader/OpenLoader', false)
                             }
                         })
                         .catch(function (error) {

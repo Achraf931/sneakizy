@@ -2,16 +2,22 @@
     <div class="register animation">
         <form class="boxShadow">
             <h2>Register</h2>
-            <label for="name">Name</label>
-            <input id="name" type="text" v-model="lastname" required autofocus>
+            <div class="group vuelidate">
+                <label for="name">Name</label>
+                <input id="name" type="text" v-model="lastname" placeholder="Entrez votre nom">
+            </div>
             <label for="firstname">Firstname</label>
             <input id="firstname" type="text" v-model="firstname" required autofocus>
+
             <label for="email">E-Mail Address</label>
             <input id="email" type="email" v-model="email" required>
+
             <label for="password">Password</label>
             <input id="password" type="password" v-model="password" required>
+
             <label for="password-confirm">Confirm Password</label>
             <input id="password-confirm" type="password" v-model="password_confirmation" required>
+
             <button class="button" type="submit" @click.prevent="handleSubmit">Register</button>
             <p class="textCenter mrTop5">Vous avez déjà un compte ?<br><router-link class="colorUmbrella" :to="{name: 'login'}">Connectez-vous ici !</router-link></p>
         </form>
@@ -39,8 +45,29 @@
             }, 50)
         },
         methods: {
+            setLastname(value) {
+                this.lastname = value
+                this.$v.lastname.$touch()
+            },
+            setFirstname(value) {
+                this.firstname = value
+                this.$v.firstname.$touch()
+            },
+            setEmail(value) {
+                this.email = value
+                this.$v.email.$touch()
+            },
+            setPassword(value) {
+                this.object = value
+                this.$v.object.$touch()
+            },
+            setPasswordConfirm(value) {
+                this.message = value
+                this.$v.message.$touch()
+            },
             handleSubmit(e) {
                 if (this.password === this.password_confirmation && this.password !== '') {
+                    this.$store.dispatch('loader/OpenLoader', true)
                     axios.post('/api/register', {
                         lastname: this.lastname,
                         firstname: this.firstname,
@@ -56,6 +83,7 @@
                                 this.$emit('loggedIn')
                                 let nextUrl = this.$route.params.nextUrl
                                 this.$router.push((nextUrl != null ? nextUrl : '/'))
+                                this.$store.dispatch('loader/OpenLoader', false)
                             }
                         })
                         .catch(error => {
@@ -64,13 +92,20 @@
                 } else {
                     this.password = ""
                     this.passwordConfirm = ""
-                    return alert('Passwords do not match')
                 }
             }
         }
     }
 </script>
 <style lang="scss" scoped>
+    .errorForm {
+        label {
+            color: red;
+        }
+        input, textarea {
+            border: 1px solid red!important;
+        }
+    }
     .register {
         width: 100%;
         display: flex;
